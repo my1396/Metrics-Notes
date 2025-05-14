@@ -1,0 +1,52 @@
+---
+title: "Linear Models with Heterogeneous Coefficients"
+format: html
+---
+
+## Linearity and Heterogeneity
+
+### Models with Homogeneous Slopes
+
+We begin our journey where standard textbooks and first-year foundational courses in econometrics leave off. The "standard" linear models considered in such courses often assume homogeneity in individual responses to covariates (e.g., @Hansen2022). A common cross-sectional specification is:
+
+$$
+y_i = \bbeta'\bx_i + u_{i},
+$$ {#eq-standard_linear}
+where $i=1, \dots, N$ indexes cross-sectional units. 
+
+In panel data, models often include unit-specific $(i)$ and time-specific $(t)$ intercepts while maintaining a common slope vector $\bbeta$:
+
+$$
+y_{it} = \alpha_i + \delta_t +  \bbeta'\bx_{it} + u_{it}.
+$$ {#eq-panel_linear} 
+
+### Heterogeneity in Slopes. Examples
+
+However, modern economic theory rarely supports the assumption of homogeneous slopes $\bbeta$. Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients: 
+
+
+1. Cross-sectional model ([-@eq-standard_linear]) generalizes to 
+
+   $$
+y_i = \bbeta_{i}'\bx + u_i.
+   $$ {#eq-cross_sectional_hetero}
+
+1. Panel data model ([-@eq-panel_linear]) generalizes to 
+
+   $$
+y_{it}  = \bbeta_{it}'\bx_{it} + u_{it}.
+   $$ {#eq-panel_hetero}
+ 
+Such models are worth studying, as they naturally arise in a variety of contexts:
+
+
+- **Structural models with parametric restrictions:** Certain parametric restrictions yield linear relationships in coefficients.  An example is given by firm-level Cobb-Douglas production functions where firm-specific productivity differences induce heterogeneous coefficients (@Combes2012b; @Sury2011).
+
+- **Binary covariates and interaction terms**: if all covariates are binary and all interactions are included, a linear model encodes all treatment effects without loss of generality (see, e.g., @Wooldridge2005).   
+
+- **Log-linearized models:** Nonlinear models may be approximated by linear models around a steady-state. For example,  @Heckman1998 demonstrate how the nonlinear @Card2001 education model simplifies to a heterogeneous linear specification after linearization.
+
+
+## References {.unlisted .unnumbered}
+
+

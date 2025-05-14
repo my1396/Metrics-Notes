@@ -1,0 +1,23 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Metrics_note2"
+  author: "Norah Jones"
+  date: "5/14/2025"
+  chapters:
+    - index.qmd
+    - 01_Hetero_lm.qmd
+
+bibliography: metrics.bib
+
+format:
+  html:
+    include-in-header: themes/mathjax.html
+    theme:
+      - cosmo
+      - brand
+
+
+
