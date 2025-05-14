@@ -4,7 +4,10 @@
 .RData
 .Ruserdata
 
+# ignore output
 /.quarto/
+/_site/
+/_book/
 
 # auto generated system files
 .DS_Store

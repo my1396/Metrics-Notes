@@ -31,7 +31,7 @@ However, modern economic theory rarely supports the assumption of homogeneous sl
 y_i = \bbeta_{i}'\bx + u_i.
    $$ {#eq-cross_sectional_hetero}
 
-1. Panel data model ([-@eq-panel_linear]) generalizes to 
+2. Panel data model ([-@eq-panel_linear]) generalizes to 
 
    $$
 y_{it}  = \bbeta_{it}'\bx_{it} + u_{it}.
