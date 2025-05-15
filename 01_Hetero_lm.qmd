@@ -20,9 +20,9 @@ $$
 y_{it} = \alpha_i + \delta_t +  \bbeta'\bx_{it} + u_{it}.
 $$ {#eq-panel_linear} 
 
-### Heterogeneity in Slopes. Examples
+### Heterogeneity in Slopes.
 
-However, modern economic theory rarely supports the assumption of homogeneous slopes $\bbeta$. Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients: 
+However, modern economic theory rarely supports the assumption of homogeneous slopes $\bbeta.$ Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients: 
 
 
 1. Cross-sectional model ([-@eq-standard_linear]) generalizes to 
@@ -49,4 +49,6 @@ Such models are worth studying, as they naturally arise in a variety of contexts
 
 ## References {.unlisted .unnumbered}
 
+- Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html>
+- Vladislav Morozov, GitHub course repository, <https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd>
 
