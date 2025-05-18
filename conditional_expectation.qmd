@@ -1,0 +1,177 @@
+---
+title: "Conditional Expectation"
+format: 
+    html:
+        include-in-header: themes/mathjax.html
+---
+
+**Identities for conditional expectations**
+
+-   LIE (Adam's Law) 
+    
+    $$
+    \mathbb{E}[Y] = \mathbb{E}\left[\mathbb{E}\right(Y\mid X\left)\right]
+    $$
+
+-   Generalized Adam’s Law
+
+    $$
+      \E\left[ \E[Y \mid g(X)] \mid f(g(X)) \right] = \E[Y\mid f(g(X))]
+    $$
+
+    for any $f$ and $g$ with compatible domains and ranges. We also have that
+
+    $$
+      \E\left[ \E[Y \mid g(X)] \mid f(g(X)=z) \right] = \E[Y\mid f(g(X))=z]
+    $$
+
+    for any $z.$
+
+-   Independence: $\E[Y\mid X] = \E[Y]$ if $X$ and $Y$ are independent.
+
+-   Taking out what is known: $\E[h(X)Z\mid X]=h(X)\E[Z\mid X]$
+
+-   Linearity: $\E[aX+bY\mid Z] = a\E[X\mid Z] + b\E[Y\mid Z],$ for any $a, b\in \R.$
+
+-   Projection interpretation: $\E\left[\left(Y-\E[Y\mid X]\right)h(X)\right] = 0$ for any function $h: \Xcal \to \R.$
+
+-   Keeping just what is needed: $\E[XY] = \E[X\E[Y\mid X]]$ for $X, Y\in \R.$
+
+
+## Generalized Adam’s Law
+
+$$
+  \E\left[ \E[Y \mid g(X)] \mid f(g(X)) \right] = \E[Y\mid f(g(X))]
+$$
+
+Show that the following identify is a special case of the Generalized Adam's Law:
+
+$$
+\E[\E[Y\mid X,Z] \mid Z] = \E[Y\mid Z]
+$$
+
+:::{.proof }
+If we take $f(g(x, z)) = z$ and $g(x, z) = (x, z)$ in the generalized Adam's Law, we get the result.
+:::
+
+
+## Projection interpretation
+
+Conditional expectation gives the best prediction
+
+:::{#thm-mse name="Conditional expectation minimizes MSE"} 
+Suppose we have random element $X\in \Xcal$ and random variable $Y\in\R.$ Let $g(x)=\E[Y\mid X=x].$ Then
+
+$$
+g(x) = \underset{f}{\arg\min}\, \E(Y-f(X))^2
+$$
+:::
+
+:::{.proof}
+$$
+\begin{split}
+\E(Y-f(X))^2 &= \E\left[(Y-\E[Y\mid X]) + (\E[Y\mid X]-f(X)) \right]^2 \quad (\text{plus and minus } \E[Y\mid X]) \\
+&= \E(Y-\E[Y\mid X])^2 + \E(\E[Y\mid X]-f(X))^2 \\
+& \phantom{=}\; + 2\E[(Y-\E[Y\mid X])(\underbrace{\E[Y\mid X]-f(X)}_{h(X)})] \quad \Bigl(\E\bigl[ \bigl(Y-\E[Y\vert X]\bigr) h(X) \bigr] = 0\Bigr) \\
+&= \E(Y-\E[Y\mid X])^2 + \E(\E[Y\mid X]-f(X))^2
+\end{split}
+$$
+
+The first term is independent of $f$, and the second term is minimized by taking $f(x)=\E[Y\mid X].$
+<div style='margin-top:-1em; margin-bottom:3em'><span style='float:right; margin-right:10px; '>&#9633;</span></div>
+:::
+
+
+If we think of $\E[Y\mid X]$ as a prediction/projection for $Y$ given $X$, then $(Y-\E[Y\mid X])$ is the residual of that prediction.
+
+It's helpful to think of decomposing $Y$ as 
+
+$$
+Y = \underbrace{\E[Y\mid X]}_\text{best prediction for $Y$ given $X$} + \underbrace{(Y-E[Y\mid X])}_\text{residual}
+$$
+
+Note that the two terms on the RHS are uncorrelated, by the projection interpretation.
+
+Since variance is additive for uncorrelated random variables (i.e., if $X$ and $Y$ are uncorrelated, then $\var(X+Y)=\var(X)+\var(Y)$), we get the following theorem
+
+:::{#thm-var_decomp name="Variance decomposition with projection"}
+For any random variable $X\in \Xcal$ and random variable $Y\in \R,$ we have
+
+$$
+\var(Y) = \var(\E[Y\mid X]) + \var(Y-\E[Y\mid X])
+$$
+:::
+
+@thm-mse tells us that $\E[Y\mid X]$ is the best approximation of $Y$ we can get from $X.$ We can also think of $\E[Y\mid X]$ as a "less random" version of $Y,$ since $\var(\E[Y\vert X]) \le \var(Y).$
+
+We can say that $\E[Y\mid X]$ only keeps the randomness in $Y$ that is predictable from $X.$ $\E[Y\mid X]$ is a deterministic function of $X,$ so there's no other source of randomness in $\E[Y\mid X].$ 
+
+
+:::{#thm-proj name="Projection interpretation"}
+For any $h:\Xcal \to \R,$
+
+$$
+\E[(Y-\E[Y\mid X])h(X)]=0
+$$
+:::
+
+@thm-proj says that the residual of $\E[Y\mid X]$ is "orthogonal" to every random variable of the form $h(X).$
+
+## Keeping just what is needed
+
+:::{#thm-keeping_needed}
+For any random variables $X, Y\in \R,$
+
+$$
+\E[XY] = \E[X\E[Y\mid X]]
+$$
+:::
+
+One way to think about this is that for the purposes of computing $\E [XY],$ we only care about the randomness in $Y$ that is predictable from $X$.
+
+:::{.proof }
+$$
+\begin{split}
+\E[XY] &= \E[\E[XY\mid X]] \quad (\text{LIE}) \\
+&= \E[X\E[Y\mid X]] \quad (\text{Taking out what is known})
+\end{split}
+$$
+<div style='margin-top:-1em; margin-bottom:3em'><span style='float:right; margin-right:10px; '>&#9633;</span></div>
+:::
+
+
+:::{.proof name="Alternative proof1"}
+We can show this using the projection interpretation:
+
+$$
+\begin{split}
+\E[XY] &= \E\left[ X \left(\E[Y\mid X] + \underbrace{Y-\E[Y\mid X]}_\text{residuals uncorrelated with $X$} \right)\right] \\[1em]
+&= \E[X\E[Y\mid X]] + \E[X(Y-\E[Y\mid X])] \\
+&= \E[X\E[Y\mid X]] \quad (\text{Projection interpretation, } \E[X(Y-\E[Y\mid X])]=0)
+\end{split}
+$$
+<div style='margin-top:-1em; margin-bottom:3em'><span style='float:right; margin-right:10px; '>&#9633;</span></div>
+:::
+
+:::{.proof name="Alternative proof2"}
+$$
+\begin{split}
+\E[X\E[Y\mid X]] &= \sum_x x\E[Y\mid X=x] \P(X=x) \\
+&= \sum_x\sum_y xy\P(Y=y\mid X=x)\P(X=x) \\
+&= \sum_x\sum_y xy \P(Y=y, X=x)
+\end{split}
+$$
+<div style='margin-top:-1em; margin-bottom:3em'><span style='float:right; margin-right:10px; '>&#9633;</span></div>
+:::
+
+
+A more general case of $\E[XY] = \E[X\E[Y\mid X]]$ is 
+
+
+## References {.unlisted .unnumbered}
+
+- David S. Rosenberg. *Conditional Expectations: Review and
+Lots of Examples*. <https://davidrosenberg.github.io/ttml2021fall/background/conditional-expectation-notes.pdf>
+
+
+

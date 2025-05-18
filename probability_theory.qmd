@@ -1,0 +1,71 @@
+---
+title: "Probability Refresher"
+format: 
+    html:
+        include-in-header: themes/mathjax.html
+---
+
+## Notations
+
+$\Omega$: A sample space, a set of possible outcomes of a random experiment.
+
+$X$: A random variable, a function from the sample space to the real numbers: $X: \Omega \to \R$.
+
+Stochastic Process
+
+A stochastic process is a family of random variables, $\{X(t): t\in T\},$ where $t$ usually denotes time. That is, at every time $t$ in the set $T$, a random number $X(t)$ is observed.
+
+- Discrete-time process: $T=\{0,1,2,3\}$,  the discrete process is $\{X(0), X(1), X(2), \dots\}$
+- Continuous-time process: $T=[0, \infty]$ or $T=[0, K]$ for some $K$.
+
+The state space, $S$, is the set of real values that $X(t)$ can take.
+
+
+You can think of "conditioning" as "changing the sample space."
+
+- From unconditional to conditional
+
+    $$
+    \P (B) = \P(B\mid \Omega)
+    $$
+
+    $\Omega$ denotes the sample space, $\P (B) = \P(B\mid \Omega)$ just means that we are looking for the probability of the event $B$, out of all possible outcomes in the set $\Omega.$
+
+- Partition Theorem
+
+    $$
+    \P(A) = \sum_{i=1}^m \P(A\cap B_i) = \sum_{i=1}^m \P(A\mid B_i) \P(B_i)
+    $$
+
+    where $B_i, i=1,\dots,m,$ are a *partition* of $\Omega.$ The intuition behind the Partition Theorem is that the whole is the sum of its parts.
+
+    <img src="https://drive.google.com/thumbnail?id=1uffzB9Vvdm66Q7lbTxscL8lUiCCae29u&sz=w1000" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" />
+
+    A partition of $\Omega$ is a collection of mutually exclusive events whose union is $\Omega.$
+
+    That is, sets $B_1, B_2, \dots, B_m$ form a partition of $\Omega$ if 
+
+    $$
+    \begin{split}
+    B_i \cap B_j &= \emptyset \;\text{ for all $i, j$ with $i\ne j,$} \\
+    \text{and }  \bigcup_{i=1}^m B_i &= B_1 \cup B_2 \cup \dots \cup B_m = \Omega.
+    \end{split}
+    $$
+
+- Bayes' Theorem
+
+    Bayes' Theorem allows us to invert a conditional statement, i.e., the express $\P(B\mid A)$ in terms of $\P(A\mid B).$
+
+    For any events $A$ and $B$:
+
+    $$
+    \P(B\mid A) = \frac{\P(A\cap B)}{\P(A)} = \frac{\P(A\mid B)\P(B)}{\P(A)} 
+    $$
+
+- Generalized Bayes' Theorem
+
+    For any partition member $B_j$, 
+
+    $$
+    \P(B_j\mid A) = \frac{\P(A\mid B_j)\P(B_j)}{\P(A)} = \frac{\P(A\mid B_j)\P(B_j)}{\sum_{i=1}^m\P(A\mid B_i)\P(B_i)}
+    $$

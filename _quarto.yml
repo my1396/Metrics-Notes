@@ -8,6 +8,9 @@ book:
   date: "5/14/2025"
   chapters:
     - index.qmd
+    - probability_theory.qmd
+    - conditional_expectation.qmd
+    - measure_theory.qmd
     - 01_Hetero_lm.qmd
 
 bibliography: metrics.bib

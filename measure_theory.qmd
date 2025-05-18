@@ -1,0 +1,132 @@
+---
+title: "Measure Theory"
+format: 
+    html:
+        include-in-header: themes/mathjax.html
+---
+
+## Definitions
+
+
+
+We denote the collection of subsets, or **power set**, of a set $X$ by $\Pcal(X).$
+
+The Cartesian product, or product, of sets $X, Y$ is the collection of all ordered pairs
+
+$$
+X\times Y = \{(x,y): x\in X, y\in Y\}.
+$$
+
+A **topological space** is a set equipped with a collection of open subsets that satisfies appropriate conditions.
+
+
+::: {#def-topology name="Topological Space"}
+A topological space $(X, \Tcal)$ is a set $X$ and a collection $\Tcal \subset \Pcal(X)$ of subsets of $X,$ called open sets, such that
+
+a. $\emptyset, X \in \Tcal;$
+b. If $\{U_\alpha \in \Tcal: \alpha \in I \}$ is an arbitrary collection of open sets, then their union
+
+    $$
+    \bigcup_{\alpha\in I} U_\alpha \in \Tcal
+    $$
+
+    is open;
+
+c. If $\{U_i \in \Tcal: i=1,2,\dots,N \}$ is a finite collection of open sets,Then their intersection 
+
+    $$
+    \bigcap_{i=1}^N U_i \in \Tcal
+    $$
+
+    is open.
+:::
+
+The complement of an open set in $X$ is called a closed set, and $\Tcal$ is called a topology on $X.$
+
+A **$\sigma$-algebra** on a set $X$ is a collection of subsets of a set $X$ that contains $\emptyset$ and $X$, and is closed under complements, finite unions, countable unions, and countable
+intersections.
+
+
+:::{#def-sigma_algebra}
+A $\sigma$-algebra on a set $X$ is a collection $\Acal$ of subsets of a set $X$ such that:
+
+a. $\emptyset, X \in \Acal;$
+b. If $A\in\Acal$ then $A^c\in\Acal;$
+c. If $A_i\in\Acal$ then
+$$
+\bigcup_{i=1}^\infty A_i \in \Acal, \quad \bigcap_{i=1}^\infty A_i \in \Acal.
+$$
+:::
+
+:::{#exm-sigma_algebra}
+If $X$ is a set, then $\{\emptyset,X\}$ and $\Pcal(X)$ are $\sigma$-algebras on $X$; they are the smallest and largest $\sigma$-algebras on $X$, respectively.
+:::
+
+A measurable space $(X, \Acal)$ is an non-empty set $X$ equipped with a $\sigma$-algebra $\Acal$ on $X.$
+
+Difference between a measurable space and $\sigma$-algebra:
+
+- The complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology $\Tcal = \Pcal (X)$
+
+- Countable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open. 
+
+A **measure** $\mu$ is a countably additive, non-negative, extended real-valued function defined on a $\sigma$-algebra.
+
+A **measure space** $(X, \Acal, \mu)$ consist of a set $X$, a $\sigma$-algebra $\Acal$ on $X$, and a measure $\mu$ defined on $\Acal.$ When $\Acal$ and $\mu$ are  clear from the context, we will refer to the measure space $X$.
+
+
+An abstract probability space $(\Omega, \Fcal, \P)$
+
+- $\omega\in \Omega$ is called an *outcome*;
+- $A\in \Fcal$ is called an *event*;
+- $\P(A)$ is called the *probability* of $A.$ 
+
+    $\P(\Omega)=1$ the sum of probability of all possible outcomes is 1.
+
+A random variable is any function $X: \Omega \to \Xcal.$  We say that $X$ has distribution $P,$ and write $X\sim P$, if 
+
+$$
+\P(X\in B) = \P(\{\omega: X(\omega)\in B\}) = \P(B)
+$$
+
+
+We say the real-valued random variable $X$ is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If $X$ is a random variable, then $f(X)$ is also a random variable for any function $f$.
+
+The expectation of a random variable is defined as an integral with respect to $\P$:
+
+$$
+\E[X] = \int X(\omega)\, \mathrm d \P(\omega),
+$$
+
+and 
+
+$$
+\E[f(X,Y)] = \int f(X(\omega), Y(\omega))\, \mathrm d \P(\omega).
+$$
+
+A measure $\mu$ on a measurable space $(X,\Acal)$ is a function 
+
+$$
+\mu: \Acal \to [0, \infty]
+$$
+
+such that 
+
+1. $\mu(\emptyset)=0;$
+2. If $\{A_i\in \Acal: i\in \N\}$ is a countable disjoint collection of sets in $\Acal,$ then 
+
+$$
+\mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)
+$$
+
+A measure $\mu$ on a set $X$ is 
+
+- *finite* if $\mu(X)<\infty,$ and 
+- *$\sigma$-finite* if $X=\bigcup_{n=1}^\infty A_n$ is a countable union of measurable sets $A_n$ with finite measure, $\mu(A_n)<\infty.$
+
+
+
+
+References:
+
+- J. K. Hunter (2011). *Measure Theory*. Department of Mathematics, University of California at Davis. <https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf>

@@ -10,33 +10,123 @@
     ]
   },
   {
+    "objectID": "probability_theory.html",
+    "href": "probability_theory.html",
+    "title": "1  Probability Refresher",
+    "section": "",
+    "text": "1.1 Notations\n\\(\\Omega\\): A sample space, a set of possible outcomes of a random experiment.\n\\(X\\): A random variable, a function from the sample space to the real numbers: \\(X: \\Omega \\to \\R\\).\nStochastic Process\nA stochastic process is a family of random variables, \\(\\{X(t): t\\in T\\},\\) where \\(t\\) usually denotes time. That is, at every time \\(t\\) in the set \\(T\\), a random number \\(X(t)\\) is observed.\nThe state space, \\(S\\), is the set of real values that \\(X(t)\\) can take.\nYou can think of “conditioning” as “changing the sample space.”",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Probability Refresher</span>"
+    ]
+  },
+  {
+    "objectID": "probability_theory.html#notations",
+    "href": "probability_theory.html#notations",
+    "title": "1  Probability Refresher",
+    "section": "",
+    "text": "Discrete-time process: \\(T=\\{0,1,2,3\\}\\), the discrete process is \\(\\{X(0), X(1), X(2), \\dots\\}\\)\nContinuous-time process: \\(T=[0, \\infty]\\) or \\(T=[0, K]\\) for some \\(K\\).\n\n\n\n\nFrom unconditional to conditional\n\\[\n  \\P (B) = \\P(B\\mid \\Omega)\n  \\]\n\\(\\Omega\\) denotes the sample space, \\(\\P (B) = \\P(B\\mid \\Omega)\\) just means that we are looking for the probability of the event \\(B\\), out of all possible outcomes in the set \\(\\Omega.\\)\nPartition Theorem\n\\[\n  \\P(A) = \\sum_{i=1}^m \\P(A\\cap B_i) = \\sum_{i=1}^m \\P(A\\mid B_i) \\P(B_i)\n  \\]\nwhere \\(B_i, i=1,\\dots,m,\\) are a partition of \\(\\Omega.\\) The intuition behind the Partition Theorem is that the whole is the sum of its parts.\n\nA partition of \\(\\Omega\\) is a collection of mutually exclusive events whose union is \\(\\Omega.\\)\nThat is, sets \\(B_1, B_2, \\dots, B_m\\) form a partition of \\(\\Omega\\) if\n\\[\n  \\begin{split}\n  B_i \\cap B_j &= \\emptyset \\;\\text{ for all $i, j$ with $i\\ne j,$} \\\\\n  \\text{and }  \\bigcup_{i=1}^m B_i &= B_1 \\cup B_2 \\cup \\dots \\cup B_m = \\Omega.\n  \\end{split}\n  \\]\nBayes’ Theorem\nBayes’ Theorem allows us to invert a conditional statement, i.e., the express \\(\\P(B\\mid A)\\) in terms of \\(\\P(A\\mid B).\\)\nFor any events \\(A\\) and \\(B\\):\n\\[\n  \\P(B\\mid A) = \\frac{\\P(A\\cap B)}{\\P(A)} = \\frac{\\P(A\\mid B)\\P(B)}{\\P(A)}\n  \\]\nGeneralized Bayes’ Theorem\nFor any partition member \\(B_j\\),\n\\[\n  \\P(B_j\\mid A) = \\frac{\\P(A\\mid B_j)\\P(B_j)}{\\P(A)} = \\frac{\\P(A\\mid B_j)\\P(B_j)}{\\sum_{i=1}^m\\P(A\\mid B_i)\\P(B_i)}\n  \\]",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Probability Refresher</span>"
+    ]
+  },
+  {
+    "objectID": "conditional_expectation.html",
+    "href": "conditional_expectation.html",
+    "title": "2  Conditional Expectation",
+    "section": "",
+    "text": "2.1 Generalized Adam’s Law\nIdentities for conditional expectations\n\\[\n  \\E\\left[ \\E[Y \\mid g(X)] \\mid f(g(X)) \\right] = \\E[Y\\mid f(g(X))]\n\\]\nShow that the following identify is a special case of the Generalized Adam’s Law:\n\\[\n\\E[\\E[Y\\mid X,Z] \\mid Z] = \\E[Y\\mid Z]\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Conditional Expectation</span>"
+    ]
+  },
+  {
+    "objectID": "conditional_expectation.html#generalized-adams-law",
+    "href": "conditional_expectation.html#generalized-adams-law",
+    "title": "2  Conditional Expectation",
+    "section": "",
+    "text": "Proof. If we take \\(f(g(x, z)) = z\\) and \\(g(x, z) = (x, z)\\) in the generalized Adam’s Law, we get the result.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Conditional Expectation</span>"
+    ]
+  },
+  {
+    "objectID": "conditional_expectation.html#projection-interpretation",
+    "href": "conditional_expectation.html#projection-interpretation",
+    "title": "2  Conditional Expectation",
+    "section": "2.2 Projection interpretation",
+    "text": "2.2 Projection interpretation\nConditional expectation gives the best prediction\n\nTheorem 2.1 (Conditional expectation minimizes MSE) Suppose we have random element \\(X\\in \\Xcal\\) and random variable \\(Y\\in\\R.\\) Let \\(g(x)=\\E[Y\\mid X=x].\\) Then\n\\[\ng(x) = \\underset{f}{\\arg\\min}\\, \\E(Y-f(X))^2\n\\]\n\n\nProof. \\[\n\\begin{split}\n\\E(Y-f(X))^2 &= \\E\\left[(Y-\\E[Y\\mid X]) + (\\E[Y\\mid X]-f(X)) \\right]^2 \\quad (\\text{plus and minus } \\E[Y\\mid X]) \\\\\n&= \\E(Y-\\E[Y\\mid X])^2 + \\E(\\E[Y\\mid X]-f(X))^2 \\\\\n& \\phantom{=}\\; + 2\\E[(Y-\\E[Y\\mid X])(\\underbrace{\\E[Y\\mid X]-f(X)}_{h(X)})] \\quad \\Bigl(\\E\\bigl[ \\bigl(Y-\\E[Y\\vert X]\\bigr) h(X) \\bigr] = 0\\Bigr) \\\\\n&= \\E(Y-\\E[Y\\mid X])^2 + \\E(\\E[Y\\mid X]-f(X))^2\n\\end{split}\n\\]\nThe first term is independent of \\(f\\), and the second term is minimized by taking \\(f(x)=\\E[Y\\mid X].\\)\n\n□\n\n\nIf we think of \\(\\E[Y\\mid X]\\) as a prediction/projection for \\(Y\\) given \\(X\\), then \\((Y-\\E[Y\\mid X])\\) is the residual of that prediction.\nIt’s helpful to think of decomposing \\(Y\\) as\n\\[\nY = \\underbrace{\\E[Y\\mid X]}_\\text{best prediction for $Y$ given $X$} + \\underbrace{(Y-E[Y\\mid X])}_\\text{residual}\n\\]\nNote that the two terms on the RHS are uncorrelated, by the projection interpretation.\nSince variance is additive for uncorrelated random variables (i.e., if \\(X\\) and \\(Y\\) are uncorrelated, then \\(\\var(X+Y)=\\var(X)+\\var(Y)\\)), we get the following theorem\n\nTheorem 2.2 (Variance decomposition with projection) For any random variable \\(X\\in \\Xcal\\) and random variable \\(Y\\in \\R,\\) we have\n\\[\n\\var(Y) = \\var(\\E[Y\\mid X]) + \\var(Y-\\E[Y\\mid X])\n\\]\n\nTheorem 2.1 tells us that \\(\\E[Y\\mid X]\\) is the best approximation of \\(Y\\) we can get from \\(X.\\) We can also think of \\(\\E[Y\\mid X]\\) as a “less random” version of \\(Y,\\) since \\(\\var(\\E[Y\\vert X]) \\le \\var(Y).\\)\nWe can say that \\(\\E[Y\\mid X]\\) only keeps the randomness in \\(Y\\) that is predictable from \\(X.\\) \\(\\E[Y\\mid X]\\) is a deterministic function of \\(X,\\) so there’s no other source of randomness in \\(\\E[Y\\mid X].\\)\n\nTheorem 2.3 (Projection interpretation) For any \\(h:\\Xcal \\to \\R,\\)\n\\[\n\\E[(Y-\\E[Y\\mid X])h(X)]=0\n\\]\n\nTheorem 2.3 says that the residual of \\(\\E[Y\\mid X]\\) is “orthogonal” to every random variable of the form \\(h(X).\\)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Conditional Expectation</span>"
+    ]
+  },
+  {
+    "objectID": "conditional_expectation.html#keeping-just-what-is-needed",
+    "href": "conditional_expectation.html#keeping-just-what-is-needed",
+    "title": "2  Conditional Expectation",
+    "section": "2.3 Keeping just what is needed",
+    "text": "2.3 Keeping just what is needed\n\nTheorem 2.4 For any random variables \\(X, Y\\in \\R,\\)\n\\[\n\\E[XY] = \\E[X\\E[Y\\mid X]]\n\\]\n\nOne way to think about this is that for the purposes of computing \\(\\E [XY],\\) we only care about the randomness in \\(Y\\) that is predictable from \\(X\\).\n\nProof. \n\\[\n\\begin{split}\n\\E[XY] &= \\E[\\E[XY\\mid X]] \\quad (\\text{LIE}) \\\\\n&= \\E[X\\E[Y\\mid X]] \\quad (\\text{Taking out what is known})\n\\end{split}\n\\]\n\n□\n\n\n\nProof (Alternative proof1). We can show this using the projection interpretation:\n\\[\n\\begin{split}\n\\E[XY] &= \\E\\left[ X \\left(\\E[Y\\mid X] + \\underbrace{Y-\\E[Y\\mid X]}_\\text{residuals uncorrelated with $X$} \\right)\\right] \\\\[1em]\n&= \\E[X\\E[Y\\mid X]] + \\E[X(Y-\\E[Y\\mid X])] \\\\\n&= \\E[X\\E[Y\\mid X]] \\quad (\\text{Projection interpretation, } \\E[X(Y-\\E[Y\\mid X])]=0)\n\\end{split}\n\\]\n\n□\n\n\n\nProof (Alternative proof2). \n\\[\n\\begin{split}\n\\E[X\\E[Y\\mid X]] &= \\sum_x x\\E[Y\\mid X=x] \\P(X=x) \\\\\n&= \\sum_x\\sum_y xy\\P(Y=y\\mid X=x)\\P(X=x) \\\\\n&= \\sum_x\\sum_y xy \\P(Y=y, X=x)\n\\end{split}\n\\]\n\n□\n\n\nA more general case of \\(\\E[XY] = \\E[X\\E[Y\\mid X]]\\) is",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Conditional Expectation</span>"
+    ]
+  },
+  {
+    "objectID": "conditional_expectation.html#references",
+    "href": "conditional_expectation.html#references",
+    "title": "2  Conditional Expectation",
+    "section": "References",
+    "text": "References\n\nDavid S. Rosenberg. Conditional Expectations: Review and Lots of Examples. https://davidrosenberg.github.io/ttml2021fall/background/conditional-expectation-notes.pdf",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Conditional Expectation</span>"
+    ]
+  },
+  {
+    "objectID": "measure_theory.html",
+    "href": "measure_theory.html",
+    "title": "3  Measure Theory",
+    "section": "",
+    "text": "3.1 Definitions\nWe denote the collection of subsets, or power set, of a set \\(X\\) by \\(\\Pcal(X).\\)\nThe Cartesian product, or product, of sets \\(X, Y\\) is the collection of all ordered pairs\n\\[\nX\\times Y = \\{(x,y): x\\in X, y\\in Y\\}.\n\\]\nA topological space is a set equipped with a collection of open subsets that satisfies appropriate conditions.\nThe complement of an open set in \\(X\\) is called a closed set, and \\(\\Tcal\\) is called a topology on \\(X.\\)\nA \\(\\sigma\\)-algebra on a set \\(X\\) is a collection of subsets of a set \\(X\\) that contains \\(\\emptyset\\) and \\(X\\), and is closed under complements, finite unions, countable unions, and countable intersections.\nA measurable space \\((X, \\Acal)\\) is an non-empty set \\(X\\) equipped with a \\(\\sigma\\)-algebra \\(\\Acal\\) on \\(X.\\)\nDifference between a measurable space and \\(\\sigma\\)-algebra:\nA measure \\(\\mu\\) is a countably additive, non-negative, extended real-valued function defined on a \\(\\sigma\\)-algebra.\nA measure space \\((X, \\Acal, \\mu)\\) consist of a set \\(X\\), a \\(\\sigma\\)-algebra \\(\\Acal\\) on \\(X\\), and a measure \\(\\mu\\) defined on \\(\\Acal.\\) When \\(\\Acal\\) and \\(\\mu\\) are clear from the context, we will refer to the measure space \\(X\\).\nAn abstract probability space \\((\\Omega, \\Fcal, \\P)\\)\nA random variable is any function \\(X: \\Omega \\to \\Xcal.\\) We say that \\(X\\) has distribution \\(P,\\) and write \\(X\\sim P\\), if\n\\[\n\\P(X\\in B) = \\P(\\{\\omega: X(\\omega)\\in B\\}) = \\P(B)\n\\]\nWe say the real-valued random variable \\(X\\) is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If \\(X\\) is a random variable, then \\(f(X)\\) is also a random variable for any function \\(f\\).\nThe expectation of a random variable is defined as an integral with respect to \\(\\P\\):\n\\[\n\\E[X] = \\int X(\\omega)\\, \\mathrm d \\P(\\omega),\n\\]\nand\n\\[\n\\E[f(X,Y)] = \\int f(X(\\omega), Y(\\omega))\\, \\mathrm d \\P(\\omega).\n\\]\nA measure \\(\\mu\\) on a measurable space \\((X,\\Acal)\\) is a function\n\\[\n\\mu: \\Acal \\to [0, \\infty]\n\\]\nsuch that\n\\[\n\\mu \\left( \\bigcup_{i=1}^\\infty A_i \\right) = \\sum_{i=1}^\\infty \\mu(A_i)\n\\]\nA measure \\(\\mu\\) on a set \\(X\\) is\nReferences:",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Measure Theory</span>"
+    ]
+  },
+  {
+    "objectID": "measure_theory.html#definitions",
+    "href": "measure_theory.html#definitions",
+    "title": "3  Measure Theory",
+    "section": "",
+    "text": "Definition 3.1 (Topological Space) A topological space \\((X, \\Tcal)\\) is a set \\(X\\) and a collection \\(\\Tcal \\subset \\Pcal(X)\\) of subsets of \\(X,\\) called open sets, such that\n\n\\(\\emptyset, X \\in \\Tcal;\\)\nIf \\(\\{U_\\alpha \\in \\Tcal: \\alpha \\in I \\}\\) is an arbitrary collection of open sets, then their union\n\\[\n\\bigcup_{\\alpha\\in I} U_\\alpha \\in \\Tcal\n\\]\nis open;\nIf \\(\\{U_i \\in \\Tcal: i=1,2,\\dots,N \\}\\) is a finite collection of open sets,Then their intersection\n\\[\n\\bigcap_{i=1}^N U_i \\in \\Tcal\n\\]\nis open.\n\n\n\n\n\nDefinition 3.2 A \\(\\sigma\\)-algebra on a set \\(X\\) is a collection \\(\\Acal\\) of subsets of a set \\(X\\) such that:\n\n\\(\\emptyset, X \\in \\Acal;\\)\nIf \\(A\\in\\Acal\\) then \\(A^c\\in\\Acal;\\)\nIf \\(A_i\\in\\Acal\\) then \\[\n\\bigcup_{i=1}^\\infty A_i \\in \\Acal, \\quad \\bigcap_{i=1}^\\infty A_i \\in \\Acal.\n\\]\n\n\n\nExample 3.1 If \\(X\\) is a set, then \\(\\{\\emptyset,X\\}\\) and \\(\\Pcal(X)\\) are \\(\\sigma\\)-algebras on \\(X\\); they are the smallest and largest \\(\\sigma\\)-algebras on \\(X\\), respectively.\n\n\n\n\nThe complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology \\(\\Tcal = \\Pcal (X)\\)\nCountable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open.\n\n\n\n\n\n\\(\\omega\\in \\Omega\\) is called an outcome;\n\\(A\\in \\Fcal\\) is called an event;\n\\(\\P(A)\\) is called the probability of \\(A.\\)\n\\(\\P(\\Omega)=1\\) the sum of probability of all possible outcomes is 1.\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\mu(\\emptyset)=0;\\)\nIf \\(\\{A_i\\in \\Acal: i\\in \\N\\}\\) is a countable disjoint collection of sets in \\(\\Acal,\\) then\n\n\n\n\nfinite if \\(\\mu(X)&lt;\\infty,\\) and\n\\(\\sigma\\)-finite if \\(X=\\bigcup_{n=1}^\\infty A_n\\) is a countable union of measurable sets \\(A_n\\) with finite measure, \\(\\mu(A_n)&lt;\\infty.\\)\n\n\n\nJ. K. Hunter (2011). Measure Theory. Department of Mathematics, University of California at Davis. https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Measure Theory</span>"
+    ]
+  },
+  {
     "objectID": "01_Hetero_lm.html",
     "href": "01_Hetero_lm.html",
-    "title": "1  Linear Models with Heterogeneous Coefficients",
+    "title": "4  Linear Models with Heterogeneous Coefficients",
     "section": "",
-    "text": "1.1 Linearity and Heterogeneity",
+    "text": "4.1 Linearity and Heterogeneity",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Models with Heterogeneous Coefficients</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Linear Models with Heterogeneous Coefficients</span>"
     ]
   },
   {
     "objectID": "01_Hetero_lm.html#linearity-and-heterogeneity",
     "href": "01_Hetero_lm.html#linearity-and-heterogeneity",
-    "title": "1  Linear Models with Heterogeneous Coefficients",
+    "title": "4  Linear Models with Heterogeneous Coefficients",
     "section": "",
-    "text": "1.1.1 Models with Homogeneous Slopes\nWe begin our journey where standard textbooks and first-year foundational courses in econometrics leave off. The “standard” linear models considered in such courses often assume homogeneity in individual responses to covariates (e.g., Hansen (2022)). A common cross-sectional specification is:\n\\[\ny_i = \\bbeta'\\bx_i + u_{i},\n\\tag{1.1}\\] where \\(i=1, \\dots, N\\) indexes cross-sectional units.\nIn panel data, models often include unit-specific \\((i)\\) and time-specific \\((t)\\) intercepts while maintaining a common slope vector \\(\\bbeta\\):\n\\[\ny_{it} = \\alpha_i + \\delta_t +  \\bbeta'\\bx_{it} + u_{it}.\n\\tag{1.2}\\]\n\n\n1.1.2 Heterogeneity in Slopes.\nHowever, modern economic theory rarely supports the assumption of homogeneous slopes \\(\\bbeta.\\) Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients:\n\nCross-sectional model (1.1) generalizes to\n\\[\ny_i = \\bbeta_{i}'\\bx + u_i.\n\\tag{1.3}\\]\nPanel data model (1.2) generalizes to\n\\[\ny_{it}  = \\bbeta_{it}'\\bx_{it} + u_{it}.\n\\tag{1.4}\\]\n\nSuch models are worth studying, as they naturally arise in a variety of contexts:\n\nStructural models with parametric restrictions: Certain parametric restrictions yield linear relationships in coefficients. An example is given by firm-level Cobb-Douglas production functions where firm-specific productivity differences induce heterogeneous coefficients (Combes et al. (2012); Sury (2011)).\nBinary covariates and interaction terms: if all covariates are binary and all interactions are included, a linear model encodes all treatment effects without loss of generality (see, e.g., Wooldridge (2005)).\nLog-linearized models: Nonlinear models may be approximated by linear models around a steady-state. For example, Heckman and Vytlacil (1998) demonstrate how the nonlinear Card (2001) education model simplifies to a heterogeneous linear specification after linearization.",
+    "text": "4.1.1 Models with Homogeneous Slopes\nWe begin our journey where standard textbooks and first-year foundational courses in econometrics leave off. The “standard” linear models considered in such courses often assume homogeneity in individual responses to covariates (e.g., Hansen (2022)). A common cross-sectional specification is:\n\\[\ny_i = \\bbeta'\\bx_i + u_{i},\n\\tag{4.1}\\] where \\(i=1, \\dots, N\\) indexes cross-sectional units.\nIn panel data, models often include unit-specific \\((i)\\) and time-specific \\((t)\\) intercepts while maintaining a common slope vector \\(\\bbeta\\):\n\\[\ny_{it} = \\alpha_i + \\delta_t +  \\bbeta'\\bx_{it} + u_{it}.\n\\tag{4.2}\\]\n\n\n4.1.2 Heterogeneity in Slopes.\nHowever, modern economic theory rarely supports the assumption of homogeneous slopes \\(\\bbeta.\\) Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients:\n\nCross-sectional model (4.1) generalizes to\n\\[\ny_i = \\bbeta_{i}'\\bx + u_i.\n\\tag{4.3}\\]\nPanel data model (4.2) generalizes to\n\\[\ny_{it}  = \\bbeta_{it}'\\bx_{it} + u_{it}.\n\\tag{4.4}\\]\n\nSuch models are worth studying, as they naturally arise in a variety of contexts:\n\nStructural models with parametric restrictions: Certain parametric restrictions yield linear relationships in coefficients. An example is given by firm-level Cobb-Douglas production functions where firm-specific productivity differences induce heterogeneous coefficients (Combes et al. (2012); Sury (2011)).\nBinary covariates and interaction terms: if all covariates are binary and all interactions are included, a linear model encodes all treatment effects without loss of generality (see, e.g., Wooldridge (2005)).\nLog-linearized models: Nonlinear models may be approximated by linear models around a steady-state. For example, Heckman and Vytlacil (1998) demonstrate how the nonlinear Card (2001) education model simplifies to a heterogeneous linear specification after linearization.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Models with Heterogeneous Coefficients</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Linear Models with Heterogeneous Coefficients</span>"
     ]
   },
   {
     "objectID": "01_Hetero_lm.html#references",
     "href": "01_Hetero_lm.html#references",
-    "title": "1  Linear Models with Heterogeneous Coefficients",
+    "title": "4  Linear Models with Heterogeneous Coefficients",
     "section": "References",
     "text": "References\n\nVladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html\nVladislav Morozov, GitHub course repository, https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd\n\n\n\n\n\nCard, David. 2001. “Estimating the Return to Schooling: Progress on Some Persistent Econometric Problems.” Econometrica 69 (5): 1127–60. https://doi.org/10.1111/1468-0262.00237.\n\n\nCombes, Pierre Philippe, Gilles Duranton, Laurent Gobillon, Diego Puga, and Sébastien Roux. 2012. “The Productivity Advantages of Large Cities: Distinguishing Agglomeration From Firm Selection.” Econometrica 80 (6): 2543–94. https://doi.org/10.3982/ecta8442.\n\n\nHansen, Bruce. 2022. Econometrics. Princeton University Press.\n\n\nHeckman, James, and Edward Vytlacil. 1998. “Instrumental variables methods for the correlated random coefficient model.” Journal of Human Resources 33 (4): 974–87.\n\n\nSury, Tavneet. 2011. “Selection and Comparative Advantage in Technology Adoption.” Econometrica 79 (1): 159–209. https://doi.org/10.3982/ecta7749.\n\n\nWooldridge, Jeffrey M. 2005. “Fixed-effects and related estimators for correlated random-coefficient and treatment-effect panel data models.” The Review of Economics and Statistics 87 (May): 385–90.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Linear Models with Heterogeneous Coefficients</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Linear Models with Heterogeneous Coefficients</span>"
     ]
   }
 ]
