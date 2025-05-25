@@ -3,8 +3,17 @@
 <script>
   MathJax = {
     tex: {
+      inlineMath: [   // start/end delimiter pairs for in-line math
+          ['$', '$'],
+          ['\\(', '\\)']
+        ],
+      displayMath: [  // start/end delimiter pairs for display math
+        ['$$', '$$'],
+        ['\\[', '\\]']
+      ],
+      processEscapes: true, // use \$ to produce a literal dollar sign
       tags: 'ams',  // should be 'ams', 'none', or 'all'
-      macros: {
+      macros: {  //define TeX macros
         vect: ["\\mathbf{#1}", 1],
         mat: ["\\mathbf{#1}", 1], 
 

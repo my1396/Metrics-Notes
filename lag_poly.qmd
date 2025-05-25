@@ -1,0 +1,171 @@
+---
+title: "Lag polynomials"
+format: html
+---
+
+A $p$-th degree lag polynomial is given by:
+
+$$
+\alpha(L) = \alpha_0 + \alpha_1L + \cdots + \alpha_pL^p,
+$$
+where $L$ is the lag operator, defined by the relation $L^jx_t=x_{t-j}.$
+
+We define a filter given by $\alpha(L)$ to an input process $\{x_t\}$, we get a weighted average of the current and $p$ most recent values of the process:
+
+$$
+\begin{aligned}
+\alpha(L)x_t &= \alpha_0x_t + \alpha_1Lx_t + \alpha_2L^2x_t + \cdots + \alpha_pL^px_t \\
+&= \alpha_0x_t + \alpha_1x_{t-1}+ \alpha_2x_{t-2} + \cdots + \alpha_px_{t-p} \\
+&= \sum_{j=0}^p \alpha_jx_{t-j}
+\end{aligned}
+$$
+
+
+## Product of Filters
+
+Let $\{\alpha_j\}$ and $\{\beta_j\}$ be two arbitrary sequences of real numbers and define the sequence $\{\delta_j\}$ by the relation
+
+$$
+\begin{gathered}
+\delta_0 = \alpha_0\beta_0, \\
+\delta_1 = \alpha_0\beta_1 + \alpha_1\beta_0, \\
+\delta_2 = \alpha_0\beta_2 + \alpha_1\beta_1 + \alpha_2\beta_0, \\
+\vdots \\
+\delta_j = \alpha_0\beta_j + \alpha_1\beta_{j-1} + \alpha_2\beta_{j-2} + \cdots + \alpha_{j-1}\beta_{1} + \alpha_{j}\beta_{0}, \\
+\vdots \\
+\end{gathered}
+$$ {#eq-convolution}
+
+
+The sequence $\{\delta_j\}$ created from this convuluted formula is called the convolution of $\{\alpha_j\}$ and $\{\beta_j\}.$
+
+For example, for $\alpha(L)=1+\alpha_1L$ and $\beta(L)=1+\beta_1L$, we have
+
+$$
+\delta(L)=(1+\alpha_1L)(1+\beta_1L) = 1+ (\alpha_1+\beta_1)L + \alpha_1\beta_1L^2.
+$$
+
+Filters are commutative:
+
+$$
+\alpha(L)\beta(L) = \beta(L)\alpha(L)
+$$
+
+## Inverses
+
+The inverse of $\alpha(L)$ is denoted as $\alpha(L)^{-1}$ or $1/\alpha(L)$:
+
+$$
+\alpha(L)\alpha(L)^{-1}=1
+$$
+Define a $p$-th degree lag polynomial $\phi(L)$
+
+$$
+\phi(L) = 1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p.
+$$ {#eq-lag-ploy}
+
+@eq-lag-ploy is often used to construct AR processes.
+
+Now let's calculate its inverse, $\psi(L) = \phi(L)^{-1}.$
+
+$$
+\psi(L) = \psi_0 + \psi_1L + \psi_2L^2 + \cdots 
+$$
+
+By the convolution formula ([-@eq-convolution]), we have
+
+$$
+\begin{aligned}
+\text{constant}:&\quad  \psi_0 =1 \\
+L: &\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
+L^2: &\quad  \psi_2-\psi_1\phi_1-\psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \phi_1^2 + \phi_2 \\
+\vdots \\
+L^p: &\quad  \psi_p - \psi_{p-1}\phi_1 - \psi_{p-2}\phi_2 - \cdots - \psi_{1}\phi_{p-1} - \psi_{0}\phi_p = 0 \\
+L^{p+1}: &\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \psi_{2}\phi_{p-1} - \psi_{1}\phi_p = 0 \\
+\vdots
+\end{aligned}
+$$
+
+::: {#exm-inverse}
+Consider a 1st degree lag polynomial $\phi(L)=1-\phi L$, its inverse $\psi(L)$ can be calculated as 
+
+$$
+\begin{aligned}
+\text{constant}: &\quad \psi_0 =1  \\
+L: &\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
+L^2: &\quad \psi_2 - \psi_1\phi = 0 \Longrightarrow \psi_2 = \phi^2 \\
+L^3: &\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
+\vdots 
+\end{aligned}
+$$
+$\psi(L) = 1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots.$
+:::
+
+
+
+
+
+## Stability Condition
+
+
+
+The solution sequence $\{\psi_j\}$ eventually starts declining at a geometric rate if the **stability condition** holds. The condition states:
+
+All the roots of the $p$-th degree polynomial equation in $z$
+
+$$
+\phi(z) = 0 \text{ where } \phi(z) \equiv 1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p
+$$
+are greater than 1 in absolute value (lie *outside* the unit circle).
+
+
+Equivalently, we can consider the roots of the reciprocal polynomial defined as (basically this means inverting the order of the coefficients)
+
+$$
+\phi^*(z) = z^p\phi(z^{-1}) = z^p - \phi_1z^{p-1} - \dots - \phi_p.
+$$
+The stability condition can be stated as:
+
+All the roots of 
+
+$$
+\phi^*(z) \equiv z^p - \phi_1z^{p-1} - \dots - \phi_p =0
+$$
+are less than 1 in the absolute value (i.e., lie *inside* the unit circle).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

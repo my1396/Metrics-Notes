@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Measure Theory – Metrics Notes</title>
+<title>6&nbsp; Lag polynomials – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AR1.html" rel="next">
-<link href="./conditional_expectation.html" rel="prev">
+<link href="./AR-MA-representation.html" rel="next">
+<link href="./AR_example.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -282,7 +282,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./measure_theory.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -327,7 +327,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link active">
+  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span></a>
   </div>
 </li>
@@ -354,7 +354,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lag_poly.html" class="sidebar-item-text sidebar-link">
+  <a href="./lag_poly.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
@@ -382,16 +382,18 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"><span class="header-section-number">3.1</span> Definitions</a></li>
+  <li><a href="#product-of-filters" id="toc-product-of-filters" class="nav-link active" data-scroll-target="#product-of-filters"><span class="header-section-number">6.1</span> Product of Filters</a></li>
+  <li><a href="#inverses" id="toc-inverses" class="nav-link" data-scroll-target="#inverses"><span class="header-section-number">6.2</span> Inverses</a></li>
+  <li><a href="#stability-condition" id="toc-stability-condition" class="nav-link" data-scroll-target="#stability-condition"><span class="header-section-number">6.3</span> Stability Condition</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></h1>
 </div>
 
 
@@ -408,94 +410,95 @@ window.Quarto = {
 </header>
 
 
-<section id="definitions" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">3.1</span> Definitions</h2>
-<p>We denote the collection of subsets, or <strong>power set</strong>, of a set <span class="math inline">\(X\)</span> by <span class="math inline">\(\Pcal(X).\)</span></p>
-<p>The Cartesian product, or product, of sets <span class="math inline">\(X, Y\)</span> is the collection of all ordered pairs</p>
+<p>A <span class="math inline">\(p\)</span>-th degree lag polynomial is given by:</p>
 <p><span class="math display">\[
-X\times Y = \{(x,y): x\in X, y\in Y\}.
-\]</span></p>
-<p>A <strong>topological space</strong> is a set equipped with a collection of open subsets that satisfies appropriate conditions.</p>
-<div id="def-topology" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1 (Topological Space)</strong></span> A topological space <span class="math inline">\((X, \Tcal)\)</span> is a set <span class="math inline">\(X\)</span> and a collection <span class="math inline">\(\Tcal \subset \Pcal(X)\)</span> of subsets of <span class="math inline">\(X,\)</span> called open sets, such that</p>
-<ol type="a">
-<li><p><span class="math inline">\(\emptyset, X \in \Tcal;\)</span></p></li>
-<li><p>If <span class="math inline">\(\{U_\alpha \in \Tcal: \alpha \in I \}\)</span> is an arbitrary collection of open sets, then their union</p>
+\alpha(L) = \alpha_0 + \alpha_1L + \cdots + \alpha_pL^p,
+\]</span> where <span class="math inline">\(L\)</span> is the lag operator, defined by the relation <span class="math inline">\(L^jx_t=x_{t-j}.\)</span></p>
+<p>We define a filter given by <span class="math inline">\(\alpha(L)\)</span> to an input process <span class="math inline">\(\{x_t\}\)</span>, we get a weighted average of the current and <span class="math inline">\(p\)</span> most recent values of the process:</p>
 <p><span class="math display">\[
-\bigcup_{\alpha\in I} U_\alpha \in \Tcal
+\begin{aligned}
+\alpha(L)x_t &amp;= \alpha_0x_t + \alpha_1Lx_t + \alpha_2L^2x_t + \cdots + \alpha_pL^px_t \\
+&amp;= \alpha_0x_t + \alpha_1x_{t-1}+ \alpha_2x_{t-2} + \cdots + \alpha_px_{t-p} \\
+&amp;= \sum_{j=0}^p \alpha_jx_{t-j}
+\end{aligned}
 \]</span></p>
-<p>is open;</p></li>
-<li><p>If <span class="math inline">\(\{U_i \in \Tcal: i=1,2,\dots,N \}\)</span> is a finite collection of open sets,Then their intersection</p>
+<section id="product-of-filters" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="product-of-filters"><span class="header-section-number">6.1</span> Product of Filters</h2>
+<p>Let <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}\)</span> be two arbitrary sequences of real numbers and define the sequence <span class="math inline">\(\{\delta_j\}\)</span> by the relation</p>
+<p><span id="eq-convolution"><span class="math display">\[
+\begin{gathered}
+\delta_0 = \alpha_0\beta_0, \\
+\delta_1 = \alpha_0\beta_1 + \alpha_1\beta_0, \\
+\delta_2 = \alpha_0\beta_2 + \alpha_1\beta_1 + \alpha_2\beta_0, \\
+\vdots \\
+\delta_j = \alpha_0\beta_j + \alpha_1\beta_{j-1} + \alpha_2\beta_{j-2} + \cdots + \alpha_{j-1}\beta_{1} + \alpha_{j}\beta_{0}, \\
+\vdots \\
+\end{gathered}
+\tag{6.1}\]</span></span></p>
+<p>The sequence <span class="math inline">\(\{\delta_j\}\)</span> created from this convuluted formula is called the convolution of <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}.\)</span></p>
+<p>For example, for <span class="math inline">\(\alpha(L)=1+\alpha_1L\)</span> and <span class="math inline">\(\beta(L)=1+\beta_1L\)</span>, we have</p>
 <p><span class="math display">\[
-\bigcap_{i=1}^N U_i \in \Tcal
+\delta(L)=(1+\alpha_1L)(1+\beta_1L) = 1+ (\alpha_1+\beta_1)L + \alpha_1\beta_1L^2.
 \]</span></p>
-<p>is open.</p></li>
-</ol>
+<p>Filters are commutative:</p>
+<p><span class="math display">\[
+\alpha(L)\beta(L) = \beta(L)\alpha(L)
+\]</span></p>
+</section>
+<section id="inverses" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="inverses"><span class="header-section-number">6.2</span> Inverses</h2>
+<p>The inverse of <span class="math inline">\(\alpha(L)\)</span> is denoted as <span class="math inline">\(\alpha(L)^{-1}\)</span> or <span class="math inline">\(1/\alpha(L)\)</span>:</p>
+<p><span class="math display">\[
+\alpha(L)\alpha(L)^{-1}=1
+\]</span> Define a <span class="math inline">\(p\)</span>-th degree lag polynomial <span class="math inline">\(\phi(L)\)</span></p>
+<p><span id="eq-lag-ploy"><span class="math display">\[
+\phi(L) = 1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p.
+\tag{6.2}\]</span></span></p>
+<p><a href="#eq-lag-ploy" class="quarto-xref">Equation&nbsp;<span>6.2</span></a> is often used to construct AR processes.</p>
+<p>Now let’s calculate its inverse, <span class="math inline">\(\psi(L) = \phi(L)^{-1}.\)</span></p>
+<p><span class="math display">\[
+\psi(L) = \psi_0 + \psi_1L + \psi_2L^2 + \cdots
+\]</span></p>
+<p>By the convolution formula (<a href="#eq-convolution" class="quarto-xref"><span>6.1</span></a>), we have</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{constant}:&amp;\quad  \psi_0 =1 \\
+L: &amp;\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
+L^2: &amp;\quad  \psi_2-\psi_1\phi_1-\psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \phi_1^2 + \phi_2 \\
+\vdots \\
+L^p: &amp;\quad  \psi_p - \psi_{p-1}\phi_1 - \psi_{p-2}\phi_2 - \cdots - \psi_{1}\phi_{p-1} - \psi_{0}\phi_p = 0 \\
+L^{p+1}: &amp;\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \psi_{2}\phi_{p-1} - \psi_{1}\phi_p = 0 \\
+\vdots
+\end{aligned}
+\]</span></p>
+<div id="exm-inverse" class="theorem example">
+<p><span class="theorem-title"><strong>Example 6.1</strong></span> Consider a 1st degree lag polynomial <span class="math inline">\(\phi(L)=1-\phi L\)</span>, its inverse <span class="math inline">\(\psi(L)\)</span> can be calculated as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{constant}: &amp;\quad \psi_0 =1  \\
+L: &amp;\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
+L^2: &amp;\quad \psi_2 - \psi_1\phi = 0 \Longrightarrow \psi_2 = \phi^2 \\
+L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
+\vdots
+\end{aligned}
+\]</span> <span class="math inline">\(\psi(L) = 1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots.\)</span></p>
 </div>
-<p>The complement of an open set in <span class="math inline">\(X\)</span> is called a closed set, and <span class="math inline">\(\Tcal\)</span> is called a topology on <span class="math inline">\(X.\)</span></p>
-<p>A <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on a set <span class="math inline">\(X\)</span> is a collection of subsets of a set <span class="math inline">\(X\)</span> that contains <span class="math inline">\(\emptyset\)</span> and <span class="math inline">\(X\)</span>, and is closed under complements, finite unions, countable unions, and countable intersections.</p>
-<div id="def-sigma_algebra" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A <span class="math inline">\(\sigma\)</span>-algebra on a set <span class="math inline">\(X\)</span> is a collection <span class="math inline">\(\Acal\)</span> of subsets of a set <span class="math inline">\(X\)</span> such that:</p>
-<ol type="a">
-<li><span class="math inline">\(\emptyset, X \in \Acal;\)</span></li>
-<li>If <span class="math inline">\(A\in\Acal\)</span> then <span class="math inline">\(A^c\in\Acal;\)</span></li>
-<li>If <span class="math inline">\(A_i\in\Acal\)</span> then <span class="math display">\[
-\bigcup_{i=1}^\infty A_i \in \Acal, \quad \bigcap_{i=1}^\infty A_i \in \Acal.
-\]</span></li>
-</ol>
-</div>
-<div id="exm-sigma_algebra" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> If <span class="math inline">\(X\)</span> is a set, then <span class="math inline">\(\{\emptyset,X\}\)</span> and <span class="math inline">\(\Pcal(X)\)</span> are <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>; they are the smallest and largest <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>, respectively.</p>
-</div>
-<p>A measurable space <span class="math inline">\((X, \Acal)\)</span> is an non-empty set <span class="math inline">\(X\)</span> equipped with a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X.\)</span></p>
-<p>Difference between a measurable space and <span class="math inline">\(\sigma\)</span>-algebra:</p>
-<ul>
-<li><p>The complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology <span class="math inline">\(\Tcal = \Pcal (X)\)</span></p></li>
-<li><p>Countable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open.</p></li>
-</ul>
-<p>A <strong>measure</strong> <span class="math inline">\(\mu\)</span> is a countably additive, non-negative, extended real-valued function defined on a <span class="math inline">\(\sigma\)</span>-algebra.</p>
-<p>A <strong>measure space</strong> <span class="math inline">\((X, \Acal, \mu)\)</span> consist of a set <span class="math inline">\(X\)</span>, a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X\)</span>, and a measure <span class="math inline">\(\mu\)</span> defined on <span class="math inline">\(\Acal.\)</span> When <span class="math inline">\(\Acal\)</span> and <span class="math inline">\(\mu\)</span> are clear from the context, we will refer to the measure space <span class="math inline">\(X\)</span>.</p>
-<p>An abstract probability space <span class="math inline">\((\Omega, \Fcal, \P)\)</span></p>
-<ul>
-<li><p><span class="math inline">\(\omega\in \Omega\)</span> is called an <em>outcome</em>;</p></li>
-<li><p><span class="math inline">\(A\in \Fcal\)</span> is called an <em>event</em>;</p></li>
-<li><p><span class="math inline">\(\P(A)\)</span> is called the <em>probability</em> of <span class="math inline">\(A.\)</span></p>
-<p><span class="math inline">\(\P(\Omega)=1\)</span> the sum of probability of all possible outcomes is 1.</p></li>
-</ul>
-<p>A random variable is any function <span class="math inline">\(X: \Omega \to \Xcal.\)</span> We say that <span class="math inline">\(X\)</span> has distribution <span class="math inline">\(P,\)</span> and write <span class="math inline">\(X\sim P\)</span>, if</p>
+</section>
+<section id="stability-condition" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="stability-condition"><span class="header-section-number">6.3</span> Stability Condition</h2>
+<p>The solution sequence <span class="math inline">\(\{\psi_j\}\)</span> eventually starts declining at a geometric rate if the <strong>stability condition</strong> holds. The condition states:</p>
+<p>All the roots of the <span class="math inline">\(p\)</span>-th degree polynomial equation in <span class="math inline">\(z\)</span></p>
 <p><span class="math display">\[
-\P(X\in B) = \P(\{\omega: X(\omega)\in B\}) = \P(B)
-\]</span></p>
-<p>We say the real-valued random variable <span class="math inline">\(X\)</span> is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If <span class="math inline">\(X\)</span> is a random variable, then <span class="math inline">\(f(X)\)</span> is also a random variable for any function <span class="math inline">\(f\)</span>.</p>
-<p>The expectation of a random variable is defined as an integral with respect to <span class="math inline">\(\P\)</span>:</p>
+\phi(z) = 0 \text{ where } \phi(z) \equiv 1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p
+\]</span> are greater than 1 in absolute value (lie <em>outside</em> the unit circle).</p>
+<p>Equivalently, we can consider the roots of the reciprocal polynomial defined as (basically this means inverting the order of the coefficients)</p>
 <p><span class="math display">\[
-\E[X] = \int X(\omega)\, \mathrm d \P(\omega),
-\]</span></p>
-<p>and</p>
+\phi^*(z) = z^p\phi(z^{-1}) = z^p - \phi_1z^{p-1} - \dots - \phi_p.
+\]</span> The stability condition can be stated as:</p>
+<p>All the roots of</p>
 <p><span class="math display">\[
-\E[f(X,Y)] = \int f(X(\omega), Y(\omega))\, \mathrm d \P(\omega).
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a measurable space <span class="math inline">\((X,\Acal)\)</span> is a function</p>
-<p><span class="math display">\[
-\mu: \Acal \to [0, \infty]
-\]</span></p>
-<p>such that</p>
-<ol type="1">
-<li><span class="math inline">\(\mu(\emptyset)=0;\)</span></li>
-<li>If <span class="math inline">\(\{A_i\in \Acal: i\in \N\}\)</span> is a countable disjoint collection of sets in <span class="math inline">\(\Acal,\)</span> then</li>
-</ol>
-<p><span class="math display">\[
-\mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a set <span class="math inline">\(X\)</span> is</p>
-<ul>
-<li><em>finite</em> if <span class="math inline">\(\mu(X)&lt;\infty,\)</span> and</li>
-<li><em><span class="math inline">\(\sigma\)</span>-finite</em> if <span class="math inline">\(X=\bigcup_{n=1}^\infty A_n\)</span> is a countable union of measurable sets <span class="math inline">\(A_n\)</span> with finite measure, <span class="math inline">\(\mu(A_n)&lt;\infty.\)</span></li>
-</ul>
-<p>References:</p>
-<ul>
-<li>J. K. Hunter (2011). <em>Measure Theory</em>. Department of Mathematics, University of California at Davis. <a href="https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf" class="uri">https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf</a></li>
-</ul>
+\phi^*(z) \equiv z^p - \phi_1z^{p-1} - \dots - \phi_p =0
+\]</span> are less than 1 in the absolute value (i.e., lie <em>inside</em> the unit circle).</p>
 
 
 </section>
@@ -902,13 +905,13 @@ X\times Y = \{(x,y): x\in X, y\in Y\}.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conditional_expectation.html" class="pagination-link" aria-label="Conditional Expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conditional Expectation</span></span>
+      <a href="./AR_example.html" class="pagination-link" aria-label="AR -- Example">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./AR1.html" class="pagination-link" aria-label="AR(1)">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./AR-MA-representation.html" class="pagination-link" aria-label="AR(1) and Its MA representation">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

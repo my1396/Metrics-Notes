@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Measure Theory – Metrics Notes</title>
+<title>5&nbsp; AR – Example – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AR1.html" rel="next">
-<link href="./conditional_expectation.html" rel="prev">
+<link href="./lag_poly.html" rel="next">
+<link href="./AR1.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -240,6 +275,8 @@ ul.task-list li input[type="checkbox"] {
     }
   };
 </script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -282,7 +319,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./measure_theory.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -327,7 +364,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link active">
+  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span></a>
   </div>
 </li>
@@ -348,7 +385,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR_example.html" class="sidebar-item-text sidebar-link">
+  <a href="./AR_example.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span></a>
   </div>
 </li>
@@ -377,21 +414,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"><span class="header-section-number">3.1</span> Definitions</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></h1>
 </div>
 
 
@@ -408,93 +439,437 @@ window.Quarto = {
 </header>
 
 
-<section id="definitions" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">3.1</span> Definitions</h2>
-<p>We denote the collection of subsets, or <strong>power set</strong>, of a set <span class="math inline">\(X\)</span> by <span class="math inline">\(\Pcal(X).\)</span></p>
-<p>The Cartesian product, or product, of sets <span class="math inline">\(X, Y\)</span> is the collection of all ordered pairs</p>
-<p><span class="math display">\[
-X\times Y = \{(x,y): x\in X, y\in Y\}.
-\]</span></p>
-<p>A <strong>topological space</strong> is a set equipped with a collection of open subsets that satisfies appropriate conditions.</p>
-<div id="def-topology" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1 (Topological Space)</strong></span> A topological space <span class="math inline">\((X, \Tcal)\)</span> is a set <span class="math inline">\(X\)</span> and a collection <span class="math inline">\(\Tcal \subset \Pcal(X)\)</span> of subsets of <span class="math inline">\(X,\)</span> called open sets, such that</p>
-<ol type="a">
-<li><p><span class="math inline">\(\emptyset, X \in \Tcal;\)</span></p></li>
-<li><p>If <span class="math inline">\(\{U_\alpha \in \Tcal: \alpha \in I \}\)</span> is an arbitrary collection of open sets, then their union</p>
-<p><span class="math display">\[
-\bigcup_{\alpha\in I} U_\alpha \in \Tcal
-\]</span></p>
-<p>is open;</p></li>
-<li><p>If <span class="math inline">\(\{U_i \in \Tcal: i=1,2,\dots,N \}\)</span> is a finite collection of open sets,Then their intersection</p>
-<p><span class="math display">\[
-\bigcap_{i=1}^N U_i \in \Tcal
-\]</span></p>
-<p>is open.</p></li>
-</ol>
+<!-- Chunk option settings -->
+<!-- Define chunk option `max.lines` -->
+<!-- controls max lines printed -->
+<p>This script provides an example of autocorrelated residuals.</p>
+<p><strong>Dataset description</strong></p>
+<p>US Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
+Source: Department of Commerce, BEA website and <a href="www.economagic.com">www.economagic.com</a></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feild Name</th>
+<th style="text-align: left;">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">Year</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">qtr</td>
+<td style="text-align: left;">Quarter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">realgdp</td>
+<td style="text-align: left;">Real GDP ($bil)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">realcons</td>
+<td style="text-align: left;">Real consumption expenditures</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">realinvs</td>
+<td style="text-align: left;">Real investment by private sector</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">realgovt</td>
+<td style="text-align: left;">Real government expenditures</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">realdpi</td>
+<td style="text-align: left;">Real disposable personal income</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cpi_u</td>
+<td style="text-align: left;">Consumer price index</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">M1</td>
+<td style="text-align: left;">Nominal money stock</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tbilrate</td>
+<td style="text-align: left;">Quarterly average of month end 90 day t bill rate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">unemp</td>
+<td style="text-align: left;">Unemployment rate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop</td>
+<td style="text-align: left;">Population, mil. interpolate of year end figures using constant growth rate per quarter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">infl</td>
+<td style="text-align: left;">Rate of inflation (First observation is missing)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">realint</td>
+<td style="text-align: left;">Ex post real interest rate = Tbilrate - Infl. (First observation is missing)</td>
+</tr>
+</tbody>
+</table>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/TableF5-2.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">delta_infl =</span> infl<span class="sc">-</span><span class="fu">lag</span>(infl))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options=</span><span class="st">"scale_down"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">"100%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">qtr</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realgdp</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realcons</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realinvs</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realgovt</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realdpi</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">cpi_u</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">M1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">tbilrate</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">unemp</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">pop</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">infl</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realint</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">delta_infl</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1610.5</td>
+<td style="text-align: right;">1058.9</td>
+<td style="text-align: right;">198.1</td>
+<td style="text-align: right;">361.0</td>
+<td style="text-align: right;">1186.1</td>
+<td style="text-align: right;">70.6</td>
+<td style="text-align: right;">110.20</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">6.4</td>
+<td style="text-align: right;">149.461</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1658.8</td>
+<td style="text-align: right;">1075.9</td>
+<td style="text-align: right;">220.4</td>
+<td style="text-align: right;">366.4</td>
+<td style="text-align: right;">1178.1</td>
+<td style="text-align: right;">71.4</td>
+<td style="text-align: right;">111.75</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">5.6</td>
+<td style="text-align: right;">150.260</td>
+<td style="text-align: right;">4.5071</td>
+<td style="text-align: right;">-3.3404</td>
+<td style="text-align: right;">4.5071</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1723.0</td>
+<td style="text-align: right;">1131.0</td>
+<td style="text-align: right;">239.7</td>
+<td style="text-align: right;">359.6</td>
+<td style="text-align: right;">1196.5</td>
+<td style="text-align: right;">73.2</td>
+<td style="text-align: right;">112.95</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">151.064</td>
+<td style="text-align: right;">9.9590</td>
+<td style="text-align: right;">-8.7290</td>
+<td style="text-align: right;">5.4519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1753.9</td>
+<td style="text-align: right;">1097.6</td>
+<td style="text-align: right;">271.8</td>
+<td style="text-align: right;">382.5</td>
+<td style="text-align: right;">1210.0</td>
+<td style="text-align: right;">74.9</td>
+<td style="text-align: right;">113.93</td>
+<td style="text-align: right;">1.35</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">151.871</td>
+<td style="text-align: right;">9.1834</td>
+<td style="text-align: right;">-7.8301</td>
+<td style="text-align: right;">-0.7756</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1951</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1773.5</td>
+<td style="text-align: right;">1122.8</td>
+<td style="text-align: right;">242.9</td>
+<td style="text-align: right;">421.9</td>
+<td style="text-align: right;">1207.9</td>
+<td style="text-align: right;">77.3</td>
+<td style="text-align: right;">115.08</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">152.393</td>
+<td style="text-align: right;">12.6160</td>
+<td style="text-align: right;">-11.2160</td>
+<td style="text-align: right;">3.4326</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1951</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1803.7</td>
+<td style="text-align: right;">1091.4</td>
+<td style="text-align: right;">249.2</td>
+<td style="text-align: right;">480.1</td>
+<td style="text-align: right;">1225.8</td>
+<td style="text-align: right;">77.6</td>
+<td style="text-align: right;">116.19</td>
+<td style="text-align: right;">1.53</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">152.917</td>
+<td style="text-align: right;">1.5494</td>
+<td style="text-align: right;">-0.0161</td>
+<td style="text-align: right;">-11.0666</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>The complement of an open set in <span class="math inline">\(X\)</span> is called a closed set, and <span class="math inline">\(\Tcal\)</span> is called a topology on <span class="math inline">\(X.\)</span></p>
-<p>A <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on a set <span class="math inline">\(X\)</span> is a collection of subsets of a set <span class="math inline">\(X\)</span> that contains <span class="math inline">\(\emptyset\)</span> and <span class="math inline">\(X\)</span>, and is closed under complements, finite unions, countable unions, and countable intersections.</p>
-<div id="def-sigma_algebra" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A <span class="math inline">\(\sigma\)</span>-algebra on a set <span class="math inline">\(X\)</span> is a collection <span class="math inline">\(\Acal\)</span> of subsets of a set <span class="math inline">\(X\)</span> such that:</p>
-<ol type="a">
-<li><span class="math inline">\(\emptyset, X \in \Acal;\)</span></li>
-<li>If <span class="math inline">\(A\in\Acal\)</span> then <span class="math inline">\(A^c\in\Acal;\)</span></li>
-<li>If <span class="math inline">\(A_i\in\Acal\)</span> then <span class="math display">\[
-\bigcup_{i=1}^\infty A_i \in \Acal, \quad \bigcap_{i=1}^\infty A_i \in \Acal.
-\]</span></li>
-</ol>
 </div>
-<div id="exm-sigma_algebra" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> If <span class="math inline">\(X\)</span> is a set, then <span class="math inline">\(\{\emptyset,X\}\)</span> and <span class="math inline">\(\Pcal(X)\)</span> are <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>; they are the smallest and largest <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>, respectively.</p>
 </div>
-<p>A measurable space <span class="math inline">\((X, \Acal)\)</span> is an non-empty set <span class="math inline">\(X\)</span> equipped with a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X.\)</span></p>
-<p>Difference between a measurable space and <span class="math inline">\(\sigma\)</span>-algebra:</p>
+<p><strong>Empirical model</strong></p>
+<p><span class="math display">\[
+\Delta I_t =  \beta_1 + \beta_2 u_t + \varepsilon_t
+\]</span> where</p>
 <ul>
-<li><p>The complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology <span class="math inline">\(\Tcal = \Pcal (X)\)</span></p></li>
-<li><p>Countable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open.</p></li>
+<li><span class="math inline">\(I_t\)</span> is the inflation rate; <span class="math inline">\(\Delta I_t = I_t - I_{t-1}\)</span> is the first difference of the inflation rate;</li>
+<li><span class="math inline">\(u_t\)</span> is the unemployment rate;</li>
+<li><span class="math inline">\(\varepsilon_t\)</span> is the error term.</li>
 </ul>
-<p>A <strong>measure</strong> <span class="math inline">\(\mu\)</span> is a countably additive, non-negative, extended real-valued function defined on a <span class="math inline">\(\sigma\)</span>-algebra.</p>
-<p>A <strong>measure space</strong> <span class="math inline">\((X, \Acal, \mu)\)</span> consist of a set <span class="math inline">\(X\)</span>, a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X\)</span>, and a measure <span class="math inline">\(\mu\)</span> defined on <span class="math inline">\(\Acal.\)</span> When <span class="math inline">\(\Acal\)</span> and <span class="math inline">\(\mu\)</span> are clear from the context, we will refer to the measure space <span class="math inline">\(X\)</span>.</p>
-<p>An abstract probability space <span class="math inline">\((\Omega, \Fcal, \P)\)</span></p>
+<p>We remove the first two quarters due to missing value in the first observation and the change in the rate of inflation.</p>
+<p>Regression result for OLS.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_phillips <span class="ot">&lt;-</span> <span class="fu">lm</span>(delta_infl <span class="sc">~</span> unemp, <span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="sc">-</span><span class="dv">2</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm_phillips, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"html"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Phillips Curve Regression"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes =</span> <span class="st">"&lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01 &lt;br&gt; Standard errors in parentheses."</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes.append =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Phillips Curve Regression</strong>
+</caption>
+<tbody><tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+delta_infl
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+unemp
+</td>
+<td>
+-0.090
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.126)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.492
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.740)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+202
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+2.822 (df = 200)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.513 (df = 1; 200)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variance-covariance matrix</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            (Intercept)       unemp
+(Intercept)  0.54830829 -0.08973175
+unemp       -0.08973175  0.01582211</code></pre>
+</div>
+</div>
+<p><strong>Autocorrelated residuals</strong></p>
+<p>Plot the residuals.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ar-res" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="AR_example_files/figure-html/fig-ar-res-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: Phillips Curve Deviations from Expected Inflation
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-ar-res" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows striking negative autocorrelation.</p>
+<p>Now we test the serial correlation of the residuals. <span class="math display">\[
+\varepsilon_t = \phi\varepsilon_{t-1} + e_t
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> <span class="fu">lm</span>(res_t <span class="sc">~</span> res_t1, <span class="at">data =</span> res)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = res_t ~ res_t1, data = res)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.8694 -1.4800  0.0718  1.4990  8.3258 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.02155    0.17854  -0.121    0.904    
+res_t1      -0.42630    0.06355  -6.708    2e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.531 on 199 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.1844,    Adjusted R-squared:  0.1803 
+F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
+</div>
+</div>
+<p>The regression of the least squares residuals on their past values gives a slope of -0.4263 with a highly significant <span class="math inline">\(t\)</span> ratio of -6.7078. We thus conclude that the residuals in this models are highly negatively autocorrelated.</p>
+<hr>
+<section id="references" class="level2 unlisted unnumbered">
+<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li><p><span class="math inline">\(\omega\in \Omega\)</span> is called an <em>outcome</em>;</p></li>
-<li><p><span class="math inline">\(A\in \Fcal\)</span> is called an <em>event</em>;</p></li>
-<li><p><span class="math inline">\(\P(A)\)</span> is called the <em>probability</em> of <span class="math inline">\(A.\)</span></p>
-<p><span class="math inline">\(\P(\Omega)=1\)</span> the sum of probability of all possible outcomes is 1.</p></li>
-</ul>
-<p>A random variable is any function <span class="math inline">\(X: \Omega \to \Xcal.\)</span> We say that <span class="math inline">\(X\)</span> has distribution <span class="math inline">\(P,\)</span> and write <span class="math inline">\(X\sim P\)</span>, if</p>
-<p><span class="math display">\[
-\P(X\in B) = \P(\{\omega: X(\omega)\in B\}) = \P(B)
-\]</span></p>
-<p>We say the real-valued random variable <span class="math inline">\(X\)</span> is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If <span class="math inline">\(X\)</span> is a random variable, then <span class="math inline">\(f(X)\)</span> is also a random variable for any function <span class="math inline">\(f\)</span>.</p>
-<p>The expectation of a random variable is defined as an integral with respect to <span class="math inline">\(\P\)</span>:</p>
-<p><span class="math display">\[
-\E[X] = \int X(\omega)\, \mathrm d \P(\omega),
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\E[f(X,Y)] = \int f(X(\omega), Y(\omega))\, \mathrm d \P(\omega).
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a measurable space <span class="math inline">\((X,\Acal)\)</span> is a function</p>
-<p><span class="math display">\[
-\mu: \Acal \to [0, \infty]
-\]</span></p>
-<p>such that</p>
-<ol type="1">
-<li><span class="math inline">\(\mu(\emptyset)=0;\)</span></li>
-<li>If <span class="math inline">\(\{A_i\in \Acal: i\in \N\}\)</span> is a countable disjoint collection of sets in <span class="math inline">\(\Acal,\)</span> then</li>
-</ol>
-<p><span class="math display">\[
-\mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a set <span class="math inline">\(X\)</span> is</p>
-<ul>
-<li><em>finite</em> if <span class="math inline">\(\mu(X)&lt;\infty,\)</span> and</li>
-<li><em><span class="math inline">\(\sigma\)</span>-finite</em> if <span class="math inline">\(X=\bigcup_{n=1}^\infty A_n\)</span> is a countable union of measurable sets <span class="math inline">\(A_n\)</span> with finite measure, <span class="math inline">\(\mu(A_n)&lt;\infty.\)</span></li>
-</ul>
-<p>References:</p>
-<ul>
-<li>J. K. Hunter (2011). <em>Measure Theory</em>. Department of Mathematics, University of California at Davis. <a href="https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf" class="uri">https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf</a></li>
+<li>Ex. 12.3, Chap 12 Serial Correlation, <em>Econometric Analysis</em>, Greene 5th Edition, pp 251.</li>
 </ul>
 
 
@@ -902,13 +1277,13 @@ X\times Y = \{(x,y): x\in X, y\in Y\}.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conditional_expectation.html" class="pagination-link" aria-label="Conditional Expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conditional Expectation</span></span>
+      <a href="./AR1.html" class="pagination-link" aria-label="AR(1)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./AR1.html" class="pagination-link" aria-label="AR(1)">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./lag_poly.html" class="pagination-link" aria-label="Lag polynomials">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

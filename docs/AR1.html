@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Measure Theory – Metrics Notes</title>
+<title>4&nbsp; AR(1) – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AR1.html" rel="next">
-<link href="./conditional_expectation.html" rel="prev">
+<link href="./AR_example.html" rel="next">
+<link href="./measure_theory.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -282,7 +282,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./measure_theory.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -327,7 +327,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link active">
+  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span></a>
   </div>
 </li>
@@ -342,7 +342,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR1.html" class="sidebar-item-text sidebar-link">
+  <a href="./AR1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span></a>
   </div>
 </li>
@@ -382,16 +382,22 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"><span class="header-section-number">3.1</span> Definitions</a></li>
+  <li><a href="#ar1-visualization" id="toc-ar1-visualization" class="nav-link active" data-scroll-target="#ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</a></li>
+  <li><a href="#mathematical-representation" id="toc-mathematical-representation" class="nav-link" data-scroll-target="#mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</a>
+  <ul class="collapse">
+  <li><a href="#expectation" id="toc-expectation" class="nav-link" data-scroll-target="#expectation"><span class="header-section-number">4.2.1</span> Expectation</a></li>
+  <li><a href="#autocovariance" id="toc-autocovariance" class="nav-link" data-scroll-target="#autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</a></li>
+  <li><a href="#autocorrelation" id="toc-autocorrelation" class="nav-link" data-scroll-target="#autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></h1>
 </div>
 
 
@@ -408,96 +414,148 @@ window.Quarto = {
 </header>
 
 
-<section id="definitions" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">3.1</span> Definitions</h2>
-<p>We denote the collection of subsets, or <strong>power set</strong>, of a set <span class="math inline">\(X\)</span> by <span class="math inline">\(\Pcal(X).\)</span></p>
-<p>The Cartesian product, or product, of sets <span class="math inline">\(X, Y\)</span> is the collection of all ordered pairs</p>
-<p><span class="math display">\[
-X\times Y = \{(x,y): x\in X, y\in Y\}.
-\]</span></p>
-<p>A <strong>topological space</strong> is a set equipped with a collection of open subsets that satisfies appropriate conditions.</p>
-<div id="def-topology" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1 (Topological Space)</strong></span> A topological space <span class="math inline">\((X, \Tcal)\)</span> is a set <span class="math inline">\(X\)</span> and a collection <span class="math inline">\(\Tcal \subset \Pcal(X)\)</span> of subsets of <span class="math inline">\(X,\)</span> called open sets, such that</p>
-<ol type="a">
-<li><p><span class="math inline">\(\emptyset, X \in \Tcal;\)</span></p></li>
-<li><p>If <span class="math inline">\(\{U_\alpha \in \Tcal: \alpha \in I \}\)</span> is an arbitrary collection of open sets, then their union</p>
-<p><span class="math display">\[
-\bigcup_{\alpha\in I} U_\alpha \in \Tcal
-\]</span></p>
-<p>is open;</p></li>
-<li><p>If <span class="math inline">\(\{U_i \in \Tcal: i=1,2,\dots,N \}\)</span> is a finite collection of open sets,Then their intersection</p>
-<p><span class="math display">\[
-\bigcap_{i=1}^N U_i \in \Tcal
-\]</span></p>
-<p>is open.</p></li>
-</ol>
+<p>Time series data often display autocorrelation, or serial correlation of the disturbances across periods.</p>
+<p>If you plot the residuals and observe that the effect of a given disturbance is carried, at least in part, across periods, then it is a strong signal of serial correlation. It’s like the disturbances exhibiting a sort of “memory” over time.</p>
+<hr>
+<section id="ar1-visualization" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</h2>
+<p>The first-order autoregressive process, denoted AR(1), is <span class="math display">\[
+\varepsilon_t = \rho \varepsilon_{t-1} + w_t
+\]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
 </div>
-<p>The complement of an open set in <span class="math inline">\(X\)</span> is called a closed set, and <span class="math inline">\(\Tcal\)</span> is called a topology on <span class="math inline">\(X.\)</span></p>
-<p>A <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on a set <span class="math inline">\(X\)</span> is a collection of subsets of a set <span class="math inline">\(X\)</span> that contains <span class="math inline">\(\emptyset\)</span> and <span class="math inline">\(X\)</span>, and is closed under complements, finite unions, countable unions, and countable intersections.</p>
-<div id="def-sigma_algebra" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A <span class="math inline">\(\sigma\)</span>-algebra on a set <span class="math inline">\(X\)</span> is a collection <span class="math inline">\(\Acal\)</span> of subsets of a set <span class="math inline">\(X\)</span> such that:</p>
-<ol type="a">
-<li><span class="math inline">\(\emptyset, X \in \Acal;\)</span></li>
-<li>If <span class="math inline">\(A\in\Acal\)</span> then <span class="math inline">\(A^c\in\Acal;\)</span></li>
-<li>If <span class="math inline">\(A_i\in\Acal\)</span> then <span class="math display">\[
-\bigcup_{i=1}^\infty A_i \in \Acal, \quad \bigcap_{i=1}^\infty A_i \in \Acal.
-\]</span></li>
-</ol>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\)</span>.
+</figcaption>
+</figure>
 </div>
-<div id="exm-sigma_algebra" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> If <span class="math inline">\(X\)</span> is a set, then <span class="math inline">\(\{\emptyset,X\}\)</span> and <span class="math inline">\(\Pcal(X)\)</span> are <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>; they are the smallest and largest <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>, respectively.</p>
 </div>
-<p>A measurable space <span class="math inline">\((X, \Acal)\)</span> is an non-empty set <span class="math inline">\(X\)</span> equipped with a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X.\)</span></p>
-<p>Difference between a measurable space and <span class="math inline">\(\sigma\)</span>-algebra:</p>
+</div>
+<p>To illustrate the behavior of the AR(1) process, <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> plots two simulated AR(1) processes. Each is generated using the white noise process et displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.</p>
+<p>The plot in <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(a) sets <span class="math inline">\(\rho=0.5\)</span> and the plot in <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(b) sets <span class="math inline">\(\rho=0.95\)</span>.</p>
+<p>Remarks</p>
 <ul>
-<li><p>The complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology <span class="math inline">\(\Tcal = \Pcal (X)\)</span></p></li>
-<li><p>Countable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open.</p></li>
+<li><a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(b) is more smooth than <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(a).</li>
+<li>The smoothing increases with <span class="math inline">\(\rho\)</span>.</li>
 </ul>
-<p>A <strong>measure</strong> <span class="math inline">\(\mu\)</span> is a countably additive, non-negative, extended real-valued function defined on a <span class="math inline">\(\sigma\)</span>-algebra.</p>
-<p>A <strong>measure space</strong> <span class="math inline">\((X, \Acal, \mu)\)</span> consist of a set <span class="math inline">\(X\)</span>, a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X\)</span>, and a measure <span class="math inline">\(\mu\)</span> defined on <span class="math inline">\(\Acal.\)</span> When <span class="math inline">\(\Acal\)</span> and <span class="math inline">\(\mu\)</span> are clear from the context, we will refer to the measure space <span class="math inline">\(X\)</span>.</p>
-<p>An abstract probability space <span class="math inline">\((\Omega, \Fcal, \P)\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inline">\(\rho\)</span>. (a) <span class="math inline">\(\rho=0.5\)</span>, (b) <span class="math inline">\(\rho=0.95\)</span>. Each is generated useing the white noise process <span class="math inline">\(w_t\)</span> displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>We have seen the cases when <span class="math inline">\(\rho\)</span> is positive, now let’s consider when <span class="math inline">\(\rho\)</span> is <strong>negative</strong>. <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.5\)</span>, and <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.95\,.\)</span></p>
+<p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#008B45FF"><em>autocorrelation functions</em></span> (ACFs).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: Simulated AR(1) processes with negtive <span class="math inline">\(\rho\)</span>. (a) <span class="math inline">\(\rho=-0.5\)</span>, (b) <span class="math inline">\(\rho=-0.95\)</span>. Each is generated useing the white noise process <span class="math inline">\(w_t\)</span> displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>Possible causes of serial correlation: Incomplete or flawed model specification. Relevant factors omitted from the time series regression are correlated across periods.</p>
+<hr>
+</section>
+<section id="mathematical-representation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</h2>
+<p>Let’s formulate an AR(1) model as follows:</p>
+<p><span id="eq-AR1"><span class="math display">\[
+\begin{align}
+\varepsilon_t = \rho \varepsilon_{t-1} + w_t
+\end{align}
+\tag{4.1}\]</span></span></p>
+<p>where <span class="math inline">\(w_t\)</span> is a white noise series with mean zero and variance <span class="math inline">\(\sigma^2_w\)</span>. We also assume <span class="math inline">\(|\rho|&lt;1\)</span>.</p>
+<p>We can represent the AR(1) model as a linear combination of the innovations <span class="math inline">\(w_t\)</span>.</p>
+<p>By iterating backwards <span class="math inline">\(k\)</span> times, we get</p>
+<p><span class="math display">\[
+\begin{aligned}
+\varepsilon_t &amp;= \rho \,\varepsilon_{t-1} + w_t \\
+&amp;= \rho\, (\rho \, \varepsilon_{t-2} + w_{t-1}) + w_t \\
+&amp;= \rho^2 \varepsilon_{t-2} + \rho w_{t-1} + w_t \\
+&amp;\quad \vdots \\
+&amp;= \rho^k \varepsilon_{t-k} + \sum_{j=0}^{k-1} \rho^j \,w_{t-j} \,.
+\end{aligned}
+\]</span> This suggests that, by continuing to iterate backward, and provided that <span class="math inline">\(|\rho|&lt;1\)</span> and <span class="math inline">\(\sup_t \text{Var}(\varepsilon_t)&lt;\infty\)</span>, we can represent <span class="math inline">\(\varepsilon_t\)</span> as a linear process given by</p>
+<p><span class="math display">\[
+\color{#EE0000FF}{\varepsilon_t = \sum_{j=0}^\infty \rho^j \,w_{t-j}} \,.
+\]</span></p>
+<hr>
+<section id="expectation" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="expectation"><span class="header-section-number">4.2.1</span> Expectation</h3>
+<p><span class="math inline">\(\varepsilon_t\)</span> is stationary with mean zero.</p>
+<p><span class="math display">\[
+E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
+\]</span></p>
+<hr>
+</section>
+<section id="autocovariance" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</h3>
+<p>The <span style="color:#008B45FF">autocovariance function</span> of the AR(1) process is <span class="math display">\[
+\begin{aligned}
+\gamma (h) &amp;= \text{Cov}(\varepsilon_{t+h}, \varepsilon_t) \\
+&amp;= E(\varepsilon_{t+h}, \varepsilon_t) \\
+&amp;= E\left[\left(\sum_{j=0}^\infty \rho^j \,w_{t+h-j}\right)  \left(\sum_{k=0}^\infty \rho^k \,w_{t-k}\right) \right] \\
+&amp;= \sum_{l=0}^{\infty} \rho^{h+l} \rho^l \sigma_w^2 \\
+&amp;= \sigma_w^2 \cdot \rho^{h} \cdot \sum_{l=0}^{\infty} \rho^{2l}  \\
+&amp;= \frac{\sigma_w^2 \cdot \rho^{h} }{1-\rho^2}, \quad h&gt;0 \,.
+\end{aligned}
+\]</span> When <span class="math inline">\(h=0\)</span>, <span class="math display">\[
+\gamma(0) = \frac{\sigma_w^2}{1-\rho^2}
+\]</span> is the <span style="color:#008B45FF">variance of the process</span> <span class="math inline">\(\text{Var}(\varepsilon_t)\)</span>.</p>
+<p>Note that</p>
 <ul>
-<li><p><span class="math inline">\(\omega\in \Omega\)</span> is called an <em>outcome</em>;</p></li>
-<li><p><span class="math inline">\(A\in \Fcal\)</span> is called an <em>event</em>;</p></li>
-<li><p><span class="math inline">\(\P(A)\)</span> is called the <em>probability</em> of <span class="math inline">\(A.\)</span></p>
-<p><span class="math inline">\(\P(\Omega)=1\)</span> the sum of probability of all possible outcomes is 1.</p></li>
+<li><span class="math inline">\(\gamma(0) \ge |\gamma (h)|\)</span> for all <span class="math inline">\(h\)</span>. Maximum value at 0 lag.</li>
+<li><span class="math inline">\(\gamma (h)\)</span> is symmetric, i.e., <span class="math inline">\(\gamma (-h) = \gamma (h)\)</span></li>
 </ul>
-<p>A random variable is any function <span class="math inline">\(X: \Omega \to \Xcal.\)</span> We say that <span class="math inline">\(X\)</span> has distribution <span class="math inline">\(P,\)</span> and write <span class="math inline">\(X\sim P\)</span>, if</p>
+<hr>
+</section>
+<section id="autocorrelation" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</h3>
+<p>The <span style="color:#008B45FF">autocorrelation function</span> (ACF) is given by</p>
 <p><span class="math display">\[
-\P(X\in B) = \P(\{\omega: X(\omega)\in B\}) = \P(B)
+\rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h,
+\]</span> which is simply the correlation between <span class="math inline">\(\varepsilon_{t+h}\)</span> and <span class="math inline">\(\varepsilon_{t}\,.\)</span></p>
+<p>Note that <span class="math inline">\(\rho(h)\)</span> satisfies the recursion <span class="math display">\[
+\rho(h) = \rho\cdot \rho(h-1) \,.
 \]</span></p>
-<p>We say the real-valued random variable <span class="math inline">\(X\)</span> is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If <span class="math inline">\(X\)</span> is a random variable, then <span class="math inline">\(f(X)\)</span> is also a random variable for any function <span class="math inline">\(f\)</span>.</p>
-<p>The expectation of a random variable is defined as an integral with respect to <span class="math inline">\(\P\)</span>:</p>
-<p><span class="math display">\[
-\E[X] = \int X(\omega)\, \mathrm d \P(\omega),
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\E[f(X,Y)] = \int f(X(\omega), Y(\omega))\, \mathrm d \P(\omega).
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a measurable space <span class="math inline">\((X,\Acal)\)</span> is a function</p>
-<p><span class="math display">\[
-\mu: \Acal \to [0, \infty]
-\]</span></p>
-<p>such that</p>
-<ol type="1">
-<li><span class="math inline">\(\mu(\emptyset)=0;\)</span></li>
-<li>If <span class="math inline">\(\{A_i\in \Acal: i\in \N\}\)</span> is a countable disjoint collection of sets in <span class="math inline">\(\Acal,\)</span> then</li>
-</ol>
-<p><span class="math display">\[
-\mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a set <span class="math inline">\(X\)</span> is</p>
 <ul>
-<li><em>finite</em> if <span class="math inline">\(\mu(X)&lt;\infty,\)</span> and</li>
-<li><em><span class="math inline">\(\sigma\)</span>-finite</em> if <span class="math inline">\(X=\bigcup_{n=1}^\infty A_n\)</span> is a countable union of measurable sets <span class="math inline">\(A_n\)</span> with finite measure, <span class="math inline">\(\mu(A_n)&lt;\infty.\)</span></li>
-</ul>
-<p>References:</p>
+<li>For <span class="math inline">\(\rho &gt;0\)</span>, <span class="math inline">\(\rho(h)=\rho^h&gt;0\)</span> observations close together are positively correlated with each other. The larger the <span class="math inline">\(\rho\)</span>, the larger the correlation.</li>
+<li>For <span class="math inline">\(\rho &lt;0\)</span>, the sign of the ACF <span class="math inline">\(\rho(h)=\rho^h\)</span> depends on the time interval.
 <ul>
-<li>J. K. Hunter (2011). <em>Measure Theory</em>. Department of Mathematics, University of California at Davis. <a href="https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf" class="uri">https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf</a></li>
+<li>When <span class="math inline">\(h\)</span> is even, <span class="math inline">\(\rho(h)\)</span> is positive;</li>
+<li>when <span class="math inline">\(h\)</span> is odd, <span class="math inline">\(\rho(h)\)</span> is negative.</li>
 </ul>
+This result means that observations at contiguous time points are negatively correlated, but observations two time points apart are positively correlated.
+<ul>
+<li>For example, if an observation, <span class="math inline">\(\varepsilon_t\)</span>, is positive, the next observation, <span class="math inline">\(\varepsilon_{t+1}\)</span>, is typically negative, and the next observation, <span class="math inline">\(\varepsilon_{t+2}\)</span>, is typically positive. Thus, in this case, the sample path is very choppy.</li>
+</ul></li>
+</ul>
+<p>Another interpretation of <span class="math inline">\(\rho(h)\)</span> is the optimal weight for scaling <span class="math inline">\(\varepsilon_t\)</span> into <span class="math inline">\(\varepsilon_{t+h}\)</span>, i.e., the weight, <span class="math inline">\(a\)</span>, that minimizes <span class="math inline">\(E[(\varepsilon_{t+h} - a\,\varepsilon_{t})^2]\,.\)</span></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -902,13 +960,13 @@ X\times Y = \{(x,y): x\in X, y\in Y\}.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conditional_expectation.html" class="pagination-link" aria-label="Conditional Expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conditional Expectation</span></span>
+      <a href="./measure_theory.html" class="pagination-link" aria-label="Measure Theory">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./AR1.html" class="pagination-link" aria-label="AR(1)">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./AR_example.html" class="pagination-link" aria-label="AR -- Example">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

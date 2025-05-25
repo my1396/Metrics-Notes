@@ -11,6 +11,12 @@ book:
     - probability_theory.qmd
     - conditional_expectation.qmd
     - measure_theory.qmd
+    - part: "Time Series"
+      chapters:
+        - AR1.qmd
+        - AR_example.qmd
+        - lag_poly.qmd
+        - AR-MA-representation.qmd
     - 01_Hetero_lm.qmd
 
 bibliography: metrics.bib

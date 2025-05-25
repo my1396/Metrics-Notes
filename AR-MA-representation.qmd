@@ -1,0 +1,125 @@
+---
+title: "AR(1) and Its MA representation"
+format: html
+---
+
+
+A first-order autoregressive process (AR(1)) satisfies the following stochastic difference equation:
+
+$$
+\begin{align}
+y_t &= c + \phi y_{t-1} + \varepsilon_t,  \quad \text{or} \\
+y_t - \phi y_{t-1} &= c + \varepsilon_t,  \quad \text{or} \\
+(1-\phi L) y_t &= c + \varepsilon_t,
+\end{align}
+$$ {#eq-AR1}
+where $\{\varepsilon_t\}$ is white noise.
+
+If $\phi\ne 1,$ let $\mu\equiv c/(1-\phi)$ and rewrite the equation as 
+
+$$
+\begin{align}
+(y_t-\mu) - \phi(y_{t-1}-\mu) &= \varepsilon_t \quad \text{or} \\
+(1-\phi L) (y_t-\mu) &= \varepsilon_t.
+\end{align}
+$$ {#eq-AR1-deviation-form}
+
+
+$\mu$ is the mean of $y_t$ if $y_t$ is covariance-stationary. For this reason, we call ([-@eq-AR1-deviation-form]) a deviation-from-the-mean form. Note that the moving average is on the successive values of $\{y_t\},$ not on $\{\varepsilon_t\}.$ The difference equation is called stochastic because of the presence of the random variable $\varepsilon_t.$
+
+
+We seek a covariance-stationary solution $\{y_t\}$ to this stochastic difference equation. The solution depends on whether $\abs{\phi}$ is less than, equal to, or greater than 1.
+
+
+Summing up:
+
+Case 1: $\abs{\phi}<1$
+
+The the AR(1) process is stationary and causal, i.e. allows us to write an AR(1) as an MA(1) using past values of $\varepsilon_t.$
+    
+Case 2: $\abs{\phi}>1$
+
+The AR(1) process is stationary but not causal. $y_t$ is correlated with future values of $\varepsilon_t.$ This is a feasible representation but it is unnatural.
+
+Case 3: $\abs{\phi}=1$
+
+We have a non-stationary process (called random walk when $\phi = 1$) and we say that this process has a unit root.
+
+
+## Case 1: $\abs{\phi}<1$
+
+The solution can be obtained easily by the use of the inverse $(1 - \phi L)^{-1}$. Since this filter is absolutely summable when $|\phi| < 1$, we can apply it to both sides of the AR(1) ([-@eq-AR1]) to obtain
+
+$$
+(1 - \phi L)^{-1}(1 - \phi L)(y_t - \mu) = (1 - \phi L)^{-1} \varepsilon_t.
+$$
+
+So
+
+$$
+y_t - \mu = (1 - \phi L)^{-1} \varepsilon_t = (1 + \phi L + \phi^2 L^2 + \cdots)\varepsilon_t = \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
+$$
+
+
+$$
+\text{or} \quad y_t = \mu + \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
+$$ {#eq-ma-infty}
+
+
+What we have shown is that, if $\{y_t\}$ is a covariance-stationary solution to the stochastic difference equation ([-@eq-AR1]) or ([-@eq-AR1-deviation-form]), then 
+$y_t$ has the \textbf{moving-average representation} as in ([-@eq-ma-infty]).
+Conversely, if $y_t$ has the representation ([-@eq-ma-infty]), then it satisfies the difference equation.
+
+The condition $\abs{\phi}<1,$ which is the stability condition associated with the first-degree polynomial equation $1-\phi z=0,$ is called the stationary condition in the context of autoregressive processes.
+
+
+## Case 2: $\abs{\phi}>1$
+
+By shifting time forward by one period (i.e., by replacing $t$ by $t+1$), multiplying both sides by $\phi^{-1}$, and rearranging, the stochastic difference equation ([-@eq-AR1-deviation-form]) can be written as
+
+$$
+y_t - \mu = \phi^{-1}(y_{t+1} - \mu) - \phi^{-1} \varepsilon_{t+1}. 
+$$
+Keep this substitution 
+
+$$
+y_t = \mu - \sum_{j=1}^{\infty} \phi^{-j} \varepsilon_{t+j}. 
+$$
+That is, \colorbox{yellow}{the current value of $y$ is a moving average of \textit{future} values of $\varepsilon$}. The infinite sum is well defined because the sequence $\{\phi^{-j}\}$ is absolutely summable if $|\phi| > 1$.
+
+
+## Case 3: $\abs{\phi}=1$
+
+The stochastic difference equation has no covariance-stationary solution. For example, if $\phi = 1$, the stochastic difference equation becomes
+
+
+$$
+\begin{aligned}
+y_t &= c + y_{t-1} + \varepsilon_t \\
+    &= c + (c + y_{t-2} + \varepsilon_{t-1}) + \varepsilon_t \quad \text{(since } y_{t-1} = c + y_{t-2} + \varepsilon_{t-1}) \\
+    &= c + (c + (c + y_{t-3} + \varepsilon_{t-2}) + \varepsilon_{t-1}) + \varepsilon_t, \quad \text{etc.}
+\end{aligned}
+$$
+
+Repeating this type of successive substitution $j$ times, we obtain
+
+$$
+y_t - y_{t-j} = c \cdot j + (\varepsilon_t + \varepsilon_{t-1}+ \varepsilon_{t-2} + \cdots + + \varepsilon_{t-j+1})
+$$
+If $\{\varepsilon_t\}$ is independent white noise, $\{y_t - y_{t-j}\}$ is a random walk with drift $c.$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
