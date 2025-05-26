@@ -24,9 +24,10 @@ bibliography: metrics.bib
 format:
   html:
     include-in-header: themes/mathjax.html
+    respect-user-color-scheme: true
     theme:
-      - cosmo
-      - brand
+      dark: [cosmo, themes/cosmo-dark.scss]
+      light: cosmo
 
 
 

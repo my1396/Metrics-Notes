@@ -80,11 +80,35 @@ By shifting time forward by one period (i.e., by replacing $t$ by $t+1$), multip
 $$
 y_t - \mu = \phi^{-1}(y_{t+1} - \mu) - \phi^{-1} \varepsilon_{t+1}. 
 $$
-Keep this substitution 
+Keep this substitution,
+
+$$
+y_{t+1} - \mu = \phi^{-1}(y_{t+2} - \mu) - \phi^{-1} \varepsilon_{t+2}
+$$
+then 
+
+$$
+y_t - \mu = \phi^{-2}(y_{t+2} - \mu) - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}. 
+$$
+Substituting $y_{t+2} - \mu = \phi^{-1}(y_{t+3} - \mu) - \phi^{-1} \varepsilon_{t+3}$,
+
+$$
+y_t - \mu = \phi^{-3}(y_{t+3} - \mu) - \phi^{-3}\varepsilon_{t+3} - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}. 
+$$
+By iterating $k$ times, we get
+
+$$
+\begin{aligned}
+y_t - \mu &= \phi^{-k}(y_{t+k} - \mu) - \phi^{-k}\varepsilon_{t+k}  - \phi^{-k+1}\varepsilon_{t+k-1} - \cdots - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1} \\
+&= \phi^{-k}(y_{t+k} - \mu) - \sum_{j=1}^k \phi^{-j}\varepsilon_{t+j}. 
+\end{aligned}
+$$
+As $k\to\infty$, $\phi^{-k}\to 0$, we have
 
 $$
 y_t = \mu - \sum_{j=1}^{\infty} \phi^{-j} \varepsilon_{t+j}. 
 $$
+
 That is, \colorbox{yellow}{the current value of $y$ is a moving average of \textit{future} values of $\varepsilon$}. The infinite sum is well defined because the sequence $\{\phi^{-j}\}$ is absolutely summable if $|\phi| > 1$.
 
 
@@ -109,6 +133,9 @@ $$
 If $\{\varepsilon_t\}$ is independent white noise, $\{y_t - y_{t-j}\}$ is a random walk with drift $c.$
 
 
+## References {.unlisted .unnumbered}
+
+- §6.2, F. Hayashi (2021), *Econometrics*, Princeton University Press, IBSN: 9780691010182.
 
 
 

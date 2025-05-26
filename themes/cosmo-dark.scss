@@ -1,0 +1,13 @@
+/*-- scss:defaults --*/
+// Base document colors
+$body-bg: #181818;
+$body-color: #ccc;
+$link-color: #75AADB;
+
+// Code blocks
+$code-block-bg-alpha: -.9;
+// code output
+pre code {
+    color: #ccc !important;
+}
+

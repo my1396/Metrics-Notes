@@ -37,7 +37,7 @@ $$
 $$ {#eq-convolution}
 
 
-The sequence $\{\delta_j\}$ created from this convuluted formula is called the convolution of $\{\alpha_j\}$ and $\{\beta_j\}.$
+The sequence $\{\delta_j\}$ created from this convoluted formula is called the convolution of $\{\alpha_j\}$ and $\{\beta_j\}.$
 
 For example, for $\alpha(L)=1+\alpha_1L$ and $\beta(L)=1+\beta_1L$, we have
 
