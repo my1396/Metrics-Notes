@@ -135,7 +135,7 @@ If $\{\varepsilon_t\}$ is independent white noise, $\{y_t - y_{t-j}\}$ is a rand
 
 ## References {.unlisted .unnumbered}
 
-- §6.2, F. Hayashi (2021), *Econometrics*, Princeton University Press, IBSN: 9780691010182.
+- §6.2, F. Hayashi (2021), Econometrics, Princeton University Press, IBSN: 9780691010182.
 
 
 
