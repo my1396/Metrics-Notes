@@ -235,6 +235,8 @@ ul.task-list li input[type="checkbox"] {
         independent: "\\mathrel{\\perp\\!\\!\\perp}",
 
         var: "\\mathrm{var}",
+        cov: "\\mathrm{Cov}",
+        cor: "\\mathrm{Corr}",
         diag: "\\mathrm{diag}",
         rank: "\\mathrm{rank}",
         vecc: "\\mathrm{vec}",
@@ -600,18 +602,18 @@ y_t - \phi y_{t-1} &amp;= c + \varepsilon_t,  \quad \text{or} \\
 (1-\phi L) (y_t-\mu) &amp;= \varepsilon_t.
 \end{align}
 \tag{7.2}\]</span></span></p>
-<p><span class="math inline">\(\mu\)</span> is the mean of <span class="math inline">\(y_t\)</span> if <span class="math inline">\(y_t\)</span> is covariance-stationary. For this reason, we call (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>7.2</span></a>) a deviation-from-the-mean form. Note that the moving average is on the successive values of <span class="math inline">\(\{y_t\},\)</span> not on <span class="math inline">\(\{\varepsilon_t\}.\)</span> The difference equation is called stochastic because of the presence of the random variable <span class="math inline">\(\varepsilon_t.\)</span></p>
+<p><span class="math inline">\(\mu\)</span> is the mean of <span class="math inline">\(y_t\)</span> if <span class="math inline">\(y_t\)</span> is covariance-stationary. For this reason, we call (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>7.2</span></a>) a <em>deviation-from-the-mean</em> form. Note that the moving average is on the successive values of <span class="math inline">\(\{y_t\},\)</span> not on <span class="math inline">\(\{\varepsilon_t\}.\)</span> The difference equation is called stochastic because of the presence of the random variable <span class="math inline">\(\varepsilon_t.\)</span></p>
 <p>We seek a covariance-stationary solution <span class="math inline">\(\{y_t\}\)</span> to this stochastic difference equation. The solution depends on whether <span class="math inline">\(\abs{\phi}\)</span> is less than, equal to, or greater than 1.</p>
 <p>Summing up:</p>
 <p>Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></p>
-<p>The the AR(1) process is stationary and causal, i.e.&nbsp;allows us to write an AR(1) as an MA(1) using past values of <span class="math inline">\(\varepsilon_t.\)</span></p>
+<p>The AR(1) process is stationary and causal, i.e., allows us to write an AR(1) as an MA(<span class="math inline">\(\infty\)</span>) using past values of <span class="math inline">\(\varepsilon_t.\)</span></p>
 <p>Case 2: <span class="math inline">\(\abs{\phi}&gt;1\)</span></p>
 <p>The AR(1) process is stationary but not causal. <span class="math inline">\(y_t\)</span> is correlated with future values of <span class="math inline">\(\varepsilon_t.\)</span> This is a feasible representation but it is unnatural.</p>
 <p>Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></p>
 <p>We have a non-stationary process (called random walk when <span class="math inline">\(\phi = 1\)</span>) and we say that this process has a unit root.</p>
 <section id="case-1-absphi1" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="case-1-absphi1"><span class="header-section-number">7.1</span> Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></h2>
-<p>The solution can be obtained easily by the use of the inverse <span class="math inline">\((1 - \phi L)^{-1}\)</span>. Since this filter is absolutely summable when <span class="math inline">\(|\phi| &lt; 1\)</span>, we can apply it to both sides of the AR(1) (<a href="#eq-AR1" class="quarto-xref"><span>7.1</span></a>) to obtain</p>
+<p>The solution can be obtained easily by the use of the inverse <span class="math inline">\((1 - \phi L)^{-1}\)</span>. Since this filter is absolutely summable when <span class="math inline">\(|\phi| &lt; 1\)</span>, we can apply it to both sides of the AR(1) (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>7.2</span></a>) to obtain</p>
 <p><span class="math display">\[
 (1 - \phi L)^{-1}(1 - \phi L)(y_t - \mu) = (1 - \phi L)^{-1} \varepsilon_t.
 \]</span></p>
@@ -622,7 +624,7 @@ y_t - \mu = (1 - \phi L)^{-1} \varepsilon_t = (1 + \phi L + \phi^2 L^2 + \cdots)
 <p><span id="eq-ma-infty"><span class="math display">\[
 \text{or} \quad y_t = \mu + \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
 \tag{7.3}\]</span></span></p>
-<p>What we have shown is that, if <span class="math inline">\(\{y_t\}\)</span> is a covariance-stationary solution to the stochastic difference equation (<a href="#eq-AR1" class="quarto-xref"><span>7.1</span></a>) or (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>7.2</span></a>), then <span class="math inline">\(y_t\)</span> has the as in (<a href="#eq-ma-infty" class="quarto-xref"><span>7.3</span></a>). Conversely, if <span class="math inline">\(y_t\)</span> has the representation (<a href="#eq-ma-infty" class="quarto-xref"><span>7.3</span></a>), then it satisfies the difference equation.</p>
+<p>What we have shown is that, if <span class="math inline">\(\{y_t\}\)</span> is a covariance-stationary solution to the stochastic difference equation (<a href="#eq-AR1" class="quarto-xref"><span>7.1</span></a>) or (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>7.2</span></a>), then <span class="math inline">\(y_t\)</span> has the <strong>moving-average representation</strong> as in (<a href="#eq-ma-infty" class="quarto-xref"><span>7.3</span></a>). Conversely, if <span class="math inline">\(y_t\)</span> has the representation (<a href="#eq-ma-infty" class="quarto-xref"><span>7.3</span></a>), then it satisfies the difference equation.</p>
 <p>The condition <span class="math inline">\(\abs{\phi}&lt;1,\)</span> which is the stability condition associated with the first-degree polynomial equation <span class="math inline">\(1-\phi z=0,\)</span> is called the stationary condition in the context of autoregressive processes.</p>
 </section>
 <section id="case-2-absphi1" class="level2" data-number="7.2">
@@ -636,10 +638,15 @@ y_{t+1} - \mu = \phi^{-1}(y_{t+2} - \mu) - \phi^{-1} \varepsilon_{t+2}
 \]</span> then</p>
 <p><span class="math display">\[
 y_t - \mu = \phi^{-2}(y_{t+2} - \mu) - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}.
-\]</span> Substituting <span class="math inline">\(y_{t+2} - \mu = \phi^{-1}(y_{t+3} - \mu) - \phi^{-1} \varepsilon_{t+3}\)</span>,</p>
+\]</span></p>
+<p>Substituting <span class="math inline">\((y_{t+2} - \mu)\)</span> for the corresponding next period equation:</p>
 <p><span class="math display">\[
-y_t - \mu = \phi^{-3}(y_{t+3} - \mu) - \phi^{-3}\varepsilon_{t+3} - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}.
-\]</span> By iterating <span class="math inline">\(k\)</span> times, we get</p>
+\begin{aligned}
+y_{t+2} - \mu &amp;= \phi^{-1}(y_{t+3} - \mu) - \phi^{-1} \varepsilon_{t+3}, \\
+y_t - \mu &amp;= \phi^{-3}(y_{t+3} - \mu) - \phi^{-3}\varepsilon_{t+3} - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}.  \\
+\end{aligned}
+\]</span></p>
+<p>Then likewise for <span class="math inline">\((y_{t+3} - \mu)\)</span> and so on. Iterating <span class="math inline">\(k\)</span> times, we get the following representation:</p>
 <p><span class="math display">\[
 \begin{aligned}
 y_t - \mu &amp;= \phi^{-k}(y_{t+k} - \mu) - \phi^{-k}\varepsilon_{t+k}  - \phi^{-k+1}\varepsilon_{t+k-1} - \cdots - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1} \\
@@ -649,7 +656,7 @@ y_t - \mu &amp;= \phi^{-k}(y_{t+k} - \mu) - \phi^{-k}\varepsilon_{t+k}  - \phi^{
 <p><span class="math display">\[
 y_t = \mu - \sum_{j=1}^{\infty} \phi^{-j} \varepsilon_{t+j}.
 \]</span></p>
-<p>That is, . The infinite sum is well defined because the sequence <span class="math inline">\(\{\phi^{-j}\}\)</span> is absolutely summable if <span class="math inline">\(|\phi| &gt; 1\)</span>.</p>
+<p>That is, the current value of <span class="math inline">\(y\)</span> is a moving average of <em>future</em> values of <span class="math inline">\(\varepsilon\)</span>. The infinite sum is well defined because the sequence <span class="math inline">\(\{\phi^{-j}\}\)</span> is absolutely summable if <span class="math inline">\(|\phi| &gt; 1\)</span>. This is a feasible representation but unnatural. Moreover, it is unstable as the initial condition should now be set into the future as for example <span class="math inline">\(y_T=0\)</span> as <span class="math inline">\(T\to\infty\)</span> which is not likely to be the case.</p>
 </section>
 <section id="case-3-absphi1" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="case-3-absphi1"><span class="header-section-number">7.3</span> Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></h2>
@@ -665,11 +672,12 @@ y_t &amp;= c + y_{t-1} + \varepsilon_t \\
 <p><span class="math display">\[
 y_t - y_{t-j} = c \cdot j + (\varepsilon_t + \varepsilon_{t-1}+ \varepsilon_{t-2} + \cdots + + \varepsilon_{t-j+1})
 \]</span> If <span class="math inline">\(\{\varepsilon_t\}\)</span> is independent white noise, <span class="math inline">\(\{y_t - y_{t-j}\}\)</span> is a random walk with drift <span class="math inline">\(c.\)</span></p>
+<p>Unit root processes are non-stationary not because of the presence of a linear deterministic trend but because they are driven by a stochastic trend which makes their variance time dependent and are called <em>Difference Stationary</em> processes as opposed to <em>Trend Stationary</em> processes.</p>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li>§6.2, F. Hayashi (2021), Econometrics, Princeton University Press, IBSN: 9780691010182.</li>
+<li>§6.2, F. Hayashi (2021), <em>Econometrics</em>, Princeton University Press, IBSN: 9780691010182.</li>
 </ul>
 
 
