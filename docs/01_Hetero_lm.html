@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Linear Models with Heterogeneous Coefficients – Metrics Notes</title>
+<title>10&nbsp; Linear Models with Heterogeneous Coefficients – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AR-MA-representation.html" rel="prev">
+<link href="./time-series-regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -474,7 +474,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_Hetero_lm.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_Hetero_lm.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -549,14 +549,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./phillips-curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./lag_poly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./AR-MA-representation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./time-series-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
       </ul>
@@ -564,7 +576,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_Hetero_lm.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
     </ul>
@@ -577,10 +589,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#linearity-and-heterogeneity" id="toc-linearity-and-heterogeneity" class="nav-link active" data-scroll-target="#linearity-and-heterogeneity"><span class="header-section-number">8.1</span> Linearity and Heterogeneity</a>
+  <li><a href="#linearity-and-heterogeneity" id="toc-linearity-and-heterogeneity" class="nav-link active" data-scroll-target="#linearity-and-heterogeneity"><span class="header-section-number">10.1</span> Linearity and Heterogeneity</a>
   <ul class="collapse">
-  <li><a href="#models-with-homogeneous-slopes" id="toc-models-with-homogeneous-slopes" class="nav-link" data-scroll-target="#models-with-homogeneous-slopes"><span class="header-section-number">8.1.1</span> Models with Homogeneous Slopes</a></li>
-  <li><a href="#heterogeneity-in-slopes." id="toc-heterogeneity-in-slopes." class="nav-link" data-scroll-target="#heterogeneity-in-slopes."><span class="header-section-number">8.1.2</span> Heterogeneity in Slopes.</a></li>
+  <li><a href="#models-with-homogeneous-slopes" id="toc-models-with-homogeneous-slopes" class="nav-link" data-scroll-target="#models-with-homogeneous-slopes"><span class="header-section-number">10.1.1</span> Models with Homogeneous Slopes</a></li>
+  <li><a href="#heterogeneity-in-slopes." id="toc-heterogeneity-in-slopes." class="nav-link" data-scroll-target="#heterogeneity-in-slopes."><span class="header-section-number">10.1.2</span> Heterogeneity in Slopes.</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -591,7 +603,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></h1>
 </div>
 
 
@@ -608,31 +620,31 @@ window.Quarto = {
 </header>
 
 
-<section id="linearity-and-heterogeneity" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="linearity-and-heterogeneity"><span class="header-section-number">8.1</span> Linearity and Heterogeneity</h2>
-<section id="models-with-homogeneous-slopes" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="models-with-homogeneous-slopes"><span class="header-section-number">8.1.1</span> Models with Homogeneous Slopes</h3>
+<section id="linearity-and-heterogeneity" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="linearity-and-heterogeneity"><span class="header-section-number">10.1</span> Linearity and Heterogeneity</h2>
+<section id="models-with-homogeneous-slopes" class="level3" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="models-with-homogeneous-slopes"><span class="header-section-number">10.1.1</span> Models with Homogeneous Slopes</h3>
 <p>We begin our journey where standard textbooks and first-year foundational courses in econometrics leave off. The “standard” linear models considered in such courses often assume homogeneity in individual responses to covariates (e.g., <span class="citation" data-cites="Hansen2022">Hansen (<a href="#ref-Hansen2022" role="doc-biblioref">2022</a>)</span>). A common cross-sectional specification is:</p>
 <p><span id="eq-standard_linear"><span class="math display">\[
 y_i = \bbeta'\bx_i + u_{i},
-\tag{8.1}\]</span></span> where <span class="math inline">\(i=1, \dots, N\)</span> indexes cross-sectional units.</p>
+\tag{10.1}\]</span></span> where <span class="math inline">\(i=1, \dots, N\)</span> indexes cross-sectional units.</p>
 <p>In panel data, models often include unit-specific <span class="math inline">\((i)\)</span> and time-specific <span class="math inline">\((t)\)</span> intercepts while maintaining a common slope vector <span class="math inline">\(\bbeta\)</span>:</p>
 <p><span id="eq-panel_linear"><span class="math display">\[
 y_{it} = \alpha_i + \delta_t +  \bbeta'\bx_{it} + u_{it}.
-\tag{8.2}\]</span></span></p>
+\tag{10.2}\]</span></span></p>
 </section>
-<section id="heterogeneity-in-slopes." class="level3" data-number="8.1.2">
-<h3 data-number="8.1.2" class="anchored" data-anchor-id="heterogeneity-in-slopes."><span class="header-section-number">8.1.2</span> Heterogeneity in Slopes.</h3>
+<section id="heterogeneity-in-slopes." class="level3" data-number="10.1.2">
+<h3 data-number="10.1.2" class="anchored" data-anchor-id="heterogeneity-in-slopes."><span class="header-section-number">10.1.2</span> Heterogeneity in Slopes.</h3>
 <p>However, modern economic theory rarely supports the assumption of homogeneous slopes <span class="math inline">\(\bbeta.\)</span> Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients:</p>
 <ol type="1">
-<li><p>Cross-sectional model (<a href="#eq-standard_linear" class="quarto-xref"><span>8.1</span></a>) generalizes to</p>
+<li><p>Cross-sectional model (<a href="#eq-standard_linear" class="quarto-xref"><span>10.1</span></a>) generalizes to</p>
 <p><span id="eq-cross_sectional_hetero"><span class="math display">\[
 y_i = \bbeta_{i}'\bx + u_i.
-\tag{8.3}\]</span></span></p></li>
-<li><p>Panel data model (<a href="#eq-panel_linear" class="quarto-xref"><span>8.2</span></a>) generalizes to</p>
+\tag{10.3}\]</span></span></p></li>
+<li><p>Panel data model (<a href="#eq-panel_linear" class="quarto-xref"><span>10.2</span></a>) generalizes to</p>
 <p><span id="eq-panel_hetero"><span class="math display">\[
 y_{it}  = \bbeta_{it}'\bx_{it} + u_{it}.
-\tag{8.4}\]</span></span></p></li>
+\tag{10.4}\]</span></span></p></li>
 </ol>
 <p>Such models are worth studying, as they naturally arise in a variety of contexts:</p>
 <ul>
@@ -1087,8 +1099,8 @@ Wooldridge, Jeffrey M. 2005. <span>“<span class="nocase">Fixed-effects and rel
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./AR-MA-representation.html" class="pagination-link" aria-label="AR(1) and Its MA representation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span>
+      <a href="./time-series-regression.html" class="pagination-link" aria-label="Time Series Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

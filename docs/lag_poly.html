@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Lag polynomials – Metrics Notes</title>
+<title>7&nbsp; Lag polynomials – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./AR-MA-representation.html" rel="next">
-<link href="./AR_example.html" rel="prev">
+<link href="./phillips-curve.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -455,7 +455,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -530,14 +530,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./phillips-curve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./lag_poly.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./AR-MA-representation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./time-series-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
       </ul>
@@ -545,7 +557,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
     </ul>
@@ -558,9 +570,9 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#product-of-filters" id="toc-product-of-filters" class="nav-link active" data-scroll-target="#product-of-filters"><span class="header-section-number">6.1</span> Product of Filters</a></li>
-  <li><a href="#inverses" id="toc-inverses" class="nav-link" data-scroll-target="#inverses"><span class="header-section-number">6.2</span> Inverses</a></li>
-  <li><a href="#stability-condition" id="toc-stability-condition" class="nav-link" data-scroll-target="#stability-condition"><span class="header-section-number">6.3</span> Stability Condition</a></li>
+  <li><a href="#product-of-filters" id="toc-product-of-filters" class="nav-link active" data-scroll-target="#product-of-filters"><span class="header-section-number">7.1</span> Product of Filters</a></li>
+  <li><a href="#inverses" id="toc-inverses" class="nav-link" data-scroll-target="#inverses"><span class="header-section-number">7.2</span> Inverses</a></li>
+  <li><a href="#stability-condition" id="toc-stability-condition" class="nav-link" data-scroll-target="#stability-condition"><span class="header-section-number">7.3</span> Stability Condition</a></li>
   </ul>
 </nav>
     </div>
@@ -568,9 +580,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lag polynomials</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></h1>
 </div>
 
 
@@ -599,8 +611,8 @@ window.Quarto = {
 &amp;= \sum_{j=0}^p \alpha_jx_{t-j}
 \end{aligned}
 \]</span></p>
-<section id="product-of-filters" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="product-of-filters"><span class="header-section-number">6.1</span> Product of Filters</h2>
+<section id="product-of-filters" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="product-of-filters"><span class="header-section-number">7.1</span> Product of Filters</h2>
 <p>Let <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}\)</span> be two arbitrary sequences of real numbers and define the sequence <span class="math inline">\(\{\delta_j\}\)</span> by the relation</p>
 <p><span id="eq-convolution"><span class="math display">\[
 \begin{gathered}
@@ -611,7 +623,7 @@ window.Quarto = {
 \delta_j = \alpha_0\beta_j + \alpha_1\beta_{j-1} + \alpha_2\beta_{j-2} + \cdots + \alpha_{j-1}\beta_{1} + \alpha_{j}\beta_{0}, \\
 \vdots \\
 \end{gathered}
-\tag{6.1}\]</span></span></p>
+\tag{7.1}\]</span></span></p>
 <p>The sequence <span class="math inline">\(\{\delta_j\}\)</span> created from this convoluted formula is called the convolution of <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}.\)</span></p>
 <p>For example, for <span class="math inline">\(\alpha(L)=1+\alpha_1L\)</span> and <span class="math inline">\(\beta(L)=1+\beta_1L\)</span>, we have</p>
 <p><span class="math display">\[
@@ -622,21 +634,21 @@ window.Quarto = {
 \alpha(L)\beta(L) = \beta(L)\alpha(L)
 \]</span></p>
 </section>
-<section id="inverses" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="inverses"><span class="header-section-number">6.2</span> Inverses</h2>
+<section id="inverses" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="inverses"><span class="header-section-number">7.2</span> Inverses</h2>
 <p>The inverse of <span class="math inline">\(\alpha(L)\)</span> is denoted as <span class="math inline">\(\alpha(L)^{-1}\)</span> or <span class="math inline">\(1/\alpha(L)\)</span>:</p>
 <p><span class="math display">\[
 \alpha(L)\alpha(L)^{-1}=1
 \]</span> Define a <span class="math inline">\(p\)</span>-th degree lag polynomial <span class="math inline">\(\phi(L)\)</span></p>
 <p><span id="eq-lag-ploy"><span class="math display">\[
 \phi(L) = 1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p.
-\tag{6.2}\]</span></span></p>
-<p><a href="#eq-lag-ploy" class="quarto-xref">Equation&nbsp;<span>6.2</span></a> is often used to construct AR processes.</p>
+\tag{7.2}\]</span></span></p>
+<p><a href="#eq-lag-ploy" class="quarto-xref">Equation&nbsp;<span>7.2</span></a> is often used to construct AR processes.</p>
 <p>Now let’s calculate its inverse, <span class="math inline">\(\psi(L) = \phi(L)^{-1}.\)</span></p>
 <p><span class="math display">\[
 \psi(L) = \psi_0 + \psi_1L + \psi_2L^2 + \cdots
 \]</span></p>
-<p>By the convolution formula (<a href="#eq-convolution" class="quarto-xref"><span>6.1</span></a>), we have</p>
+<p>By the convolution formula (<a href="#eq-convolution" class="quarto-xref"><span>7.1</span></a>), we have</p>
 <p><span class="math display">\[
 \begin{aligned}
 \text{constant}:&amp;\quad  \psi_0 =1 \\
@@ -649,7 +661,7 @@ L^{p+1}: &amp;\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \
 \end{aligned}
 \]</span></p>
 <div id="exm-inverse" class="theorem example">
-<p><span class="theorem-title"><strong>Example 6.1</strong></span> Consider a 1st degree lag polynomial <span class="math inline">\(\phi(L)=1-\phi L\)</span>, its inverse <span class="math inline">\(\psi(L)\)</span> can be calculated as</p>
+<p><span class="theorem-title"><strong>Example 7.1</strong></span> Consider a 1st degree lag polynomial <span class="math inline">\(\phi(L)=1-\phi L\)</span>, its inverse <span class="math inline">\(\psi(L)\)</span> can be calculated as</p>
 <p><span class="math display">\[
 \begin{aligned}
 \text{constant}: &amp;\quad \psi_0 =1  \\
@@ -661,8 +673,8 @@ L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
 \]</span> <span class="math inline">\(\psi(L) = 1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots.\)</span></p>
 </div>
 </section>
-<section id="stability-condition" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="stability-condition"><span class="header-section-number">6.3</span> Stability Condition</h2>
+<section id="stability-condition" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="stability-condition"><span class="header-section-number">7.3</span> Stability Condition</h2>
 <p>The solution sequence <span class="math inline">\(\{\psi_j\}\)</span> eventually starts declining at a geometric rate if the <strong>stability condition</strong> holds. The condition states:</p>
 <p>All the roots of the <span class="math inline">\(p\)</span>-th degree polynomial equation in <span class="math inline">\(z\)</span></p>
 <p><span class="math display">\[
@@ -1095,13 +1107,13 @@ L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./AR_example.html" class="pagination-link" aria-label="AR -- Example">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span>
+      <a href="./phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./AR-MA-representation.html" class="pagination-link" aria-label="AR(1) and Its MA representation">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

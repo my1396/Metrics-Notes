@@ -15,8 +15,10 @@ book:
       chapters:
         - AR1.qmd
         - AR_example.qmd
+        - phillips-curve.qmd
         - lag_poly.qmd
         - AR-MA-representation.qmd
+        - time-series-regression.qmd
     - 01_Hetero_lm.qmd
 
 bibliography: metrics.bib
@@ -28,6 +30,9 @@ format:
     theme:
       dark: [cosmo, themes/cosmo-dark.scss]
       light: cosmo
+crossref: 
+  cnj-title: "Assumption"
+  cnj-prefix: "Assumption"
 
 
 

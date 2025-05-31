@@ -1,0 +1,134 @@
+---
+title: "Time Series Regression"
+format: 
+    html:
+        include-in-header: themes/mathjax.html
+---
+
+## Classical assumptions for time series regressions
+
+
+:::{#cnj-1 name="Linear in Parameters"}
+The stochastic process $\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, n\}$ follows the linear model
+
+$$
+y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \cdots + + \beta_Kx_{tK} + u_t,
+$$
+
+where $\{u_t: t=1,2,\ldots, n\}$ is the sequence of errors or disturbances. Here $n$ is the number of observations (time periods).
+:::
+
+
+In the notation $x_{tj}$, $t$ denotes the time period, and $j$ is a label to indicate one of the $K$ explanatory variables.
+
+
+For example, a Finite Distributed Lag (FDL) model of order two 
+
+$$
+y_t = \alpha_0 + \delta_0 z_t + \delta_1 z_{t-1} + \delta_2 z_{t-2} + u_t,
+$$
+is obtained by setting $x_{t1}=z_t,$ $x_{t2}=z_{t-1},$ and $x_{t3}=z_{t-2}.$
+
+For the remaining assumptions, let $\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})$ denote the set of all independent variables at time $t.$ Further, $\bX$ denote the collection of all independent variables for all time periods. It is useful to think of $\bX$ as being an array, with $n$ rows and $k$ columns.
+
+
+$$
+\bX = \begin{bmatrix}
+\bx_1 \\
+\bx_2 \\
+\vdots \\
+\bx_n
+\end{bmatrix} 
+= \begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1K} \\
+x_{21} & x_{22} & \cdots & x_{2K} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \cdots & x_{nK} \\
+\end{bmatrix} 
+$$
+
+
+:::{#cnj-2 name="No Perfect Collinearity"}
+In the sample (and therefore in the underlying time series process), no independent variable is constant nor a perfect linear combination of the others. 
+:::
+
+@cnj-2 allows the explanatory variables to be correlated, but it rules out *perfect* correlation in the sample.
+
+
+:::{#cnj-3 name="Zero Conditional Mean"}
+For each $t$, the expected value of the error $u_t,$ given the explanatory variables for *all* time periods, is zero. Mathematically,
+
+$$
+\E(u_t\mid \bX) = 0,\, t=1,2,\ldots,n.
+$$
+:::
+
+@cnj-3 implies that the error at time $t$, $u_t,$ is uncorrelated with each explanatory in every time period. This is called the *strict exogeneity*. 
+
+A relaxed version is *contemporaneously exogenous*, which only requires $u_t$ to be uncorrelated with the explanatory variables dated at time $t:$ in conditional mean terms,
+
+$$
+\E(u_t\mid x_{t1}, x_{t2}, \ldots, x_{tK} ) = \E(u_t\mid \bx_t) = 0.
+$$
+
+
+:::{#cnj-4 name="Homoskedasticity"}
+Conditional on $\bX,$ the variance of $u_t$ is the same for all $t:$ $\var(u_t\mid \bX)=\var(u_t)=\sigma^2,$ $t=1,2,\ldots,n.$
+:::
+
+
+
+:::{#cnj-5 name="No Serial Correlation"}
+Conditional on $\bX,$ the errors in two different time periods are uncorrelated: $\cor(u_t, u_s\mid \bX)=0,$ for all $t\ne s.$
+:::
+
+--------------------------------------------------------------------------------
+
+Under Assumptions [-@cnj-1] through [-@cnj-3], the OLS estimators are unbiased:
+
+$$
+\E(\hat{\beta}_j\mid \bX) = \E(\hat{\beta}_j) = \beta_j, \, j=0,1,\ldots,K.
+$$
+
+--------------------------------------------------------------------------------
+
+Under Assumptions [-@cnj-1] through [-@cnj-5], the OLS estimators are the best linear unbiased estimators conditional on $\bX.$
+
+
+
+## Violations of Strict Exogeneity
+
+
+**Strict exogeneity** (@cnj-3) requires $u_t$ to be uncorrelated with $\bx_s$, for $s=1,2,\ldots,n.$
+
+If the unobservables at time $t$are correlated with any of the explanatory variables in any time period, then Zero Conditional Mean fails. Two leading candidates for failure are 
+
+- omitted variables and 
+- measurement error in some of the regressors.
+
+Other more subtle causes:
+
+- Lagged effects
+- Either the dependent variable of one of the independent variables is based on expectation.
+
+    For example, consider a static model to explain a city’s murder rate ($mrdrte_t$) in terms of police officers per capita ($polpc_t$):
+    
+$$
+mrdrte_t = \beta_0 + \beta_1\, polpc_t + u_t.
+$$
+Suppose that the city adjusts the size of its police force based on past values of the murder rate. This means that, say, $polpc_{t+1}$ might be correlated with $u_t$ (since a higher $u_t$ leads to a higher $mrdrte_t$). If this is the case, Zero Conditional Mean assumption is violated.
+
+There are similar considerations in distributed lag models. Usually, we do not worry that $u_t$ might be correlated with past $z$ because we are controlling for past $z$ in the model.
+But feedback from $u$ to future $z$ is always an issue.
+
+In the social sciences, many explanatory variables may very well violate the strict exogeneity assumption. For example, the amount of labor input might not be strictly exogenous, as it is chosen by the farmer, and the farmer may adjust the amount of labor based on last year's yield. Policy variables, such as growth in the money supply, expenditures on welfare, and highway speed limits, are often influenced by what has happened
+to the outcome variable in the past.
+
+
+# Violation of No Serial Correlation
+
+When @cnj-5 is false, we say that the error suffers from serial correlation, or autocorrelation, because they are correlated across time.
+
+
+
+
