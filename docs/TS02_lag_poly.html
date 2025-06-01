@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; AR(1) and Its MA representation – Metrics Notes</title>
+<title>7&nbsp; Lag polynomials – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./time-series-regression.html" rel="next">
-<link href="./lag_poly.html" rel="prev">
+<link href="./TS02_AR-MA-representation.html" rel="next">
+<link href="./TS01_phillips-curve.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -455,7 +455,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR-MA-representation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS02_lag_poly.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -518,48 +518,65 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR1.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR_example.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR_example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phillips-curve.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_phillips-curve.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lag_poly.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR-MA-representation.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+  <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Panel Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -570,9 +587,9 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#case-1-absphi1" id="toc-case-1-absphi1" class="nav-link active" data-scroll-target="#case-1-absphi1"><span class="header-section-number">8.1</span> Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></a></li>
-  <li><a href="#case-2-absphi1" id="toc-case-2-absphi1" class="nav-link" data-scroll-target="#case-2-absphi1"><span class="header-section-number">8.2</span> Case 2: <span class="math inline">\(\abs{\phi}&gt;1\)</span></a></li>
-  <li><a href="#case-3-absphi1" id="toc-case-3-absphi1" class="nav-link" data-scroll-target="#case-3-absphi1"><span class="header-section-number">8.3</span> Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></a></li>
+  <li><a href="#product-of-filters" id="toc-product-of-filters" class="nav-link active" data-scroll-target="#product-of-filters"><span class="header-section-number">7.1</span> Product of Filters</a></li>
+  <li><a href="#inverses" id="toc-inverses" class="nav-link" data-scroll-target="#inverses"><span class="header-section-number">7.2</span> Inverses</a></li>
+  <li><a href="#stability-condition" id="toc-stability-condition" class="nav-link" data-scroll-target="#stability-condition"><span class="header-section-number">7.3</span> Stability Condition</a></li>
   </ul>
 </nav>
     </div>
@@ -580,9 +597,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR-MA-representation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS02_lag_poly.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></h1>
 </div>
 
 
@@ -599,98 +616,95 @@ window.Quarto = {
 </header>
 
 
-<p>A first-order autoregressive process (AR(1)) satisfies the following stochastic difference equation:</p>
-<p><span id="eq-AR1"><span class="math display">\[
-\begin{align}
-y_t &amp;= c + \phi y_{t-1} + \varepsilon_t,  \quad \text{or} \\
-y_t - \phi y_{t-1} &amp;= c + \varepsilon_t,  \quad \text{or} \\
-(1-\phi L) y_t &amp;= c + \varepsilon_t,
-\end{align}
-\tag{8.1}\]</span></span> where <span class="math inline">\(\{\varepsilon_t\}\)</span> is white noise.</p>
-<p>If <span class="math inline">\(\phi\ne 1,\)</span> let <span class="math inline">\(\mu\equiv c/(1-\phi)\)</span> and rewrite the equation as</p>
-<p><span id="eq-AR1-deviation-form"><span class="math display">\[
-\begin{align}
-(y_t-\mu) - \phi(y_{t-1}-\mu) &amp;= \varepsilon_t \quad \text{or} \\
-(1-\phi L) (y_t-\mu) &amp;= \varepsilon_t.
-\end{align}
-\tag{8.2}\]</span></span></p>
-<p><span class="math inline">\(\mu\)</span> is the mean of <span class="math inline">\(y_t\)</span> if <span class="math inline">\(y_t\)</span> is covariance-stationary. For this reason, we call (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>) a <em>deviation-from-the-mean</em> form. Note that the moving average is on the successive values of <span class="math inline">\(\{y_t\},\)</span> not on <span class="math inline">\(\{\varepsilon_t\}.\)</span> The difference equation is called stochastic because of the presence of the random variable <span class="math inline">\(\varepsilon_t.\)</span></p>
-<p>We seek a covariance-stationary solution <span class="math inline">\(\{y_t\}\)</span> to this stochastic difference equation. The solution depends on whether <span class="math inline">\(\abs{\phi}\)</span> is less than, equal to, or greater than 1.</p>
-<p>Summing up:</p>
-<p>Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></p>
-<p>The AR(1) process is stationary and causal, i.e., allows us to write an AR(1) as an MA(<span class="math inline">\(\infty\)</span>) using past values of <span class="math inline">\(\varepsilon_t.\)</span></p>
-<p>Case 2: <span class="math inline">\(\abs{\phi}&gt;1\)</span></p>
-<p>The AR(1) process is stationary but not causal. <span class="math inline">\(y_t\)</span> is correlated with future values of <span class="math inline">\(\varepsilon_t.\)</span> This is a feasible representation but it is unnatural.</p>
-<p>Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></p>
-<p>We have a non-stationary process (called random walk when <span class="math inline">\(\phi = 1\)</span>) and we say that this process has a unit root.</p>
-<section id="case-1-absphi1" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="case-1-absphi1"><span class="header-section-number">8.1</span> Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></h2>
-<p>The solution can be obtained easily by the use of the inverse <span class="math inline">\((1 - \phi L)^{-1}\)</span>. Since this filter is absolutely summable when <span class="math inline">\(|\phi| &lt; 1\)</span>, we can apply it to both sides of the AR(1) (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>) to obtain</p>
+<p>A <span class="math inline">\(p\)</span>-th degree lag polynomial is given by:</p>
 <p><span class="math display">\[
-(1 - \phi L)^{-1}(1 - \phi L)(y_t - \mu) = (1 - \phi L)^{-1} \varepsilon_t.
-\]</span></p>
-<p>So</p>
-<p><span class="math display">\[
-y_t - \mu = (1 - \phi L)^{-1} \varepsilon_t = (1 + \phi L + \phi^2 L^2 + \cdots)\varepsilon_t = \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
-\]</span></p>
-<p><span id="eq-ma-infty"><span class="math display">\[
-\text{or} \quad y_t = \mu + \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
-\tag{8.3}\]</span></span></p>
-<p>What we have shown is that, if <span class="math inline">\(\{y_t\}\)</span> is a covariance-stationary solution to the stochastic difference equation (<a href="#eq-AR1" class="quarto-xref"><span>8.1</span></a>) or (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>), then <span class="math inline">\(y_t\)</span> has the <strong>moving-average representation</strong> as in (<a href="#eq-ma-infty" class="quarto-xref"><span>8.3</span></a>). Conversely, if <span class="math inline">\(y_t\)</span> has the representation (<a href="#eq-ma-infty" class="quarto-xref"><span>8.3</span></a>), then it satisfies the difference equation.</p>
-<p>The condition <span class="math inline">\(\abs{\phi}&lt;1,\)</span> which is the stability condition associated with the first-degree polynomial equation <span class="math inline">\(1-\phi z=0,\)</span> is called the stationary condition in the context of autoregressive processes.</p>
-</section>
-<section id="case-2-absphi1" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="case-2-absphi1"><span class="header-section-number">8.2</span> Case 2: <span class="math inline">\(\abs{\phi}&gt;1\)</span></h2>
-<p>By shifting time forward by one period (i.e., by replacing <span class="math inline">\(t\)</span> by <span class="math inline">\(t+1\)</span>), multiplying both sides by <span class="math inline">\(\phi^{-1}\)</span>, and rearranging, the stochastic difference equation (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>) can be written as</p>
-<p><span class="math display">\[
-y_t - \mu = \phi^{-1}(y_{t+1} - \mu) - \phi^{-1} \varepsilon_{t+1}.
-\]</span> Keep this substitution,</p>
-<p><span class="math display">\[
-y_{t+1} - \mu = \phi^{-1}(y_{t+2} - \mu) - \phi^{-1} \varepsilon_{t+2}
-\]</span> then</p>
-<p><span class="math display">\[
-y_t - \mu = \phi^{-2}(y_{t+2} - \mu) - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}.
-\]</span></p>
-<p>Substituting <span class="math inline">\((y_{t+2} - \mu)\)</span> for the corresponding next period equation:</p>
+\alpha(L) = \alpha_0 + \alpha_1L + \cdots + \alpha_pL^p,
+\]</span> where <span class="math inline">\(L\)</span> is the lag operator, defined by the relation <span class="math inline">\(L^jx_t=x_{t-j}.\)</span></p>
+<p>We define a filter given by <span class="math inline">\(\alpha(L)\)</span> to an input process <span class="math inline">\(\{x_t\}\)</span>, we get a weighted average of the current and <span class="math inline">\(p\)</span> most recent values of the process:</p>
 <p><span class="math display">\[
 \begin{aligned}
-y_{t+2} - \mu &amp;= \phi^{-1}(y_{t+3} - \mu) - \phi^{-1} \varepsilon_{t+3}, \\
-y_t - \mu &amp;= \phi^{-3}(y_{t+3} - \mu) - \phi^{-3}\varepsilon_{t+3} - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}.  \\
+\alpha(L)x_t &amp;= \alpha_0x_t + \alpha_1Lx_t + \alpha_2L^2x_t + \cdots + \alpha_pL^px_t \\
+&amp;= \alpha_0x_t + \alpha_1x_{t-1}+ \alpha_2x_{t-2} + \cdots + \alpha_px_{t-p} \\
+&amp;= \sum_{j=0}^p \alpha_jx_{t-j}
 \end{aligned}
 \]</span></p>
-<p>Then likewise for <span class="math inline">\((y_{t+3} - \mu)\)</span> and so on. Iterating <span class="math inline">\(k\)</span> times, we get the following representation:</p>
+<section id="product-of-filters" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="product-of-filters"><span class="header-section-number">7.1</span> Product of Filters</h2>
+<p>Let <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}\)</span> be two arbitrary sequences of real numbers and define the sequence <span class="math inline">\(\{\delta_j\}\)</span> by the relation</p>
+<p><span id="eq-convolution"><span class="math display">\[
+\begin{gathered}
+\delta_0 = \alpha_0\beta_0, \\
+\delta_1 = \alpha_0\beta_1 + \alpha_1\beta_0, \\
+\delta_2 = \alpha_0\beta_2 + \alpha_1\beta_1 + \alpha_2\beta_0, \\
+\vdots \\
+\delta_j = \alpha_0\beta_j + \alpha_1\beta_{j-1} + \alpha_2\beta_{j-2} + \cdots + \alpha_{j-1}\beta_{1} + \alpha_{j}\beta_{0}, \\
+\vdots \\
+\end{gathered}
+\tag{7.1}\]</span></span></p>
+<p>The sequence <span class="math inline">\(\{\delta_j\}\)</span> created from this convoluted formula is called the convolution of <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}.\)</span></p>
+<p>For example, for <span class="math inline">\(\alpha(L)=1+\alpha_1L\)</span> and <span class="math inline">\(\beta(L)=1+\beta_1L\)</span>, we have</p>
+<p><span class="math display">\[
+\delta(L)=(1+\alpha_1L)(1+\beta_1L) = 1+ (\alpha_1+\beta_1)L + \alpha_1\beta_1L^2.
+\]</span></p>
+<p>Filters are commutative:</p>
+<p><span class="math display">\[
+\alpha(L)\beta(L) = \beta(L)\alpha(L)
+\]</span></p>
+</section>
+<section id="inverses" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="inverses"><span class="header-section-number">7.2</span> Inverses</h2>
+<p>The inverse of <span class="math inline">\(\alpha(L)\)</span> is denoted as <span class="math inline">\(\alpha(L)^{-1}\)</span> or <span class="math inline">\(1/\alpha(L)\)</span>:</p>
+<p><span class="math display">\[
+\alpha(L)\alpha(L)^{-1}=1
+\]</span> Define a <span class="math inline">\(p\)</span>-th degree lag polynomial <span class="math inline">\(\phi(L)\)</span></p>
+<p><span id="eq-lag-ploy"><span class="math display">\[
+\phi(L) = 1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p.
+\tag{7.2}\]</span></span></p>
+<p><a href="#eq-lag-ploy" class="quarto-xref">Equation&nbsp;<span>7.2</span></a> is often used to construct AR processes.</p>
+<p>Now let’s calculate its inverse, <span class="math inline">\(\psi(L) = \phi(L)^{-1}.\)</span></p>
+<p><span class="math display">\[
+\psi(L) = \psi_0 + \psi_1L + \psi_2L^2 + \cdots
+\]</span></p>
+<p>By the convolution formula (<a href="#eq-convolution" class="quarto-xref"><span>7.1</span></a>), we have</p>
 <p><span class="math display">\[
 \begin{aligned}
-y_t - \mu &amp;= \phi^{-k}(y_{t+k} - \mu) - \phi^{-k}\varepsilon_{t+k}  - \phi^{-k+1}\varepsilon_{t+k-1} - \cdots - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1} \\
-&amp;= \phi^{-k}(y_{t+k} - \mu) - \sum_{j=1}^k \phi^{-j}\varepsilon_{t+j}.
+\text{constant}:&amp;\quad  \psi_0 =1 \\
+L: &amp;\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
+L^2: &amp;\quad  \psi_2-\psi_1\phi_1-\psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \phi_1^2 + \phi_2 \\
+\vdots \\
+L^p: &amp;\quad  \psi_p - \psi_{p-1}\phi_1 - \psi_{p-2}\phi_2 - \cdots - \psi_{1}\phi_{p-1} - \psi_{0}\phi_p = 0 \\
+L^{p+1}: &amp;\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \psi_{2}\phi_{p-1} - \psi_{1}\phi_p = 0 \\
+\vdots
 \end{aligned}
-\]</span> As <span class="math inline">\(k\to\infty\)</span>, <span class="math inline">\(\phi^{-k}\to 0\)</span>, we have</p>
-<p><span class="math display">\[
-y_t = \mu - \sum_{j=1}^{\infty} \phi^{-j} \varepsilon_{t+j}.
 \]</span></p>
-<p>That is, the current value of <span class="math inline">\(y\)</span> is a moving average of <em>future</em> values of <span class="math inline">\(\varepsilon\)</span>. The infinite sum is well defined because the sequence <span class="math inline">\(\{\phi^{-j}\}\)</span> is absolutely summable if <span class="math inline">\(|\phi| &gt; 1\)</span>. This is a feasible representation but unnatural. Moreover, it is unstable as the initial condition should now be set into the future as for example <span class="math inline">\(y_T=0\)</span> as <span class="math inline">\(T\to\infty\)</span> which is not likely to be the case.</p>
-</section>
-<section id="case-3-absphi1" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="case-3-absphi1"><span class="header-section-number">8.3</span> Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></h2>
-<p>The stochastic difference equation has no covariance-stationary solution. For example, if <span class="math inline">\(\phi = 1\)</span>, the stochastic difference equation becomes</p>
+<div id="exm-inverse" class="theorem example">
+<p><span class="theorem-title"><strong>Example 7.1</strong></span> Consider a 1st degree lag polynomial <span class="math inline">\(\phi(L)=1-\phi L\)</span>, its inverse <span class="math inline">\(\psi(L)\)</span> can be calculated as</p>
 <p><span class="math display">\[
 \begin{aligned}
-y_t &amp;= c + y_{t-1} + \varepsilon_t \\
-    &amp;= c + (c + y_{t-2} + \varepsilon_{t-1}) + \varepsilon_t \quad \text{(since } y_{t-1} = c + y_{t-2} + \varepsilon_{t-1}) \\
-    &amp;= c + (c + (c + y_{t-3} + \varepsilon_{t-2}) + \varepsilon_{t-1}) + \varepsilon_t, \quad \text{etc.}
+\text{constant}: &amp;\quad \psi_0 =1  \\
+L: &amp;\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
+L^2: &amp;\quad \psi_2 - \psi_1\phi = 0 \Longrightarrow \psi_2 = \phi^2 \\
+L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
+\vdots
 \end{aligned}
-\]</span></p>
-<p>Repeating this type of successive substitution <span class="math inline">\(j\)</span> times, we obtain</p>
-<p><span class="math display">\[
-y_t - y_{t-j} = c \cdot j + (\varepsilon_t + \varepsilon_{t-1}+ \varepsilon_{t-2} + \cdots + + \varepsilon_{t-j+1})
-\]</span> If <span class="math inline">\(\{\varepsilon_t\}\)</span> is independent white noise, <span class="math inline">\(\{y_t - y_{t-j}\}\)</span> is a random walk with drift <span class="math inline">\(c.\)</span></p>
-<p>Unit root processes are non-stationary not because of the presence of a linear deterministic trend but because they are driven by a stochastic trend which makes their variance time dependent and are called <em>Difference Stationary</em> processes as opposed to <em>Trend Stationary</em> processes.</p>
+\]</span> <span class="math inline">\(\psi(L) = 1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots.\)</span></p>
+</div>
 </section>
-<section id="references" class="level2 unlisted unnumbered">
-<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>§6.2, F. Hayashi (2021), <em>Econometrics</em>, Princeton University Press, IBSN: 9780691010182.</li>
-</ul>
+<section id="stability-condition" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="stability-condition"><span class="header-section-number">7.3</span> Stability Condition</h2>
+<p>The solution sequence <span class="math inline">\(\{\psi_j\}\)</span> eventually starts declining at a geometric rate if the <strong>stability condition</strong> holds. The condition states:</p>
+<p>All the roots of the <span class="math inline">\(p\)</span>-th degree polynomial equation in <span class="math inline">\(z\)</span></p>
+<p><span class="math display">\[
+\phi(z) = 0 \text{ where } \phi(z) \equiv 1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p
+\]</span> are greater than 1 in absolute value (lie <em>outside</em> the unit circle).</p>
+<p>Equivalently, we can consider the roots of the reciprocal polynomial defined as (basically this means inverting the order of the coefficients)</p>
+<p><span class="math display">\[
+\phi^*(z) = z^p\phi(z^{-1}) = z^p - \phi_1z^{p-1} - \dots - \phi_p.
+\]</span> The stability condition can be stated as:</p>
+<p>All the roots of</p>
+<p><span class="math display">\[
+\phi^*(z) \equiv z^p - \phi_1z^{p-1} - \dots - \phi_p =0
+\]</span> are less than 1 in the absolute value (i.e., lie <em>inside</em> the unit circle).</p>
 
 
 </section>
@@ -1110,13 +1124,13 @@ y_t - y_{t-j} = c \cdot j + (\varepsilon_t + \varepsilon_{t-1}+ \varepsilon_{t-2
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./lag_poly.html" class="pagination-link" aria-label="Lag polynomials">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span>
+      <a href="./TS01_phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./time-series-regression.html" class="pagination-link" aria-label="Time Series Regression">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS02_AR-MA-representation.html" class="pagination-link" aria-label="AR(1) and Its MA representation">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

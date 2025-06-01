@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Linear Models with Heterogeneous Coefficients – Metrics Notes</title>
+<title>8&nbsp; AR(1) and Its MA representation – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./time-series-regression.html" rel="prev">
+<link href="./TS03_finite-property.html" rel="next">
+<link href="./TS02_lag_poly.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -474,7 +455,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_Hetero_lm.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS02_AR-MA-representation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -537,48 +518,65 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR1.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR_example.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR_example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phillips-curve.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_phillips-curve.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lag_poly.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR-MA-representation.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+  <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Panel Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Hetero_lm.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -589,11 +587,9 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#linearity-and-heterogeneity" id="toc-linearity-and-heterogeneity" class="nav-link active" data-scroll-target="#linearity-and-heterogeneity"><span class="header-section-number">10.1</span> Linearity and Heterogeneity</a>
-  <ul class="collapse">
-  <li><a href="#models-with-homogeneous-slopes" id="toc-models-with-homogeneous-slopes" class="nav-link" data-scroll-target="#models-with-homogeneous-slopes"><span class="header-section-number">10.1.1</span> Models with Homogeneous Slopes</a></li>
-  <li><a href="#heterogeneity-in-slopes." id="toc-heterogeneity-in-slopes." class="nav-link" data-scroll-target="#heterogeneity-in-slopes."><span class="header-section-number">10.1.2</span> Heterogeneity in Slopes.</a></li>
-  </ul></li>
+  <li><a href="#case-1-absphi1" id="toc-case-1-absphi1" class="nav-link active" data-scroll-target="#case-1-absphi1"><span class="header-section-number">8.1</span> Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></a></li>
+  <li><a href="#case-2-absphi1" id="toc-case-2-absphi1" class="nav-link" data-scroll-target="#case-2-absphi1"><span class="header-section-number">8.2</span> Case 2: <span class="math inline">\(\abs{\phi}&gt;1\)</span></a></li>
+  <li><a href="#case-3-absphi1" id="toc-case-3-absphi1" class="nav-link" data-scroll-target="#case-3-absphi1"><span class="header-section-number">8.3</span> Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></a></li>
   </ul>
 </nav>
     </div>
@@ -601,9 +597,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS02_AR-MA-representation.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></h1>
 </div>
 
 
@@ -620,68 +616,100 @@ window.Quarto = {
 </header>
 
 
-<section id="linearity-and-heterogeneity" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="linearity-and-heterogeneity"><span class="header-section-number">10.1</span> Linearity and Heterogeneity</h2>
-<section id="models-with-homogeneous-slopes" class="level3" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="models-with-homogeneous-slopes"><span class="header-section-number">10.1.1</span> Models with Homogeneous Slopes</h3>
-<p>We begin our journey where standard textbooks and first-year foundational courses in econometrics leave off. The “standard” linear models considered in such courses often assume homogeneity in individual responses to covariates (e.g., <span class="citation" data-cites="Hansen2022">Hansen (<a href="#ref-Hansen2022" role="doc-biblioref">2022</a>)</span>). A common cross-sectional specification is:</p>
-<p><span id="eq-standard_linear"><span class="math display">\[
-y_i = \bbeta'\bx_i + u_{i},
-\tag{10.1}\]</span></span> where <span class="math inline">\(i=1, \dots, N\)</span> indexes cross-sectional units.</p>
-<p>In panel data, models often include unit-specific <span class="math inline">\((i)\)</span> and time-specific <span class="math inline">\((t)\)</span> intercepts while maintaining a common slope vector <span class="math inline">\(\bbeta\)</span>:</p>
-<p><span id="eq-panel_linear"><span class="math display">\[
-y_{it} = \alpha_i + \delta_t +  \bbeta'\bx_{it} + u_{it}.
-\tag{10.2}\]</span></span></p>
+<p>A first-order autoregressive process (AR(1)) satisfies the following stochastic difference equation:</p>
+<p><span id="eq-AR1"><span class="math display">\[
+\begin{align}
+y_t &amp;= c + \phi y_{t-1} + \varepsilon_t,  \quad \text{or} \\
+y_t - \phi y_{t-1} &amp;= c + \varepsilon_t,  \quad \text{or} \\
+(1-\phi L) y_t &amp;= c + \varepsilon_t,
+\end{align}
+\tag{8.1}\]</span></span> where <span class="math inline">\(\{\varepsilon_t\}\)</span> is white noise.</p>
+<p>If <span class="math inline">\(\phi\ne 1,\)</span> let <span class="math inline">\(\mu\equiv c/(1-\phi)\)</span> and rewrite the equation as</p>
+<p><span id="eq-AR1-deviation-form"><span class="math display">\[
+\begin{align}
+(y_t-\mu) - \phi(y_{t-1}-\mu) &amp;= \varepsilon_t \quad \text{or} \\
+(1-\phi L) (y_t-\mu) &amp;= \varepsilon_t.
+\end{align}
+\tag{8.2}\]</span></span></p>
+<p><span class="math inline">\(\mu\)</span> is the mean of <span class="math inline">\(y_t\)</span> if <span class="math inline">\(y_t\)</span> is covariance-stationary. For this reason, we call (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>) a <em>deviation-from-the-mean</em> form. Note that the moving average is on the successive values of <span class="math inline">\(\{y_t\},\)</span> not on <span class="math inline">\(\{\varepsilon_t\}.\)</span> The difference equation is called stochastic because of the presence of the random variable <span class="math inline">\(\varepsilon_t.\)</span></p>
+<p>We seek a covariance-stationary solution <span class="math inline">\(\{y_t\}\)</span> to this stochastic difference equation. The solution depends on whether <span class="math inline">\(\abs{\phi}\)</span> is less than, equal to, or greater than 1.</p>
+<p>Summing up:</p>
+<p>Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></p>
+<p>The AR(1) process is stationary and causal, i.e., allows us to write an AR(1) as an MA(<span class="math inline">\(\infty\)</span>) using past values of <span class="math inline">\(\varepsilon_t.\)</span></p>
+<p>Case 2: <span class="math inline">\(\abs{\phi}&gt;1\)</span></p>
+<p>The AR(1) process is stationary but not causal. <span class="math inline">\(y_t\)</span> is correlated with future values of <span class="math inline">\(\varepsilon_t.\)</span> This is a feasible representation but it is unnatural.</p>
+<p>Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></p>
+<p>We have a non-stationary process (called random walk when <span class="math inline">\(\phi = 1\)</span>) and we say that this process has a unit root.</p>
+<section id="case-1-absphi1" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="case-1-absphi1"><span class="header-section-number">8.1</span> Case 1: <span class="math inline">\(\abs{\phi}&lt;1\)</span></h2>
+<p>The solution can be obtained easily by the use of the inverse <span class="math inline">\((1 - \phi L)^{-1}\)</span>. Since this filter is absolutely summable when <span class="math inline">\(|\phi| &lt; 1\)</span>, we can apply it to both sides of the AR(1) (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>) to obtain</p>
+<p><span class="math display">\[
+(1 - \phi L)^{-1}(1 - \phi L)(y_t - \mu) = (1 - \phi L)^{-1} \varepsilon_t.
+\]</span></p>
+<p>So</p>
+<p><span class="math display">\[
+y_t - \mu = (1 - \phi L)^{-1} \varepsilon_t = (1 + \phi L + \phi^2 L^2 + \cdots)\varepsilon_t = \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
+\]</span></p>
+<p><span id="eq-ma-infty"><span class="math display">\[
+\text{or} \quad y_t = \mu + \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
+\tag{8.3}\]</span></span></p>
+<p>What we have shown is that, if <span class="math inline">\(\{y_t\}\)</span> is a covariance-stationary solution to the stochastic difference equation (<a href="#eq-AR1" class="quarto-xref"><span>8.1</span></a>) or (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>), then <span class="math inline">\(y_t\)</span> has the <strong>moving-average representation</strong> as in (<a href="#eq-ma-infty" class="quarto-xref"><span>8.3</span></a>). Conversely, if <span class="math inline">\(y_t\)</span> has the representation (<a href="#eq-ma-infty" class="quarto-xref"><span>8.3</span></a>), then it satisfies the difference equation.</p>
+<p>The condition <span class="math inline">\(\abs{\phi}&lt;1,\)</span> which is the stability condition associated with the first-degree polynomial equation <span class="math inline">\(1-\phi z=0,\)</span> is called the stationary condition in the context of autoregressive processes.</p>
 </section>
-<section id="heterogeneity-in-slopes." class="level3" data-number="10.1.2">
-<h3 data-number="10.1.2" class="anchored" data-anchor-id="heterogeneity-in-slopes."><span class="header-section-number">10.1.2</span> Heterogeneity in Slopes.</h3>
-<p>However, modern economic theory rarely supports the assumption of homogeneous slopes <span class="math inline">\(\bbeta.\)</span> Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients:</p>
-<ol type="1">
-<li><p>Cross-sectional model (<a href="#eq-standard_linear" class="quarto-xref"><span>10.1</span></a>) generalizes to</p>
-<p><span id="eq-cross_sectional_hetero"><span class="math display">\[
-y_i = \bbeta_{i}'\bx + u_i.
-\tag{10.3}\]</span></span></p></li>
-<li><p>Panel data model (<a href="#eq-panel_linear" class="quarto-xref"><span>10.2</span></a>) generalizes to</p>
-<p><span id="eq-panel_hetero"><span class="math display">\[
-y_{it}  = \bbeta_{it}'\bx_{it} + u_{it}.
-\tag{10.4}\]</span></span></p></li>
-</ol>
-<p>Such models are worth studying, as they naturally arise in a variety of contexts:</p>
-<ul>
-<li><p><strong>Structural models with parametric restrictions:</strong> Certain parametric restrictions yield linear relationships in coefficients. An example is given by firm-level Cobb-Douglas production functions where firm-specific productivity differences induce heterogeneous coefficients (<span class="citation" data-cites="Combes2012b">Combes et al. (<a href="#ref-Combes2012b" role="doc-biblioref">2012</a>)</span>; <span class="citation" data-cites="Sury2011">Sury (<a href="#ref-Sury2011" role="doc-biblioref">2011</a>)</span>).</p></li>
-<li><p><strong>Binary covariates and interaction terms</strong>: if all covariates are binary and all interactions are included, a linear model encodes all treatment effects without loss of generality (see, e.g., <span class="citation" data-cites="Wooldridge2005">Wooldridge (<a href="#ref-Wooldridge2005" role="doc-biblioref">2005</a>)</span>).</p></li>
-<li><p><strong>Log-linearized models:</strong> Nonlinear models may be approximated by linear models around a steady-state. For example, <span class="citation" data-cites="Heckman1998">Heckman and Vytlacil (<a href="#ref-Heckman1998" role="doc-biblioref">1998</a>)</span> demonstrate how the nonlinear <span class="citation" data-cites="Card2001">Card (<a href="#ref-Card2001" role="doc-biblioref">2001</a>)</span> education model simplifies to a heterogeneous linear specification after linearization.</p></li>
-</ul>
+<section id="case-2-absphi1" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="case-2-absphi1"><span class="header-section-number">8.2</span> Case 2: <span class="math inline">\(\abs{\phi}&gt;1\)</span></h2>
+<p>By shifting time forward by one period (i.e., by replacing <span class="math inline">\(t\)</span> by <span class="math inline">\(t+1\)</span>), multiplying both sides by <span class="math inline">\(\phi^{-1}\)</span>, and rearranging, the stochastic difference equation (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>8.2</span></a>) can be written as</p>
+<p><span class="math display">\[
+y_t - \mu = \phi^{-1}(y_{t+1} - \mu) - \phi^{-1} \varepsilon_{t+1}.
+\]</span> Keep this substitution,</p>
+<p><span class="math display">\[
+y_{t+1} - \mu = \phi^{-1}(y_{t+2} - \mu) - \phi^{-1} \varepsilon_{t+2}
+\]</span> then</p>
+<p><span class="math display">\[
+y_t - \mu = \phi^{-2}(y_{t+2} - \mu) - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}.
+\]</span></p>
+<p>Substituting <span class="math inline">\((y_{t+2} - \mu)\)</span> for the corresponding next period equation:</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_{t+2} - \mu &amp;= \phi^{-1}(y_{t+3} - \mu) - \phi^{-1} \varepsilon_{t+3}, \\
+y_t - \mu &amp;= \phi^{-3}(y_{t+3} - \mu) - \phi^{-3}\varepsilon_{t+3} - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1}.  \\
+\end{aligned}
+\]</span></p>
+<p>Then likewise for <span class="math inline">\((y_{t+3} - \mu)\)</span> and so on. Iterating <span class="math inline">\(k\)</span> times, we get the following representation:</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_t - \mu &amp;= \phi^{-k}(y_{t+k} - \mu) - \phi^{-k}\varepsilon_{t+k}  - \phi^{-k+1}\varepsilon_{t+k-1} - \cdots - \phi^{-2}\varepsilon_{t+2} - \phi^{-1} \varepsilon_{t+1} \\
+&amp;= \phi^{-k}(y_{t+k} - \mu) - \sum_{j=1}^k \phi^{-j}\varepsilon_{t+j}.
+\end{aligned}
+\]</span> As <span class="math inline">\(k\to\infty\)</span>, <span class="math inline">\(\phi^{-k}\to 0\)</span>, we have</p>
+<p><span class="math display">\[
+y_t = \mu - \sum_{j=1}^{\infty} \phi^{-j} \varepsilon_{t+j}.
+\]</span></p>
+<p>That is, the current value of <span class="math inline">\(y\)</span> is a moving average of <em>future</em> values of <span class="math inline">\(\varepsilon\)</span>. The infinite sum is well defined because the sequence <span class="math inline">\(\{\phi^{-j}\}\)</span> is absolutely summable if <span class="math inline">\(|\phi| &gt; 1\)</span>. This is a feasible representation but unnatural. Moreover, it is unstable as the initial condition should now be set into the future as for example <span class="math inline">\(y_T=0\)</span> as <span class="math inline">\(T\to\infty\)</span> which is not likely to be the case.</p>
 </section>
+<section id="case-3-absphi1" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="case-3-absphi1"><span class="header-section-number">8.3</span> Case 3: <span class="math inline">\(\abs{\phi}=1\)</span></h2>
+<p>The stochastic difference equation has no covariance-stationary solution. For example, if <span class="math inline">\(\phi = 1\)</span>, the stochastic difference equation becomes</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_t &amp;= c + y_{t-1} + \varepsilon_t \\
+    &amp;= c + (c + y_{t-2} + \varepsilon_{t-1}) + \varepsilon_t \quad \text{(since } y_{t-1} = c + y_{t-2} + \varepsilon_{t-1}) \\
+    &amp;= c + (c + (c + y_{t-3} + \varepsilon_{t-2}) + \varepsilon_{t-1}) + \varepsilon_t, \quad \text{etc.}
+\end{aligned}
+\]</span></p>
+<p>Repeating this type of successive substitution <span class="math inline">\(j\)</span> times, we obtain</p>
+<p><span class="math display">\[
+y_t - y_{t-j} = c \cdot j + (\varepsilon_t + \varepsilon_{t-1}+ \varepsilon_{t-2} + \cdots + + \varepsilon_{t-j+1})
+\]</span> If <span class="math inline">\(\{\varepsilon_t\}\)</span> is independent white noise, <span class="math inline">\(\{y_t - y_{t-j}\}\)</span> is a random walk with drift <span class="math inline">\(c.\)</span></p>
+<p>Unit root processes are non-stationary not because of the presence of a linear deterministic trend but because they are driven by a stochastic trend which makes their variance time dependent and are called <em>Difference Stationary</em> processes as opposed to <em>Trend Stationary</em> processes.</p>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li>Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <a href="https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html" class="uri">https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html</a></li>
-<li>Vladislav Morozov, GitHub course repository, <a href="https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd" class="uri">https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd</a></li>
+<li>§6.2, F. Hayashi (2021), <em>Econometrics</em>, Princeton University Press, IBSN: 9780691010182.</li>
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Card2001" class="csl-entry" role="listitem">
-Card, David. 2001. <span>“<span class="nocase">Estimating the Return to Schooling: Progress on Some Persistent Econometric Problems</span>.”</span> <em>Econometrica</em> 69 (5): 1127–60. <a href="https://doi.org/10.1111/1468-0262.00237">https://doi.org/10.1111/1468-0262.00237</a>.
-</div>
-<div id="ref-Combes2012b" class="csl-entry" role="listitem">
-Combes, Pierre Philippe, Gilles Duranton, Laurent Gobillon, Diego Puga, and Sébastien Roux. 2012. <span>“<span class="nocase">The Productivity Advantages of Large Cities: Distinguishing Agglomeration From Firm Selection</span>.”</span> <em>Econometrica</em> 80 (6): 2543–94. <a href="https://doi.org/10.3982/ecta8442">https://doi.org/10.3982/ecta8442</a>.
-</div>
-<div id="ref-Hansen2022" class="csl-entry" role="listitem">
-Hansen, Bruce. 2022. <em>Econometrics</em>. Princeton University Press.
-</div>
-<div id="ref-Heckman1998" class="csl-entry" role="listitem">
-Heckman, James, and Edward Vytlacil. 1998. <span>“<span class="nocase">Instrumental variables methods for the correlated random coefficient model</span>.”</span> <em>Journal of Human Resources</em> 33 (4): 974–87.
-</div>
-<div id="ref-Sury2011" class="csl-entry" role="listitem">
-Sury, Tavneet. 2011. <span>“<span class="nocase">Selection and Comparative Advantage in Technology Adoption</span>.”</span> <em>Econometrica</em> 79 (1): 159–209. <a href="https://doi.org/10.3982/ecta7749">https://doi.org/10.3982/ecta7749</a>.
-</div>
-<div id="ref-Wooldridge2005" class="csl-entry" role="listitem">
-Wooldridge, Jeffrey M. 2005. <span>“<span class="nocase">Fixed-effects and related estimators for correlated random-coefficient and treatment-effect panel data models</span>.”</span> <em>The Review of Economics and Statistics</em> 87 (May): 385–90.
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
@@ -1099,11 +1127,14 @@ Wooldridge, Jeffrey M. 2005. <span>“<span class="nocase">Fixed-effects and rel
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./time-series-regression.html" class="pagination-link" aria-label="Time Series Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span>
+      <a href="./TS02_lag_poly.html" class="pagination-link" aria-label="Lag polynomials">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./TS03_finite-property.html" class="pagination-link" aria-label="Finite Sample Properties of OLS">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

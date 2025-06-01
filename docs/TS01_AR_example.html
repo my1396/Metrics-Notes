@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; AR(1) – Metrics Notes</title>
+<title>5&nbsp; AR – Example – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AR_example.html" rel="next">
-<link href="./measure_theory.html" rel="prev">
+<link href="./TS01_phillips-curve.html" rel="next">
+<link href="./TS01_AR1.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -244,6 +279,8 @@ ul.task-list li input[type="checkbox"] {
     }
   };
 </script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -455,7 +492,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -518,75 +555,80 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR1.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS01_AR1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR_example.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR_example.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phillips-curve.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_phillips-curve.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lag_poly.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR-MA-representation.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+  <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Panel Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#ar1-visualization" id="toc-ar1-visualization" class="nav-link active" data-scroll-target="#ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</a></li>
-  <li><a href="#mathematical-representation" id="toc-mathematical-representation" class="nav-link" data-scroll-target="#mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</a>
-  <ul class="collapse">
-  <li><a href="#expectation" id="toc-expectation" class="nav-link" data-scroll-target="#expectation"><span class="header-section-number">4.2.1</span> Expectation</a></li>
-  <li><a href="#autocovariance" id="toc-autocovariance" class="nav-link" data-scroll-target="#autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</a></li>
-  <li><a href="#autocorrelation" id="toc-autocorrelation" class="nav-link" data-scroll-target="#autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></h1>
 </div>
 
 
@@ -603,148 +645,440 @@ window.Quarto = {
 </header>
 
 
-<p>Time series data often display autocorrelation, or serial correlation of the disturbances across periods.</p>
-<p>If you plot the residuals and observe that the effect of a given disturbance is carried, at least in part, across periods, then it is a strong signal of serial correlation. It’s like the disturbances exhibiting a sort of “memory” over time.</p>
-<hr>
-<section id="ar1-visualization" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</h2>
-<p>The first-order autoregressive process, denoted AR(1), is <span class="math display">\[
-\varepsilon_t = \rho \varepsilon_{t-1} + w_t
-\]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
+<!-- Chunk option settings -->
+<!-- Define chunk option `max.lines` -->
+<!-- controls max lines printed -->
+<p>This script provides an example of autocorrelated residuals.</p>
+<p><strong>Dataset description</strong></p>
+<p>US Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
+Source: Department of Commerce, BEA website and <a href="www.economagic.com">www.economagic.com</a></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 85%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Feild Name</th>
+<th style="text-align: left;">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">year</td>
+<td style="text-align: left;">Year</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">qtr</td>
+<td style="text-align: left;">Quarter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">realgdp</td>
+<td style="text-align: left;">Real GDP ($bil)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">realcons</td>
+<td style="text-align: left;">Real consumption expenditures</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">realinvs</td>
+<td style="text-align: left;">Real investment by private sector</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">realgovt</td>
+<td style="text-align: left;">Real government expenditures</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">realdpi</td>
+<td style="text-align: left;">Real disposable personal income</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cpi_u</td>
+<td style="text-align: left;">Consumer price index</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">M1</td>
+<td style="text-align: left;">Nominal money stock</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tbilrate</td>
+<td style="text-align: left;">Quarterly average of month end 90 day t bill rate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">unemp</td>
+<td style="text-align: left;">Unemployment rate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pop</td>
+<td style="text-align: left;">Population, mil. interpolate of year end figures using constant growth rate per quarter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">infl</td>
+<td style="text-align: left;">Rate of inflation (First observation is missing)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">realint</td>
+<td style="text-align: left;">Ex post real interest rate = Tbilrate - Infl. (First observation is missing)</td>
+</tr>
+</tbody>
+</table>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/TableF5-2.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">delta_infl =</span> infl<span class="sc">-</span><span class="fu">lag</span>(infl))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options=</span><span class="st">"scale_down"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">"100%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Year</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">qtr</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realgdp</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realcons</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realinvs</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realgovt</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realdpi</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">cpi_u</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">M1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">tbilrate</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">unemp</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">pop</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">infl</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">realint</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">delta_infl</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1610.5</td>
+<td style="text-align: right;">1058.9</td>
+<td style="text-align: right;">198.1</td>
+<td style="text-align: right;">361.0</td>
+<td style="text-align: right;">1186.1</td>
+<td style="text-align: right;">70.6</td>
+<td style="text-align: right;">110.20</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">6.4</td>
+<td style="text-align: right;">149.461</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1658.8</td>
+<td style="text-align: right;">1075.9</td>
+<td style="text-align: right;">220.4</td>
+<td style="text-align: right;">366.4</td>
+<td style="text-align: right;">1178.1</td>
+<td style="text-align: right;">71.4</td>
+<td style="text-align: right;">111.75</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">5.6</td>
+<td style="text-align: right;">150.260</td>
+<td style="text-align: right;">4.5071</td>
+<td style="text-align: right;">-3.3404</td>
+<td style="text-align: right;">4.5071</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1723.0</td>
+<td style="text-align: right;">1131.0</td>
+<td style="text-align: right;">239.7</td>
+<td style="text-align: right;">359.6</td>
+<td style="text-align: right;">1196.5</td>
+<td style="text-align: right;">73.2</td>
+<td style="text-align: right;">112.95</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">151.064</td>
+<td style="text-align: right;">9.9590</td>
+<td style="text-align: right;">-8.7290</td>
+<td style="text-align: right;">5.4519</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1950</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1753.9</td>
+<td style="text-align: right;">1097.6</td>
+<td style="text-align: right;">271.8</td>
+<td style="text-align: right;">382.5</td>
+<td style="text-align: right;">1210.0</td>
+<td style="text-align: right;">74.9</td>
+<td style="text-align: right;">113.93</td>
+<td style="text-align: right;">1.35</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">151.871</td>
+<td style="text-align: right;">9.1834</td>
+<td style="text-align: right;">-7.8301</td>
+<td style="text-align: right;">-0.7756</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1951</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1773.5</td>
+<td style="text-align: right;">1122.8</td>
+<td style="text-align: right;">242.9</td>
+<td style="text-align: right;">421.9</td>
+<td style="text-align: right;">1207.9</td>
+<td style="text-align: right;">77.3</td>
+<td style="text-align: right;">115.08</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">152.393</td>
+<td style="text-align: right;">12.6160</td>
+<td style="text-align: right;">-11.2160</td>
+<td style="text-align: right;">3.4326</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1951</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1803.7</td>
+<td style="text-align: right;">1091.4</td>
+<td style="text-align: right;">249.2</td>
+<td style="text-align: right;">480.1</td>
+<td style="text-align: right;">1225.8</td>
+<td style="text-align: right;">77.6</td>
+<td style="text-align: right;">116.19</td>
+<td style="text-align: right;">1.53</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">152.917</td>
+<td style="text-align: right;">1.5494</td>
+<td style="text-align: right;">-0.0161</td>
+<td style="text-align: right;">-11.0666</td>
+</tr>
+</tbody>
+</table>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\)</span>.
+</div>
+</div>
+<p><strong>Empirical model</strong></p>
+<p><span class="math display">\[
+\Delta I_t =  \beta_1 + \beta_2 u_t + \varepsilon_t
+\]</span> where</p>
+<ul>
+<li><span class="math inline">\(I_t\)</span> is the inflation rate; <span class="math inline">\(\Delta I_t = I_t - I_{t-1}\)</span> is the first difference of the inflation rate;</li>
+<li><span class="math inline">\(u_t\)</span> is the unemployment rate;</li>
+<li><span class="math inline">\(\varepsilon_t\)</span> is the error term.</li>
+</ul>
+<p>We remove the first two quarters due to missing value in the first observation and the change in the rate of inflation.</p>
+<p>Regression result for OLS.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_phillips <span class="ot">&lt;-</span> <span class="fu">lm</span>(delta_infl <span class="sc">~</span> unemp, <span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="sc">-</span><span class="dv">2</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm_phillips, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"html"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Phillips Curve Regression"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes =</span> <span class="st">"&lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01 &lt;br&gt; Standard errors in parentheses."</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes.append =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Phillips Curve Regression</strong>
+</caption>
+<tbody><tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+delta_infl
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+unemp
+</td>
+<td>
+-0.090
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.126)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.492
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.740)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+202
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+2.822 (df = 200)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.513 (df = 1; 200)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
+</td>
+</tr>
+</tbody></table>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variance-covariance matrix</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            (Intercept)       unemp
+(Intercept)  0.54830829 -0.08973175
+unemp       -0.08973175  0.01582211</code></pre>
+</div>
+</div>
+<p><strong>Autocorrelated residuals</strong></p>
+<p>Plot the residuals.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ar-res" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="TS01_AR_example_files/figure-html/fig-ar-res-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: Phillips Curve Deviations from Expected Inflation
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>To illustrate the behavior of the AR(1) process, <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> plots two simulated AR(1) processes. Each is generated using the white noise process et displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.</p>
-<p>The plot in <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(a) sets <span class="math inline">\(\rho=0.5\)</span> and the plot in <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(b) sets <span class="math inline">\(\rho=0.95\)</span>.</p>
-<p>Remarks</p>
-<ul>
-<li><a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(b) is more smooth than <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(a).</li>
-<li>The smoothing increases with <span class="math inline">\(\rho\)</span>.</li>
-</ul>
+<p><a href="#fig-ar-res" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows striking negative autocorrelation.</p>
+<p>Now we test the serial correlation of the residuals. <span class="math display">\[
+\varepsilon_t = \phi\varepsilon_{t-1} + e_t
+\]</span></p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> <span class="fu">lm</span>(res_t <span class="sc">~</span> res_t1, <span class="at">data =</span> res)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = res_t ~ res_t1, data = res)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.8694 -1.4800  0.0718  1.4990  8.3258 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.02155    0.17854  -0.121    0.904    
+res_t1      -0.42630    0.06355  -6.708    2e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.531 on 199 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.1844,    Adjusted R-squared:  0.1803 
+F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inline">\(\rho\)</span>. (a) <span class="math inline">\(\rho=0.5\)</span>, (b) <span class="math inline">\(\rho=0.95\)</span>. Each is generated useing the white noise process <span class="math inline">\(w_t\)</span> displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.
-</figcaption>
-</figure>
 </div>
-</div>
-</div>
+<p>The regression of the least squares residuals on their past values gives a slope of -0.4263 with a highly significant <span class="math inline">\(t\)</span> ratio of -6.7078. We thus conclude that the residuals in this models are highly negatively autocorrelated.</p>
 <hr>
-<p>We have seen the cases when <span class="math inline">\(\rho\)</span> is positive, now let’s consider when <span class="math inline">\(\rho\)</span> is <strong>negative</strong>. <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.5\)</span>, and <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.95\,.\)</span></p>
-<p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#008B45FF"><em>autocorrelation functions</em></span> (ACFs).</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4.3: Simulated AR(1) processes with negtive <span class="math inline">\(\rho\)</span>. (a) <span class="math inline">\(\rho=-0.5\)</span>, (b) <span class="math inline">\(\rho=-0.95\)</span>. Each is generated useing the white noise process <span class="math inline">\(w_t\)</span> displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<hr>
-<p>Possible causes of serial correlation: Incomplete or flawed model specification. Relevant factors omitted from the time series regression are correlated across periods.</p>
-<hr>
-</section>
-<section id="mathematical-representation" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</h2>
-<p>Let’s formulate an AR(1) model as follows:</p>
-<p><span id="eq-AR1"><span class="math display">\[
-\begin{align}
-\varepsilon_t = \rho \varepsilon_{t-1} + w_t
-\end{align}
-\tag{4.1}\]</span></span></p>
-<p>where <span class="math inline">\(w_t\)</span> is a white noise series with mean zero and variance <span class="math inline">\(\sigma^2_w\)</span>. We also assume <span class="math inline">\(|\rho|&lt;1\)</span>.</p>
-<p>We can represent the AR(1) model as a linear combination of the innovations <span class="math inline">\(w_t\)</span>.</p>
-<p>By iterating backwards <span class="math inline">\(k\)</span> times, we get</p>
-<p><span class="math display">\[
-\begin{aligned}
-\varepsilon_t &amp;= \rho \,\varepsilon_{t-1} + w_t \\
-&amp;= \rho\, (\rho \, \varepsilon_{t-2} + w_{t-1}) + w_t \\
-&amp;= \rho^2 \varepsilon_{t-2} + \rho w_{t-1} + w_t \\
-&amp;\quad \vdots \\
-&amp;= \rho^k \varepsilon_{t-k} + \sum_{j=0}^{k-1} \rho^j \,w_{t-j} \,.
-\end{aligned}
-\]</span> This suggests that, by continuing to iterate backward, and provided that <span class="math inline">\(|\rho|&lt;1\)</span> and <span class="math inline">\(\sup_t \text{Var}(\varepsilon_t)&lt;\infty\)</span>, we can represent <span class="math inline">\(\varepsilon_t\)</span> as a linear process given by</p>
-<p><span class="math display">\[
-\color{#EE0000FF}{\varepsilon_t = \sum_{j=0}^\infty \rho^j \,w_{t-j}} \,.
-\]</span></p>
-<hr>
-<section id="expectation" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="expectation"><span class="header-section-number">4.2.1</span> Expectation</h3>
-<p><span class="math inline">\(\varepsilon_t\)</span> is stationary with mean zero.</p>
-<p><span class="math display">\[
-E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
-\]</span></p>
-<hr>
-</section>
-<section id="autocovariance" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</h3>
-<p>The <span style="color:#008B45FF">autocovariance function</span> of the AR(1) process is <span class="math display">\[
-\begin{aligned}
-\gamma (h) &amp;= \text{Cov}(\varepsilon_{t+h}, \varepsilon_t) \\
-&amp;= E(\varepsilon_{t+h}, \varepsilon_t) \\
-&amp;= E\left[\left(\sum_{j=0}^\infty \rho^j \,w_{t+h-j}\right)  \left(\sum_{k=0}^\infty \rho^k \,w_{t-k}\right) \right] \\
-&amp;= \sum_{l=0}^{\infty} \rho^{h+l} \rho^l \sigma_w^2 \\
-&amp;= \sigma_w^2 \cdot \rho^{h} \cdot \sum_{l=0}^{\infty} \rho^{2l}  \\
-&amp;= \frac{\sigma_w^2 \cdot \rho^{h} }{1-\rho^2}, \quad h&gt;0 \,.
-\end{aligned}
-\]</span> When <span class="math inline">\(h=0\)</span>, <span class="math display">\[
-\gamma(0) = \frac{\sigma_w^2}{1-\rho^2}
-\]</span> is the <span style="color:#008B45FF">variance of the process</span> <span class="math inline">\(\text{Var}(\varepsilon_t)\)</span>.</p>
-<p>Note that</p>
+<section id="references" class="level2 unlisted unnumbered">
+<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li><span class="math inline">\(\gamma(0) \ge |\gamma (h)|\)</span> for all <span class="math inline">\(h\)</span>. Maximum value at 0 lag.</li>
-<li><span class="math inline">\(\gamma (h)\)</span> is symmetric, i.e., <span class="math inline">\(\gamma (-h) = \gamma (h)\)</span></li>
+<li>Ex. 12.3, Chap 12 Serial Correlation, <em>Econometric Analysis</em>, Greene 5th Edition, pp 251.</li>
 </ul>
-<hr>
-</section>
-<section id="autocorrelation" class="level3" data-number="4.2.3">
-<h3 data-number="4.2.3" class="anchored" data-anchor-id="autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</h3>
-<p>The <span style="color:#008B45FF">autocorrelation function</span> (ACF) is given by</p>
-<p><span class="math display">\[
-\rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h,
-\]</span> which is simply the correlation between <span class="math inline">\(\varepsilon_{t+h}\)</span> and <span class="math inline">\(\varepsilon_{t}\,.\)</span></p>
-<p>Note that <span class="math inline">\(\rho(h)\)</span> satisfies the recursion <span class="math display">\[
-\rho(h) = \rho\cdot \rho(h-1) \,.
-\]</span></p>
-<ul>
-<li>For <span class="math inline">\(\rho &gt;0\)</span>, <span class="math inline">\(\rho(h)=\rho^h&gt;0\)</span> observations close together are positively correlated with each other. The larger the <span class="math inline">\(\rho\)</span>, the larger the correlation.</li>
-<li>For <span class="math inline">\(\rho &lt;0\)</span>, the sign of the ACF <span class="math inline">\(\rho(h)=\rho^h\)</span> depends on the time interval.
-<ul>
-<li>When <span class="math inline">\(h\)</span> is even, <span class="math inline">\(\rho(h)\)</span> is positive;</li>
-<li>when <span class="math inline">\(h\)</span> is odd, <span class="math inline">\(\rho(h)\)</span> is negative.</li>
-</ul>
-This result means that observations at contiguous time points are negatively correlated, but observations two time points apart are positively correlated.
-<ul>
-<li>For example, if an observation, <span class="math inline">\(\varepsilon_t\)</span>, is positive, the next observation, <span class="math inline">\(\varepsilon_{t+1}\)</span>, is typically negative, and the next observation, <span class="math inline">\(\varepsilon_{t+2}\)</span>, is typically positive. Thus, in this case, the sample path is very choppy.</li>
-</ul></li>
-</ul>
-<p>Another interpretation of <span class="math inline">\(\rho(h)\)</span> is the optimal weight for scaling <span class="math inline">\(\varepsilon_t\)</span> into <span class="math inline">\(\varepsilon_{t+h}\)</span>, i.e., the weight, <span class="math inline">\(a\)</span>, that minimizes <span class="math inline">\(E[(\varepsilon_{t+h} - a\,\varepsilon_{t})^2]\,.\)</span></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1162,13 +1496,13 @@ This result means that observations at contiguous time points are negatively cor
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./measure_theory.html" class="pagination-link" aria-label="Measure Theory">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span>
+      <a href="./TS01_AR1.html" class="pagination-link" aria-label="AR(1)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./AR_example.html" class="pagination-link" aria-label="AR -- Example">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS01_phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

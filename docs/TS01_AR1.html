@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Lag polynomials – Metrics Notes</title>
+<title>4&nbsp; AR(1) – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./AR-MA-representation.html" rel="next">
-<link href="./phillips-curve.html" rel="prev">
+<link href="./TS01_AR_example.html" rel="next">
+<link href="./measure_theory.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -455,7 +455,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_AR1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -518,48 +518,65 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR1.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR1.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR_example.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR_example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phillips-curve.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_phillips-curve.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lag_poly.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR-MA-representation.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+  <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Panel Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -570,9 +587,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#product-of-filters" id="toc-product-of-filters" class="nav-link active" data-scroll-target="#product-of-filters"><span class="header-section-number">7.1</span> Product of Filters</a></li>
-  <li><a href="#inverses" id="toc-inverses" class="nav-link" data-scroll-target="#inverses"><span class="header-section-number">7.2</span> Inverses</a></li>
-  <li><a href="#stability-condition" id="toc-stability-condition" class="nav-link" data-scroll-target="#stability-condition"><span class="header-section-number">7.3</span> Stability Condition</a></li>
+  <li><a href="#ar1-visualization" id="toc-ar1-visualization" class="nav-link active" data-scroll-target="#ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</a></li>
+  <li><a href="#mathematical-representation" id="toc-mathematical-representation" class="nav-link" data-scroll-target="#mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</a>
+  <ul class="collapse">
+  <li><a href="#expectation" id="toc-expectation" class="nav-link" data-scroll-target="#expectation"><span class="header-section-number">4.2.1</span> Expectation</a></li>
+  <li><a href="#autocovariance" id="toc-autocovariance" class="nav-link" data-scroll-target="#autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</a></li>
+  <li><a href="#autocorrelation" id="toc-autocorrelation" class="nav-link" data-scroll-target="#autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -580,9 +601,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./lag_poly.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_AR1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></h1>
 </div>
 
 
@@ -599,97 +620,148 @@ window.Quarto = {
 </header>
 
 
-<p>A <span class="math inline">\(p\)</span>-th degree lag polynomial is given by:</p>
-<p><span class="math display">\[
-\alpha(L) = \alpha_0 + \alpha_1L + \cdots + \alpha_pL^p,
-\]</span> where <span class="math inline">\(L\)</span> is the lag operator, defined by the relation <span class="math inline">\(L^jx_t=x_{t-j}.\)</span></p>
-<p>We define a filter given by <span class="math inline">\(\alpha(L)\)</span> to an input process <span class="math inline">\(\{x_t\}\)</span>, we get a weighted average of the current and <span class="math inline">\(p\)</span> most recent values of the process:</p>
-<p><span class="math display">\[
-\begin{aligned}
-\alpha(L)x_t &amp;= \alpha_0x_t + \alpha_1Lx_t + \alpha_2L^2x_t + \cdots + \alpha_pL^px_t \\
-&amp;= \alpha_0x_t + \alpha_1x_{t-1}+ \alpha_2x_{t-2} + \cdots + \alpha_px_{t-p} \\
-&amp;= \sum_{j=0}^p \alpha_jx_{t-j}
-\end{aligned}
-\]</span></p>
-<section id="product-of-filters" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="product-of-filters"><span class="header-section-number">7.1</span> Product of Filters</h2>
-<p>Let <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}\)</span> be two arbitrary sequences of real numbers and define the sequence <span class="math inline">\(\{\delta_j\}\)</span> by the relation</p>
-<p><span id="eq-convolution"><span class="math display">\[
-\begin{gathered}
-\delta_0 = \alpha_0\beta_0, \\
-\delta_1 = \alpha_0\beta_1 + \alpha_1\beta_0, \\
-\delta_2 = \alpha_0\beta_2 + \alpha_1\beta_1 + \alpha_2\beta_0, \\
-\vdots \\
-\delta_j = \alpha_0\beta_j + \alpha_1\beta_{j-1} + \alpha_2\beta_{j-2} + \cdots + \alpha_{j-1}\beta_{1} + \alpha_{j}\beta_{0}, \\
-\vdots \\
-\end{gathered}
-\tag{7.1}\]</span></span></p>
-<p>The sequence <span class="math inline">\(\{\delta_j\}\)</span> created from this convoluted formula is called the convolution of <span class="math inline">\(\{\alpha_j\}\)</span> and <span class="math inline">\(\{\beta_j\}.\)</span></p>
-<p>For example, for <span class="math inline">\(\alpha(L)=1+\alpha_1L\)</span> and <span class="math inline">\(\beta(L)=1+\beta_1L\)</span>, we have</p>
-<p><span class="math display">\[
-\delta(L)=(1+\alpha_1L)(1+\beta_1L) = 1+ (\alpha_1+\beta_1)L + \alpha_1\beta_1L^2.
-\]</span></p>
-<p>Filters are commutative:</p>
-<p><span class="math display">\[
-\alpha(L)\beta(L) = \beta(L)\alpha(L)
-\]</span></p>
-</section>
-<section id="inverses" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="inverses"><span class="header-section-number">7.2</span> Inverses</h2>
-<p>The inverse of <span class="math inline">\(\alpha(L)\)</span> is denoted as <span class="math inline">\(\alpha(L)^{-1}\)</span> or <span class="math inline">\(1/\alpha(L)\)</span>:</p>
-<p><span class="math display">\[
-\alpha(L)\alpha(L)^{-1}=1
-\]</span> Define a <span class="math inline">\(p\)</span>-th degree lag polynomial <span class="math inline">\(\phi(L)\)</span></p>
-<p><span id="eq-lag-ploy"><span class="math display">\[
-\phi(L) = 1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p.
-\tag{7.2}\]</span></span></p>
-<p><a href="#eq-lag-ploy" class="quarto-xref">Equation&nbsp;<span>7.2</span></a> is often used to construct AR processes.</p>
-<p>Now let’s calculate its inverse, <span class="math inline">\(\psi(L) = \phi(L)^{-1}.\)</span></p>
-<p><span class="math display">\[
-\psi(L) = \psi_0 + \psi_1L + \psi_2L^2 + \cdots
-\]</span></p>
-<p>By the convolution formula (<a href="#eq-convolution" class="quarto-xref"><span>7.1</span></a>), we have</p>
-<p><span class="math display">\[
-\begin{aligned}
-\text{constant}:&amp;\quad  \psi_0 =1 \\
-L: &amp;\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
-L^2: &amp;\quad  \psi_2-\psi_1\phi_1-\psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \phi_1^2 + \phi_2 \\
-\vdots \\
-L^p: &amp;\quad  \psi_p - \psi_{p-1}\phi_1 - \psi_{p-2}\phi_2 - \cdots - \psi_{1}\phi_{p-1} - \psi_{0}\phi_p = 0 \\
-L^{p+1}: &amp;\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \psi_{2}\phi_{p-1} - \psi_{1}\phi_p = 0 \\
-\vdots
-\end{aligned}
-\]</span></p>
-<div id="exm-inverse" class="theorem example">
-<p><span class="theorem-title"><strong>Example 7.1</strong></span> Consider a 1st degree lag polynomial <span class="math inline">\(\phi(L)=1-\phi L\)</span>, its inverse <span class="math inline">\(\psi(L)\)</span> can be calculated as</p>
-<p><span class="math display">\[
-\begin{aligned}
-\text{constant}: &amp;\quad \psi_0 =1  \\
-L: &amp;\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
-L^2: &amp;\quad \psi_2 - \psi_1\phi = 0 \Longrightarrow \psi_2 = \phi^2 \\
-L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
-\vdots
-\end{aligned}
-\]</span> <span class="math inline">\(\psi(L) = 1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots.\)</span></p>
+<p>Time series data often display autocorrelation, or serial correlation of the disturbances across periods.</p>
+<p>If you plot the residuals and observe that the effect of a given disturbance is carried, at least in part, across periods, then it is a strong signal of serial correlation. It’s like the disturbances exhibiting a sort of “memory” over time.</p>
+<hr>
+<section id="ar1-visualization" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</h2>
+<p>The first-order autoregressive process, denoted AR(1), is <span class="math display">\[
+\varepsilon_t = \rho \varepsilon_{t-1} + w_t
+\]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To illustrate the behavior of the AR(1) process, <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a> plots two simulated AR(1) processes. Each is generated using the white noise process et displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.</p>
+<p>The plot in <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(a) sets <span class="math inline">\(\rho=0.5\)</span> and the plot in <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(b) sets <span class="math inline">\(\rho=0.95\)</span>.</p>
+<p>Remarks</p>
+<ul>
+<li><a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(b) is more smooth than <a href="#fig-AR1" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>(a).</li>
+<li>The smoothing increases with <span class="math inline">\(\rho\)</span>.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inline">\(\rho\)</span>. (a) <span class="math inline">\(\rho=0.5\)</span>, (b) <span class="math inline">\(\rho=0.95\)</span>. Each is generated useing the white noise process <span class="math inline">\(w_t\)</span> displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>We have seen the cases when <span class="math inline">\(\rho\)</span> is positive, now let’s consider when <span class="math inline">\(\rho\)</span> is <strong>negative</strong>. <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.5\)</span>, and <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.95\,.\)</span></p>
+<p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#008B45FF"><em>autocorrelation functions</em></span> (ACFs).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: Simulated AR(1) processes with negtive <span class="math inline">\(\rho\)</span>. (a) <span class="math inline">\(\rho=-0.5\)</span>, (b) <span class="math inline">\(\rho=-0.95\)</span>. Each is generated useing the white noise process <span class="math inline">\(w_t\)</span> displayed in <a href="#fig-WN" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>Possible causes of serial correlation: Incomplete or flawed model specification. Relevant factors omitted from the time series regression are correlated across periods.</p>
+<hr>
 </section>
-<section id="stability-condition" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="stability-condition"><span class="header-section-number">7.3</span> Stability Condition</h2>
-<p>The solution sequence <span class="math inline">\(\{\psi_j\}\)</span> eventually starts declining at a geometric rate if the <strong>stability condition</strong> holds. The condition states:</p>
-<p>All the roots of the <span class="math inline">\(p\)</span>-th degree polynomial equation in <span class="math inline">\(z\)</span></p>
+<section id="mathematical-representation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</h2>
+<p>Let’s formulate an AR(1) model as follows:</p>
+<p><span id="eq-AR1"><span class="math display">\[
+\begin{align}
+\varepsilon_t = \rho \varepsilon_{t-1} + w_t
+\end{align}
+\tag{4.1}\]</span></span></p>
+<p>where <span class="math inline">\(w_t\)</span> is a white noise series with mean zero and variance <span class="math inline">\(\sigma^2_w\)</span>. We also assume <span class="math inline">\(|\rho|&lt;1\)</span>.</p>
+<p>We can represent the AR(1) model as a linear combination of the innovations <span class="math inline">\(w_t\)</span>.</p>
+<p>By iterating backwards <span class="math inline">\(k\)</span> times, we get</p>
 <p><span class="math display">\[
-\phi(z) = 0 \text{ where } \phi(z) \equiv 1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p
-\]</span> are greater than 1 in absolute value (lie <em>outside</em> the unit circle).</p>
-<p>Equivalently, we can consider the roots of the reciprocal polynomial defined as (basically this means inverting the order of the coefficients)</p>
+\begin{aligned}
+\varepsilon_t &amp;= \rho \,\varepsilon_{t-1} + w_t \\
+&amp;= \rho\, (\rho \, \varepsilon_{t-2} + w_{t-1}) + w_t \\
+&amp;= \rho^2 \varepsilon_{t-2} + \rho w_{t-1} + w_t \\
+&amp;\quad \vdots \\
+&amp;= \rho^k \varepsilon_{t-k} + \sum_{j=0}^{k-1} \rho^j \,w_{t-j} \,.
+\end{aligned}
+\]</span> This suggests that, by continuing to iterate backward, and provided that <span class="math inline">\(|\rho|&lt;1\)</span> and <span class="math inline">\(\sup_t \text{Var}(\varepsilon_t)&lt;\infty\)</span>, we can represent <span class="math inline">\(\varepsilon_t\)</span> as a linear process given by</p>
 <p><span class="math display">\[
-\phi^*(z) = z^p\phi(z^{-1}) = z^p - \phi_1z^{p-1} - \dots - \phi_p.
-\]</span> The stability condition can be stated as:</p>
-<p>All the roots of</p>
+\color{#EE0000FF}{\varepsilon_t = \sum_{j=0}^\infty \rho^j \,w_{t-j}} \,.
+\]</span></p>
+<hr>
+<section id="expectation" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="expectation"><span class="header-section-number">4.2.1</span> Expectation</h3>
+<p><span class="math inline">\(\varepsilon_t\)</span> is stationary with mean zero.</p>
 <p><span class="math display">\[
-\phi^*(z) \equiv z^p - \phi_1z^{p-1} - \dots - \phi_p =0
-\]</span> are less than 1 in the absolute value (i.e., lie <em>inside</em> the unit circle).</p>
+E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
+\]</span></p>
+<hr>
+</section>
+<section id="autocovariance" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</h3>
+<p>The <span style="color:#008B45FF">autocovariance function</span> of the AR(1) process is <span class="math display">\[
+\begin{aligned}
+\gamma (h) &amp;= \text{Cov}(\varepsilon_{t+h}, \varepsilon_t) \\
+&amp;= E(\varepsilon_{t+h}, \varepsilon_t) \\
+&amp;= E\left[\left(\sum_{j=0}^\infty \rho^j \,w_{t+h-j}\right)  \left(\sum_{k=0}^\infty \rho^k \,w_{t-k}\right) \right] \\
+&amp;= \sum_{l=0}^{\infty} \rho^{h+l} \rho^l \sigma_w^2 \\
+&amp;= \sigma_w^2 \cdot \rho^{h} \cdot \sum_{l=0}^{\infty} \rho^{2l}  \\
+&amp;= \frac{\sigma_w^2 \cdot \rho^{h} }{1-\rho^2}, \quad h&gt;0 \,.
+\end{aligned}
+\]</span> When <span class="math inline">\(h=0\)</span>, <span class="math display">\[
+\gamma(0) = \frac{\sigma_w^2}{1-\rho^2}
+\]</span> is the <span style="color:#008B45FF">variance of the process</span> <span class="math inline">\(\text{Var}(\varepsilon_t)\)</span>.</p>
+<p>Note that</p>
+<ul>
+<li><span class="math inline">\(\gamma(0) \ge |\gamma (h)|\)</span> for all <span class="math inline">\(h\)</span>. Maximum value at 0 lag.</li>
+<li><span class="math inline">\(\gamma (h)\)</span> is symmetric, i.e., <span class="math inline">\(\gamma (-h) = \gamma (h)\)</span></li>
+</ul>
+<hr>
+</section>
+<section id="autocorrelation" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</h3>
+<p>The <span style="color:#008B45FF">autocorrelation function</span> (ACF) is given by</p>
+<p><span class="math display">\[
+\rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h,
+\]</span> which is simply the correlation between <span class="math inline">\(\varepsilon_{t+h}\)</span> and <span class="math inline">\(\varepsilon_{t}\,.\)</span></p>
+<p>Note that <span class="math inline">\(\rho(h)\)</span> satisfies the recursion <span class="math display">\[
+\rho(h) = \rho\cdot \rho(h-1) \,.
+\]</span></p>
+<ul>
+<li>For <span class="math inline">\(\rho &gt;0\)</span>, <span class="math inline">\(\rho(h)=\rho^h&gt;0\)</span> observations close together are positively correlated with each other. The larger the <span class="math inline">\(\rho\)</span>, the larger the correlation.</li>
+<li>For <span class="math inline">\(\rho &lt;0\)</span>, the sign of the ACF <span class="math inline">\(\rho(h)=\rho^h\)</span> depends on the time interval.
+<ul>
+<li>When <span class="math inline">\(h\)</span> is even, <span class="math inline">\(\rho(h)\)</span> is positive;</li>
+<li>when <span class="math inline">\(h\)</span> is odd, <span class="math inline">\(\rho(h)\)</span> is negative.</li>
+</ul>
+This result means that observations at contiguous time points are negatively correlated, but observations two time points apart are positively correlated.
+<ul>
+<li>For example, if an observation, <span class="math inline">\(\varepsilon_t\)</span>, is positive, the next observation, <span class="math inline">\(\varepsilon_{t+1}\)</span>, is typically negative, and the next observation, <span class="math inline">\(\varepsilon_{t+2}\)</span>, is typically positive. Thus, in this case, the sample path is very choppy.</li>
+</ul></li>
+</ul>
+<p>Another interpretation of <span class="math inline">\(\rho(h)\)</span> is the optimal weight for scaling <span class="math inline">\(\varepsilon_t\)</span> into <span class="math inline">\(\varepsilon_{t+h}\)</span>, i.e., the weight, <span class="math inline">\(a\)</span>, that minimizes <span class="math inline">\(E[(\varepsilon_{t+h} - a\,\varepsilon_{t})^2]\,.\)</span></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1107,13 +1179,13 @@ L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span>
+      <a href="./measure_theory.html" class="pagination-link" aria-label="Measure Theory">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./AR-MA-representation.html" class="pagination-link" aria-label="AR(1) and Its MA representation">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS01_AR_example.html" class="pagination-link" aria-label="AR -- Example">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

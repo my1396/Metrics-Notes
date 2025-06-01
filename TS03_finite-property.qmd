@@ -1,11 +1,14 @@
 ---
-title: "Time Series Regression"
+title: "Finite Sample Properties of OLS"
 format: 
     html:
         include-in-header: themes/mathjax.html
 ---
 
-## Classical assumptions for time series regressions
+
+In this section, we give a complete listing of the *finite sample, or small sample*, properties of OLS under standard assumptions.
+
+## Finite Sample Properties of OLS under Classical Assumptions
 
 
 :::{#cnj-1 name="Linear in Parameters"}
@@ -63,13 +66,14 @@ $$
 $$
 :::
 
-@cnj-3 implies that the error at time $t$, $u_t,$ is uncorrelated with each explanatory in every time period. This is called the *strict exogeneity*. 
+@cnj-3 implies that the error at time $t$, $u_t,$ is uncorrelated with each explanatory in every time period. This is called the ***strict exogeneity***. 
 
-A relaxed version is *contemporaneously exogenous*, which only requires $u_t$ to be uncorrelated with the explanatory variables dated at time $t:$ in conditional mean terms,
+A relaxed version is ***contemporaneously exogenous***, which only requires $u_t$ to be uncorrelated with the explanatory variables dated at time $t$: in conditional mean terms,
 
 $$
 \E(u_t\mid x_{t1}, x_{t2}, \ldots, x_{tK} ) = \E(u_t\mid \bx_t) = 0.
 $$
+Contemporaneously exogeneity is much weaker than strict exogeneity because it puts no restrictions on how $u_t$ is related to the explanatory variables in other time periods.
 
 
 :::{#cnj-4 name="Homoskedasticity"}
@@ -84,7 +88,7 @@ Conditional on $\bX,$ the errors in two different time periods are uncorrelated:
 
 --------------------------------------------------------------------------------
 
-Under Assumptions [-@cnj-1] through [-@cnj-3], the OLS estimators are unbiased:
+Under Assumptions [-@cnj-1] through [-@cnj-3], the OLS estimators are **unbiased**:
 
 $$
 \E(\hat{\beta}_j\mid \bX) = \E(\hat{\beta}_j) = \beta_j, \, j=0,1,\ldots,K.
@@ -92,11 +96,11 @@ $$
 
 --------------------------------------------------------------------------------
 
-Under Assumptions [-@cnj-1] through [-@cnj-5], the OLS estimators are the best linear unbiased estimators conditional on $\bX.$
+Under Assumptions [-@cnj-1] through [-@cnj-5], the OLS estimators are the **best linear unbiased estimators** conditional on $\bX.$
 
 
 
-## Violations of Strict Exogeneity
+## Violation of Strict Exogeneity
 
 
 **Strict exogeneity** (@cnj-3) requires $u_t$ to be uncorrelated with $\bx_s$, for $s=1,2,\ldots,n.$
@@ -113,19 +117,56 @@ Other more subtle causes:
 
     For example, consider a static model to explain a city’s murder rate ($mrdrte_t$) in terms of police officers per capita ($polpc_t$):
     
-$$
-mrdrte_t = \beta_0 + \beta_1\, polpc_t + u_t.
-$$
-Suppose that the city adjusts the size of its police force based on past values of the murder rate. This means that, say, $polpc_{t+1}$ might be correlated with $u_t$ (since a higher $u_t$ leads to a higher $mrdrte_t$). If this is the case, Zero Conditional Mean assumption is violated.
+    $$
+    mrdrte_t = \beta_0 + \beta_1\, polpc_t + u_t.
+    $$
+    
+    Suppose that the city adjusts the size of its police force based on past values of the murder rate, such as
+    
+    $$
+    polpc_{t+1} = \delta_0 + \delta_1 mrdrte_t + v_t.
+    $$
+    
+    This means that, say, $polpc_{t+1}$ might be correlated with $u_t$ (since a higher $u_t$ leads to a higher $mrdrte_t$). 
+    If this is the case, strict exogeneity is violated.
+    
+    Mathematically,
+    
+    $$
+    \begin{aligned}
+    \E [u_t polpc_{t+1}] &= \E [u_t (\delta_0 + \delta_1 mrdrte_t + v_t)] \\
+    &= \delta_1 \E[u_t\, mrdrte_t] \\
+    &= \delta_1 \E[u_t (\beta_0 + \beta_1\, polpc_t + u_t)] \\
+    &= \delta_1 \E[u_t^2] \\
+    &= \delta_1 \sigma^2_u.
+    \end{aligned}
+    $$
 
-There are similar considerations in distributed lag models. Usually, we do not worry that $u_t$ might be correlated with past $z$ because we are controlling for past $z$ in the model.
-But feedback from $u$ to future $z$ is always an issue.
+
+A general representation with two explanatory variables:
+
+$$
+y_t = \beta_0 + \beta_1z_{t1} + \beta_2z_{t2} + u_t.
+$$
+Under weak dependence, the condition sufficient for consistency of OLS is
+
+$$
+\E(u_t\mid z_{t1}, z_{t2}) = 0
+$$
+Importantly, <u>the condition does NOT rule out correlation between, say, $u_{t-1}$ and $z_{t1}$</u>. This type of correlation could arise if $z_{t1}$ is related to past $y_{t-1}$, such as
+
+$$
+z_{t1} = \delta_0 + \delta_1y_{t-1} + v_t.
+$$
+For example, $z_{t1}$ might be a policy variable, such as monthly percentage change in the money supply, and this change might depend on last month's rate of inflation ($y_{t-1}$). Such a mechanism generally causes $z_{t1}$ and $u_{t-1}$ to be correlated (as can be seen by plugging in for $y_{t-1}$). This kind of feedback is allowed under contemporaneous exogeneity.
 
 In the social sciences, many explanatory variables may very well violate the strict exogeneity assumption. For example, the amount of labor input might not be strictly exogenous, as it is chosen by the farmer, and the farmer may adjust the amount of labor based on last year's yield. Policy variables, such as growth in the money supply, expenditures on welfare, and highway speed limits, are often influenced by what has happened
 to the outcome variable in the past.
 
+There are similar considerations in distributed lag models. Usually, we do not worry that $u_t$ might be correlated with past $z$ because we are controlling for past $z$ in the model.
+But feedback from $u$ to future $z$ is always an issue.
 
-# Violation of No Serial Correlation
+## Violation of No Serial Correlation
 
 When @cnj-5 is false, we say that the error suffers from serial correlation, or autocorrelation, because they are correlated across time.
 

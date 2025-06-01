@@ -1,0 +1,63 @@
+---
+title: "Asymptotic Properties of OLS"
+format: html
+---
+
+:::{#cnj-12 name="Linear and Weak Dependence"}
+We assume the model is exactly as in @cnj-1, but now we add the assumption
+that $\{(\bx_t, y_t): t=1, 2, \ldots\}$ is stationary and weakly dependent. In particular, the law of large numbers and the central limit theorem can be applied to sample averages.
+:::
+
+:::{#cnj-22 name="No Perfect Collinearity"}
+Same as @cnj-2.
+:::
+
+:::{#cnj-32 name="Zero Conditional Mean"}
+The explanatory variables $\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})$ are **contemporaneously exogenous**:
+
+$$
+\E(u_t\mid \bx_t) = 0.
+$$
+:::
+
+It is equivalent to say that $u_t$ has zero unconditional mean and is uncorrelated with each $x_{tj}, j=1,\ldots,K$:
+
+$$
+\E(u_t) = 0, \cov(x_{tj}, u_t)=0, j=1,\ldots,K.
+$$
+
+:::{#cnj-42 name="Homoskedasticity"}
+he errors are contemporaneously homoskedastic, that is, conditional on $\bx_t,$ the variance of $u_t$ is the same for all $t:$ 
+
+$$
+\var(u_t\mid \bx_t)=\var(u_t)=\sigma^2,\, t=1,2,\ldots,n.
+$$
+:::
+
+
+
+:::{#cnj-52 name="No Serial Correlation"}
+Conditional on $\bx_t$ and $\bx_s$ the errors in two different time periods are uncorrelated: 
+
+$$
+\cor(u_t, u_s\mid \bx_t, \bx_s)=0, \text{ for all } t\ne s.
+$$
+:::
+
+
+
+--------------------------------------------------------------------------------
+
+
+Under Assumptions [-@cnj-12] through [-@cnj-32], the OLS estimators are **consistent**: $\mathrm{plim}\, \hat{\beta}_j = \beta_j,$ $j=1,\ldots,K.$
+
+- OLS estimators are consistent, but not necessarily unbiased.
+- We have weakened the sense in which the explanatory variables must be exogenous, but weak dependence is required in the underlying time series.
+
+
+--------------------------------------------------------------------------------
+
+Under Assumptions [-@cnj-12] through [-@cnj-52], the OLS estimators are **asymptotically normally distributed**. Further, the usual OLS standard errors, $t$ statistics, $F$ statistics, and $LM$ statistics are asymptotically valid.
+
+
+

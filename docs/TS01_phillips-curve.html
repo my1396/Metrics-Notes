@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; AR – Example – Metrics Notes</title>
+<title>6&nbsp; Phillips Curve – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./phillips-curve.html" rel="next">
-<link href="./AR1.html" rel="prev">
+<link href="./TS02_lag_poly.html" rel="next">
+<link href="./TS01_AR_example.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -492,7 +492,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_phillips-curve.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -555,63 +555,87 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR1.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_AR1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR_example.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS01_AR_example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./phillips-curve.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_phillips-curve.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lag_poly.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./AR-MA-representation.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./time-series-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+  <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Panel Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#static-phillips-curve" id="toc-static-phillips-curve" class="nav-link active" data-scroll-target="#static-phillips-curve"><span class="header-section-number">6.1</span> Static Phillips Curve</a></li>
+  <li><a href="#expectations-augmented-phillips-curve" id="toc-expectations-augmented-phillips-curve" class="nav-link" data-scroll-target="#expectations-augmented-phillips-curve"><span class="header-section-number">6.2</span> Expectations Augmented Phillips Curve</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_phillips-curve.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></h1>
 </div>
 
 
@@ -631,80 +655,14 @@ window.Quarto = {
 <!-- Chunk option settings -->
 <!-- Define chunk option `max.lines` -->
 <!-- controls max lines printed -->
-<p>This script provides an example of autocorrelated residuals.</p>
-<p><strong>Dataset description</strong></p>
-<p>US Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
-Source: Department of Commerce, BEA website and <a href="www.economagic.com">www.economagic.com</a></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 85%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Feild Name</th>
-<th style="text-align: left;">Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">year</td>
-<td style="text-align: left;">Year</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">qtr</td>
-<td style="text-align: left;">Quarter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">realgdp</td>
-<td style="text-align: left;">Real GDP ($bil)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">realcons</td>
-<td style="text-align: left;">Real consumption expenditures</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">realinvs</td>
-<td style="text-align: left;">Real investment by private sector</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">realgovt</td>
-<td style="text-align: left;">Real government expenditures</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">realdpi</td>
-<td style="text-align: left;">Real disposable personal income</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">cpi_u</td>
-<td style="text-align: left;">Consumer price index</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">M1</td>
-<td style="text-align: left;">Nominal money stock</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tbilrate</td>
-<td style="text-align: left;">Quarterly average of month end 90 day t bill rate</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">unemp</td>
-<td style="text-align: left;">Unemployment rate</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pop</td>
-<td style="text-align: left;">Population, mil. interpolate of year end figures using constant growth rate per quarter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">infl</td>
-<td style="text-align: left;">Rate of inflation (First observation is missing)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">realint</td>
-<td style="text-align: left;">Ex post real interest rate = Tbilrate - Infl. (First observation is missing)</td>
-</tr>
-</tbody>
-</table>
+<section id="static-phillips-curve" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="static-phillips-curve"><span class="header-section-number">6.1</span> Static Phillips Curve</h2>
+<p>A static Phillips curve is given by:</p>
+<p><span class="math display">\[
+inf_t = \beta_0 + \beta_1\, unem_t + u_t,
+\]</span></p>
+<p>where <span class="math inline">\(inf_t\)</span> is the annual inflation rate and <span class="math inline">\(unem_t\)</span> is the unemployment rate.</p>
+<p>This form of the Phillips curve assumes a constant natural rate of unemployment and constant inflationary expectations, and it can be used to study the contemporaneous tradeoff between inflation and unemployment.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/TableF5-2.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
@@ -845,221 +803,94 @@ Source: Department of Commerce, BEA website and <a href="www.economagic.com">www
 </div>
 </div>
 </div>
-<p><strong>Empirical model</strong></p>
-<p><span class="math display">\[
-\Delta I_t =  \beta_1 + \beta_2 u_t + \varepsilon_t
-\]</span> where</p>
-<ul>
-<li><span class="math inline">\(I_t\)</span> is the inflation rate; <span class="math inline">\(\Delta I_t = I_t - I_{t-1}\)</span> is the first difference of the inflation rate;</li>
-<li><span class="math inline">\(u_t\)</span> is the unemployment rate;</li>
-<li><span class="math inline">\(\varepsilon_t\)</span> is the error term.</li>
-</ul>
-<p>We remove the first two quarters due to missing value in the first observation and the change in the rate of inflation.</p>
-<p>Regression result for OLS.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_phillips <span class="ot">&lt;-</span> <span class="fu">lm</span>(delta_infl <span class="sc">~</span> unemp, <span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="sc">-</span><span class="dv">2</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm_phillips, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"html"</span>, </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Phillips Curve Regression"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes =</span> <span class="st">"&lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01 &lt;br&gt; Standard errors in parentheses."</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes.append =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table style="text-align:center">
-<caption>
-<strong>Phillips Curve Regression</strong>
-</caption>
-<tbody><tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-delta_infl
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-unemp
-</td>
-<td>
--0.090
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.126)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.492
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.740)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-202
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.003
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
--0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Residual Std. Error
-</td>
-<td>
-2.822 (df = 200)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-0.513 (df = 1; 200)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
-</td>
-</tr>
-</tbody></table>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variance-covariance matrix</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            (Intercept)       unemp
-(Intercept)  0.54830829 -0.08973175
-unemp       -0.08973175  0.01582211</code></pre>
-</div>
-</div>
-<p><strong>Autocorrelated residuals</strong></p>
-<p>Plot the residuals.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-ar-res" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="AR_example_files/figure-html/fig-ar-res-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: Phillips Curve Deviations from Expected Inflation
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p><a href="#fig-ar-res" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows striking negative autocorrelation.</p>
-<p>Now we test the serial correlation of the residuals. <span class="math display">\[
-\varepsilon_t = \phi\varepsilon_{t-1} + e_t
-\]</span></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> <span class="fu">lm</span>(res_t <span class="sc">~</span> res_t1, <span class="at">data =</span> res)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_phillips_stat <span class="ot">&lt;-</span> <span class="fu">lm</span>(infl <span class="sc">~</span> unemp, <span class="at">data=</span>data)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_phillips_stat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = res_t ~ res_t1, data = res)
+lm(formula = infl ~ unemp, data = data)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--9.8694 -1.4800  0.0718  1.4990  8.3258 
+   Min     1Q Median     3Q    Max 
+-6.654 -2.187 -0.590  1.472 12.758 
 
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.02155    0.17854  -0.121    0.904    
-res_t1      -0.42630    0.06355  -6.708    2e-10 ***
+            Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)   2.2198     0.8860   2.506   0.0130 *
+unemp         0.2995     0.1505   1.991   0.0479 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 2.531 on 199 degrees of freedom
+Residual standard error: 3.377 on 202 degrees of freedom
+Multiple R-squared:  0.01924,   Adjusted R-squared:  0.01438 
+F-statistic: 3.962 on 1 and 202 DF,  p-value: 0.04788</code></pre>
+</div>
+</div>
+<p>The simple regression estimates are</p>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{inf}_t &amp;= 2.22 + 0.30\, unem_t \\
+&amp;\phantom{={ }} (0.89)\;\; (.15)
+\end{aligned}
+\]</span> The regression indicates a positive relationship (<span class="math inline">\(\hat{\beta}_1&gt;0\)</span>) between inflation and unemployment at 5% significance level.</p>
+<p>There are some problems with this analysis that we cannot address in detail now. The Classical Linear Model assumptions do not hold. In addition, the static Phillips curve is probably not the best model for determining whether there is a short run tradeoff between inflation and unemployment. Macroeconomists generally prefer the <strong>expectations augmented Phillips curve</strong>, while we will see shortly.</p>
+</section>
+<section id="expectations-augmented-phillips-curve" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="expectations-augmented-phillips-curve"><span class="header-section-number">6.2</span> Expectations Augmented Phillips Curve</h2>
+<p>A linear version of the expectations augmented Phillips curve can be written as</p>
+<p><span class="math display">\[
+inf_t - inf^e_t = \beta_1 (unem_t - \mu_0) + e_t,
+\]</span></p>
+<p>where <span class="math inline">\(\mu_0\)</span> is the <em>natural rate of unemployment</em> and <span class="math inline">\(inf^3_t\)</span> is the <em>expected</em> rate of inflation formed in year <span class="math inline">\(t-1.\)</span></p>
+<p>The difference between actual unemployment and the natural rate is called <em>cyclical unemployment</em>, while the difference between actual and expected inflation is called <em>unanticipated inflation</em>.</p>
+<p>The error term, <span class="math inline">\(e_t\)</span>, is called a <em>supply shock</em> by macroeconomists.</p>
+<p>To complete this model, we need to make an assumption about inflationary expectations. Under adaptive expectations, the expected value of current inflation depends on recently observed inflation. A particularly simple formulation is that expected inflation this year is last year’s inflation:</p>
+<p><span class="math display">\[
+inf^e_t = inf_{t-1}
+\]</span></p>
+<p>Under this assumption, we can write</p>
+<p><span class="math display">\[
+inf_t - inf_{t-1} = \beta_0 + \beta_1 \,unem_t  + e_t,
+\]</span> or</p>
+<p><span class="math display">\[
+\Delta  inf_t = \beta_0 + \beta_1 \,unem_t  + e_t,
+\]</span> where <span class="math inline">\(\Delta  inf_t = inf_t - inf_{t-1}\)</span> and <span class="math inline">\(\beta_0=-\beta_1\mu_0.\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lm_phillips_aug <span class="ot">&lt;-</span> <span class="fu">lm</span>(delta_infl <span class="sc">~</span> unemp, data)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_phillips_aug)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = delta_infl ~ unemp, data = data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.3030  -1.6596  -0.0261   1.7875   8.5274 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)  0.51777    0.74316   0.697    0.487
+unemp       -0.09077    0.12627  -0.719    0.473
+
+Residual standard error: 2.833 on 201 degrees of freedom
   (1 observation deleted due to missingness)
-Multiple R-squared:  0.1844,    Adjusted R-squared:  0.1803 
-F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
+Multiple R-squared:  0.002564,  Adjusted R-squared:  -0.002398 
+F-statistic: 0.5167 on 1 and 201 DF,  p-value: 0.4731</code></pre>
 </div>
 </div>
-<p>The regression of the least squares residuals on their past values gives a slope of -0.4263 with a highly significant <span class="math inline">\(t\)</span> ratio of -6.7078. We thus conclude that the residuals in this models are highly negatively autocorrelated.</p>
-<hr>
-<section id="references" class="level2 unlisted unnumbered">
-<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>Ex. 12.3, Chap 12 Serial Correlation, <em>Econometric Analysis</em>, Greene 5th Edition, pp 251.</li>
-</ul>
+<p>The OLS estimates are</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Delta\widehat{inf}_t &amp;= 0.52 - 0.09 \,unem_t \\
+&amp;\phantom{={}} (0.74) \;\; (0.13)
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(\hat{\beta}_1&lt;0\)</span> indicates a tradeoff between cyclical unemployment and unanticipated inflation. But the effect is statistically insignificant.</p>
+<p>The natural employment rate is 5.78 percent.</p>
+<p><span class="math display">\[
+\mu_0 = -\frac{\beta_0}{\beta_1} = \frac{0.52}{0.09} \approx 5.78
+\]</span></p>
 
 
 </section>
@@ -1479,13 +1310,13 @@ F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./AR1.html" class="pagination-link" aria-label="AR(1)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span>
+      <a href="./TS01_AR_example.html" class="pagination-link" aria-label="AR -- Example">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS02_lag_poly.html" class="pagination-link" aria-label="Lag polynomials">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
