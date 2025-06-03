@@ -109,8 +109,8 @@ $$
 
 ```{r}
 res <- tibble(
-            res_t = lm_phillips$residuals,
-            res_t1 = lag(lm_phillips$residuals))
+    res_t = lm_phillips$residuals,
+    res_t1 = lag(lm_phillips$residuals))
 lm_res <- lm(res_t ~ res_t1, data = res)
 summary(lm_res)
 ```
@@ -118,6 +118,15 @@ summary(lm_res)
 The regression of the least squares residuals on their past values gives a slope of `r sprintf("%.4f", lm_res$coefficients[2])` with a highly significant $t$ ratio of `r sprintf("%.4f", summary(lm_res)$coef[2,3])`.
 We thus conclude that the residuals in this models are highly negatively autocorrelated. 
 
+One consequence of the serial correlated errors is that the standard error and $t$ statistics are not valid anymore. In this case, you can either 
+
+- transform the model to remove the serial correlation, or alternatively,
+    
+    FGLS (Feasible Genralized Least Squares)
+    
+- you can use serial correlation-robust standard errors
+
+    Heteroskedasticity and autocorrelation consistent, or HAC, standard errors.
 
 
 --------------------------------------------------------------------------------

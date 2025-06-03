@@ -135,6 +135,7 @@ Variance can be obtained by the Delta Method, which won't be covered here.
 
 Under expectations augmented Phillips Curve, one-point increase in $unem$ lowers unanticipated inflation by about 0.1 of a point. We can contrast this with the static Phillips curve in @eq-phillips_stat, where we found a positive relationship between inflation and unemployment.
 
+
 --------------------------------------------------------------------------------
 
 

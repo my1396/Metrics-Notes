@@ -1056,8 +1056,8 @@ Figure&nbsp;5.1: Phillips Curve Deviations from Expected Inflation
 \]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> <span class="fu">lm</span>(res_t <span class="sc">~</span> res_t1, <span class="at">data =</span> res)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1083,6 +1083,13 @@ F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
 </div>
 </div>
 <p>The regression of the least squares residuals on their past values gives a slope of -0.4263 with a highly significant <span class="math inline">\(t\)</span> ratio of -6.7078. We thus conclude that the residuals in this models are highly negatively autocorrelated.</p>
+<p>One consequence of the serial correlated errors is that the standard error and <span class="math inline">\(t\)</span> statistics are not valid anymore. In this case, you can either</p>
+<ul>
+<li><p>transform the model to remove the serial correlation, or alternatively,</p>
+<p>FGLS (Feasible Genralized Least Squares)</p></li>
+<li><p>you can use serial correlation-robust standard errors</p>
+<p>Heteroskedasticity and autocorrelation consistent, or HAC, standard errors.</p></li>
+</ul>
 <hr>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>

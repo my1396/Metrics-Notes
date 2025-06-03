@@ -94,7 +94,7 @@ Because $\bx_t$ contains only $y_{t-1},$ @eq-AR_err implies that contemporaneous
 By contrast, the strict exogeneity assumption is needed for unbiasedness.
 Since $u_t$ is always correlated with $y_t$ ($\cov(u_t, y_t)=\var(u_t)>0$), strict exogeneity assumption cannot be true.
 
-Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.
+Therefore, **a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption**.
 
 For the weak dependence of $y_t$ to hold, we must assume that $\abs{\beta_1}<1.$ If this condition holds, then Assumptions [-@cnj-12] through [-@cnj-32] implies that the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces consistent estimators of $\beta_0$ and $\beta_1.$ 
 

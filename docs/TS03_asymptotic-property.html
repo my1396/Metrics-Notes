@@ -672,7 +672,7 @@ window.Quarto = {
 <p>Models with trending explanatory variables can effectively satisfy Assumptions <a href="#cnj-12" class="quarto-xref"><span>11.1</span></a> through <a href="#cnj-52" class="quarto-xref"><span>11.5</span></a>, provided they are trend stationary. As long as time trends are included in the equations when needed, the usual inference procedures are asymptotically valid.</p>
 <hr>
 <div id="exm-exo3" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.1</strong></span> The AR(1) model cannot satisfy the strict exogeneity assumption (<a href="#cnj-32" class="quarto-xref"><span>11.3</span></a>).</p>
+<p><span class="theorem-title"><strong>Example 11.1</strong></span> The AR(1) model <strong>cannot</strong> satisfy the <em>strict exogeneity</em> assumption (<a href="#cnj-32" class="quarto-xref"><span>11.3</span></a>).</p>
 <p>Consider the AR(1) model,</p>
 <p><span class="math display">\[
 y_t = \beta_0 + \beta_1y_{t-1} + u_t,
@@ -686,10 +686,11 @@ y_t = \beta_0 + \beta_1y_{t-1} + u_t,
 \]</span> It means that, once <span class="math inline">\(y\)</span> lagged one period has been controlled for, no further lags of <span class="math inline">\(y\)</span> affect the expected value of <span class="math inline">\(y_t.\)</span></p>
 <p>Because <span class="math inline">\(\bx_t\)</span> contains only <span class="math inline">\(y_{t-1},\)</span> <a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> implies that contemporaneous exogeneity holds.</p>
 <p>By contrast, the strict exogeneity assumption is needed for unbiasedness. Since <span class="math inline">\(u_t\)</span> is always correlated with <span class="math inline">\(y_t\)</span> (<span class="math inline">\(\cov(u_t, y_t)=\var(u_t)&gt;0\)</span>), strict exogeneity assumption cannot be true.</p>
-<p>Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.</p>
+<p>Therefore, <strong>a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption</strong>.</p>
 <p>For the weak dependence of <span class="math inline">\(y_t\)</span> to hold, we must assume that <span class="math inline">\(\abs{\beta_1}&lt;1.\)</span> If this condition holds, then Assumptions <a href="#cnj-12" class="quarto-xref"><span>11.1</span></a> through <a href="#cnj-32" class="quarto-xref"><span>11.3</span></a> implies that the OLS estimator from the regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(y_{t-1}\)</span> produces consistent estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1.\)</span></p>
 <p>Unfortunately, <span class="math inline">\(\hat{\beta}_1\)</span> s biased, and this bias can be large if the sample size is small or if <span class="math inline">\(\beta_1\)</span> is near 1. For <span class="math inline">\(\beta_1\)</span> near 1, <span class="math inline">\(\hat{\beta}_1\)</span> can have a severe downward bias. In moderate to large samples, <span class="math inline">\(\hat{\beta}_1\)</span> should be a good estimator of <span class="math inline">\(\beta_1.\)</span></p>
 </div>
+<hr>
 <p><a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> also indicates no serial correlation in <span class="math inline">\(u_t.\)</span></p>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>To show that the errors <span class="math inline">\(\{u_t\}\)</span> are serially uncorrelated, we must show that <span class="math inline">\(\E(u_tu_s\mid \bx_t, \bx_s)=0\)</span> for <span class="math inline">\(t\ne s.\)</span> The explanatory variable at <span class="math inline">\(t\)</span> is <span class="math inline">\(y_{t-1}\)</span>, hence we need to prove</p>
@@ -717,7 +718,7 @@ y_t = \beta_0 + \beta_1y_{t-1} + u_t,
 <span style="float:right; margin-right:10px; ">□</span>
 </div>
 <div id="exm-homoske" class="theorem example">
-<p><span class="theorem-title"><strong>Example 11.2</strong></span> In a static model <span class="math inline">\(y_t = \beta_0+\beta_1z_t+u_t,\)</span> the homoskedasticity assumption requires that</p>
+<p><span class="theorem-title"><strong>Example 11.2</strong></span> In a static model <span class="math inline">\(y_t = \beta_0+\beta_1z_t+u_t,\)</span> the <em>homoskedasticity</em> assumption requires that</p>
 <p><span class="math display">\[
 \var(u_t\mid z_t) = \var(y_t\mid z_t) = \sigma^2.
 \]</span></p>
