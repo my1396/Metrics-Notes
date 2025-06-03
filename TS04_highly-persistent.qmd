@@ -1,0 +1,12 @@
+---
+title: "Highly Persistent TS"
+format: html
+---
+
+Provided the time series we use are weakly dependent, usual OLS inference procedures are valid under assumptions weaker than the classical linear model assumptions. Unfortunately, many economic time series cannot be characterized by weak dependence.
+
+Using time series with strong dependence in regression analysis poses no problem, if the CLM assumptions in finite samples hold. But the usual inference procedures are very susceptible to violation of these assumptions when the data are not weakly dependent, because then we cannot appeal to the law of large numbers and the central limit theorem. In this section, we provide some examples of highly persistent (or strongly dependent) time series and show how they can be transformed for use in regression
+analysis.
+
+When the time series are highly persistent (they have unit roots), we must exercise extreme caution in using them directly in regression models. An alternative to using the levels is to use the first differences of
+the variables. For most highly persistent economic time series, the first difference is weakly dependent. Using first differences changes the nature of the model, but this method is often as informative as a model in levels. When data are highly persistent, we usually have more faith in first-difference results. 

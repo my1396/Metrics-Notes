@@ -1,11 +1,14 @@
 ---
-title: "Asymptotic Properties of OLS"
+title: "OLS Asymptotic Assumptions and Properties"
 format: html
 ---
 
+
+## Large sample assumptions of OLS
+
 :::{#cnj-12 name="Linear and Weak Dependence"}
 We assume the model is exactly as in @cnj-1, but now we add the assumption
-that $\{(\bx_t, y_t): t=1, 2, \ldots\}$ is stationary and weakly dependent. In particular, the law of large numbers and the central limit theorem can be applied to sample averages.
+that $\{(\bx_t, y_t): t=1, 2, \ldots\}$ is stationary and weakly dependent. In particular, the *law of large numbers* and the *central limit theorem* can be applied to sample averages.
 :::
 
 :::{#cnj-22 name="No Perfect Collinearity"}
@@ -27,14 +30,14 @@ $$
 $$
 
 :::{#cnj-42 name="Homoskedasticity"}
-he errors are contemporaneously homoskedastic, that is, conditional on $\bx_t,$ the variance of $u_t$ is the same for all $t:$ 
+The errors are ***contemporaneously homoskedastic***, that is, conditional on $\bx_t,$ the variance of $u_t$ is the same for all $t:$ 
 
 $$
 \var(u_t\mid \bx_t)=\var(u_t)=\sigma^2,\, t=1,2,\ldots,n.
 $$
 :::
 
-
+Note that the condition is only on the explanatory variables at time $t.$
 
 :::{#cnj-52 name="No Serial Correlation"}
 Conditional on $\bx_t$ and $\bx_s$ the errors in two different time periods are uncorrelated: 
@@ -44,10 +47,11 @@ $$
 $$
 :::
 
+We condition only on the explanatory variables in the time periods coinciding with $u_t$ and $u_s.$
 
 
---------------------------------------------------------------------------------
 
+## Large sample properties of OLS
 
 Under Assumptions [-@cnj-12] through [-@cnj-32], the OLS estimators are **consistent**: $\mathrm{plim}\, \hat{\beta}_j = \beta_j,$ $j=1,\ldots,K.$
 
@@ -58,6 +62,112 @@ Under Assumptions [-@cnj-12] through [-@cnj-32], the OLS estimators are **consis
 --------------------------------------------------------------------------------
 
 Under Assumptions [-@cnj-12] through [-@cnj-52], the OLS estimators are **asymptotically normally distributed**. Further, the usual OLS standard errors, $t$ statistics, $F$ statistics, and $LM$ statistics are asymptotically valid.
+
+
+Models with trending explanatory variables can effectively satisfy Assumptions [-@cnj-12] through [-@cnj-52], provided they are trend stationary. As long as time trends are included in the equations when needed, the usual inference procedures are asymptotically valid.
+
+--------------------------------------------------------------------------------
+
+:::{#exm-exo3}
+The AR(1) model **cannot** satisfy the *strict exogeneity* assumption (-@cnj-32).
+
+Consider the AR(1) model,
+
+$$
+y_t = \beta_0 + \beta_1y_{t-1} + u_t,
+$$
+where the error $u_t$ has a zero expected value, given all past values of $y:$
+
+$$
+\E(u_t\mid y_{t-1},y_{t-2},\ldots)=0.
+$$ {#eq-AR_err}
+
+Combined, these two equations imply that
+
+$$
+\E(y_t\mid y_{t-1},y_{t-2},\ldots) = \E(y_t\mid y_{t-1}) =  \beta_0 + \beta_1y_{t-1}.
+$$
+It means that, once $y$ lagged one period has been controlled for, no further lags of $y$ affect the expected value of $y_t.$
+
+Because $\bx_t$ contains only $y_{t-1},$ @eq-AR_err implies that contemporaneous exogeneity holds. 
+
+By contrast, the strict exogeneity assumption is needed for unbiasedness.
+Since $u_t$ is always correlated with $y_t$ ($\cov(u_t, y_t)=\var(u_t)>0$), strict exogeneity assumption cannot be true.
+
+Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.
+
+For the weak dependence of $y_t$ to hold, we must assume that $\abs{\beta_1}<1.$ If this condition holds, then Assumptions [-@cnj-12] through [-@cnj-32] implies that the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces consistent estimators of $\beta_0$ and $\beta_1.$ 
+
+Unfortunately, $\hat{\beta}_1$ s biased, and this bias can be large if the sample size is small or if $\beta_1$ is near 1. For $\beta_1$ near 1, $\hat{\beta}_1$ can have a severe downward bias. In moderate to large samples, $\hat{\beta}_1$ should be a good estimator of $\beta_1.$
+:::
+
+--------------------------------------------------------------------------------
+
+@eq-AR_err also indicates no serial correlation in $u_t.$
+
+::: {.proof}
+To show that the errors  $\{u_t\}$ are serially uncorrelated, we must show that $\E(u_tu_s\mid \bx_t, \bx_s)=0$ for $t\ne s.$ The explanatory variable at $t$ is $y_{t-1}$, hence we need to prove
+
+$$
+\E(u_tu_s\mid y_{t-1}, y_{s-1})=0
+$$
+Assume $s<t,$ rewrite $u_s = y_s-beta_0-beta_1y_{s-1},$ that is, $u_s$ is a function of $y$ dated before time $t.$
+
+By @eq-AR_err, we have
+
+$$
+\E(u_t\mid u_s, y_{t-1}, y_{s-1}) = 0.
+$$
+Then
+$$
+\begin{aligned}
+&\phantom{=}\E(u_tu_s \mid u_s, y_{t-1}, y_{s-1} ) \\
+&= u_s\E(u_t \mid u_s, y_{t-1} , y_{s-1} )  \quad (\text{taking out what is known})\\
+&= 0 .
+\end{aligned}
+$$
+By ILE (Law of Iterated Expectations), 
+
+$$
+\begin{aligned}
+\E(u_tu_s \mid y_{t-1}, y_{s-1} ) 
+&= \E \left[\E(u_tu_s \mid u_s, y_{t-1}, y_{s-1} ) \mid y_{t-1}, y_{s-1} \right] = 0.
+\end{aligned}
+$$
+Conclusion: as long as only one lag of $y$ appears in $\E(y_t\mid y_{t-1}, y_{t-2}, \ldots)$, the errors $\{u_t\}$ must be serially uncorrelated.
+:::
+<div style='margin-top:-1em; margin-bottom:3em'><span style='float:right; margin-right:10px; '>&#9633;</span></div>
+
+
+:::{#exm-homoske}
+In a static model $y_t = \beta_0+\beta_1z_t+u_t,$ the *homoskedasticity* assumption requires that 
+
+$$
+\var(u_t\mid z_t) = \var(y_t\mid z_t) = \sigma^2.
+$$
+
+In the AR(1) model, $y_t = \beta_0+\beta_1y_{t-1}+u_t,$ the homoskedasticity assumption is
+
+$$
+\var(u_t\mid y_{t-1}) = \var(y_t\mid y_{t-1}) = \sigma^2.
+$$
+If we have the model
+
+$$
+y_t = \beta_0 + \beta_1z_t + \beta_2y_{t-1} + \beta_3z_{t-1}+u_t,
+$$
+the homoskedasticity assumption is
+
+$$
+\var(u_t\mid z_t, y_{t-1}, z_{t-1}) = \var(y_t\mid z_t, y_{t-1}, z_{t-1}) = \sigma^2,
+$$
+so that the variance of $u_t$ cannot depend on $z_t, y_{t-1},$ or $z_{t-1}$ (or some other function of time). 
+
+Generally, whatever explanatory variables appear in the model, we must assume that the variance of $y_t$ given these explanatory variables is constant. If the model contains lagged $y$ or lagged explanatory variables, then we are explicitly ruling out dynamic forms of heteroskedasticity. But, in a static model, we are only concerned with $\var(y_t\mid z_t).$ 
+:::
+
+
+
 
 
 

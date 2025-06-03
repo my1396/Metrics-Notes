@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Finite Sample Properties of OLS – Metrics Notes</title>
+<title>10&nbsp; OLS Finite Sample Assumptions and Properties – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-13584eca99d870fe07357c15139acc5f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark-20cbe20b4af8f742c845e3e6303c86d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -234,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
 
         independent: "\\mathrel{\\perp\\!\\!\\perp}",
 
-        var: "\\mathrm{var}",
+        var: "\\mathrm{Var}",
         cov: "\\mathrm{Cov}",
         cor: "\\mathrm{Corr}",
         diag: "\\mathrm{diag}",
@@ -455,7 +455,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS03_finite-property.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS03_finite-property.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">OLS Finite Sample Assumptions and Properties</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -536,26 +536,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./TS01_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">OLS Finite Sample Assumptions and Properties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">OLS Asymptotic Assumptions and Properties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS04_highly-persistent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
   </div>
 </li>
       </ul>
@@ -572,7 +584,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -587,9 +599,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#finite-sample-properties-of-ols-under-classical-assumptions" id="toc-finite-sample-properties-of-ols-under-classical-assumptions" class="nav-link active" data-scroll-target="#finite-sample-properties-of-ols-under-classical-assumptions"><span class="header-section-number">9.1</span> Finite Sample Properties of OLS under Classical Assumptions</a></li>
-  <li><a href="#violation-of-strict-exogeneity" id="toc-violation-of-strict-exogeneity" class="nav-link" data-scroll-target="#violation-of-strict-exogeneity"><span class="header-section-number">9.2</span> Violation of Strict Exogeneity</a></li>
-  <li><a href="#violation-of-no-serial-correlation" id="toc-violation-of-no-serial-correlation" class="nav-link" data-scroll-target="#violation-of-no-serial-correlation"><span class="header-section-number">9.3</span> Violation of No Serial Correlation</a></li>
+  <li><a href="#finite-sample-classical-assumptions-of-ols" id="toc-finite-sample-classical-assumptions-of-ols" class="nav-link active" data-scroll-target="#finite-sample-classical-assumptions-of-ols"><span class="header-section-number">10.1</span> Finite Sample Classical Assumptions of OLS</a></li>
+  <li><a href="#finite-sample-properties-of-ols" id="toc-finite-sample-properties-of-ols" class="nav-link" data-scroll-target="#finite-sample-properties-of-ols"><span class="header-section-number">10.2</span> Finite Sample Properties of OLS</a></li>
+  <li><a href="#violation-of-strict-exogeneity" id="toc-violation-of-strict-exogeneity" class="nav-link" data-scroll-target="#violation-of-strict-exogeneity"><span class="header-section-number">10.3</span> Violation of Strict Exogeneity</a></li>
+  <li><a href="#violation-of-no-serial-correlation" id="toc-violation-of-no-serial-correlation" class="nav-link" data-scroll-target="#violation-of-no-serial-correlation"><span class="header-section-number">10.4</span> Violation of No Serial Correlation</a></li>
   </ul>
 </nav>
     </div>
@@ -597,9 +610,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS03_finite-property.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS03_finite-property.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">OLS Finite Sample Assumptions and Properties</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">OLS Finite Sample Assumptions and Properties</span></h1>
 </div>
 
 
@@ -617,10 +630,10 @@ window.Quarto = {
 
 
 <p>In this section, we give a complete listing of the <em>finite sample, or small sample</em>, properties of OLS under standard assumptions.</p>
-<section id="finite-sample-properties-of-ols-under-classical-assumptions" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="finite-sample-properties-of-ols-under-classical-assumptions"><span class="header-section-number">9.1</span> Finite Sample Properties of OLS under Classical Assumptions</h2>
+<section id="finite-sample-classical-assumptions-of-ols" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="finite-sample-classical-assumptions-of-ols"><span class="header-section-number">10.1</span> Finite Sample Classical Assumptions of OLS</h2>
 <div id="cnj-1" class="theorem conjecture">
-<p><span class="theorem-title"><strong>Assumption 9.1 (Linear in Parameters)</strong></span> The stochastic process <span class="math inline">\(\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, n\}\)</span> follows the linear model</p>
+<p><span class="theorem-title"><strong>Assumption 10.1 (Linear in Parameters)</strong></span> The stochastic process <span class="math inline">\(\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, n\}\)</span> follows the linear model</p>
 <p><span class="math display">\[
 y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \cdots + + \beta_Kx_{tK} + u_t,
 \]</span></p>
@@ -647,37 +660,39 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{nK} \\
 \end{bmatrix}
 \]</span></p>
 <div id="cnj-2" class="theorem conjecture">
-<p><span class="theorem-title"><strong>Assumption 9.2 (No Perfect Collinearity)</strong></span> In the sample (and therefore in the underlying time series process), no independent variable is constant nor a perfect linear combination of the others.</p>
+<p><span class="theorem-title"><strong>Assumption 10.2 (No Perfect Collinearity)</strong></span> In the sample (and therefore in the underlying time series process), no independent variable is constant nor a perfect linear combination of the others.</p>
 </div>
-<p><a href="#cnj-2" class="quarto-xref">Assumption&nbsp;<span>9.2</span></a> allows the explanatory variables to be correlated, but it rules out <em>perfect</em> correlation in the sample.</p>
+<p><a href="#cnj-2" class="quarto-xref">Assumption&nbsp;<span>10.2</span></a> allows the explanatory variables to be correlated, but it rules out <em>perfect</em> correlation in the sample.</p>
 <div id="cnj-3" class="theorem conjecture">
-<p><span class="theorem-title"><strong>Assumption 9.3 (Zero Conditional Mean)</strong></span> For each <span class="math inline">\(t\)</span>, the expected value of the error <span class="math inline">\(u_t,\)</span> given the explanatory variables for <em>all</em> time periods, is zero. Mathematically,</p>
+<p><span class="theorem-title"><strong>Assumption 10.3 (Zero Conditional Mean)</strong></span> For each <span class="math inline">\(t\)</span>, the expected value of the error <span class="math inline">\(u_t,\)</span> given the explanatory variables for <em>all</em> time periods, is zero. Mathematically,</p>
 <p><span class="math display">\[
 \E(u_t\mid \bX) = 0,\, t=1,2,\ldots,n.
 \]</span></p>
 </div>
-<p><a href="#cnj-3" class="quarto-xref">Assumption&nbsp;<span>9.3</span></a> implies that the error at time <span class="math inline">\(t\)</span>, <span class="math inline">\(u_t,\)</span> is uncorrelated with each explanatory in every time period. This is called the <strong><em>strict exogeneity</em></strong>.</p>
+<p><a href="#cnj-3" class="quarto-xref">Assumption&nbsp;<span>10.3</span></a> implies that the error at time <span class="math inline">\(t\)</span>, <span class="math inline">\(u_t,\)</span> is uncorrelated with each explanatory in every time period. This is called the <strong><em>strict exogeneity</em></strong>.</p>
 <p>A relaxed version is <strong><em>contemporaneously exogenous</em></strong>, which only requires <span class="math inline">\(u_t\)</span> to be uncorrelated with the explanatory variables dated at time <span class="math inline">\(t\)</span>: in conditional mean terms,</p>
 <p><span class="math display">\[
 \E(u_t\mid x_{t1}, x_{t2}, \ldots, x_{tK} ) = \E(u_t\mid \bx_t) = 0.
 \]</span> Contemporaneously exogeneity is much weaker than strict exogeneity because it puts no restrictions on how <span class="math inline">\(u_t\)</span> is related to the explanatory variables in other time periods.</p>
 <div id="cnj-4" class="theorem conjecture">
-<p><span class="theorem-title"><strong>Assumption 9.4 (Homoskedasticity)</strong></span> Conditional on <span class="math inline">\(\bX,\)</span> the variance of <span class="math inline">\(u_t\)</span> is the same for all <span class="math inline">\(t:\)</span> <span class="math inline">\(\var(u_t\mid \bX)=\var(u_t)=\sigma^2,\)</span> <span class="math inline">\(t=1,2,\ldots,n.\)</span></p>
+<p><span class="theorem-title"><strong>Assumption 10.4 (Homoskedasticity)</strong></span> Conditional on <span class="math inline">\(\bX,\)</span> the variance of <span class="math inline">\(u_t\)</span> is the same for all <span class="math inline">\(t:\)</span> <span class="math inline">\(\var(u_t\mid \bX)=\var(u_t)=\sigma^2,\)</span> <span class="math inline">\(t=1,2,\ldots,n.\)</span></p>
 </div>
 <div id="cnj-5" class="theorem conjecture">
-<p><span class="theorem-title"><strong>Assumption 9.5 (No Serial Correlation)</strong></span> Conditional on <span class="math inline">\(\bX,\)</span> the errors in two different time periods are uncorrelated: <span class="math inline">\(\cor(u_t, u_s\mid \bX)=0,\)</span> for all <span class="math inline">\(t\ne s.\)</span></p>
+<p><span class="theorem-title"><strong>Assumption 10.5 (No Serial Correlation)</strong></span> Conditional on <span class="math inline">\(\bX,\)</span> the errors in two different time periods are uncorrelated: <span class="math inline">\(\cor(u_t, u_s\mid \bX)=0,\)</span> for all <span class="math inline">\(t\ne s.\)</span></p>
 </div>
-<hr>
-<p>Under Assumptions <a href="#cnj-1" class="quarto-xref"><span>9.1</span></a> through <a href="#cnj-3" class="quarto-xref"><span>9.3</span></a>, the OLS estimators are <strong>unbiased</strong>:</p>
+</section>
+<section id="finite-sample-properties-of-ols" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="finite-sample-properties-of-ols"><span class="header-section-number">10.2</span> Finite Sample Properties of OLS</h2>
+<p>Under Assumptions <a href="#cnj-1" class="quarto-xref"><span>10.1</span></a> through <a href="#cnj-3" class="quarto-xref"><span>10.3</span></a>, the OLS estimators are <strong>unbiased</strong>:</p>
 <p><span class="math display">\[
 \E(\hat{\beta}_j\mid \bX) = \E(\hat{\beta}_j) = \beta_j, \, j=0,1,\ldots,K.
 \]</span></p>
 <hr>
-<p>Under Assumptions <a href="#cnj-1" class="quarto-xref"><span>9.1</span></a> through <a href="#cnj-5" class="quarto-xref"><span>9.5</span></a>, the OLS estimators are the <strong>best linear unbiased estimators</strong> conditional on <span class="math inline">\(\bX.\)</span></p>
+<p>Under Assumptions <a href="#cnj-1" class="quarto-xref"><span>10.1</span></a> through <a href="#cnj-5" class="quarto-xref"><span>10.5</span></a>, the OLS estimators are the <strong>best linear unbiased estimators</strong> conditional on <span class="math inline">\(\bX.\)</span></p>
 </section>
-<section id="violation-of-strict-exogeneity" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="violation-of-strict-exogeneity"><span class="header-section-number">9.2</span> Violation of Strict Exogeneity</h2>
-<p><strong>Strict exogeneity</strong> (<a href="#cnj-3" class="quarto-xref">Assumption&nbsp;<span>9.3</span></a>) requires <span class="math inline">\(u_t\)</span> to be uncorrelated with <span class="math inline">\(\bx_s\)</span>, for <span class="math inline">\(s=1,2,\ldots,n.\)</span></p>
+<section id="violation-of-strict-exogeneity" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="violation-of-strict-exogeneity"><span class="header-section-number">10.3</span> Violation of Strict Exogeneity</h2>
+<p><strong>Strict exogeneity</strong> (<a href="#cnj-3" class="quarto-xref">Assumption&nbsp;<span>10.3</span></a>) requires <span class="math inline">\(u_t\)</span> to be uncorrelated with <span class="math inline">\(\bx_s\)</span>, for <span class="math inline">\(s=1,2,\ldots,n.\)</span></p>
 <p>If the unobservables at time <span class="math inline">\(t\)</span>are correlated with any of the explanatory variables in any time period, then Zero Conditional Mean fails. Two leading candidates for failure are</p>
 <ul>
 <li>omitted variables and</li>
@@ -685,29 +700,32 @@ x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{nK} \\
 </ul>
 <p>Other more subtle causes:</p>
 <ul>
-<li><p>Lagged effects</p></li>
-<li><p>Either the dependent variable of one of the independent variables is based on expectation.</p>
-<p>For example, consider a static model to explain a city’s murder rate (<span class="math inline">\(mrdrte_t\)</span>) in terms of police officers per capita (<span class="math inline">\(polpc_t\)</span>):</p>
+<li>Lagged effects</li>
+<li>Either the dependent variable of one of the independent variables is based on expectation.</li>
+</ul>
+<div id="exm-exo1" class="theorem example">
+<p><span class="theorem-title"><strong>Example 10.1</strong></span> For example, consider a static model to explain a city’s murder rate (<span class="math inline">\(mrdrte_t\)</span>) in terms of police officers per capita (<span class="math inline">\(polpc_t\)</span>):</p>
 <p><span class="math display">\[
-  mrdrte_t = \beta_0 + \beta_1\, polpc_t + u_t.
-  \]</span></p>
+mrdrte_t = \beta_0 + \beta_1\, polpc_t + u_t.
+\]</span></p>
 <p>Suppose that the city adjusts the size of its police force based on past values of the murder rate, such as</p>
 <p><span class="math display">\[
-  polpc_{t+1} = \delta_0 + \delta_1 mrdrte_t + v_t.
-  \]</span></p>
+polpc_{t+1} = \delta_0 + \delta_1 mrdrte_t + v_t.
+\]</span></p>
 <p>This means that, say, <span class="math inline">\(polpc_{t+1}\)</span> might be correlated with <span class="math inline">\(u_t\)</span> (since a higher <span class="math inline">\(u_t\)</span> leads to a higher <span class="math inline">\(mrdrte_t\)</span>). If this is the case, strict exogeneity is violated.</p>
 <p>Mathematically,</p>
 <p><span class="math display">\[
-  \begin{aligned}
-  \E [u_t polpc_{t+1}] &amp;= \E [u_t (\delta_0 + \delta_1 mrdrte_t + v_t)] \\
-  &amp;= \delta_1 \E[u_t\, mrdrte_t] \\
-  &amp;= \delta_1 \E[u_t (\beta_0 + \beta_1\, polpc_t + u_t)] \\
-  &amp;= \delta_1 \E[u_t^2] \\
-  &amp;= \delta_1 \sigma^2_u.
-  \end{aligned}
-  \]</span></p></li>
-</ul>
-<p>A general representation with two explanatory variables:</p>
+\begin{aligned}
+\E [u_t polpc_{t+1}] &amp;= \E [u_t (\delta_0 + \delta_1 mrdrte_t + v_t)] \\
+&amp;= \delta_1 \E[u_t\, mrdrte_t] \\
+&amp;= \delta_1 \E[u_t (\beta_0 + \beta_1\, polpc_t + u_t)] \\
+&amp;= \delta_1 \E[u_t^2] \\
+&amp;= \delta_1 \sigma^2_u.
+\end{aligned}
+\]</span></p>
+</div>
+<div id="exm-exo2" class="theorem example">
+<p><span class="theorem-title"><strong>Example 10.2</strong></span> A general representation with two explanatory variables:</p>
 <p><span class="math display">\[
 y_t = \beta_0 + \beta_1z_{t1} + \beta_2z_{t2} + u_t.
 \]</span> Under weak dependence, the condition sufficient for consistency of OLS is</p>
@@ -717,12 +735,13 @@ y_t = \beta_0 + \beta_1z_{t1} + \beta_2z_{t2} + u_t.
 <p><span class="math display">\[
 z_{t1} = \delta_0 + \delta_1y_{t-1} + v_t.
 \]</span> For example, <span class="math inline">\(z_{t1}\)</span> might be a policy variable, such as monthly percentage change in the money supply, and this change might depend on last month’s rate of inflation (<span class="math inline">\(y_{t-1}\)</span>). Such a mechanism generally causes <span class="math inline">\(z_{t1}\)</span> and <span class="math inline">\(u_{t-1}\)</span> to be correlated (as can be seen by plugging in for <span class="math inline">\(y_{t-1}\)</span>). This kind of feedback is allowed under contemporaneous exogeneity.</p>
+</div>
 <p>In the social sciences, many explanatory variables may very well violate the strict exogeneity assumption. For example, the amount of labor input might not be strictly exogenous, as it is chosen by the farmer, and the farmer may adjust the amount of labor based on last year’s yield. Policy variables, such as growth in the money supply, expenditures on welfare, and highway speed limits, are often influenced by what has happened to the outcome variable in the past.</p>
 <p>There are similar considerations in distributed lag models. Usually, we do not worry that <span class="math inline">\(u_t\)</span> might be correlated with past <span class="math inline">\(z\)</span> because we are controlling for past <span class="math inline">\(z\)</span> in the model. But feedback from <span class="math inline">\(u\)</span> to future <span class="math inline">\(z\)</span> is always an issue.</p>
 </section>
-<section id="violation-of-no-serial-correlation" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="violation-of-no-serial-correlation"><span class="header-section-number">9.3</span> Violation of No Serial Correlation</h2>
-<p>When <a href="#cnj-5" class="quarto-xref">Assumption&nbsp;<span>9.5</span></a> is false, we say that the error suffers from serial correlation, or autocorrelation, because they are correlated across time.</p>
+<section id="violation-of-no-serial-correlation" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="violation-of-no-serial-correlation"><span class="header-section-number">10.4</span> Violation of No Serial Correlation</h2>
+<p>When <a href="#cnj-5" class="quarto-xref">Assumption&nbsp;<span>10.5</span></a> is false, we say that the error suffers from serial correlation, or autocorrelation, because they are correlated across time.</p>
 
 
 </section>
@@ -1143,12 +1162,12 @@ z_{t1} = \delta_0 + \delta_1y_{t-1} + v_t.
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./TS02_AR-MA-representation.html" class="pagination-link" aria-label="AR(1) and Its MA representation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS03_asymptotic-property.html" class="pagination-link" aria-label="Asymptotic Properties of OLS">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS03_asymptotic-property.html" class="pagination-link" aria-label="OLS Asymptotic Assumptions and Properties">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">OLS Asymptotic Assumptions and Properties</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,21 +7,21 @@ format: html
 A first-order autoregressive process (AR(1)) satisfies the following stochastic difference equation:
 
 $$
-\begin{align}
+\begin{aligned}
 y_t &= c + \phi y_{t-1} + \varepsilon_t,  \quad \text{or} \\
 y_t - \phi y_{t-1} &= c + \varepsilon_t,  \quad \text{or} \\
 (1-\phi L) y_t &= c + \varepsilon_t,
-\end{align}
+\end{aligned}
 $$ {#eq-AR1}
 where $\{\varepsilon_t\}$ is white noise.
 
 If $\phi\ne 1,$ let $\mu\equiv c/(1-\phi)$ and rewrite the equation as 
 
 $$
-\begin{align}
+\begin{aligned}
 (y_t-\mu) - \phi(y_{t-1}-\mu) &= \varepsilon_t \quad \text{or} \\
 (1-\phi L) (y_t-\mu) &= \varepsilon_t.
-\end{align}
+\end{aligned}
 $$ {#eq-AR1-deviation-form}
 
 

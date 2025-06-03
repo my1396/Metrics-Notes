@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Measure Theory – Metrics Notes</title>
+<title>7&nbsp; TS Examples – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS01_AR1.html" rel="next">
-<link href="./conditional_expectation.html" rel="prev">
+<link href="./TS02_lag_poly.html" rel="next">
+<link href="./TS01_phillips-curve.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -455,7 +490,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./measure_theory.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_examples.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -503,7 +538,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link active">
+  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span></a>
   </div>
 </li>
@@ -536,7 +571,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS01_examples.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_examples.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></span></a>
   </div>
 </li>
@@ -599,7 +634,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"><span class="header-section-number">3.1</span> Definitions</a></li>
+  <li><a href="#example-11.6-fertility-and-personal-exemption" id="toc-example-11.6-fertility-and-personal-exemption" class="nav-link active" data-scroll-target="#example-11.6-fertility-and-personal-exemption"><span class="header-section-number">7.1</span> <code>Example 11.6:</code> Fertility and Personal Exemption</a>
+  <ul class="collapse">
+  <li><a href="#example-11.8" id="toc-example-11.8" class="nav-link" data-scroll-target="#example-11.8"><span class="header-section-number">7.1.1</span> <code>Example 11.8</code></a></li>
+  </ul></li>
+  <li><a href="#example-11.7-wages-and-productivity" id="toc-example-11.7-wages-and-productivity" class="nav-link" data-scroll-target="#example-11.7-wages-and-productivity"><span class="header-section-number">7.2</span> <code>Example 11.7:</code> Wages and Productivity</a></li>
   </ul>
 </nav>
     </div>
@@ -607,9 +646,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_examples.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></h1>
 </div>
 
 
@@ -626,94 +665,452 @@ window.Quarto = {
 </header>
 
 
-<section id="definitions" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">3.1</span> Definitions</h2>
-<p>We denote the collection of subsets, or <strong>power set</strong>, of a set <span class="math inline">\(X\)</span> by <span class="math inline">\(\Pcal(X).\)</span></p>
-<p>The Cartesian product, or product, of sets <span class="math inline">\(X, Y\)</span> is the collection of all ordered pairs</p>
-<p><span class="math display">\[
-X\times Y = \{(x,y): x\in X, y\in Y\}.
-\]</span></p>
-<p>A <strong>topological space</strong> is a set equipped with a collection of open subsets that satisfies appropriate conditions.</p>
-<div id="def-topology" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1 (Topological Space)</strong></span> A topological space <span class="math inline">\((X, \Tcal)\)</span> is a set <span class="math inline">\(X\)</span> and a collection <span class="math inline">\(\Tcal \subset \Pcal(X)\)</span> of subsets of <span class="math inline">\(X,\)</span> called open sets, such that</p>
-<ol type="a">
-<li><p><span class="math inline">\(\emptyset, X \in \Tcal;\)</span></p></li>
-<li><p>If <span class="math inline">\(\{U_\alpha \in \Tcal: \alpha \in I \}\)</span> is an arbitrary collection of open sets, then their union</p>
-<p><span class="math display">\[
-\bigcup_{\alpha\in I} U_\alpha \in \Tcal
-\]</span></p>
-<p>is open;</p></li>
-<li><p>If <span class="math inline">\(\{U_i \in \Tcal: i=1,2,\dots,N \}\)</span> is a finite collection of open sets,Then their intersection</p>
-<p><span class="math display">\[
-\bigcap_{i=1}^N U_i \in \Tcal
-\]</span></p>
-<p>is open.</p></li>
-</ol>
+<!-- Chunk option settings -->
+<!-- Define chunk option `max.lines` -->
+<!-- controls max lines printed -->
+<p>Textbook: Chapter 11, <strong>Introductory Econometrics: A Modern Approach</strong>, 7e by Jeffrey M. Wooldridge</p>
+<section id="example-11.6-fertility-and-personal-exemption" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="example-11.6-fertility-and-personal-exemption"><span class="header-section-number">7.1</span> <code>Example 11.6:</code> Fertility and Personal Exemption</h2>
+<p><code>gfr</code>: general fertility rate</p>
+<p><code>pe</code>: personal exemption</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">'fertil3'</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>fertility_diff <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">diff</span>(pe), <span class="at">data =</span> fertil3)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>fertility_lag <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">diff</span>(pe) <span class="sc">+</span> <span class="fu">diff</span>(pe_1) <span class="sc">+</span> <span class="fu">diff</span>(pe_2), <span class="at">data =</span> fertil3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The complement of an open set in <span class="math inline">\(X\)</span> is called a closed set, and <span class="math inline">\(\Tcal\)</span> is called a topology on <span class="math inline">\(X.\)</span></p>
-<p>A <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on a set <span class="math inline">\(X\)</span> is a collection of subsets of a set <span class="math inline">\(X\)</span> that contains <span class="math inline">\(\emptyset\)</span> and <span class="math inline">\(X\)</span>, and is closed under complements, finite unions, countable unions, and countable intersections.</p>
-<div id="def-sigma_algebra" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A <span class="math inline">\(\sigma\)</span>-algebra on a set <span class="math inline">\(X\)</span> is a collection <span class="math inline">\(\Acal\)</span> of subsets of a set <span class="math inline">\(X\)</span> such that:</p>
-<ol type="a">
-<li><span class="math inline">\(\emptyset, X \in \Acal;\)</span></li>
-<li>If <span class="math inline">\(A\in\Acal\)</span> then <span class="math inline">\(A^c\in\Acal;\)</span></li>
-<li>If <span class="math inline">\(A_i\in\Acal\)</span> then <span class="math display">\[
-\bigcup_{i=1}^\infty A_i \in \Acal, \quad \bigcap_{i=1}^\infty A_i \in \Acal.
-\]</span></li>
-</ol>
+<div class="cell" data-layout-align="center">
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+diff(gfr)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+diff(pe)
+</td>
+<td>
+-0.04268 (0.02837)
+</td>
+<td>
+-0.03620 (0.02677)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+diff(pe_1)
+</td>
+<td>
+</td>
+<td>
+-0.01397 (0.02755)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+diff(pe_2)
+</td>
+<td>
+</td>
+<td>
+0.10999<sup>***</sup> (0.02688)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.78478 (0.50204)
+</td>
+<td>
+-0.96368<sup>**</sup> (0.46776)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+71
+</td>
+<td>
+69
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.03176
+</td>
+<td>
+0.23248
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.01773
+</td>
+<td>
+0.19705
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+4.22082 (df = 69)
+</td>
+<td>
+3.85945 (df = 65)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+2.26343 (df = 1; 69)
+</td>
+<td>
+6.56266<sup>***</sup> (df = 3; 65)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
+</td>
+</tr>
+</tbody></table>
 </div>
-<div id="exm-sigma_algebra" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> If <span class="math inline">\(X\)</span> is a set, then <span class="math inline">\(\{\emptyset,X\}\)</span> and <span class="math inline">\(\Pcal(X)\)</span> are <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>; they are the smallest and largest <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>, respectively.</p>
+<p>The first regression uses first differences:</p>
+<p><span id="eq-gfr_static"><span class="math display">\[
+\begin{aligned}
+\Delta\widehat{gfr} &amp;= -.785 - .043\, \Delta pe \\
+&amp;\phantom{=}\;\; (.502)\;\; (.028) \\
+n &amp;= 71, R^2=.032, \bar{R^2} = .018.
+\end{aligned}
+\tag{7.1}\]</span></span></p>
+<p>The estimates indicate an increase in <span class="math inline">\(pe\)</span> lowers <span class="math inline">\(gfr\)</span> contemporaneously, although the estimate is not statistically different from zero at the 5% level.</p>
+<p>If we add two lags of <span class="math inline">\(\Delta pe,\)</span> things improve:</p>
+<p><span id="eq-gfr_lag"><span class="math display">\[
+\begin{aligned}
+\Delta\widehat{gfr} &amp;= -.964 - .036\, \Delta pe - .014\, \Delta pe_{-1} + .110\, \Delta pe_{-2} \\
+&amp;\phantom{=}\;\; (.468)\quad (.027) \qquad\; (.028) \qquad\quad\; (.027)\\
+n &amp;= 69, R^2=.232, \bar{R^2} = .197.
+\end{aligned}
+\tag{7.2}\]</span></span></p>
+<p>Even though <span class="math inline">\(\Delta pe\)</span> and <span class="math inline">\(\Delta pe_{-1}\)</span> have negative coefficients, their coefficients are small and jointly insignificant (<span class="math inline">\(p\text{-value}=.28,\)</span> see Anova test below).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the restricted with the full model</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fertility_lag2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">diff</span>(pe_2), <span class="at">data =</span> fertil3)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fertility_lag2, fertility_lag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: diff(gfr) ~ diff(pe_2)
+Model 2: diff(gfr) ~ diff(pe) + diff(pe_1) + diff(pe_2)
+  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+1     67 1006.6                           
+2     65  968.2  2    38.413 1.2894 0.2824</code></pre>
 </div>
-<p>A measurable space <span class="math inline">\((X, \Acal)\)</span> is an non-empty set <span class="math inline">\(X\)</span> equipped with a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X.\)</span></p>
-<p>Difference between a measurable space and <span class="math inline">\(\sigma\)</span>-algebra:</p>
-<ul>
-<li><p>The complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology <span class="math inline">\(\Tcal = \Pcal (X)\)</span></p></li>
-<li><p>Countable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open.</p></li>
-</ul>
-<p>A <strong>measure</strong> <span class="math inline">\(\mu\)</span> is a countably additive, non-negative, extended real-valued function defined on a <span class="math inline">\(\sigma\)</span>-algebra.</p>
-<p>A <strong>measure space</strong> <span class="math inline">\((X, \Acal, \mu)\)</span> consist of a set <span class="math inline">\(X\)</span>, a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X\)</span>, and a measure <span class="math inline">\(\mu\)</span> defined on <span class="math inline">\(\Acal.\)</span> When <span class="math inline">\(\Acal\)</span> and <span class="math inline">\(\mu\)</span> are clear from the context, we will refer to the measure space <span class="math inline">\(X\)</span>.</p>
-<p>An abstract probability space <span class="math inline">\((\Omega, \Fcal, \P)\)</span></p>
-<ul>
-<li><p><span class="math inline">\(\omega\in \Omega\)</span> is called an <em>outcome</em>;</p></li>
-<li><p><span class="math inline">\(A\in \Fcal\)</span> is called an <em>event</em>;</p></li>
-<li><p><span class="math inline">\(\P(A)\)</span> is called the <em>probability</em> of <span class="math inline">\(A.\)</span></p>
-<p><span class="math inline">\(\P(\Omega)=1\)</span> the sum of probability of all possible outcomes is 1.</p></li>
-</ul>
-<p>A random variable is any function <span class="math inline">\(X: \Omega \to \Xcal.\)</span> We say that <span class="math inline">\(X\)</span> has distribution <span class="math inline">\(P,\)</span> and write <span class="math inline">\(X\sim P\)</span>, if</p>
+</div>
+<p>The second lag (<span class="math inline">\(\Delta pe_{-2}\)</span>) is very significant and indicates a positive relationship between changes in <span class="math inline">\(pe\)</span> and subsequent changes in <span class="math inline">\(gfr\)</span> two years hence. This makes more sense than having a contemporaneous effect.</p>
+<section id="example-11.8" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="example-11.8"><span class="header-section-number">7.1.1</span> <code>Example 11.8</code></h3>
+<p>In this example, we want to test whether the <strong>Finite Distributed Lag model</strong> (<a href="#eq-gfr_lag" class="quarto-xref"><span>7.2</span></a>) for <span class="math inline">\(\Delta\widehat{gfr}\)</span> and <span class="math inline">\(\Delta pe\)</span> is <strong>dynamically complete</strong>.</p>
+<p>Being dynamically complete indicates that neither lags of <span class="math inline">\(\Delta\widehat{gfr}\)</span> nor further lags of <span class="math inline">\(\Delta pe\)</span> should appear in the equation. Mathematically, given the following finite distributed lag model:</p>
 <p><span class="math display">\[
-\P(X\in B) = \P(\{\omega: X(\omega)\in B\}) = \P(B)
-\]</span></p>
-<p>We say the real-valued random variable <span class="math inline">\(X\)</span> is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If <span class="math inline">\(X\)</span> is a random variable, then <span class="math inline">\(f(X)\)</span> is also a random variable for any function <span class="math inline">\(f\)</span>.</p>
-<p>The expectation of a random variable is defined as an integral with respect to <span class="math inline">\(\P\)</span>:</p>
+\Delta gfr_t = \beta_0 + \beta_1\Delta pe_t + \beta_2\Delta pe_{t-1} + \beta_3 \Delta pe_{t-2} + u_t .
+\]</span> Rewrite it as</p>
 <p><span class="math display">\[
-\E[X] = \int X(\omega)\, \mathrm d \P(\omega),
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\E[f(X,Y)] = \int f(X(\omega), Y(\omega))\, \mathrm d \P(\omega).
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a measurable space <span class="math inline">\((X,\Acal)\)</span> is a function</p>
-<p><span class="math display">\[
-\mu: \Acal \to [0, \infty]
-\]</span></p>
-<p>such that</p>
-<ol type="1">
-<li><span class="math inline">\(\mu(\emptyset)=0;\)</span></li>
-<li>If <span class="math inline">\(\{A_i\in \Acal: i\in \N\}\)</span> is a countable disjoint collection of sets in <span class="math inline">\(\Acal,\)</span> then</li>
-</ol>
-<p><span class="math display">\[
-\mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a set <span class="math inline">\(X\)</span> is</p>
-<ul>
-<li><em>finite</em> if <span class="math inline">\(\mu(X)&lt;\infty,\)</span> and</li>
-<li><em><span class="math inline">\(\sigma\)</span>-finite</em> if <span class="math inline">\(X=\bigcup_{n=1}^\infty A_n\)</span> is a countable union of measurable sets <span class="math inline">\(A_n\)</span> with finite measure, <span class="math inline">\(\mu(A_n)&lt;\infty.\)</span></li>
-</ul>
-<p>References:</p>
-<ul>
-<li>J. K. Hunter (2011). <em>Measure Theory</em>. Department of Mathematics, University of California at Davis. <a href="https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf" class="uri">https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf</a></li>
-</ul>
+\begin{aligned}
+\Delta gfr_t &amp;= \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3 x_{t3} + u_t \\
+y_t &amp;= \bx_t'\bbeta + u_t
+\end{aligned}
+\]</span> where the explanatory variables <span class="math inline">\(\bx_t=(x_{t1}, x_{t2}, x_{t3})' = (\Delta pe_t, \Delta pe_{t-2}, \Delta pe_{t-3})'\)</span> and the dependent variable <span class="math inline">\(y_t=\Delta gfr_t.\)</span></p>
+<p>A dynamically complete model requires the following condition:</p>
+<p><span id="eq-dc1"><span class="math display">\[
+\E(u_t\mid \bx_t, y_{t-1}, \bx_{t-1}, \ldots) = 0.
+\tag{7.3}\]</span></span> Written in terms of <span class="math inline">\(y_t,\)</span></p>
+<p><span id="eq-dc2"><span class="math display">\[
+\E(y_t\mid \bx_t, y_{t-1}, \bx_{t-1}, \ldots) = \E(y_t\mid \bx_t).
+\tag{7.4}\]</span></span></p>
+<p>We can test for dynamic completeness by adding <span class="math inline">\(\Delta gfr_{t-1}.\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fertility_lag_dep <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">lag</span>(<span class="fu">diff</span>(gfr)) <span class="sc">+</span> <span class="fu">diff</span>(pe) <span class="sc">+</span> <span class="fu">diff</span>(pe_1) <span class="sc">+</span> <span class="fu">diff</span>(pe_2), <span class="at">data =</span> fertil3)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fertility_lag_dep) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">estimate</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">std.error</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">statistic</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-0.702</td>
+<td style="text-align: right;">0.454</td>
+<td style="text-align: right;">-1.547</td>
+<td style="text-align: right;">0.127</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lag(diff(gfr))</td>
+<td style="text-align: right;">0.300</td>
+<td style="text-align: right;">0.106</td>
+<td style="text-align: right;">2.835</td>
+<td style="text-align: right;">0.006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diff(pe)</td>
+<td style="text-align: right;">-0.045</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">-1.773</td>
+<td style="text-align: right;">0.081</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">diff(pe_1)</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.027</td>
+<td style="text-align: right;">0.077</td>
+<td style="text-align: right;">0.939</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">diff(pe_2)</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">4.108</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The coefficient estimate is .300 and its <span class="math inline">\(t\)</span> statistic is 2.84. Thus, the model is NOT dynamically complete in the sense of (<a href="#eq-dc2" class="quarto-xref"><span>7.4</span></a>).</p>
+<p>The fact that (<a href="#eq-gfr_lag" class="quarto-xref"><span>7.2</span></a>) is not dynamically complete suggests that there may be serial correlation in the errors. We will need to test and correct for this.</p>
+</section>
+</section>
+<section id="example-11.7-wages-and-productivity" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="example-11.7-wages-and-productivity"><span class="header-section-number">7.2</span> <code>Example 11.7:</code> Wages and Productivity</h2>
+<p><span class="math display">\[\log(hrwage_t) = \beta_0 + \beta_1\log(outphr_t) + \beta_2t + u_t\]</span> Data from the <em>Economic Report of the President, 1989</em>, Table B-47. The data are for the non-farm business sector.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"earns"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>wage_time <span class="ot">&lt;-</span> <span class="fu">lm</span>(lhrwage <span class="sc">~</span> loutphr <span class="sc">+</span> t, <span class="at">data =</span> earns)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>wage_diff <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(lhrwage) <span class="sc">~</span> <span class="fu">diff</span>(loutphr), <span class="at">data =</span> earns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lhrwage
+</td>
+<td>
+diff(lhrwage)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+loutphr
+</td>
+<td>
+1.63964<sup>***</sup> (0.09335)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+t
+</td>
+<td>
+-0.01823<sup>***</sup> (0.00175)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+diff(loutphr)
+</td>
+<td>
+</td>
+<td>
+0.80932<sup>***</sup> (0.17345)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-5.32845<sup>***</sup> (0.37445)
+</td>
+<td>
+-0.00366 (0.00422)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+41
+</td>
+<td>
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.97122
+</td>
+<td>
+0.36424
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.96971
+</td>
+<td>
+0.34750
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 38)
+</td>
+<td>
+0.02854
+</td>
+<td>
+0.01695
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+641.22430<sup>***</sup> (df = 2; 38)
+</td>
+<td>
+21.77054<sup>***</sup> (df = 1; 38)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
+</td>
+</tr>
+</tbody></table>
+</div>
 
 
 </section>
@@ -1133,13 +1530,13 @@ X\times Y = \{(x,y): x\in X, y\in Y\}.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conditional_expectation.html" class="pagination-link" aria-label="Conditional Expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conditional Expectation</span></span>
+      <a href="./TS01_phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS01_AR1.html" class="pagination-link" aria-label="AR(1)">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS02_lag_poly.html" class="pagination-link" aria-label="Lag polynomials">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

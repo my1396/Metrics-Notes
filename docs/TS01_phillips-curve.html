@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS02_lag_poly.html" rel="next">
+<link href="./TS01_examples.html" rel="next">
 <link href="./TS01_AR_example.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -77,7 +77,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-13584eca99d870fe07357c15139acc5f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark-20cbe20b4af8f742c845e3e6303c86d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -269,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         independent: "\\mathrel{\\perp\\!\\!\\perp}",
 
-        var: "\\mathrm{var}",
+        var: "\\mathrm{Var}",
         cov: "\\mathrm{Cov}",
         cor: "\\mathrm{Corr}",
         diag: "\\mathrm{diag}",
@@ -573,26 +573,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./TS01_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">OLS Finite Sample Assumptions and Properties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">OLS Asymptotic Assumptions and Properties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS04_highly-persistent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
   </div>
 </li>
       </ul>
@@ -609,7 +621,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -828,12 +840,13 @@ F-statistic: 3.962 on 1 and 202 DF,  p-value: 0.04788</code></pre>
 </div>
 </div>
 <p>The simple regression estimates are</p>
-<p><span class="math display">\[
+<p><span id="eq-phillips_stat"><span class="math display">\[
 \begin{aligned}
 \widehat{inf}_t &amp;= 2.22 + 0.30\, unem_t \\
 &amp;\phantom{={ }} (0.89)\;\; (.15)
 \end{aligned}
-\]</span> The regression indicates a positive relationship (<span class="math inline">\(\hat{\beta}_1&gt;0\)</span>) between inflation and unemployment at 5% significance level.</p>
+\tag{6.1}\]</span></span></p>
+<p>The regression indicates a positive relationship (<span class="math inline">\(\hat{\beta}_1&gt;0\)</span>) between inflation and unemployment at 5% significance level.</p>
 <p>There are some problems with this analysis that we cannot address in detail now. The Classical Linear Model assumptions do not hold. In addition, the static Phillips curve is probably not the best model for determining whether there is a short run tradeoff between inflation and unemployment. Macroeconomists generally prefer the <strong>expectations augmented Phillips curve</strong>, while we will see shortly.</p>
 </section>
 <section id="expectations-augmented-phillips-curve" class="level2" data-number="6.2">
@@ -842,20 +855,25 @@ F-statistic: 3.962 on 1 and 202 DF,  p-value: 0.04788</code></pre>
 <p><span class="math display">\[
 inf_t - inf^e_t = \beta_1 (unem_t - \mu_0) + e_t,
 \]</span></p>
-<p>where <span class="math inline">\(\mu_0\)</span> is the <em>natural rate of unemployment</em> and <span class="math inline">\(inf^3_t\)</span> is the <em>expected</em> rate of inflation formed in year <span class="math inline">\(t-1.\)</span></p>
+<p>where <span class="math inline">\(\mu_0\)</span> is the <em>natural rate of unemployment</em> and <span class="math inline">\(inf^e_t\)</span> is the <em>expected</em> rate of inflation formed in year <span class="math inline">\(t-1.\)</span></p>
 <p>The difference between actual unemployment and the natural rate is called <em>cyclical unemployment</em>, while the difference between actual and expected inflation is called <em>unanticipated inflation</em>.</p>
+<p>If there is a tradeoff between unanticipated inflation and cyclical unemployment, then <span class="math inline">\(\beta_1&lt;0.\)</span></p>
 <p>The error term, <span class="math inline">\(e_t\)</span>, is called a <em>supply shock</em> by macroeconomists.</p>
-<p>To complete this model, we need to make an assumption about inflationary expectations. Under adaptive expectations, the expected value of current inflation depends on recently observed inflation. A particularly simple formulation is that expected inflation this year is last year’s inflation:</p>
+<p>To complete this model, we need to make an assumption about inflationary expectations. Under <em>adaptive expectations</em>, the expected value of current inflation depends on recently observed inflation. A particularly simple formulation is that expected inflation this year is last year’s inflation:</p>
 <p><span class="math display">\[
 inf^e_t = inf_{t-1}
 \]</span></p>
-<p>Under this assumption, we can write</p>
+<p>Under this assumption, we can write the following empirical model:</p>
 <p><span class="math display">\[
 inf_t - inf_{t-1} = \beta_0 + \beta_1 \,unem_t  + e_t,
 \]</span> or</p>
 <p><span class="math display">\[
 \Delta  inf_t = \beta_0 + \beta_1 \,unem_t  + e_t,
 \]</span> where <span class="math inline">\(\Delta  inf_t = inf_t - inf_{t-1}\)</span> and <span class="math inline">\(\beta_0=-\beta_1\mu_0.\)</span></p>
+<p>Hence, the natural unemployment rate can be obtained by:</p>
+<p><span class="math display">\[
+\mu_0 = -\frac{\beta_0}{\beta_1}.
+\]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>lm_phillips_aug <span class="ot">&lt;-</span> <span class="fu">lm</span>(delta_infl <span class="sc">~</span> unemp, data)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_phillips_aug)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -880,17 +898,20 @@ F-statistic: 0.5167 on 1 and 201 DF,  p-value: 0.4731</code></pre>
 </div>
 </div>
 <p>The OLS estimates are</p>
-<p><span class="math display">\[
+<p><span id="eq-phillips_aug"><span class="math display">\[
 \begin{aligned}
 \Delta\widehat{inf}_t &amp;= 0.52 - 0.09 \,unem_t \\
 &amp;\phantom{={}} (0.74) \;\; (0.13)
 \end{aligned}
-\]</span></p>
+\tag{6.2}\]</span></span></p>
 <p><span class="math inline">\(\hat{\beta}_1&lt;0\)</span> indicates a tradeoff between cyclical unemployment and unanticipated inflation. But the effect is statistically insignificant.</p>
 <p>The natural employment rate is 5.78 percent.</p>
 <p><span class="math display">\[
 \mu_0 = -\frac{\beta_0}{\beta_1} = \frac{0.52}{0.09} \approx 5.78
 \]</span></p>
+<p>Variance can be obtained by the Delta Method, which won’t be covered here.</p>
+<p>Under expectations augmented Phillips Curve, one-point increase in <span class="math inline">\(unem\)</span> lowers unanticipated inflation by about 0.1 of a point. We can contrast this with the static Phillips curve in <a href="#eq-phillips_stat" class="quarto-xref">Equation&nbsp;<span>6.1</span></a>, where we found a positive relationship between inflation and unemployment.</p>
+<hr>
 
 
 </section>
@@ -1315,8 +1336,8 @@ F-statistic: 0.5167 on 1 and 201 DF,  p-value: 0.4731</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS02_lag_poly.html" class="pagination-link" aria-label="Lag polynomials">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS01_examples.html" class="pagination-link" aria-label="TS Examples">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

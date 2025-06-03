@@ -1,0 +1,140 @@
+---
+title: "TS Examples"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| label: load-packages
+#| include: false
+library(knitr) # load packages
+library(broom)
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(xts)
+library(wooldridge)
+```
+
+```{r}
+#| child: "_chunk-opt.qmd"
+#| include: false
+```
+
+
+Textbook: Chapter 11, **Introductory Econometrics: A Modern Approach**, 7e by Jeffrey M. Wooldridge
+
+Summary notes by Marius v. Oordt: <https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3401712>
+
+## `Example 11.6:` Fertility and Personal Exemption
+
+`gfr`: general fertility rate
+
+`pe`: personal exemption
+
+```{r}
+data('fertil3')
+fertility_diff <- lm(diff(gfr) ~ diff(pe), data = fertil3)
+fertility_lag <- lm(diff(gfr) ~ diff(pe) + diff(pe_1) + diff(pe_2), data = fertil3)
+```
+
+```{r results='asis', echo=FALSE}
+stargazer(type = "html", fertility_diff, fertility_lag, single.row = TRUE, header = FALSE, digits=5, notes = "<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in parentheses.", notes.append = FALSE)
+```
+
+The first regression uses first differences:
+
+$$
+\begin{aligned}
+\Delta\widehat{gfr} &= -.785 - .043\, \Delta pe \\
+&\phantom{=}\;\; (.502)\;\; (.028) \\
+n &= 71, R^2=.032, \bar{R^2} = .018.
+\end{aligned}
+$$  {#eq-gfr_static}
+
+The estimates indicate an increase in $pe$ lowers $gfr$ contemporaneously, although the estimate is not statistically different from zero at the 5% level.
+
+If we add two lags of $\Delta pe,$ things improve:
+
+$$
+\begin{aligned}
+\Delta\widehat{gfr} &= -.964 - .036\, \Delta pe - .014\, \Delta pe_{-1} + .110\, \Delta pe_{-2} \\
+&\phantom{=}\;\; (.468)\quad (.027) \qquad\; (.028) \qquad\quad\; (.027)\\
+n &= 69, R^2=.232, \bar{R^2} = .197.
+\end{aligned}
+$$ {#eq-gfr_lag}
+
+Even though $\Delta pe$ and $\Delta pe_{-1}$ have negative coefficients, their coefficients are small and jointly insignificant ($p\text{-value}=.28,$ see Anova test below). 
+
+```{r}
+# Compare the restricted with the full model
+fertility_lag2 <- lm(diff(gfr) ~ diff(pe_2), data = fertil3)
+anova(fertility_lag2, fertility_lag)
+```
+
+The second lag ($\Delta pe_{-2}$) is very significant and indicates a positive relationship between changes in $pe$ and subsequent changes in $gfr$ two years hence. This makes more sense than having a contemporaneous effect.
+
+
+### `Example 11.8`
+
+In this example, we want to test whether the **Finite Distributed Lag model** (-@eq-gfr_lag) for $\Delta\widehat{gfr}$ and $\Delta pe$ is **dynamically complete**.
+
+Being dynamically complete indicates that neither lags of $\Delta\widehat{gfr}$ nor further lags of $\Delta pe$ should appear in the equation. Mathematically, given the following finite distributed lag model:
+
+$$
+\Delta gfr_t = \beta_0 + \beta_1\Delta pe_t + \beta_2\Delta pe_{t-1} + \beta_3 \Delta pe_{t-2} + u_t .
+$$
+Rewrite it as
+
+$$
+\begin{aligned}
+\Delta gfr_t &= \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3 x_{t3} + u_t \\
+y_t &= \bx_t'\bbeta + u_t
+\end{aligned}
+$$
+where the explanatory variables $\bx_t=(x_{t1}, x_{t2}, x_{t3})' = (\Delta pe_t, \Delta pe_{t-2}, \Delta pe_{t-3})'$ and the dependent variable $y_t=\Delta gfr_t.$
+
+A dynamically complete model requires the following condition:
+
+$$
+\E(u_t\mid \bx_t, y_{t-1}, \bx_{t-1}, \ldots) = 0.
+$$ {#eq-dc1}
+Written in terms of $y_t,$
+
+$$
+\E(y_t\mid \bx_t, y_{t-1}, \bx_{t-1}, \ldots) = \E(y_t\mid \bx_t).
+$$  {#eq-dc2}
+
+We can test for dynamic completeness by adding $\Delta gfr_{t-1}.$
+
+```{r}
+fertility_lag_dep <- lm(diff(gfr) ~ lag(diff(gfr)) + diff(pe) + diff(pe_1) + diff(pe_2), data = fertil3)
+tidy(fertility_lag_dep) %>% 
+    knitr::kable(digits = 3) 
+```
+
+The coefficient estimate is .300 and its $t$ statistic is 2.84. Thus, the model is NOT dynamically complete in the sense of (-@eq-dc2).
+
+
+The fact that (-@eq-gfr_lag) is not dynamically complete suggests that there may be serial correlation in the errors. We will need to test and correct for this.
+
+
+
+## `Example 11.7:` Wages and Productivity
+
+
+$$\log(hrwage_t) = \beta_0 + \beta_1\log(outphr_t) + \beta_2t + u_t$$
+Data from the _Economic Report of the President, 1989_, Table B-47. The data are for the non-farm business sector.
+
+```{r}
+data("earns")
+wage_time <- lm(lhrwage ~ loutphr + t, data = earns)
+wage_diff <- lm(diff(lhrwage) ~ diff(loutphr), data = earns)
+```
+
+```{r results='asis', echo=FALSE}
+stargazer(type = "html", wage_time, wage_diff,  single.row = TRUE, header = FALSE, digits=5, notes = "<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in parentheses.", notes.append = FALSE)
+```

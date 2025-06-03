@@ -94,11 +94,19 @@ $$
 \text{constant}: &\quad \psi_0 =1  \\
 L: &\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
 L^2: &\quad \psi_2 - \psi_1\phi = 0 \Longrightarrow \psi_2 = \phi^2 \\
-L^3: &\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^4 \\
+L^3: &\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^3 \\
 \vdots 
 \end{aligned}
 $$
-$\psi(L) = 1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots.$
+Hence
+
+$$
+\begin{aligned}
+\psi(L) &= (1-\phi L)^{-1} \\
+&=1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots \\
+&= \sum_{j=0}^\infty \phi^jL^j.
+\end{aligned}
+$$
 :::
 
 

@@ -1,5 +1,5 @@
 ---
-title: "Finite Sample Properties of OLS"
+title: "OLS Finite Sample Assumptions and Properties"
 format: 
     html:
         include-in-header: themes/mathjax.html
@@ -8,7 +8,7 @@ format:
 
 In this section, we give a complete listing of the *finite sample, or small sample*, properties of OLS under standard assumptions.
 
-## Finite Sample Properties of OLS under Classical Assumptions
+## Finite Sample Classical Assumptions of OLS
 
 
 :::{#cnj-1 name="Linear in Parameters"}
@@ -86,7 +86,9 @@ Conditional on $\bX,$ the variance of $u_t$ is the same for all $t:$ $\var(u_t\m
 Conditional on $\bX,$ the errors in two different time periods are uncorrelated: $\cor(u_t, u_s\mid \bX)=0,$ for all $t\ne s.$
 :::
 
---------------------------------------------------------------------------------
+
+
+## Finite Sample Properties of OLS
 
 Under Assumptions [-@cnj-1] through [-@cnj-3], the OLS estimators are **unbiased**:
 
@@ -114,35 +116,38 @@ Other more subtle causes:
 
 - Lagged effects
 - Either the dependent variable of one of the independent variables is based on expectation.
+    
+:::{#exm-exo1}
+For example, consider a static model to explain a city’s murder rate ($mrdrte_t$) in terms of police officers per capita ($polpc_t$):
 
-    For example, consider a static model to explain a city’s murder rate ($mrdrte_t$) in terms of police officers per capita ($polpc_t$):
-    
-    $$
-    mrdrte_t = \beta_0 + \beta_1\, polpc_t + u_t.
-    $$
-    
-    Suppose that the city adjusts the size of its police force based on past values of the murder rate, such as
-    
-    $$
-    polpc_{t+1} = \delta_0 + \delta_1 mrdrte_t + v_t.
-    $$
-    
-    This means that, say, $polpc_{t+1}$ might be correlated with $u_t$ (since a higher $u_t$ leads to a higher $mrdrte_t$). 
-    If this is the case, strict exogeneity is violated.
-    
-    Mathematically,
-    
-    $$
-    \begin{aligned}
-    \E [u_t polpc_{t+1}] &= \E [u_t (\delta_0 + \delta_1 mrdrte_t + v_t)] \\
-    &= \delta_1 \E[u_t\, mrdrte_t] \\
-    &= \delta_1 \E[u_t (\beta_0 + \beta_1\, polpc_t + u_t)] \\
-    &= \delta_1 \E[u_t^2] \\
-    &= \delta_1 \sigma^2_u.
-    \end{aligned}
-    $$
+$$
+mrdrte_t = \beta_0 + \beta_1\, polpc_t + u_t.
+$$
+
+Suppose that the city adjusts the size of its police force based on past values of the murder rate, such as
+
+$$
+polpc_{t+1} = \delta_0 + \delta_1 mrdrte_t + v_t.
+$$
+
+This means that, say, $polpc_{t+1}$ might be correlated with $u_t$ (since a higher $u_t$ leads to a higher $mrdrte_t$). 
+If this is the case, strict exogeneity is violated.
+
+Mathematically,
+
+$$
+\begin{aligned}
+\E [u_t polpc_{t+1}] &= \E [u_t (\delta_0 + \delta_1 mrdrte_t + v_t)] \\
+&= \delta_1 \E[u_t\, mrdrte_t] \\
+&= \delta_1 \E[u_t (\beta_0 + \beta_1\, polpc_t + u_t)] \\
+&= \delta_1 \E[u_t^2] \\
+&= \delta_1 \sigma^2_u.
+\end{aligned}
+$$
+:::
 
 
+:::{#exm-exo2}
 A general representation with two explanatory variables:
 
 $$
@@ -159,9 +164,11 @@ $$
 z_{t1} = \delta_0 + \delta_1y_{t-1} + v_t.
 $$
 For example, $z_{t1}$ might be a policy variable, such as monthly percentage change in the money supply, and this change might depend on last month's rate of inflation ($y_{t-1}$). Such a mechanism generally causes $z_{t1}$ and $u_{t-1}$ to be correlated (as can be seen by plugging in for $y_{t-1}$). This kind of feedback is allowed under contemporaneous exogeneity.
+:::
 
 In the social sciences, many explanatory variables may very well violate the strict exogeneity assumption. For example, the amount of labor input might not be strictly exogenous, as it is chosen by the farmer, and the farmer may adjust the amount of labor based on last year's yield. Policy variables, such as growth in the money supply, expenditures on welfare, and highway speed limits, are often influenced by what has happened
 to the outcome variable in the past.
+
 
 There are similar considerations in distributed lag models. Usually, we do not worry that $u_t$ might be correlated with past $z$ because we are controlling for past $z$ in the model.
 But feedback from $u$ to future $z$ is always an issue.

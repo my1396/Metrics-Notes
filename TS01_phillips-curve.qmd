@@ -59,9 +59,9 @@ $$
 \widehat{inf}_t &= 2.22 + 0.30\, unem_t \\
 &\phantom{={ }} (0.89)\;\; (.15)
 \end{aligned}
-$$
-The regression indicates a positive relationship ($\hat{\beta}_1>0$) between inflation and unemployment at 5% significance level. 
+$$ {#eq-phillips_stat}
 
+The regression indicates a positive relationship ($\hat{\beta}_1>0$) between inflation and unemployment at 5% significance level. 
 
 There are some problems with this analysis that we cannot address in detail now. The Classical Linear Model assumptions do not hold. In addition, the static Phillips curve is probably not the best model for determining whether there is a short run tradeoff between inflation and unemployment. Macroeconomists generally prefer the **expectations augmented Phillips curve**, while we will see shortly.
 
@@ -75,21 +75,23 @@ $$
 inf_t - inf^e_t = \beta_1 (unem_t - \mu_0) + e_t,
 $$
 
-where $\mu_0$ is the *natural rate of unemployment* and $inf^3_t$ is the *expected* rate of inflation formed in year $t-1.$
+where $\mu_0$ is the *natural rate of unemployment* and $inf^e_t$ is the *expected* rate of inflation formed in year $t-1.$
 
 The difference between actual unemployment and the natural rate is called *cyclical unemployment*, while the difference between actual and expected
 inflation is called *unanticipated inflation*.
 
+If there is a tradeoff between unanticipated inflation and cyclical unemployment, then $\beta_1<0.$
+
 The error term, $e_t$, is called a *supply shock* by macroeconomists.
 
 To complete this model, we need to make an assumption about inflationary expectations.
-Under adaptive expectations, the expected value of current inflation depends on recently observed inflation. A particularly simple formulation is that expected inflation this year is last year's inflation:
+Under *adaptive expectations*, the expected value of current inflation depends on recently observed inflation. A particularly simple formulation is that expected inflation this year is last year's inflation:
 
 $$
 inf^e_t = inf_{t-1}
 $$
 
-Under this assumption, we can write
+Under this assumption, we can write the following empirical model:
 
 $$
 inf_t - inf_{t-1} = \beta_0 + \beta_1 \,unem_t  + e_t,
@@ -99,7 +101,13 @@ or
 $$
 \Delta  inf_t = \beta_0 + \beta_1 \,unem_t  + e_t,
 $$
-where $\Delta  inf_t = inf_t - inf_{t-1}$ and $\beta_0=-\beta_1\mu_0.$
+where $\Delta  inf_t = inf_t - inf_{t-1}$ and $\beta_0=-\beta_1\mu_0.$ 
+
+Hence, the natural unemployment rate can be obtained by:
+
+$$
+\mu_0 = -\frac{\beta_0}{\beta_1}.
+$$
 
 ```{r}
 lm_phillips_aug <- lm(delta_infl ~ unemp, data)
@@ -113,7 +121,7 @@ $$
 \Delta\widehat{inf}_t &= 0.52 - 0.09 \,unem_t \\
 &\phantom{={}} (0.74) \;\; (0.13)
 \end{aligned}
-$$
+$$ {#eq-phillips_aug}
 
 $\hat{\beta}_1<0$ indicates a tradeoff between cyclical unemployment and unanticipated inflation. But the effect is statistically insignificant.
 
@@ -122,6 +130,27 @@ The natural employment rate is 5.78 percent.
 $$
 \mu_0 = -\frac{\beta_0}{\beta_1} = \frac{0.52}{0.09} \approx 5.78
 $$
+
+Variance can be obtained by the Delta Method, which won't be covered here.
+
+Under expectations augmented Phillips Curve, one-point increase in $unem$ lowers unanticipated inflation by about 0.1 of a point. We can contrast this with the static Phillips curve in @eq-phillips_stat, where we found a positive relationship between inflation and unemployment.
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

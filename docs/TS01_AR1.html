@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-13584eca99d870fe07357c15139acc5f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark-20cbe20b4af8f742c845e3e6303c86d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
@@ -234,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
 
         independent: "\\mathrel{\\perp\\!\\!\\perp}",
 
-        var: "\\mathrm{var}",
+        var: "\\mathrm{Var}",
         cov: "\\mathrm{Cov}",
         cor: "\\mathrm{Corr}",
         diag: "\\mathrm{diag}",
@@ -536,26 +536,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./TS01_examples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">TS Examples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./TS02_lag_poly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS02_AR-MA-representation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">AR(1) and Its MA representation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS03_finite-property.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Finite Sample Properties of OLS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">OLS Finite Sample Assumptions and Properties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS03_asymptotic-property.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Asymptotic Properties of OLS</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">OLS Asymptotic Assumptions and Properties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS04_highly-persistent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
   </div>
 </li>
       </ul>
@@ -572,7 +584,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -630,7 +642,7 @@ window.Quarto = {
 \]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -651,7 +663,7 @@ Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -668,7 +680,7 @@ Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inlin
 <p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#008B45FF"><em>autocorrelation functions</em></span> (ACFs).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
