@@ -48,7 +48,7 @@ data %>%
 
 
 ```{r}
-lm_phillips_stat <- lm(infl ~ unemp, data=data)
+lm_phillips_stat <- lm(infl ~ unemp, data = data %>% tail(-2))
 summary(lm_phillips_stat)
 ```
 
@@ -68,6 +68,8 @@ There are some problems with this analysis that we cannot address in detail now.
 
 
 ## Expectations Augmented Phillips Curve
+
+`Example 12.3` in Greene (2003), 5ed, Econometric Analysis. 
 
 A linear version of the expectations augmented Phillips curve can be written as
 
@@ -110,7 +112,7 @@ $$
 $$
 
 ```{r}
-lm_phillips_aug <- lm(delta_infl ~ unemp, data)
+lm_phillips_aug <- lm(delta_infl ~ unemp, data = data %>% tail(-2))
 summary(lm_phillips_aug)
 ```
 
@@ -118,27 +120,91 @@ The OLS estimates are
 
 $$
 \begin{aligned}
-\Delta\widehat{inf}_t &= 0.52 - 0.09 \,unem_t \\
+\Delta\widehat{inf}_t &= 0.49 - 0.09 \,unem_t \\
 &\phantom{={}} (0.74) \;\; (0.13)
 \end{aligned}
 $$ {#eq-phillips_aug}
 
 $\hat{\beta}_1<0$ indicates a tradeoff between cyclical unemployment and unanticipated inflation. But the effect is statistically insignificant.
 
-The natural employment rate is 5.78 percent.
-
-$$
-\mu_0 = -\frac{\beta_0}{\beta_1} = \frac{0.52}{0.09} \approx 5.78
-$$
-
-Variance can be obtained by the Delta Method, which won't be covered here.
-
 Under expectations augmented Phillips Curve, one-point increase in $unem$ lowers unanticipated inflation by about 0.1 of a point. We can contrast this with the static Phillips curve in @eq-phillips_stat, where we found a positive relationship between inflation and unemployment.
+
+
+The *natural employment rate* is 5.78 percent.
+
+$$
+\mu_0 = -\frac{\beta_0}{\beta_1} = \frac{0.49}{0.09} \approx 5.44
+$$
+
+Variance can be obtained by the Delta Method. In R, you can use `car::deltaMethod` to get the confidence interval for your parameter of interest.
+
+```{r}
+library(car)
+deltaMethod(lm_phillips_aug, "-b0/b1", 
+            parameterNames = paste("b", 0:1, sep=""))
+```
+
+Serial correlation in errors
+
+```{r}
+res <- tibble(
+    res_t = lm_phillips_aug$residuals,
+    res_t1 = lag(lm_phillips_aug$residuals))
+lm_res <- lm(res_t ~ res_t1, data = res)
+summary(lm_res)
+```
+
+There is strong evidence of serial correlation in the residuals.
+
+--------------------------------------------------------------------------------
+
+## Remedies for AR errors
+
+`Example 12.5` in Wooldridge (2013), 5ed, Introductory Econometrics: A Modern Approach.
+
+`Example 19.2` in Greene (2003), 5ed, Econometric Analysis. 
+
+### Prais-Winsten Estimation (Transformation)
+
+**Static model**
+
+Static model indicates positive autocorrelation.
+
+```{r}
+res <- tibble(
+    res_t = lm_phillips_stat$residuals,
+    res_t1 = lag(lm_phillips_stat$residuals))
+lm_res <- lm(res_t ~ res_t1, data = res)
+summary(lm_res)
+```
+
+
+```{r}
+library(prais) # install.packages("prais")
+data <- data %>% 
+    mutate(yrQ = as.yearqtr(paste(Year, qtr, sep="-")))
+pw_est_stat <- prais_winsten(lm_phillips_stat, data = data %>% tail(-2), index = "yrQ" )
+summary(pw_est_stat)
+```
+
+--------------------------------------------------------------------------------
+
+**Expectations augmented model**
+
+Expectations augmented model indicates negative autocorrelation.
+
+```{r}
+pw_est_aug <- prais_winsten(lm_phillips_aug, data = data %>% tail(-2), index = "yrQ" )
+summary(pw_est_aug)
+```
+
 
 
 --------------------------------------------------------------------------------
 
+## References {.unlisted .unnumbered}
 
+- Tomas Formanek, Materials for the Advanced Econometric 1 -- courses 4EK608 and 4EK416 <https://github.com/formanektomas/4EK608_4EK416/tree/master?tab=readme-ov-file>
 
 
 

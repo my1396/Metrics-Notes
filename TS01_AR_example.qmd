@@ -22,9 +22,9 @@ library(xts)
 #| include: false
 ```
 
-This script provides an example of autocorrelated residuals.
+This script provides an example of autocorrelated residuals using Static Phillips Curve.
 
-**Dataset description**
+## Dataset Description
 
 US Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations \
 Source: Department of Commerce, BEA website and [www.economagic.com](www.economagic.com)
@@ -60,7 +60,7 @@ data %>%
 ```
 
 
-**Empirical model**
+## Empirical Model
 
 $$
 \Delta I_t =  \beta_1 + \beta_2 u_t + \varepsilon_t
@@ -102,7 +102,7 @@ plot(lm_phillips$residuals, type="l")
 
 @fig-ar-res shows striking negative autocorrelation.
 
-Now we test the serial correlation of the residuals.
+Now we test the serial correlation of the residuals by regressing $\varepsilon_t$ on $\varepsilon_{t-1}$.
 $$
 \varepsilon_t = \phi\varepsilon_{t-1} + e_t
 $$
@@ -118,15 +118,30 @@ summary(lm_res)
 The regression of the least squares residuals on their past values gives a slope of `r sprintf("%.4f", lm_res$coefficients[2])` with a highly significant $t$ ratio of `r sprintf("%.4f", summary(lm_res)$coef[2,3])`.
 We thus conclude that the residuals in this models are highly negatively autocorrelated. 
 
-One consequence of the serial correlated errors is that the standard error and $t$ statistics are not valid anymore. In this case, you can either 
 
-- transform the model to remove the serial correlation, or alternatively,
+Testing of serial correlation:
+
+- Durbin-Watson (DW) test for AR(1)
+- Breusch-Godfrey test for AR(q)
+
+```{r}
+library(lmtest)
+dwtest(lm_phillips, alternative = "two.sided") # Durbin Watson test 
+bgtest(lm_phillips, order=1) # Breusch-Godfrey test 
+```
+
+Both tests show strong evidence of AR(1) serial correlation in the errors.
+
+One **consequence** of the serial correlated errors is that the standard error and $t$ statistics are not valid anymore. In the case if serial correlation, you can either 
+
+- Transform the model to remove the serial correlation, or alternatively,
     
-    FGLS (Feasible Genralized Least Squares)
+    FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.
     
-- you can use serial correlation-robust standard errors
+- Use serial correlation-robust standard errors
 
     Heteroskedasticity and autocorrelation consistent, or HAC, standard errors.
+
 
 
 --------------------------------------------------------------------------------

@@ -631,8 +631,15 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link active" data-scroll-target="#dataset-description"><span class="header-section-number">5.1</span> Dataset Description</a></li>
+  <li><a href="#empirical-model" id="toc-empirical-model" class="nav-link" data-scroll-target="#empirical-model"><span class="header-section-number">5.2</span> Empirical Model</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -660,8 +667,9 @@ window.Quarto = {
 <!-- Chunk option settings -->
 <!-- Define chunk option `max.lines` -->
 <!-- controls max lines printed -->
-<p>This script provides an example of autocorrelated residuals.</p>
-<p><strong>Dataset description</strong></p>
+<p>This script provides an example of autocorrelated residuals using Static Phillips Curve.</p>
+<section id="dataset-description" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="dataset-description"><span class="header-section-number">5.1</span> Dataset Description</h2>
 <p>US Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
 Source: Department of Commerce, BEA website and <a href="www.economagic.com">www.economagic.com</a></p>
 <table class="caption-top table">
@@ -874,7 +882,9 @@ Source: Department of Commerce, BEA website and <a href="www.economagic.com">www
 </div>
 </div>
 </div>
-<p><strong>Empirical model</strong></p>
+</section>
+<section id="empirical-model" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="empirical-model"><span class="header-section-number">5.2</span> Empirical Model</h2>
 <p><span class="math display">\[
 \Delta I_t =  \beta_1 + \beta_2 u_t + \varepsilon_t
 \]</span> where</p>
@@ -1051,7 +1061,7 @@ Figure&nbsp;5.1: Phillips Curve Deviations from Expected Inflation
 </div>
 </div>
 <p><a href="#fig-ar-res" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows striking negative autocorrelation.</p>
-<p>Now we test the serial correlation of the residuals. <span class="math display">\[
+<p>Now we test the serial correlation of the residuals by regressing <span class="math inline">\(\varepsilon_t\)</span> on <span class="math inline">\(\varepsilon_{t-1}\)</span>. <span class="math display">\[
 \varepsilon_t = \phi\varepsilon_{t-1} + e_t
 \]</span></p>
 <div class="cell" data-layout-align="center">
@@ -1083,14 +1093,41 @@ F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
 </div>
 </div>
 <p>The regression of the least squares residuals on their past values gives a slope of -0.4263 with a highly significant <span class="math inline">\(t\)</span> ratio of -6.7078. We thus conclude that the residuals in this models are highly negatively autocorrelated.</p>
-<p>One consequence of the serial correlated errors is that the standard error and <span class="math inline">\(t\)</span> statistics are not valid anymore. In this case, you can either</p>
+<p>Testing of serial correlation:</p>
 <ul>
-<li><p>transform the model to remove the serial correlation, or alternatively,</p>
-<p>FGLS (Feasible Genralized Least Squares)</p></li>
-<li><p>you can use serial correlation-robust standard errors</p>
+<li>Durbin-Watson (DW) test for AR(1)</li>
+<li>Breusch-Godfrey test for AR(q)</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(lm_phillips, <span class="at">alternative =</span> <span class="st">"two.sided"</span>) <span class="co"># Durbin Watson test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Durbin-Watson test
+
+data:  lm_phillips
+DW = 2.8276, p-value = 5.212e-09
+alternative hypothesis: true autocorrelation is not 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bgtest</span>(lm_phillips, <span class="at">order=</span><span class="dv">1</span>) <span class="co"># Breusch-Godfrey test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Breusch-Godfrey test for serial correlation of order up to 1
+
+data:  lm_phillips
+LM test = 36.601, df = 1, p-value = 1.45e-09</code></pre>
+</div>
+</div>
+<p>Both tests show strong evidence of AR(1) serial correlation in the errors.</p>
+<p>One <strong>consequence</strong> of the serial correlated errors is that the standard error and <span class="math inline">\(t\)</span> statistics are not valid anymore. In the case if serial correlation, you can either</p>
+<ul>
+<li><p>Transform the model to remove the serial correlation, or alternatively,</p>
+<p>FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.</p></li>
+<li><p>Use serial correlation-robust standard errors</p>
 <p>Heteroskedasticity and autocorrelation consistent, or HAC, standard errors.</p></li>
 </ul>
 <hr>
+</section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
