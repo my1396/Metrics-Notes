@@ -22,7 +22,7 @@ library(xts)
 #| include: false
 ```
 
-This script provides an example of autocorrelated residuals using Static Phillips Curve.
+This script provides an example of autocorrelated residuals using expectations augmented Phillips Curve.
 
 ## Dataset Description
 
@@ -119,7 +119,7 @@ The regression of the least squares residuals on their past values gives a slope
 We thus conclude that the residuals in this models are highly negatively autocorrelated. 
 
 
-Testing of serial correlation:
+## Test for Serial Correlation
 
 - Durbin-Watson (DW) test for AR(1)
 - Breusch-Godfrey test for AR(q)
@@ -140,7 +140,7 @@ One **consequence** of the serial correlated errors is that the standard error a
     
 - Use serial correlation-robust standard errors
 
-    Heteroskedasticity and autocorrelation consistent, or HAC, standard errors.
+    HAC (Heteroskedasticity and autocorrelation consistent) standard errors or Newey-West standard errors.
 
 
 

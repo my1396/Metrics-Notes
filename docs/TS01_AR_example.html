@@ -638,6 +638,7 @@ window.Quarto = {
   <ul>
   <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link active" data-scroll-target="#dataset-description"><span class="header-section-number">5.1</span> Dataset Description</a></li>
   <li><a href="#empirical-model" id="toc-empirical-model" class="nav-link" data-scroll-target="#empirical-model"><span class="header-section-number">5.2</span> Empirical Model</a></li>
+  <li><a href="#test-for-serial-correlation" id="toc-test-for-serial-correlation" class="nav-link" data-scroll-target="#test-for-serial-correlation"><span class="header-section-number">5.3</span> Test for Serial Correlation</a></li>
   </ul>
 </nav>
     </div>
@@ -667,7 +668,7 @@ window.Quarto = {
 <!-- Chunk option settings -->
 <!-- Define chunk option `max.lines` -->
 <!-- controls max lines printed -->
-<p>This script provides an example of autocorrelated residuals using Static Phillips Curve.</p>
+<p>This script provides an example of autocorrelated residuals using expectations augmented Phillips Curve.</p>
 <section id="dataset-description" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="dataset-description"><span class="header-section-number">5.1</span> Dataset Description</h2>
 <p>US Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
@@ -1093,7 +1094,9 @@ F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
 </div>
 </div>
 <p>The regression of the least squares residuals on their past values gives a slope of -0.4263 with a highly significant <span class="math inline">\(t\)</span> ratio of -6.7078. We thus conclude that the residuals in this models are highly negatively autocorrelated.</p>
-<p>Testing of serial correlation:</p>
+</section>
+<section id="test-for-serial-correlation" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="test-for-serial-correlation"><span class="header-section-number">5.3</span> Test for Serial Correlation</h2>
 <ul>
 <li>Durbin-Watson (DW) test for AR(1)</li>
 <li>Breusch-Godfrey test for AR(q)</li>
@@ -1124,7 +1127,7 @@ LM test = 36.601, df = 1, p-value = 1.45e-09</code></pre>
 <li><p>Transform the model to remove the serial correlation, or alternatively,</p>
 <p>FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.</p></li>
 <li><p>Use serial correlation-robust standard errors</p>
-<p>Heteroskedasticity and autocorrelation consistent, or HAC, standard errors.</p></li>
+<p>HAC (Heteroskedasticity and autocorrelation consistent) standard errors or Newey-West standard errors.</p></li>
 </ul>
 <hr>
 </section>
