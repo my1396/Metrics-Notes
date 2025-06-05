@@ -605,12 +605,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ar1-visualization" id="toc-ar1-visualization" class="nav-link active" data-scroll-target="#ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</a></li>
-  <li><a href="#mathematical-representation" id="toc-mathematical-representation" class="nav-link" data-scroll-target="#mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</a>
+  <li><a href="#reasons-for-delayed-effects-and-autocorrelation" id="toc-reasons-for-delayed-effects-and-autocorrelation" class="nav-link active" data-scroll-target="#reasons-for-delayed-effects-and-autocorrelation"><span class="header-section-number">4.1</span> Reasons for Delayed Effects and Autocorrelation</a></li>
+  <li><a href="#ar1-visualization" id="toc-ar1-visualization" class="nav-link" data-scroll-target="#ar1-visualization"><span class="header-section-number">4.2</span> AR(1) Visualization</a></li>
+  <li><a href="#mathematical-representation" id="toc-mathematical-representation" class="nav-link" data-scroll-target="#mathematical-representation"><span class="header-section-number">4.3</span> Mathematical Representation</a>
   <ul class="collapse">
-  <li><a href="#expectation" id="toc-expectation" class="nav-link" data-scroll-target="#expectation"><span class="header-section-number">4.2.1</span> Expectation</a></li>
-  <li><a href="#autocovariance" id="toc-autocovariance" class="nav-link" data-scroll-target="#autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</a></li>
-  <li><a href="#autocorrelation" id="toc-autocorrelation" class="nav-link" data-scroll-target="#autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</a></li>
+  <li><a href="#expectation" id="toc-expectation" class="nav-link" data-scroll-target="#expectation"><span class="header-section-number">4.3.1</span> Expectation</a></li>
+  <li><a href="#autocovariance" id="toc-autocovariance" class="nav-link" data-scroll-target="#autocovariance"><span class="header-section-number">4.3.2</span> Autocovariance</a></li>
+  <li><a href="#autocorrelation" id="toc-autocorrelation" class="nav-link" data-scroll-target="#autocorrelation"><span class="header-section-number">4.3.3</span> Autocorrelation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -646,14 +647,33 @@ window.Quarto = {
 <p>Time series data often display autocorrelation, or serial correlation of the disturbances across periods.</p>
 <p>If you plot the residuals and observe that the effect of a given disturbance is carried, at least in part, across periods, then it is a strong signal of serial correlation. It’s like the disturbances exhibiting a sort of “memory” over time.</p>
 <hr>
-<section id="ar1-visualization" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="ar1-visualization"><span class="header-section-number">4.1</span> AR(1) Visualization</h2>
+<section id="reasons-for-delayed-effects-and-autocorrelation" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="reasons-for-delayed-effects-and-autocorrelation"><span class="header-section-number">4.1</span> Reasons for Delayed Effects and Autocorrelation</h2>
+<p>Consider the dynamic regression model</p>
+<p><span class="math display">\[
+y_t = \beta_1 + \beta_2x_t + \beta_3x_{t-1} + \gamma y_{t-1} + \varepsilon_t.
+\]</span></p>
+<p>Autocorrelation in the error can arise from an autocorrelated omitted variable, or it can arise if a dependent variable <span class="math inline">\(y\)</span> is autocorrelated and this autocorrelation is not adequately explained by the <span class="math inline">\(x\)</span>’s and their lags that are included in the equation.</p>
+<p>There are several reasons why lagged effects might appear in an empirical model.</p>
+<ul>
+<li><p>In modeling the response of economic variables to policy stimuli, it is expected that there will be possibly long lags between policy changes and their impacts. The length of lag between changes in monetary policy and its impact on important economic variables such as output and investment has been a subject of analysis for several decades.</p></li>
+<li><p>Either the dependent variable or one of the independent variables is based on expectations. Expectations about economic events are usually formed by aggregating new information and past experience. Thus, we might write the expectation of a future value of variable <span class="math inline">\(x\)</span>, formed this period, as</p>
+<p><span class="math display">\[
+  x_t = \E_t [x^*_{t+1} \mid z_t, x_{t-1}, x_{t-2}, \ldots] = g(z_t, x_{t-1}, x_{t-2}, \ldots) .
+  \]</span></p>
+<p>For example, forecasts of prices and income enter demand equations and consumption equations.</p></li>
+<li><p>Certain economic decisions are explicitly driven by a history of related activities.For example, energy demand by individuals is clearly a function not only of current prices and income, but also the accumulated stocks of energy using capital. Even energy demand in the macroeconomy behaves in this fashion–the stock of automobiles and its attendant demand for gasoline is clearly driven by past prices of gasoline and automobiles. Other classic examples are the dynamic relationship between investment decisions and past appropriation decisions and the consumption of addictive goods such as cigarettes and theater performances.</p></li>
+</ul>
+<hr>
+</section>
+<section id="ar1-visualization" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="ar1-visualization"><span class="header-section-number">4.2</span> AR(1) Visualization</h2>
 <p>The first-order autoregressive process, denoted AR(1), is <span class="math display">\[
 \varepsilon_t = \rho \varepsilon_{t-1} + w_t
 \]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -674,7 +694,7 @@ Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -691,7 +711,7 @@ Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inlin
 <p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#008B45FF"><em>autocorrelation functions</em></span> (ACFs).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -707,8 +727,8 @@ Figure&nbsp;4.3: Simulated AR(1) processes with negtive <span class="math inline
 <p>Possible causes of serial correlation: Incomplete or flawed model specification. Relevant factors omitted from the time series regression are correlated across periods.</p>
 <hr>
 </section>
-<section id="mathematical-representation" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="mathematical-representation"><span class="header-section-number">4.2</span> Mathematical Representation</h2>
+<section id="mathematical-representation" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="mathematical-representation"><span class="header-section-number">4.3</span> Mathematical Representation</h2>
 <p>Let’s formulate an AR(1) model as follows:</p>
 <p><span id="eq-AR1"><span class="math display">\[
 \begin{align}
@@ -731,16 +751,16 @@ Figure&nbsp;4.3: Simulated AR(1) processes with negtive <span class="math inline
 \color{#EE0000FF}{\varepsilon_t = \sum_{j=0}^\infty \rho^j \,w_{t-j}} \,.
 \]</span></p>
 <hr>
-<section id="expectation" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="expectation"><span class="header-section-number">4.2.1</span> Expectation</h3>
+<section id="expectation" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="expectation"><span class="header-section-number">4.3.1</span> Expectation</h3>
 <p><span class="math inline">\(\varepsilon_t\)</span> is stationary with mean zero.</p>
 <p><span class="math display">\[
 E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
 \]</span></p>
 <hr>
 </section>
-<section id="autocovariance" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="autocovariance"><span class="header-section-number">4.2.2</span> Autocovariance</h3>
+<section id="autocovariance" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="autocovariance"><span class="header-section-number">4.3.2</span> Autocovariance</h3>
 <p>The <span style="color:#008B45FF">autocovariance function</span> of the AR(1) process is <span class="math display">\[
 \begin{aligned}
 \gamma (h) &amp;= \text{Cov}(\varepsilon_{t+h}, \varepsilon_t) \\
@@ -760,8 +780,8 @@ E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
 </ul>
 <hr>
 </section>
-<section id="autocorrelation" class="level3" data-number="4.2.3">
-<h3 data-number="4.2.3" class="anchored" data-anchor-id="autocorrelation"><span class="header-section-number">4.2.3</span> Autocorrelation</h3>
+<section id="autocorrelation" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="autocorrelation"><span class="header-section-number">4.3.3</span> Autocorrelation</h3>
 <p>The <span style="color:#008B45FF">autocorrelation function</span> (ACF) is given by</p>
 <p><span class="math display">\[
 \rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h,
@@ -782,9 +802,16 @@ This result means that observations at contiguous time points are negatively cor
 </ul></li>
 </ul>
 <p>Another interpretation of <span class="math inline">\(\rho(h)\)</span> is the optimal weight for scaling <span class="math inline">\(\varepsilon_t\)</span> into <span class="math inline">\(\varepsilon_{t+h}\)</span>, i.e., the weight, <span class="math inline">\(a\)</span>, that minimizes <span class="math inline">\(E[(\varepsilon_{t+h} - a\,\varepsilon_{t})^2]\,.\)</span></p>
-
-
+<hr>
 </section>
+</section>
+<section id="references" class="level2 unlisted unnumbered">
+<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Chap 19 Models with Lagged Variables, <em>Econometric Analysis</em>, Greene 5th Edition, pp 558.</li>
+</ul>
+
+
 </section>
 
 </main> <!-- /main -->

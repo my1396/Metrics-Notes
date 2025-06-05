@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -607,6 +642,10 @@ window.Quarto = {
   <ul>
   <li><a href="#finite-distributed-lags" id="toc-finite-distributed-lags" class="nav-link active" data-scroll-target="#finite-distributed-lags"><span class="header-section-number">13.1</span> Finite Distributed Lags</a></li>
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">13.2</span> Assumptions</a></li>
+  <li><a href="#okuns-law" id="toc-okuns-law" class="nav-link" data-scroll-target="#okuns-law"><span class="header-section-number">13.3</span> Okun’s Law</a>
+  <ul class="collapse">
+  <li><a href="#empirical-result" id="toc-empirical-result" class="nav-link" data-scroll-target="#empirical-result"><span class="header-section-number">13.3.1</span> Empirical Result</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -633,6 +672,9 @@ window.Quarto = {
 </header>
 
 
+<!-- Chunk option settings -->
+<!-- Define chunk option `max.lines` -->
+<!-- controls max lines printed -->
 <p>Given the dynamic relationship of time series data, there are three different ways of modeling these relationships.</p>
 <ol type="1">
 <li><p>The dependent variable <span class="math inline">\(y\)</span> is a function of current and past values of an explanatory variable <span class="math inline">\(x\)</span>. That is,</p>
@@ -712,12 +754,148 @@ This assumption, in conjunction with the other multiple regression assumptions, 
 <li><span class="math inline">\(\text{cov}(e_t, e_s) = 0 \quad t \ne s\)</span></li>
 <li><span class="math inline">\(e_t \sim N(0, \sigma^2)\)</span></li>
 </ol>
+</section>
+<section id="okuns-law" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="okuns-law"><span class="header-section-number">13.3</span> Okun’s Law</h2>
+<p>We will apply the finite distributed lag model to Okun’s Law. Arther Melvin Okun was an economist who posited that there was a relationship between the change in unemployment from one period to the next and the rate of growth of output in the economy. Mathematically, Okun’s Law can be expressed as</p>
+<p><span class="math display">\[
+U_{t}-U_{t-1}=-\gamma(G_{t}-G_{N})
+\]</span> where <span class="math inline">\(U_{t}\)</span> is the unemployment rate in period <span class="math inline">\(t\)</span>, <span class="math inline">\(G_{t}\)</span> is the growth rate of output in period <span class="math inline">\(t\)</span>, and <span class="math inline">\(G_{N}\)</span> is the “normal” growth rate, which we assume constant over time.</p>
+<p>We can rewrite the above equation in more familiar notation of the multiple regression model by denoting the change in unemployment as <span class="math inline">\(DU_{t}=\Delta U_{t}=U_{t}-U_{t-1}.\)</span> We then set <span class="math inline">\(\gamma = \beta_{0}\)</span> and <span class="math inline">\(G_{N} = \alpha.\)</span> Including an error term to our equation yields</p>
+<p><span class="math display">\[
+DU_{t}=\alpha + \beta_{0}G_{t} + \varepsilon_{t}.
+\]</span></p>
+<p>Acknowledging the changes in output are likely to have a distributed-lag effect on unemployment – not all of the effect will take place instantaneously. We can then further expand our equation to</p>
+<p><span class="math display">\[
+DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \ldots + \beta_{q}G_{t-q} + \varepsilon_{t}
+\]</span></p>
+<section id="empirical-result" class="level3" data-number="13.3.1">
+<h3 data-number="13.3.1" class="anchored" data-anchor-id="empirical-result"><span class="header-section-number">13.3.1</span> Empirical Result</h3>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f_name <span class="ot">&lt;-</span> <span class="st">"data/okun.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>okun2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_name)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>okun2 <span class="ot">&lt;-</span> okun2 <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">dunemp =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(unemp))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>okun2.zoo <span class="ot">&lt;-</span> okun2 <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xts</span>(<span class="at">x =</span> .[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> <span class="fu">as.yearqtr</span>(.[[<span class="dv">1</span>]])) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.zoo</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>okun2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 310 × 5
+   date       unemp      GDP       gGDP     dunemp
+   &lt;date&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 1948-01-01   3.3 2239.682  1.506038  NA        
+ 2 1948-04-01   3.3 2276.69   1.652377   0        
+ 3 1948-07-01   3.3 2289.77   0.5745183  0        
+ 4 1948-10-01   3.5 2292.364  0.1132865  0.2000000
+ 5 1949-01-01   4.1 2260.807 -1.376614   0.6000000
+ 6 1949-04-01   5.3 2253.128 -0.3396575  1.2      
+ 7 1949-07-01   6.1 2276.424  1.033940   0.8      
+ 8 1949-10-01   6.4 2257.352 -0.8378053  0.3000000
+ 9 1950-01-01   5.8 2346.104  3.931686  -0.6000000
+10 1950-04-01   5.1 2417.682  3.050930  -0.7      
+# ℹ 300 more rows</code></pre>
+</div>
+</div>
+<p>Before we proceed, let’s take a preliminary look at growth and unemployment during this time period.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(okun2 <span class="sc">%&gt;%</span> <span class="fu">gather</span>(<span class="st">"key"</span>, <span class="st">"value"</span>, gGDP, dunemp),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value, <span class="at">color =</span> key)) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"%"</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">values =</span> <span class="fu">c</span>(<span class="at">gGDP =</span> <span class="st">"blue"</span>, <span class="at">dunemp =</span> <span class="st">"red"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">gGDP =</span> <span class="st">"Growth in Real GDP"</span>, <span class="at">dunemp =</span> <span class="st">"∆ Unemployment Rate"</span>) ) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">9</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="TS04_dynamical_models_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Change in unemployment (red) and growth rate of GDP (blue).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>okun.lag2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">data =</span> okun2.zoo)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>okun.lag3 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>), <span class="at">data =</span> okun2.zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Model estimates for lag length at <span class="math inline">\(q=3\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Time series regression with "zoo" data:
+Start = 1948 Q4, End = 2025 Q1
+
+Call:
+dynlm(formula = d(unemp, 1) ~ L(gGDP, 0:3), data = okun2.zoo)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6634 -0.2161 -0.0227  0.1758  4.9580 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    0.411766   0.039784  10.350  &lt; 2e-16 ***
+L(gGDP, 0:3)1 -0.442657   0.022948 -19.289  &lt; 2e-16 ***
+L(gGDP, 0:3)2 -0.093474   0.023122  -4.043 6.72e-05 ***
+L(gGDP, 0:3)3  0.011730   0.023102   0.508    0.612    
+L(gGDP, 0:3)4 -0.007625   0.022931  -0.333    0.740    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4435 on 301 degrees of freedom
+  (0 observations deleted due to missingness)
+Multiple R-squared:  0.5817,    Adjusted R-squared:  0.5762 
+F-statistic: 104.7 on 4 and 301 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Model estimates for lag length at <span class="math inline">\(q=2\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Time series regression with "zoo" data:
+Start = 1948 Q3, End = 2025 Q1
+
+Call:
+dynlm(formula = d(unemp, 1) ~ L(gGDP, 0:2), data = okun2.zoo)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6733 -0.2155 -0.0214  0.1718  4.9551 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    0.40698    0.03699  11.003  &lt; 2e-16 ***
+L(gGDP, 0:2)1 -0.44244    0.02286 -19.351  &lt; 2e-16 ***
+L(gGDP, 0:2)2 -0.09429    0.02291  -4.116 4.97e-05 ***
+L(gGDP, 0:2)3  0.01078    0.02285   0.472    0.637    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4422 on 303 degrees of freedom
+  (0 observations deleted due to missingness)
+Multiple R-squared:  0.5816,    Adjusted R-squared:  0.5774 
+F-statistic: 140.4 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>A 1% increase in the growth rate leads to a fall in the unemployment rate of 0.44% in the current quarter, a fall of 0.09% in the next quarter.</p>
 <hr>
+</section>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
 <li>Czar Yobero, Time Series Regression with Stationary Variables: An Introduction to the ARDL Model, <a href="https://rpubs.com/cyobero/ardl" class="uri">https://rpubs.com/cyobero/ardl</a></li>
+<li>Okun’s Law data source: FRED database, <a href="https://fred.stlouisfed.org/series/GDPC1" class="uri">https://fred.stlouisfed.org/series/GDPC1</a></li>
 </ul>
 
 

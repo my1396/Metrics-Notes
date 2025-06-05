@@ -87,8 +87,15 @@ stargazer(lm_phillips,
 ```
 
 ```{r}
-# variance-covariance matrix
 vcov(lm_phillips)
+```
+
+HAC (heteroskedasticity and autocorrelation consistent) standard errors
+
+```{r}
+library(lmtest)
+library(sandwich)
+vcovHAC(lm_phillips)
 ```
 
 **Autocorrelated residuals**
@@ -100,9 +107,26 @@ Plot the residuals.
 plot(lm_phillips$residuals, type="l")
 ```
 
-@fig-ar-res shows striking negative autocorrelation.
+@fig-ar-res shows striking negative autocorrelation. The correlogram tells the same story (@fig-res-acf). The blue dotted lines give the values beyond which the autocorrelations are (statistically) significantly different from zero. 
+
+
+```{r}
+#| label: fig-res-acf
+#| fig.cap: "Correlogram of the residuals"
+acf(lm_phillips$residuals, type='correlation')
+```
+
+We can get the autocorrelation coefficients by setting `plot = FALSE`
+
+```{r}
+acf(lm_phillips$residuals, type='correlation', plot = FALSE)$acf %>%
+    as.vector() %>% 
+    head(10)
+```
+
 
 Now we test the serial correlation of the residuals by regressing $\varepsilon_t$ on $\varepsilon_{t-1}$.
+
 $$
 \varepsilon_t = \phi\varepsilon_{t-1} + e_t
 $$
@@ -132,17 +156,28 @@ bgtest(lm_phillips, order=1) # Breusch-Godfrey test
 
 Both tests show strong evidence of AR(1) serial correlation in the errors.
 
+
+## Consequence for Serial Correlation
+
+The presence of autocorrelation can lead to misleading results as they violate the assumptions of least squares. 
+
+The least squares estimator is still a linear **unbiased** estimator, but is **no longer best**.
+
 One **consequence** of the serial correlated errors is that the standard error and $t$ statistics are not valid anymore. In the case if serial correlation, you can either 
 
 - Transform the model to remove the serial correlation, or alternatively,
     
     FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.
     
+    This approach assumes strictly exogeneous regressors, that is, no lagged $y$ in the RHS of the equation. See Chapter 12.3 in Wooldridge (2013), Introductory Econometrics: A Modern Approach.
+    
 - Use serial correlation-robust standard errors
 
     HAC (Heteroskedasticity and autocorrelation consistent) standard errors or Newey-West standard errors.
 
+- Infinite Distributed Lag Models
 
+    Geomoetric (or Koyck) and Rational Distributed Lag Models.
 
 --------------------------------------------------------------------------------
 

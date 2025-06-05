@@ -3,6 +3,25 @@ title: "Time Series Regression"
 format: html
 ---
 
+
+```{r}
+#| label: load-packages
+#| include: false
+library(knitr) # load packages
+library(broom)
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(xts)
+library(wooldridge)
+```
+
+```{r}
+#| child: "_chunk-opt.qmd"
+#| include: false
+```
+
 Given the dynamic relationship of time series data, there are three different ways of modeling these relationships.
 
 1. The dependent variable $y$ is a function of current and past values of an explanatory variable $x$. That is,
@@ -106,10 +125,93 @@ The assumptions of the distributed lag model are:
 
 
 
+## Okun's Law
+
+We will apply the finite distributed lag model to Okun's Law. 
+Arther Melvin Okun was an economist who posited that there was a relationship between the change in unemployment from one period to the next and the rate of growth of output in the economy. 
+Mathematically, Okun's Law can be expressed as
+
+$$
+U_{t}-U_{t-1}=-\gamma(G_{t}-G_{N})
+$$
+where $U_{t}$ is the unemployment rate in period $t$, $G_{t}$ is the growth rate of output in period $t$, and $G_{N}$ is the "normal" growth rate, which we assume constant over time. 
+
+We can rewrite the above equation in more familiar notation of the multiple regression model by denoting the change in unemployment as $DU_{t}=\Delta U_{t}=U_{t}-U_{t-1}.$ We then set $\gamma = \beta_{0}$ and $G_{N} = \alpha.$ Including an error term to our equation yields
+
+$$
+DU_{t}=\alpha + \beta_{0}G_{t} + \varepsilon_{t}.
+$$
+
+Acknowledging the changes in output are likely to have a distributed-lag effect on unemployment -- not all of the effect will take place instantaneously. We can then further expand our equation to
+
+$$
+DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \ldots + \beta_{q}G_{t-q} + \varepsilon_{t}
+$$
+
+### Empirical Result
+
+```{r}
+f_name <- "data/okun.csv"
+okun2 <- read_csv(f_name)
+okun2 <- okun2 %>% 
+    mutate(dunemp = c(NA, diff(unemp))
+           )
+okun2.zoo <- okun2 %>% 
+    xts(x = .[,-1], order.by = as.yearqtr(.[[1]])) %>% 
+    as.zoo()
+okun2
+```
+
+
+Before we proceed, let's take a preliminary look at growth and unemployment during this time period. 
+
+```{r fig.cap="Change in unemployment (red) and growth rate of GDP (blue)."}
+ggplot(okun2 %>% gather("key", "value", gGDP, dunemp),
+       aes(x = date, y = value, color = key)) +
+    geom_line() + 
+    labs(y="%") +
+    scale_color_manual(
+        values = c(gGDP = "blue", dunemp = "red"),
+        labels = c(gGDP = "Growth in Real GDP", dunemp = "∆ Unemployment Rate") ) +
+    theme_bw(base_size = 14) +
+    theme(legend.position = c(.2, .9),
+          legend.title = element_blank(),
+          axis.title.x = element_blank(),
+          )
+```
+
+
+```{r}
+library(dynlm)
+okun.lag2 <- dynlm(d(unemp, 1) ~ L(gGDP, 0:2), data = okun2.zoo)
+okun.lag3 <- dynlm(d(unemp, 1) ~ L(gGDP, 0:3), data = okun2.zoo)
+```
+
+Model estimates for lag length at $q=3$
+
+```{r}
+summary(okun.lag3)
+```
+
+Model estimates for lag length at $q=2$
+
+```{r}
+summary(okun.lag2)
+```
+
+
+A 1% increase in the growth rate of GDP leads to a fall in the unemployment rate of 0.44% in the current quarter, a fall of 0.09% in the next quarter. The delayed effects stop beyond the first lag.
+
+
+
+
+
+
 --------------------------------------------------------------------------------
 
 ## References {.unlisted .unnumbered}
 
 - Czar Yobero, Time Series Regression with Stationary Variables: An Introduction to the ARDL Model, <https://rpubs.com/cyobero/ardl>
+- Okun's Law data source: FRED database, <https://fred.stlouisfed.org/series/GDPC1>
 
 

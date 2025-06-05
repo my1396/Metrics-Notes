@@ -71,6 +71,33 @@ Time series data often display autocorrelation, or serial correlation of the dis
 
 If you plot the residuals and observe that the effect of a given disturbance is carried, at least in part, across periods, then it is a strong signal of serial correlation. It's like the disturbances exhibiting a sort of "memory" over time.
 
+
+--------------------------------------------------------------------------------
+
+## Reasons for Delayed Effects and Autocorrelation
+
+Consider the dynamic regression model
+
+$$
+y_t = \beta_1 + \beta_2x_t + \beta_3x_{t-1} + \gamma y_{t-1} + \varepsilon_t.
+$$
+
+Autocorrelation in the error can arise from an autocorrelated omitted variable, or it can arise if a dependent variable $y$ is autocorrelated and this autocorrelation is not adequately explained by the $x$'s and their lags that are included in the equation.
+
+There are several reasons why lagged effects might appear in an empirical model.
+
+- In modeling the response of economic variables to policy stimuli, it is expected that there will be possibly long lags between policy changes and their impacts. The length of lag between changes in monetary policy and its impact on important economic variables such as output and investment has been a subject of analysis for several decades.
+
+- Either the dependent variable or one of the independent variables is based on expectations. Expectations about economic events are usually formed by aggregating new information and past experience. Thus, we might write the expectation of a future value of variable $x$, formed this period, as
+
+    $$
+    x_t = \E_t [x^*_{t+1} \mid z_t, x_{t-1}, x_{t-2}, \ldots] = g(z_t, x_{t-1}, x_{t-2}, \ldots) .
+    $$
+    
+    For example, forecasts of prices and income enter demand equations and consumption equations. 
+
+- Certain economic decisions are explicitly driven by a history of related activities.For example, energy demand by individuals is clearly a function not only of current prices and income, but also the accumulated stocks of energy using capital. Even energy demand in the macroeconomy behaves in this fashion–the stock of automobiles and its attendant demand for gasoline is clearly driven by past prices of gasoline and automobiles. Other classic examples are the dynamic relationship between investment decisions and past appropriation decisions and the consumption of addictive goods such as cigarettes and theater performances.
+
 --------------------------------------------------------------------------------
 
 ## AR(1) Visualization
@@ -318,7 +345,11 @@ Another interpretation of $\rho(h)$ is the optimal weight for scaling $\varepsil
 
 
 
+--------------------------------------------------------------------------------
 
+## References {.unlisted .unnumbered}
+
+-  Chap 19 Models with Lagged Variables, *Econometric Analysis*, Greene 5th Edition, pp 558.
 
 
 
