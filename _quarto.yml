@@ -22,6 +22,7 @@ book:
         - TS03_finite-property.qmd
         - TS03_asymptotic-property.qmd
         - TS04_highly-persistent.qmd
+        - TS04_dynamical_models.qmd
     - part: "Panel Data"
       chapters:
         - PA01_Hetero_lm.qmd

@@ -1,0 +1,115 @@
+---
+title: "Time Series Regression"
+format: html
+---
+
+Given the dynamic relationship of time series data, there are three different ways of modeling these relationships.
+
+1. The dependent variable $y$ is a function of current and past values of an explanatory variable $x$. That is,
+
+    $$
+    y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)
+    $$
+
+    We can think of $(y_t, x_t)$ as denoting the values of $y$ and $x$ in the current period; $x_{t-1}$ denotes the value of $x$ in the previous period, $x_{t-2}$ denotes the value of $x$ two periods ago, and so on. Because of the lagged effects, the above equation is called a **distributed lag (DL) model**.
+
+2. Specify a model with a **lagged dependent variable** as one of the explanatory variables.
+
+    $$
+    y_t = y(y_{t-1}, x_t)
+    $$
+
+We can also combine the first two features of the above and previous equation so that we have a dynamic model with lagged values of both the *dependent* and *independent* variables, such as
+
+$$
+y_t = f(y_{t-1}, x_t, x_{t-1}, x_{t-2}, \ldots)
+$$
+    
+Such models are called **autoregressive distributed lag models (ARDL)**. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.
+
+3. A third way of modeling the continuing change over several periods is via an error term. For example, using $f(\cdot)$ and $g(\cdot)$, both of which are replaced later with linear functions, we can write
+
+    $$
+    y_t = f(x_t) + e_t \quad \text{and} \quad e_t = g(e_{t-1})
+    $$
+    
+    where the function $e_t = g(e_{t-1})$ is used to denote the dependence of the error term on its value in the previous period. In this case, $e_t$ is correlated with $e_{t-1}$, and in such a scenario, we say the errors are **serially correlated or autocorrelated**.
+
+
+**Stationarity**
+
+An assumption that we will maintain throughout this exercise is that variables in our equation are stationary, which means that a variable is one that is not explosive, nor trending, and nor wandering aimlessly without returning to its mean. A stationary variable simply means a variable whose mean, variance and other statistical properties remain constant over time.
+
+## Finite Distributed Lags
+
+The first dynamic relationship we consider is the first model that we introduced, which took the form of  
+$y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)$,  
+with the additional assumption that the relationship is **linear**, and after $q$ time periods, changes in $x$ no longer have an impact on $y$. Under these conditions, we have the multiple regression model:
+
+$$
+y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t
+$$
+
+The above model can be treated in the same way as a multiple regression model. Instead of having a number of different explanatory variables, we have a number of different **lags of the same explanatory variable**. This equation can be very useful in two ways:
+
+1. **Forecasting future values of $y$.**  
+
+   To introduce notation for future values, suppose our sample period is $t = 1, 2, \ldots, T$.  
+   We use $t$ for the index and $T$ for the sample size to emphasize the time series nature of the data.  
+   Given the last observation in our sample is at $t = T$, the first post-sample observation that we wish to forecast is at $t = T + 1$.  
+   The equation for this observation can be given by:
+
+   $$
+   y_{T+1} = \alpha + \beta_0 x_{T+1} + \beta_1 x_T + \beta_2 x_{T-1} + \ldots + \beta_q x_{T-q+1} + e_{T+1}
+   $$
+
+2. **Strategic Analysis.**  
+
+   For example, to use an economic example, understanding the effects of the change in interest rate on unemployment and inflation, or the effect of advertising on sales on a firm's products.  
+   The coefficient $\beta_s$ gives the change in $E(y_t)$ when $x_{t-s}$ changes by one unit, but $x$ is held constant in other periods.  
+   Alternatively, if we look forward rather than backward, $\beta_s$ gives the changes in $E(y_{t+s})$ when $x_t$ changes by one unit, but $x$ in other periods is held constant. In terms of derivatives:
+
+   $$
+   \frac{\partial E(y_t)}{\partial x_{t-s}} = \frac{\partial E(y_{t+s})}{\partial x_t} = \beta_s
+   $$
+
+The effect of a one-unit change in $x_t$ is **distributed** over the current and next $q$ periods.  
+It is called a **finite distributed lag model of order $q$** because it is assumed that after a finite number of periods $q$,  
+changes in $x$ no longer have an impact on $y$. The coefficient $\beta_s$ is called a **distributed-lag weight** or an **$s$-period delayed multiplier**.  
+The coefficient $\beta_0$ is called the **impact multiplier**.  
+Adding up a portion of the coefficients gives you the **interim multipliers**.  
+For example, the interim multiplier for two periods would be $(\beta_0 + \beta_1 + \beta_2)$.  
+The **total multiplier** is the final effect on $y$ on the sustained increase after $q$ or more periods have elapsed and is given by the equation:
+
+$$
+\sum_{s=0}^q \beta_s
+$$
+
+
+
+## Assumptions
+
+In distributed lag models, both $y$ and $x$ are typically random. That is, we do not know their values prior to sampling.  
+We do not “set” output growth, for example, and then observe the resulting level of unemployment.  
+To accommodate for this stochastic process, we assume that the $x$’s are random and that the error term $e_t$ is  
+**independent of all $x$’s in the sample – past, current, and future**.  
+This assumption, in conjunction with the other multiple regression assumptions, is sufficient for the least squares estimator to be unbiased and to be BLUE, conditional on the $x$’s in the sample.
+
+The assumptions of the distributed lag model are:
+
+1. $y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t$
+2. $y$ and $x$ are stationary random variables, and $e_t$ is independent of current, past, and future values of $x$
+3. $E(e_t) = 0$
+4. $\text{var}(e_t) = \sigma^2$
+5. $\text{cov}(e_t, e_s) = 0 \quad t \ne s$
+6. $e_t \sim N(0, \sigma^2)$
+
+
+
+--------------------------------------------------------------------------------
+
+## References {.unlisted .unnumbered}
+
+- Czar Yobero, Time Series Regression with Stationary Variables: An Introduction to the ARDL Model, <https://rpubs.com/cyobero/ardl>
+
+

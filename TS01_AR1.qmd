@@ -61,6 +61,11 @@ put.fig.letter <- function(label, location="topleft", x=NULL, y=NULL,
 }
 ```
 
+Unlike linear regression, which typically deals with cross-sectional data, time series regression in two ways:
+
+1. Observations on a given unit, observed over a number of time periods, are likely to be **correlated**.
+2. **Natural ordering to time**. If one shuffles time series observations, there is a danger of confounding what is their most distinguishing feature: the possible existence of dynamic relationships between variables.
+
 
 Time series data often display autocorrelation, or serial correlation of the disturbances across periods.
 

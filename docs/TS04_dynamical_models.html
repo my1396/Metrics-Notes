@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Measure Theory – Metrics Notes</title>
+<title>13&nbsp; Time Series Regression – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS01_AR1.html" rel="next">
-<link href="./conditional_expectation.html" rel="prev">
+<link href="./PA01_Hetero_lm.html" rel="next">
+<link href="./TS04_highly-persistent.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -455,7 +455,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./measure_theory.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_dynamical_models.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -503,7 +503,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link active">
+  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span></a>
   </div>
 </li>
@@ -572,7 +572,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS04_dynamical_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS04_dynamical_models.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
@@ -605,7 +605,8 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"><span class="header-section-number">3.1</span> Definitions</a></li>
+  <li><a href="#finite-distributed-lags" id="toc-finite-distributed-lags" class="nav-link active" data-scroll-target="#finite-distributed-lags"><span class="header-section-number">13.1</span> Finite Distributed Lags</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">13.2</span> Assumptions</a></li>
   </ul>
 </nav>
     </div>
@@ -613,9 +614,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_dynamical_models.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></h1>
 </div>
 
 
@@ -632,93 +633,91 @@ window.Quarto = {
 </header>
 
 
-<section id="definitions" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">3.1</span> Definitions</h2>
-<p>We denote the collection of subsets, or <strong>power set</strong>, of a set <span class="math inline">\(X\)</span> by <span class="math inline">\(\Pcal(X).\)</span></p>
-<p>The Cartesian product, or product, of sets <span class="math inline">\(X, Y\)</span> is the collection of all ordered pairs</p>
-<p><span class="math display">\[
-X\times Y = \{(x,y): x\in X, y\in Y\}.
-\]</span></p>
-<p>A <strong>topological space</strong> is a set equipped with a collection of open subsets that satisfies appropriate conditions.</p>
-<div id="def-topology" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1 (Topological Space)</strong></span> A topological space <span class="math inline">\((X, \Tcal)\)</span> is a set <span class="math inline">\(X\)</span> and a collection <span class="math inline">\(\Tcal \subset \Pcal(X)\)</span> of subsets of <span class="math inline">\(X,\)</span> called open sets, such that</p>
-<ol type="a">
-<li><p><span class="math inline">\(\emptyset, X \in \Tcal;\)</span></p></li>
-<li><p>If <span class="math inline">\(\{U_\alpha \in \Tcal: \alpha \in I \}\)</span> is an arbitrary collection of open sets, then their union</p>
-<p><span class="math display">\[
-\bigcup_{\alpha\in I} U_\alpha \in \Tcal
-\]</span></p>
-<p>is open;</p></li>
-<li><p>If <span class="math inline">\(\{U_i \in \Tcal: i=1,2,\dots,N \}\)</span> is a finite collection of open sets,Then their intersection</p>
-<p><span class="math display">\[
-\bigcap_{i=1}^N U_i \in \Tcal
-\]</span></p>
-<p>is open.</p></li>
-</ol>
-</div>
-<p>The complement of an open set in <span class="math inline">\(X\)</span> is called a closed set, and <span class="math inline">\(\Tcal\)</span> is called a topology on <span class="math inline">\(X.\)</span></p>
-<p>A <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on a set <span class="math inline">\(X\)</span> is a collection of subsets of a set <span class="math inline">\(X\)</span> that contains <span class="math inline">\(\emptyset\)</span> and <span class="math inline">\(X\)</span>, and is closed under complements, finite unions, countable unions, and countable intersections.</p>
-<div id="def-sigma_algebra" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A <span class="math inline">\(\sigma\)</span>-algebra on a set <span class="math inline">\(X\)</span> is a collection <span class="math inline">\(\Acal\)</span> of subsets of a set <span class="math inline">\(X\)</span> such that:</p>
-<ol type="a">
-<li><span class="math inline">\(\emptyset, X \in \Acal;\)</span></li>
-<li>If <span class="math inline">\(A\in\Acal\)</span> then <span class="math inline">\(A^c\in\Acal;\)</span></li>
-<li>If <span class="math inline">\(A_i\in\Acal\)</span> then <span class="math display">\[
-\bigcup_{i=1}^\infty A_i \in \Acal, \quad \bigcap_{i=1}^\infty A_i \in \Acal.
-\]</span></li>
-</ol>
-</div>
-<div id="exm-sigma_algebra" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> If <span class="math inline">\(X\)</span> is a set, then <span class="math inline">\(\{\emptyset,X\}\)</span> and <span class="math inline">\(\Pcal(X)\)</span> are <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>; they are the smallest and largest <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>, respectively.</p>
-</div>
-<p>A measurable space <span class="math inline">\((X, \Acal)\)</span> is an non-empty set <span class="math inline">\(X\)</span> equipped with a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X.\)</span></p>
-<p>Difference between a measurable space and <span class="math inline">\(\sigma\)</span>-algebra:</p>
-<ul>
-<li><p>The complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology <span class="math inline">\(\Tcal = \Pcal (X)\)</span></p></li>
-<li><p>Countable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open.</p></li>
-</ul>
-<p>A <strong>measure</strong> <span class="math inline">\(\mu\)</span> is a countably additive, non-negative, extended real-valued function defined on a <span class="math inline">\(\sigma\)</span>-algebra.</p>
-<p>A <strong>measure space</strong> <span class="math inline">\((X, \Acal, \mu)\)</span> consist of a set <span class="math inline">\(X\)</span>, a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X\)</span>, and a measure <span class="math inline">\(\mu\)</span> defined on <span class="math inline">\(\Acal.\)</span> When <span class="math inline">\(\Acal\)</span> and <span class="math inline">\(\mu\)</span> are clear from the context, we will refer to the measure space <span class="math inline">\(X\)</span>.</p>
-<p>An abstract probability space <span class="math inline">\((\Omega, \Fcal, \P)\)</span></p>
-<ul>
-<li><p><span class="math inline">\(\omega\in \Omega\)</span> is called an <em>outcome</em>;</p></li>
-<li><p><span class="math inline">\(A\in \Fcal\)</span> is called an <em>event</em>;</p></li>
-<li><p><span class="math inline">\(\P(A)\)</span> is called the <em>probability</em> of <span class="math inline">\(A.\)</span></p>
-<p><span class="math inline">\(\P(\Omega)=1\)</span> the sum of probability of all possible outcomes is 1.</p></li>
-</ul>
-<p>A random variable is any function <span class="math inline">\(X: \Omega \to \Xcal.\)</span> We say that <span class="math inline">\(X\)</span> has distribution <span class="math inline">\(P,\)</span> and write <span class="math inline">\(X\sim P\)</span>, if</p>
-<p><span class="math display">\[
-\P(X\in B) = \P(\{\omega: X(\omega)\in B\}) = \P(B)
-\]</span></p>
-<p>We say the real-valued random variable <span class="math inline">\(X\)</span> is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If <span class="math inline">\(X\)</span> is a random variable, then <span class="math inline">\(f(X)\)</span> is also a random variable for any function <span class="math inline">\(f\)</span>.</p>
-<p>The expectation of a random variable is defined as an integral with respect to <span class="math inline">\(\P\)</span>:</p>
-<p><span class="math display">\[
-\E[X] = \int X(\omega)\, \mathrm d \P(\omega),
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\E[f(X,Y)] = \int f(X(\omega), Y(\omega))\, \mathrm d \P(\omega).
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a measurable space <span class="math inline">\((X,\Acal)\)</span> is a function</p>
-<p><span class="math display">\[
-\mu: \Acal \to [0, \infty]
-\]</span></p>
-<p>such that</p>
+<p>Given the dynamic relationship of time series data, there are three different ways of modeling these relationships.</p>
 <ol type="1">
-<li><span class="math inline">\(\mu(\emptyset)=0;\)</span></li>
-<li>If <span class="math inline">\(\{A_i\in \Acal: i\in \N\}\)</span> is a countable disjoint collection of sets in <span class="math inline">\(\Acal,\)</span> then</li>
-</ol>
+<li><p>The dependent variable <span class="math inline">\(y\)</span> is a function of current and past values of an explanatory variable <span class="math inline">\(x\)</span>. That is,</p>
 <p><span class="math display">\[
-\mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)
+y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)
 \]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a set <span class="math inline">\(X\)</span> is</p>
+<p>We can think of <span class="math inline">\((y_t, x_t)\)</span> as denoting the values of <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> in the current period; <span class="math inline">\(x_{t-1}\)</span> denotes the value of <span class="math inline">\(x\)</span> in the previous period, <span class="math inline">\(x_{t-2}\)</span> denotes the value of <span class="math inline">\(x\)</span> two periods ago, and so on. Because of the lagged effects, the above equation is called a <strong>distributed lag (DL) model</strong>.</p></li>
+<li><p>Specify a model with a <strong>lagged dependent variable</strong> as one of the explanatory variables.</p>
+<p><span class="math display">\[
+y_t = y(y_{t-1}, x_t)
+\]</span></p></li>
+</ol>
+<p>We can also combine the first two features of the above and previous equation so that we have a dynamic model with lagged values of both the <em>dependent</em> and <em>independent</em> variables, such as</p>
+<p><span class="math display">\[
+y_t = f(y_{t-1}, x_t, x_{t-1}, x_{t-2}, \ldots)
+\]</span></p>
+<p>Such models are called <strong>autoregressive distributed lag models (ARDL)</strong>. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.</p>
+<ol start="3" type="1">
+<li><p>A third way of modeling the continuing change over several periods is via an error term. For example, using <span class="math inline">\(f(\cdot)\)</span> and <span class="math inline">\(g(\cdot)\)</span>, both of which are replaced later with linear functions, we can write</p>
+<p><span class="math display">\[
+y_t = f(x_t) + e_t \quad \text{and} \quad e_t = g(e_{t-1})
+\]</span></p>
+<p>where the function <span class="math inline">\(e_t = g(e_{t-1})\)</span> is used to denote the dependence of the error term on its value in the previous period. In this case, <span class="math inline">\(e_t\)</span> is correlated with <span class="math inline">\(e_{t-1}\)</span>, and in such a scenario, we say the errors are <strong>serially correlated or autocorrelated</strong>.</p></li>
+</ol>
+<p><strong>Stationarity</strong></p>
+<p>An assumption that we will maintain throughout this exercise is that variables in our equation are stationary, which means that a variable is one that is not explosive, nor trending, and nor wandering aimlessly without returning to its mean. A stationary variable simply means a variable whose mean, variance and other statistical properties remain constant over time.</p>
+<section id="finite-distributed-lags" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="finite-distributed-lags"><span class="header-section-number">13.1</span> Finite Distributed Lags</h2>
+<p>The first dynamic relationship we consider is the first model that we introduced, which took the form of<br>
+<span class="math inline">\(y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)\)</span>,<br>
+with the additional assumption that the relationship is <strong>linear</strong>, and after <span class="math inline">\(q\)</span> time periods, changes in <span class="math inline">\(x\)</span> no longer have an impact on <span class="math inline">\(y\)</span>. Under these conditions, we have the multiple regression model:</p>
+<p><span class="math display">\[
+y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t
+\]</span></p>
+<p>The above model can be treated in the same way as a multiple regression model. Instead of having a number of different explanatory variables, we have a number of different <strong>lags of the same explanatory variable</strong>. This equation can be very useful in two ways:</p>
+<ol type="1">
+<li><p><strong>Forecasting future values of <span class="math inline">\(y\)</span>.</strong></p>
+<p>To introduce notation for future values, suppose our sample period is <span class="math inline">\(t = 1, 2, \ldots, T\)</span>.<br>
+We use <span class="math inline">\(t\)</span> for the index and <span class="math inline">\(T\)</span> for the sample size to emphasize the time series nature of the data.<br>
+Given the last observation in our sample is at <span class="math inline">\(t = T\)</span>, the first post-sample observation that we wish to forecast is at <span class="math inline">\(t = T + 1\)</span>.<br>
+The equation for this observation can be given by:</p>
+<p><span class="math display">\[
+y_{T+1} = \alpha + \beta_0 x_{T+1} + \beta_1 x_T + \beta_2 x_{T-1} + \ldots + \beta_q x_{T-q+1} + e_{T+1}
+\]</span></p></li>
+<li><p><strong>Strategic Analysis.</strong></p>
+<p>For example, to use an economic example, understanding the effects of the change in interest rate on unemployment and inflation, or the effect of advertising on sales on a firm’s products.<br>
+The coefficient <span class="math inline">\(\beta_s\)</span> gives the change in <span class="math inline">\(E(y_t)\)</span> when <span class="math inline">\(x_{t-s}\)</span> changes by one unit, but <span class="math inline">\(x\)</span> is held constant in other periods.<br>
+Alternatively, if we look forward rather than backward, <span class="math inline">\(\beta_s\)</span> gives the changes in <span class="math inline">\(E(y_{t+s})\)</span> when <span class="math inline">\(x_t\)</span> changes by one unit, but <span class="math inline">\(x\)</span> in other periods is held constant. In terms of derivatives:</p>
+<p><span class="math display">\[
+\frac{\partial E(y_t)}{\partial x_{t-s}} = \frac{\partial E(y_{t+s})}{\partial x_t} = \beta_s
+\]</span></p></li>
+</ol>
+<p>The effect of a one-unit change in <span class="math inline">\(x_t\)</span> is <strong>distributed</strong> over the current and next <span class="math inline">\(q\)</span> periods.<br>
+It is called a <strong>finite distributed lag model of order <span class="math inline">\(q\)</span></strong> because it is assumed that after a finite number of periods <span class="math inline">\(q\)</span>,<br>
+changes in <span class="math inline">\(x\)</span> no longer have an impact on <span class="math inline">\(y\)</span>. The coefficient <span class="math inline">\(\beta_s\)</span> is called a <strong>distributed-lag weight</strong> or an <strong><span class="math inline">\(s\)</span>-period delayed multiplier</strong>.<br>
+The coefficient <span class="math inline">\(\beta_0\)</span> is called the <strong>impact multiplier</strong>.<br>
+Adding up a portion of the coefficients gives you the <strong>interim multipliers</strong>.<br>
+For example, the interim multiplier for two periods would be <span class="math inline">\((\beta_0 + \beta_1 + \beta_2)\)</span>.<br>
+The <strong>total multiplier</strong> is the final effect on <span class="math inline">\(y\)</span> on the sustained increase after <span class="math inline">\(q\)</span> or more periods have elapsed and is given by the equation:</p>
+<p><span class="math display">\[
+\sum_{s=0}^q \beta_s
+\]</span></p>
+</section>
+<section id="assumptions" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">13.2</span> Assumptions</h2>
+<p>In distributed lag models, both <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are typically random. That is, we do not know their values prior to sampling.<br>
+We do not “set” output growth, for example, and then observe the resulting level of unemployment.<br>
+To accommodate for this stochastic process, we assume that the <span class="math inline">\(x\)</span>’s are random and that the error term <span class="math inline">\(e_t\)</span> is<br>
+<strong>independent of all <span class="math inline">\(x\)</span>’s in the sample – past, current, and future</strong>.<br>
+This assumption, in conjunction with the other multiple regression assumptions, is sufficient for the least squares estimator to be unbiased and to be BLUE, conditional on the <span class="math inline">\(x\)</span>’s in the sample.</p>
+<p>The assumptions of the distributed lag model are:</p>
+<ol type="1">
+<li><span class="math inline">\(y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t\)</span></li>
+<li><span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are stationary random variables, and <span class="math inline">\(e_t\)</span> is independent of current, past, and future values of <span class="math inline">\(x\)</span></li>
+<li><span class="math inline">\(E(e_t) = 0\)</span></li>
+<li><span class="math inline">\(\text{var}(e_t) = \sigma^2\)</span></li>
+<li><span class="math inline">\(\text{cov}(e_t, e_s) = 0 \quad t \ne s\)</span></li>
+<li><span class="math inline">\(e_t \sim N(0, \sigma^2)\)</span></li>
+</ol>
+<hr>
+</section>
+<section id="references" class="level2 unlisted unnumbered">
+<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li><em>finite</em> if <span class="math inline">\(\mu(X)&lt;\infty,\)</span> and</li>
-<li><em><span class="math inline">\(\sigma\)</span>-finite</em> if <span class="math inline">\(X=\bigcup_{n=1}^\infty A_n\)</span> is a countable union of measurable sets <span class="math inline">\(A_n\)</span> with finite measure, <span class="math inline">\(\mu(A_n)&lt;\infty.\)</span></li>
-</ul>
-<p>References:</p>
-<ul>
-<li>J. K. Hunter (2011). <em>Measure Theory</em>. Department of Mathematics, University of California at Davis. <a href="https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf" class="uri">https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf</a></li>
+<li>Czar Yobero, Time Series Regression with Stationary Variables: An Introduction to the ARDL Model, <a href="https://rpubs.com/cyobero/ardl" class="uri">https://rpubs.com/cyobero/ardl</a></li>
 </ul>
 
 
@@ -1139,13 +1138,13 @@ X\times Y = \{(x,y): x\in X, y\in Y\}.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conditional_expectation.html" class="pagination-link" aria-label="Conditional Expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conditional Expectation</span></span>
+      <a href="./TS04_highly-persistent.html" class="pagination-link" aria-label="Highly Persistent TS">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS01_AR1.html" class="pagination-link" aria-label="AR(1)">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA01_Hetero_lm.html" class="pagination-link" aria-label="Linear Models with Heterogeneous Coefficients">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

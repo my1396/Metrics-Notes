@@ -570,6 +570,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS04_dynamical_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -584,7 +590,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -632,6 +638,11 @@ window.Quarto = {
 </header>
 
 
+<p>Unlike linear regression, which typically deals with cross-sectional data, time series regression in two ways:</p>
+<ol type="1">
+<li>Observations on a given unit, observed over a number of time periods, are likely to be <strong>correlated</strong>.</li>
+<li><strong>Natural ordering to time</strong>. If one shuffles time series observations, there is a danger of confounding what is their most distinguishing feature: the possible existence of dynamic relationships between variables.</li>
+</ol>
 <p>Time series data often display autocorrelation, or serial correlation of the disturbances across periods.</p>
 <p>If you plot the residuals and observe that the effect of a given disturbance is carried, at least in part, across periods, then it is a strong signal of serial correlation. It’s like the disturbances exhibiting a sort of “memory” over time.</p>
 <hr>
@@ -642,7 +653,7 @@ window.Quarto = {
 \]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -663,7 +674,7 @@ Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -680,7 +691,7 @@ Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inlin
 <p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#008B45FF"><em>autocorrelation functions</em></span> (ACFs).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">

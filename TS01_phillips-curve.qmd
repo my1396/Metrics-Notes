@@ -77,7 +77,7 @@ $$
 inf_t - inf^e_t = \beta_1 (unem_t - \mu_0) + e_t,
 $$
 
-where $\mu_0$ is the *natural rate of unemployment* and $inf^e_t$ is the *expected* rate of inflation formed in year $t-1.$
+where $\mu_0$ is the *natural rate of unemployment*, which we assume constant over time, and $inf^e_t$ is the *expected* rate of inflation formed in year $t-1.$
 
 The difference between actual unemployment and the natural rate is called *cyclical unemployment*, while the difference between actual and expected
 inflation is called *unanticipated inflation*.
