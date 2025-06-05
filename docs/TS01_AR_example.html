@@ -645,6 +645,7 @@ window.Quarto = {
   <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link active" data-scroll-target="#dataset-description"><span class="header-section-number">5.1</span> Dataset Description</a></li>
   <li><a href="#empirical-model" id="toc-empirical-model" class="nav-link" data-scroll-target="#empirical-model"><span class="header-section-number">5.2</span> Empirical Model</a></li>
   <li><a href="#test-for-serial-correlation" id="toc-test-for-serial-correlation" class="nav-link" data-scroll-target="#test-for-serial-correlation"><span class="header-section-number">5.3</span> Test for Serial Correlation</a></li>
+  <li><a href="#consequence-for-serial-correlation" id="toc-consequence-for-serial-correlation" class="nav-link" data-scroll-target="#consequence-for-serial-correlation"><span class="header-section-number">5.4</span> Consequence for Serial Correlation</a></li>
   </ul>
 </nav>
     </div>
@@ -1042,18 +1043,28 @@ F Statistic
 </tbody></table>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># variance-covariance matrix</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            (Intercept)       unemp
 (Intercept)  0.54830829 -0.08973175
 unemp       -0.08973175  0.01582211</code></pre>
 </div>
 </div>
+<p>HAC (heteroskedasticity and autocorrelation consistent) standard errors</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vcovHAC</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            (Intercept)        unemp
+(Intercept)  0.23561076 -0.039847043
+unemp       -0.03984704  0.006986272</code></pre>
+</div>
+</div>
 <p><strong>Autocorrelated residuals</strong></p>
 <p>Plot the residuals.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-ar-res" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1067,16 +1078,42 @@ Figure&nbsp;5.1: Phillips Curve Deviations from Expected Inflation
 </div>
 </div>
 </div>
-<p><a href="#fig-ar-res" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows striking negative autocorrelation.</p>
-<p>Now we test the serial correlation of the residuals by regressing <span class="math inline">\(\varepsilon_t\)</span> on <span class="math inline">\(\varepsilon_{t-1}\)</span>. <span class="math display">\[
+<p><a href="#fig-ar-res" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows striking negative autocorrelation. The correlogram tells the same story (<a href="#fig-res-acf" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>). The blue dotted lines give the values beyond which the autocorrelations are (statistically) significantly different from zero.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">'correlation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-res-acf" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-res-acf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="TS01_AR_example_files/figure-html/fig-res-acf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-res-acf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: Correlogram of the residuals
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can get the autocorrelation coefficients by setting <code>plot = FALSE</code></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">'correlation'</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>acf <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.vector</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1.000000000 -0.424730192 -0.112169741  0.073423178  0.147639239
+ [6] -0.111740533 -0.036632121  0.009911709  0.036784781 -0.020769323</code></pre>
+</div>
+</div>
+<p>Now we test the serial correlation of the residuals by regressing <span class="math inline">\(\varepsilon_t\)</span> on <span class="math inline">\(\varepsilon_{t-1}\)</span>.</p>
+<p><span class="math display">\[
 \varepsilon_t = \phi\varepsilon_{t-1} + e_t
 \]</span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> <span class="fu">lm</span>(res_t <span class="sc">~</span> res_t1, <span class="at">data =</span> res)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> <span class="fu">lm</span>(res_t <span class="sc">~</span> res_t1, <span class="at">data =</span> res)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1108,8 +1145,8 @@ F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
 <li>Breusch-Godfrey test for AR(q)</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(lm_phillips, <span class="at">alternative =</span> <span class="st">"two.sided"</span>) <span class="co"># Durbin Watson test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(lm_phillips, <span class="at">alternative =</span> <span class="st">"two.sided"</span>) <span class="co"># Durbin Watson test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Durbin-Watson test
@@ -1118,7 +1155,7 @@ data:  lm_phillips
 DW = 2.8276, p-value = 5.212e-09
 alternative hypothesis: true autocorrelation is not 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bgtest</span>(lm_phillips, <span class="at">order=</span><span class="dv">1</span>) <span class="co"># Breusch-Godfrey test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bgtest</span>(lm_phillips, <span class="at">order=</span><span class="dv">1</span>) <span class="co"># Breusch-Godfrey test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Breusch-Godfrey test for serial correlation of order up to 1
@@ -1128,12 +1165,20 @@ LM test = 36.601, df = 1, p-value = 1.45e-09</code></pre>
 </div>
 </div>
 <p>Both tests show strong evidence of AR(1) serial correlation in the errors.</p>
+</section>
+<section id="consequence-for-serial-correlation" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="consequence-for-serial-correlation"><span class="header-section-number">5.4</span> Consequence for Serial Correlation</h2>
+<p>The presence of autocorrelation can lead to misleading results as they violate the assumptions of least squares.</p>
+<p>The least squares estimator is still a linear <strong>unbiased</strong> estimator, but is <strong>no longer best</strong>.</p>
 <p>One <strong>consequence</strong> of the serial correlated errors is that the standard error and <span class="math inline">\(t\)</span> statistics are not valid anymore. In the case if serial correlation, you can either</p>
 <ul>
 <li><p>Transform the model to remove the serial correlation, or alternatively,</p>
-<p>FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.</p></li>
+<p>FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.</p>
+<p>This approach assumes strictly exogeneous regressors, that is, no lagged <span class="math inline">\(y\)</span> in the RHS of the equation. See Chapter 12.3 in Wooldridge (2013), Introductory Econometrics: A Modern Approach.</p></li>
 <li><p>Use serial correlation-robust standard errors</p>
 <p>HAC (Heteroskedasticity and autocorrelation consistent) standard errors or Newey-West standard errors.</p></li>
+<li><p>Infinite Distributed Lag Models</p>
+<p>Geomoetric (or Koyck) and Rational Distributed Lag Models.</p></li>
 </ul>
 <hr>
 </section>

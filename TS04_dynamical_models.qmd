@@ -67,7 +67,7 @@ with the additional assumption that the relationship is **linear**, and after $q
 
 $$
 y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t
-$$
+$$ {#eq-FDL}
 
 The above model can be treated in the same way as a multiple regression model. Instead of having a number of different explanatory variables, we have a number of different **lags of the same explanatory variable**. This equation can be very useful in two ways:
 
@@ -125,10 +125,10 @@ The assumptions of the distributed lag model are:
 
 
 
-## Okun's Law
+## Application: Okun's Law
 
 We will apply the finite distributed lag model to Okun's Law. 
-Arther Melvin Okun was an economist who posited that there was a relationship between the change in unemployment from one period to the next and the rate of growth of output in the economy. 
+Arther Melvin Okun was an economist who posited that higher output growth reduces unemployment.
 Mathematically, Okun's Law can be expressed as
 
 $$
@@ -181,6 +181,9 @@ ggplot(okun2 %>% gather("key", "value", gGDP, dunemp),
 ```
 
 
+
+Implement Finite Distributed Lag models (-@eq-FDL) for $q=2$ and $3$.
+
 ```{r}
 library(dynlm)
 okun.lag2 <- dynlm(d(unemp, 1) ~ L(gGDP, 0:2), data = okun2.zoo)
@@ -200,12 +203,48 @@ summary(okun.lag2)
 ```
 
 
-A 1% increase in the growth rate of GDP leads to a fall in the unemployment rate of 0.44% in the current quarter, a fall of 0.09% in the next quarter. The delayed effects stop beyond the first lag.
+A 1 percentage point increase in the growth rate of GDP leads to a fall in the change of unemployment rate by 0.44 percentage points in the current quarter, a fall of 0.09 percentage points in the next quarter. The delayed effects stop beyond the first lag.
 
 
+### ARDL
+
+A more general model is 
+
+$$
+y_{t} = \alpha + \rho\, y_{t-1} + \gamma_{0}z_{t} + \gamma_{1}z_{t-1} + v_{t},
+$$
+which is an **autoregressive distributed lag model** (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).
+
+This equation can be estimated by linear least squares providing that the $v_t$ satisfy the usual assumptions required for least squares estimation, namely that they have zero mean and constant variance, and are not autocorrelated. 
+
+The presence of the lagged dependent variable $y_{t−1}$ means that a large sample is required for the desirable properties of the least squares estimator to hold, but the least squares procedure is still valid providing that $v_t$ is uncorrelated with *current* and *past* values of the right-hand side variables. 
+
+It is crucial that $v_t$ be **serial uncorrelated**. If they are serial correlated, e.g., $v_t=u_t-\rho u_t$, the least square estimator will be biased, even in large sample sizes!
+
+Implement an ARDL model.
+
+$$
+DU_{t} = \alpha + \rho\, DU_{t-1} + \gamma_{0}G_{t} + \gamma_{1}G_{t-1} + v_{t}.
+$$
+
+```{r}
+okun.ardl <- dynlm(d(unemp, 1) ~ L(d(unemp, 1), 1) + L(gGDP, 0:1), data = okun2.zoo)
+summary(okun.ardl)
+```
 
 
+$$
+\begin{aligned}
+\widehat{DU}_{t} 
+&= 0.429 - 0.056 \, DU_{t-1} - 0.434\,G_{t} - 0.120\,G_{t-1} \\
+&\phantom{=}\;\; (.038)\quad (.059) \qquad\quad\quad (.024) \quad\quad\; (.036)\\
+n &= 307, R^2=.583, \bar{R^2} = .579.
+\end{aligned}
+$$
 
+A 1% increase in the change of unemployment rate from the previous quarter leads to a 0.056% decrease in the change of unemployment rate in the current quarter. This suggests a **mild mean-reverting behavior**: unemployment shocks tend to partially reverse in the following quarter, but the effect is small.
+
+A 1% increase in the growth rate of GDP leads to a fall in the unemployment rate of 0.43% in the current quarter, a fall of 0.12% in the next quarter.
 
 --------------------------------------------------------------------------------
 

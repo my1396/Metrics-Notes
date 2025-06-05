@@ -642,9 +642,10 @@ window.Quarto = {
   <ul>
   <li><a href="#finite-distributed-lags" id="toc-finite-distributed-lags" class="nav-link active" data-scroll-target="#finite-distributed-lags"><span class="header-section-number">13.1</span> Finite Distributed Lags</a></li>
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">13.2</span> Assumptions</a></li>
-  <li><a href="#okuns-law" id="toc-okuns-law" class="nav-link" data-scroll-target="#okuns-law"><span class="header-section-number">13.3</span> Okun’s Law</a>
+  <li><a href="#application-okuns-law" id="toc-application-okuns-law" class="nav-link" data-scroll-target="#application-okuns-law"><span class="header-section-number">13.3</span> Application: Okun’s Law</a>
   <ul class="collapse">
   <li><a href="#empirical-result" id="toc-empirical-result" class="nav-link" data-scroll-target="#empirical-result"><span class="header-section-number">13.3.1</span> Empirical Result</a></li>
+  <li><a href="#ardl" id="toc-ardl" class="nav-link" data-scroll-target="#ardl"><span class="header-section-number">13.3.2</span> ARDL</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -706,9 +707,9 @@ y_t = f(x_t) + e_t \quad \text{and} \quad e_t = g(e_{t-1})
 <p>The first dynamic relationship we consider is the first model that we introduced, which took the form of<br>
 <span class="math inline">\(y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)\)</span>,<br>
 with the additional assumption that the relationship is <strong>linear</strong>, and after <span class="math inline">\(q\)</span> time periods, changes in <span class="math inline">\(x\)</span> no longer have an impact on <span class="math inline">\(y\)</span>. Under these conditions, we have the multiple regression model:</p>
-<p><span class="math display">\[
+<p><span id="eq-FDL"><span class="math display">\[
 y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t
-\]</span></p>
+\tag{13.1}\]</span></span></p>
 <p>The above model can be treated in the same way as a multiple regression model. Instead of having a number of different explanatory variables, we have a number of different <strong>lags of the same explanatory variable</strong>. This equation can be very useful in two ways:</p>
 <ol type="1">
 <li><p><strong>Forecasting future values of <span class="math inline">\(y\)</span>.</strong></p>
@@ -755,9 +756,9 @@ This assumption, in conjunction with the other multiple regression assumptions, 
 <li><span class="math inline">\(e_t \sim N(0, \sigma^2)\)</span></li>
 </ol>
 </section>
-<section id="okuns-law" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="okuns-law"><span class="header-section-number">13.3</span> Okun’s Law</h2>
-<p>We will apply the finite distributed lag model to Okun’s Law. Arther Melvin Okun was an economist who posited that there was a relationship between the change in unemployment from one period to the next and the rate of growth of output in the economy. Mathematically, Okun’s Law can be expressed as</p>
+<section id="application-okuns-law" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="application-okuns-law"><span class="header-section-number">13.3</span> Application: Okun’s Law</h2>
+<p>We will apply the finite distributed lag model to Okun’s Law. Arther Melvin Okun was an economist who posited that higher output growth reduces unemployment. Mathematically, Okun’s Law can be expressed as</p>
 <p><span class="math display">\[
 U_{t}-U_{t-1}=-\gamma(G_{t}-G_{N})
 \]</span> where <span class="math inline">\(U_{t}\)</span> is the unemployment rate in period <span class="math inline">\(t\)</span>, <span class="math inline">\(G_{t}\)</span> is the growth rate of output in period <span class="math inline">\(t\)</span>, and <span class="math inline">\(G_{N}\)</span> is the “normal” growth rate, which we assume constant over time.</p>
@@ -821,6 +822,7 @@ DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \ldots 
 </div>
 </div>
 </div>
+<p>Implement Finite Distributed Lag models (<a href="#eq-FDL" class="quarto-xref"><span>13.1</span></a>) for <span class="math inline">\(q=2\)</span> and <span class="math inline">\(3\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>okun.lag2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">data =</span> okun2.zoo)</span>
@@ -887,7 +889,62 @@ Multiple R-squared:  0.5816,    Adjusted R-squared:  0.5774
 F-statistic: 140.4 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>A 1% increase in the growth rate leads to a fall in the unemployment rate of 0.44% in the current quarter, a fall of 0.09% in the next quarter.</p>
+<p>A 1 percentage point increase in the growth rate of GDP leads to a fall in the change of unemployment rate by 0.44 percentage points in the current quarter, a fall of 0.09 percentage points in the next quarter. The delayed effects stop beyond the first lag.</p>
+</section>
+<section id="ardl" class="level3" data-number="13.3.2">
+<h3 data-number="13.3.2" class="anchored" data-anchor-id="ardl"><span class="header-section-number">13.3.2</span> ARDL</h3>
+<p>A more general model is</p>
+<p><span class="math display">\[
+y_{t} = \alpha + \rho\, y_{t-1} + \gamma_{0}z_{t} + \gamma_{1}z_{t-1} + v_{t},
+\]</span> which is an <strong>autoregressive distributed lag model</strong> (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).</p>
+<p>This equation can be estimated by linear least squares providing that the <span class="math inline">\(v_t\)</span> satisfy the usual assumptions required for least squares estimation, namely that they have zero mean and constant variance, and are not autocorrelated.</p>
+<p>The presence of the lagged dependent variable <span class="math inline">\(y_{t−1}\)</span> means that a large sample is required for the desirable properties of the least squares estimator to hold, but the least squares procedure is still valid providing that <span class="math inline">\(v_t\)</span> is uncorrelated with <em>current</em> and <em>past</em> values of the right-hand side variables.</p>
+<p>It is crucial that <span class="math inline">\(v_t\)</span> be <strong>serial uncorrelated</strong>. If they are serial correlated, e.g., <span class="math inline">\(v_t=u_t-\rho u_t\)</span>, the least square estimator will be biased, even in large sample sizes!</p>
+<p>Implement an ARDL model.</p>
+<p><span class="math display">\[
+DU_{t} = \alpha + \rho\, DU_{t-1} + \gamma_{0}G_{t} + \gamma_{1}G_{t-1} + v_{t}.
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>okun.ardl <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>), <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">data =</span> okun2.zoo)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.ardl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Time series regression with "zoo" data:
+Start = 1948 Q3, End = 2025 Q1
+
+Call:
+dynlm(formula = d(unemp, 1) ~ L(d(unemp, 1), 1) + L(gGDP, 0:1), 
+    data = okun2.zoo)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.4662 -0.2198 -0.0218  0.1686  4.9875 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        0.42871    0.03769  11.374  &lt; 2e-16 ***
+L(d(unemp, 1), 1) -0.05640    0.05874  -0.960 0.337736    
+L(gGDP, 0:1)1     -0.43423    0.02390 -18.165  &lt; 2e-16 ***
+L(gGDP, 0:1)2     -0.11951    0.03575  -3.343 0.000932 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4416 on 303 degrees of freedom
+  (0 observations deleted due to missingness)
+Multiple R-squared:  0.5825,    Adjusted R-squared:  0.5784 
+F-statistic: 140.9 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{DU}_{t}
+&amp;= 0.429 - 0.056 \, DU_{t-1} - 0.434\,G_{t} - 0.120\,G_{t-1} \\
+&amp;\phantom{=}\;\; (.038)\quad (.059) \qquad\quad\quad (.024) \quad\quad\; (.036)\\
+n &amp;= 307, R^2=.583, \bar{R^2} = .579.
+\end{aligned}
+\]</span></p>
+<p>A 1% increase in the change of unemployment rate from the previous quarter leads to a 0.056% decrease in the change of unemployment rate in the current quarter. This suggests a <strong>mild mean-reverting behavior</strong>: unemployment shocks tend to partially reverse in the following quarter, but the effect is small.</p>
+<p>A 1% increase in the growth rate of GDP leads to a fall in the unemployment rate of 0.43% in the current quarter, a fall of 0.12% in the next quarter.</p>
 <hr>
 </section>
 </section>
