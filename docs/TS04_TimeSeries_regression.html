@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./PA01_Hetero_lm.html" rel="next">
+<link href="./PA01_Panel_regression.html" rel="next">
 <link href="./TS04_highly-persistent.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -490,7 +490,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_dynamical_models.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_TimeSeries_regression.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -607,7 +607,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS04_dynamical_models.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS04_TimeSeries_regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
@@ -624,8 +624,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA01_Panel_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PA02_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -654,7 +660,7 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_dynamical_models.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_TimeSeries_regression.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></h1>
 </div>
@@ -773,15 +779,16 @@ DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \ldots 
 <section id="empirical-result" class="level3" data-number="13.3.1">
 <h3 data-number="13.3.1" class="anchored" data-anchor-id="empirical-result"><span class="header-section-number">13.3.1</span> Empirical Result</h3>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f_name <span class="ot">&lt;-</span> <span class="st">"data/okun.csv"</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f_name <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/okun.csv"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>okun2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_name)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>okun2 <span class="ot">&lt;-</span> okun2 <span class="sc">%&gt;%</span> </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">dunemp =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(unemp))</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           )</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>okun2.zoo <span class="ot">&lt;-</span> okun2 <span class="sc">%&gt;%</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xts</span>(<span class="at">x =</span> .[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> <span class="fu">as.yearqtr</span>(.[[<span class="dv">1</span>]])) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.zoo</span>()</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>okun2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># convert data to a time series object</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>okun2.zoo <span class="ot">&lt;-</span> okun2 <span class="sc">%&gt;%</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xts</span>(<span class="at">x =</span> .[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> <span class="fu">as.yearqtr</span>(.[[<span class="dv">1</span>]])) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.zoo</span>()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>okun2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 310 × 5
    date       unemp      GDP       gGDP     dunemp
@@ -816,52 +823,24 @@ DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \ldots 
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="TS04_dynamical_models_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="TS04_TimeSeries_regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Change in unemployment (red) and growth rate of GDP (blue).</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Implement Finite Distributed Lag models (<a href="#eq-FDL" class="quarto-xref"><span>13.1</span></a>) for <span class="math inline">\(q=2\)</span> and <span class="math inline">\(3\)</span>.</p>
+<p>Implement Finite Distributed Lag models (<a href="#eq-FDL" class="quarto-xref"><span>13.1</span></a>) for <span class="math inline">\(q=1\)</span> and <span class="math inline">\(2\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>okun.lag2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">data =</span> okun2.zoo)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>okun.lag3 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>), <span class="at">data =</span> okun2.zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Model estimates for lag length at <span class="math inline">\(q=3\)</span></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Time series regression with "zoo" data:
-Start = 1948 Q4, End = 2025 Q1
-
-Call:
-dynlm(formula = d(unemp, 1) ~ L(gGDP, 0:3), data = okun2.zoo)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--1.6634 -0.2161 -0.0227  0.1758  4.9580 
-
-Coefficients:
-               Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    0.411766   0.039784  10.350  &lt; 2e-16 ***
-L(gGDP, 0:3)1 -0.442657   0.022948 -19.289  &lt; 2e-16 ***
-L(gGDP, 0:3)2 -0.093474   0.023122  -4.043 6.72e-05 ***
-L(gGDP, 0:3)3  0.011730   0.023102   0.508    0.612    
-L(gGDP, 0:3)4 -0.007625   0.022931  -0.333    0.740    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.4435 on 301 degrees of freedom
-  (0 observations deleted due to missingness)
-Multiple R-squared:  0.5817,    Adjusted R-squared:  0.5762 
-F-statistic: 104.7 on 4 and 301 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>okun.lag1 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">data =</span> okun2.zoo)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>okun.lag2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">data =</span> okun2.zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Model estimates for lag length at <span class="math inline">\(q=2\)</span></p>
+<p><span id="eq-FDL2"><span class="math display">\[
+DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \varepsilon_{t}.
+\tag{13.2}\]</span></span></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Time series regression with "zoo" data:
@@ -889,6 +868,46 @@ Multiple R-squared:  0.5816,    Adjusted R-squared:  0.5774
 F-statistic: 140.4 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
+<p><span id="eq-FDL1"><span class="math display">\[
+DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \varepsilon_{t}.
+\tag{13.3}\]</span></span></p>
+<p>Model estimates for lag length at <span class="math inline">\(q=1\)</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Time series regression with "zoo" data:
+Start = 1948 Q2, End = 2025 Q1
+
+Call:
+dynlm(formula = d(unemp, 1) ~ L(gGDP, 0:1), data = okun2.zoo)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6950 -0.2147 -0.0223  0.1782  4.9746 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    0.41373    0.03423  12.088  &lt; 2e-16 ***
+L(gGDP, 0:1)1 -0.44041    0.02270 -19.398  &lt; 2e-16 ***
+L(gGDP, 0:1)2 -0.09228    0.02271  -4.063 6.16e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4416 on 305 degrees of freedom
+  (0 observations deleted due to missingness)
+Multiple R-squared:  0.5798,    Adjusted R-squared:  0.577 
+F-statistic: 210.4 on 2 and 305 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{DU}_{t}
+&amp;= 0.414 - 0.440\,G_{t} - 0.092\,G_{t-1} \\
+&amp;\phantom{=}\;\; (.034)\quad (.023) \quad\quad (.023) \\
+n &amp;= 308, R^2=.580, \bar{R^2} = .577.
+\end{aligned}
+\]</span></p>
 <p>A 1 percentage point increase in the growth rate of GDP leads to a fall in the change of unemployment rate by 0.44 percentage points in the current quarter, a fall of 0.09 percentage points in the next quarter. The delayed effects stop beyond the first lag.</p>
 </section>
 <section id="ardl" class="level3" data-number="13.3.2">
@@ -896,14 +915,16 @@ F-statistic: 140.4 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>A more general model is</p>
 <p><span class="math display">\[
 y_{t} = \alpha + \rho\, y_{t-1} + \gamma_{0}z_{t} + \gamma_{1}z_{t-1} + v_{t},
-\]</span> which is an <strong>autoregressive distributed lag model</strong> (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).</p>
+\]</span></p>
+<p>which is an <strong>autoregressive distributed lag model</strong> (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).</p>
 <p>This equation can be estimated by linear least squares providing that the <span class="math inline">\(v_t\)</span> satisfy the usual assumptions required for least squares estimation, namely that they have zero mean and constant variance, and are not autocorrelated.</p>
 <p>The presence of the lagged dependent variable <span class="math inline">\(y_{t−1}\)</span> means that a large sample is required for the desirable properties of the least squares estimator to hold, but the least squares procedure is still valid providing that <span class="math inline">\(v_t\)</span> is uncorrelated with <em>current</em> and <em>past</em> values of the right-hand side variables.</p>
 <p>It is crucial that <span class="math inline">\(v_t\)</span> be <strong>serial uncorrelated</strong>. If they are serial correlated, e.g., <span class="math inline">\(v_t=u_t-\rho u_t\)</span>, the least square estimator will be biased, even in large sample sizes!</p>
 <p>Implement an ARDL model.</p>
-<p><span class="math display">\[
+<p><span id="eq-ardl"><span class="math display">\[
 DU_{t} = \alpha + \rho\, DU_{t-1} + \gamma_{0}G_{t} + \gamma_{1}G_{t-1} + v_{t}.
-\]</span></p>
+\tag{13.4}\]</span></span></p>
+<p>The ARDL model (<a href="#eq-ardl" class="quarto-xref"><span>13.4</span></a>) assumes the effects of growth in output persists, while FDL(<span class="math inline">\(q=1\)</span>) model (<a href="#eq-FDL1" class="quarto-xref"><span>13.3</span></a>) assumes the change in employment responds to changes in output growth only over two periods (current and the last periods).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>okun.ardl <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>), <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">data =</span> okun2.zoo)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.ardl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -943,8 +964,8 @@ F-statistic: 140.9 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
 n &amp;= 307, R^2=.583, \bar{R^2} = .579.
 \end{aligned}
 \]</span></p>
-<p>A 1% increase in the change of unemployment rate from the previous quarter leads to a 0.056% decrease in the change of unemployment rate in the current quarter. This suggests a <strong>mild mean-reverting behavior</strong>: unemployment shocks tend to partially reverse in the following quarter, but the effect is small.</p>
-<p>A 1% increase in the growth rate of GDP leads to a fall in the unemployment rate of 0.43% in the current quarter, a fall of 0.12% in the next quarter.</p>
+<p>A 1% increase in the change of unemployment rate from the previous quarter leads to a 0.056% decrease in the change of unemployment rate in the current quarter. This suggests a <strong>mild mean-reverting behavior</strong>: unemployment shocks tend to partially reverse in the following quarter, but the effect is small and statistically insignificant.</p>
+<p>A 1% increase in the growth rate of GDP leads to a fall in the change of unemployment rate of 0.43% in the current quarter, a fall of 0.12% in the next quarter.</p>
 <hr>
 </section>
 </section>
@@ -1378,8 +1399,8 @@ n &amp;= 307, R^2=.583, \bar{R^2} = .579.
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./PA01_Hetero_lm.html" class="pagination-link" aria-label="Linear Models with Heterogeneous Coefficients">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA01_Panel_regression.html" class="pagination-link" aria-label="Panel Regressions">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

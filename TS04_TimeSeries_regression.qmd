@@ -151,11 +151,12 @@ $$
 ### Empirical Result
 
 ```{r}
-f_name <- "data/okun.csv"
+f_name <- "https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/okun.csv"
 okun2 <- read_csv(f_name)
 okun2 <- okun2 %>% 
     mutate(dunemp = c(NA, diff(unemp))
            )
+# convert data to a time series object
 okun2.zoo <- okun2 %>% 
     xts(x = .[,-1], order.by = as.yearqtr(.[[1]])) %>% 
     as.zoo()
@@ -182,26 +183,43 @@ ggplot(okun2 %>% gather("key", "value", gGDP, dunemp),
 
 
 
-Implement Finite Distributed Lag models (-@eq-FDL) for $q=2$ and $3$.
+Implement Finite Distributed Lag models (-@eq-FDL) for $q=1$ and $2$.
 
 ```{r}
 library(dynlm)
+okun.lag1 <- dynlm(d(unemp, 1) ~ L(gGDP, 0:1), data = okun2.zoo)
 okun.lag2 <- dynlm(d(unemp, 1) ~ L(gGDP, 0:2), data = okun2.zoo)
-okun.lag3 <- dynlm(d(unemp, 1) ~ L(gGDP, 0:3), data = okun2.zoo)
-```
-
-Model estimates for lag length at $q=3$
-
-```{r}
-summary(okun.lag3)
 ```
 
 Model estimates for lag length at $q=2$
+
+$$
+DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \varepsilon_{t}.
+$$ {#eq-FDL2}
 
 ```{r}
 summary(okun.lag2)
 ```
 
+$$
+DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \varepsilon_{t}.
+$$ {#eq-FDL1}
+
+Model estimates for lag length at $q=1$
+
+```{r}
+summary(okun.lag1)
+```
+
+
+$$
+\begin{aligned}
+\widehat{DU}_{t} 
+&= 0.414 - 0.440\,G_{t} - 0.092\,G_{t-1} \\
+&\phantom{=}\;\; (.034)\quad (.023) \quad\quad (.023) \\
+n &= 308, R^2=.580, \bar{R^2} = .577.
+\end{aligned}
+$$
 
 A 1 percentage point increase in the growth rate of GDP leads to a fall in the change of unemployment rate by 0.44 percentage points in the current quarter, a fall of 0.09 percentage points in the next quarter. The delayed effects stop beyond the first lag.
 
@@ -212,7 +230,8 @@ A more general model is
 
 $$
 y_{t} = \alpha + \rho\, y_{t-1} + \gamma_{0}z_{t} + \gamma_{1}z_{t-1} + v_{t},
-$$
+$$ 
+
 which is an **autoregressive distributed lag model** (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).
 
 This equation can be estimated by linear least squares providing that the $v_t$ satisfy the usual assumptions required for least squares estimation, namely that they have zero mean and constant variance, and are not autocorrelated. 
@@ -225,7 +244,10 @@ Implement an ARDL model.
 
 $$
 DU_{t} = \alpha + \rho\, DU_{t-1} + \gamma_{0}G_{t} + \gamma_{1}G_{t-1} + v_{t}.
-$$
+$$ {#eq-ardl}
+
+
+The ARDL model (-@eq-ardl) assumes the effects of growth in output persists, while FDL($q=1$) model (-@eq-FDL1) assumes the change in employment responds to changes in output growth only over two periods (current and the last periods).
 
 ```{r}
 okun.ardl <- dynlm(d(unemp, 1) ~ L(d(unemp, 1), 1) + L(gGDP, 0:1), data = okun2.zoo)
@@ -242,9 +264,10 @@ n &= 307, R^2=.583, \bar{R^2} = .579.
 \end{aligned}
 $$
 
-A 1% increase in the change of unemployment rate from the previous quarter leads to a 0.056% decrease in the change of unemployment rate in the current quarter. This suggests a **mild mean-reverting behavior**: unemployment shocks tend to partially reverse in the following quarter, but the effect is small.
+A 1% increase in the change of unemployment rate from the previous quarter leads to a 0.056% decrease in the change of unemployment rate in the current quarter. This suggests a **mild mean-reverting behavior**: unemployment shocks tend to partially reverse in the following quarter, but the effect is small and statistically insignificant.
 
-A 1% increase in the growth rate of GDP leads to a fall in the unemployment rate of 0.43% in the current quarter, a fall of 0.12% in the next quarter.
+A 1% increase in the growth rate of GDP leads to a fall in the change of unemployment rate of 0.43% in the current quarter, a fall of 0.12% in the next quarter.
+
 
 --------------------------------------------------------------------------------
 

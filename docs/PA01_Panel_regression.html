@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Linear Models with Heterogeneous Coefficients – Metrics Notes</title>
+<title>14&nbsp; Panel Regressions – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,42 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,7 +65,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS04_dynamical_models.html" rel="prev">
+<link href="./PA02_Hetero_lm.html" rel="next">
+<link href="./TS04_TimeSeries_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -474,7 +490,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Hetero_lm.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA01_Hetero_lm.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -591,7 +607,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS04_dynamical_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS04_TimeSeries_regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
@@ -608,8 +624,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA01_Hetero_lm.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA01_Panel_regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PA02_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -624,11 +646,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#linearity-and-heterogeneity" id="toc-linearity-and-heterogeneity" class="nav-link active" data-scroll-target="#linearity-and-heterogeneity"><span class="header-section-number">14.1</span> Linearity and Heterogeneity</a>
-  <ul class="collapse">
-  <li><a href="#models-with-homogeneous-slopes" id="toc-models-with-homogeneous-slopes" class="nav-link" data-scroll-target="#models-with-homogeneous-slopes"><span class="header-section-number">14.1.1</span> Models with Homogeneous Slopes</a></li>
-  <li><a href="#heterogeneity-in-slopes." id="toc-heterogeneity-in-slopes." class="nav-link" data-scroll-target="#heterogeneity-in-slopes."><span class="header-section-number">14.1.2</span> Heterogeneity in Slopes.</a></li>
-  </ul></li>
+  <li><a href="#pooled-model" id="toc-pooled-model" class="nav-link active" data-scroll-target="#pooled-model"><span class="header-section-number">14.1</span> Pooled model</a></li>
+  <li><a href="#fixed-effects" id="toc-fixed-effects" class="nav-link" data-scroll-target="#fixed-effects"><span class="header-section-number">14.2</span> Fixed Effects</a></li>
+  <li><a href="#random-effects" id="toc-random-effects" class="nav-link" data-scroll-target="#random-effects"><span class="header-section-number">14.3</span> Random Effects</a></li>
+  <li><a href="#dynamic-linear-models" id="toc-dynamic-linear-models" class="nav-link" data-scroll-target="#dynamic-linear-models"><span class="header-section-number">14.4</span> Dynamic Linear Models</a></li>
   </ul>
 </nav>
     </div>
@@ -636,9 +657,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Hetero_lm.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA01_Hetero_lm.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></h1>
 </div>
 
 
@@ -655,68 +676,337 @@ window.Quarto = {
 </header>
 
 
-<section id="linearity-and-heterogeneity" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="linearity-and-heterogeneity"><span class="header-section-number">14.1</span> Linearity and Heterogeneity</h2>
-<section id="models-with-homogeneous-slopes" class="level3" data-number="14.1.1">
-<h3 data-number="14.1.1" class="anchored" data-anchor-id="models-with-homogeneous-slopes"><span class="header-section-number">14.1.1</span> Models with Homogeneous Slopes</h3>
-<p>We begin our journey where standard textbooks and first-year foundational courses in econometrics leave off. The “standard” linear models considered in such courses often assume homogeneity in individual responses to covariates (e.g., <span class="citation" data-cites="Hansen2022">Hansen (<a href="#ref-Hansen2022" role="doc-biblioref">2022</a>)</span>). A common cross-sectional specification is:</p>
-<p><span id="eq-standard_linear"><span class="math display">\[
-y_i = \bbeta'\bx_i + u_{i},
-\tag{14.1}\]</span></span> where <span class="math inline">\(i=1, \dots, N\)</span> indexes cross-sectional units.</p>
-<p>In panel data, models often include unit-specific <span class="math inline">\((i)\)</span> and time-specific <span class="math inline">\((t)\)</span> intercepts while maintaining a common slope vector <span class="math inline">\(\bbeta\)</span>:</p>
-<p><span id="eq-panel_linear"><span class="math display">\[
-y_{it} = \alpha_i + \delta_t +  \bbeta'\bx_{it} + u_{it}.
-\tag{14.2}\]</span></span></p>
-</section>
-<section id="heterogeneity-in-slopes." class="level3" data-number="14.1.2">
-<h3 data-number="14.1.2" class="anchored" data-anchor-id="heterogeneity-in-slopes."><span class="header-section-number">14.1.2</span> Heterogeneity in Slopes.</h3>
-<p>However, modern economic theory rarely supports the assumption of homogeneous slopes <span class="math inline">\(\bbeta.\)</span> Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients:</p>
-<ol type="1">
-<li><p>Cross-sectional model (<a href="#eq-standard_linear" class="quarto-xref"><span>14.1</span></a>) generalizes to</p>
-<p><span id="eq-cross_sectional_hetero"><span class="math display">\[
-y_i = \bbeta_{i}'\bx + u_i.
-\tag{14.3}\]</span></span></p></li>
-<li><p>Panel data model (<a href="#eq-panel_linear" class="quarto-xref"><span>14.2</span></a>) generalizes to</p>
-<p><span id="eq-panel_hetero"><span class="math display">\[
-y_{it}  = \bbeta_{it}'\bx_{it} + u_{it}.
-\tag{14.4}\]</span></span></p></li>
-</ol>
-<p>Such models are worth studying, as they naturally arise in a variety of contexts:</p>
+<p>Example: Data from Grunfeld (1958).</p>
 <ul>
-<li><p><strong>Structural models with parametric restrictions:</strong> Certain parametric restrictions yield linear relationships in coefficients. An example is given by firm-level Cobb-Douglas production functions where firm-specific productivity differences induce heterogeneous coefficients (<span class="citation" data-cites="Combes2012b">Combes et al. (<a href="#ref-Combes2012b" role="doc-biblioref">2012</a>)</span>; <span class="citation" data-cites="Sury2011">Sury (<a href="#ref-Sury2011" role="doc-biblioref">2011</a>)</span>).</p></li>
-<li><p><strong>Binary covariates and interaction terms</strong>: if all covariates are binary and all interactions are included, a linear model encodes all treatment effects without loss of generality (see, e.g., <span class="citation" data-cites="Wooldridge2005">Wooldridge (<a href="#ref-Wooldridge2005" role="doc-biblioref">2005</a>)</span>).</p></li>
-<li><p><strong>Log-linearized models:</strong> Nonlinear models may be approximated by linear models around a steady-state. For example, <span class="citation" data-cites="Heckman1998">Heckman and Vytlacil (<a href="#ref-Heckman1998" role="doc-biblioref">1998</a>)</span> demonstrate how the nonlinear <span class="citation" data-cites="Card2001">Card (<a href="#ref-Card2001" role="doc-biblioref">2001</a>)</span> education model simplifies to a heterogeneous linear specification after linearization.</p></li>
+<li>20 annual observations (1935–1954).</li>
+<li>11 large US firms.</li>
+<li>Three variables: real gross investment (<code>invest</code>), real value of the firm (<code>value</code>), and real value of the capital stock (<code>capital</code>).</li>
 </ul>
+<p>Data structure:</p>
+<ul>
+<li>Two-dimensional index.</li>
+<li>Cross-sectional objects are called “individuals”.</li>
+<li>Time identifier is called “time”.</li>
+</ul>
+<p>Data handling: Select subset of three firms for illustration and declare individuals (“firm”) and time identifier (“year”).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Grunfeld"</span>, <span class="at">package =</span> <span class="st">"AER"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">subset</span>(Grunfeld, firm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"General Electric"</span>, <span class="st">"General Motors"</span>, <span class="st">"IBM"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pgr <span class="ot">&lt;-</span> <span class="fu">pdata.frame</span>(gr, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>), <span class="at">drop.index =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="pooled-model" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="pooled-model"><span class="header-section-number">14.1</span> Pooled model</h2>
+<p>Pooled model:</p>
+<p><span class="math display">\[
+invest_{it} = \beta_0 + \beta_1\, value_{it} + \beta_2\, capital_{it} + e_{it}.
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gr_pool <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">model =</span> <span class="st">"pooling"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_pool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Pooling Model
+
+Call:
+plm(formula = invest ~ value + capital, data = pgr, model = "pooling")
+
+Balanced Panel: n = 3, T = 20, N = 60
+
+Residuals:
+    Min.  1st Qu.   Median  3rd Qu.     Max. 
+-281.940  -94.923   37.000   80.991  291.322 
+
+Coefficients:
+               Estimate  Std. Error t-value  Pr(&gt;|t|)    
+(Intercept) -101.603040   24.401927 -4.1637 0.0001071 ***
+value          0.105016    0.010613  9.8952 5.526e-14 ***
+capital        0.318719    0.040930  7.7870 1.553e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    5644500
+Residual Sum of Squares: 748140
+R-Squared:      0.86746
+Adj. R-Squared: 0.86281
+F-statistic: 186.524 on 2 and 57 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+</div>
 </section>
+<section id="fixed-effects" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="fixed-effects"><span class="header-section-number">14.2</span> Fixed Effects</h2>
+<p>Individual fixed effects <span class="math display">\[
+\begin{aligned}
+invest_{it}
+&amp;= \beta_1\, value_{it} + \beta_2\, capital_{it} + \alpha_i + e_{it} \\
+&amp;= \bx'_{it}\bbeta  + \alpha_i + e_{it} .
+\end{aligned}
+\]</span></p>
+<p>Assumptions</p>
+<p><span class="math display">\[
+\begin{aligned}
+\E[e_{it}] &amp;= 0 \\
+\E[\bx_{it}e_{it}] &amp;= 0 \\
+\E[\alpha_{it}e_{it}] &amp;= 0 \\
+\end{aligned}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gr_fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">effect=</span><span class="st">"individual"</span>, <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Within Model
+
+Call:
+plm(formula = invest ~ value + capital, data = pgr, effect = "individual", 
+    model = "within")
+
+Balanced Panel: n = 3, T = 20, N = 60
+
+Residuals:
+     Min.   1st Qu.    Median   3rd Qu.      Max. 
+-167.3305  -26.1407    2.0878   26.8442  201.6813 
+
+Coefficients:
+        Estimate Std. Error t-value  Pr(&gt;|t|)    
+value   0.104914   0.016331  6.4242 3.296e-08 ***
+capital 0.345298   0.024392 14.1564 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    1888900
+Residual Sum of Squares: 243980
+R-Squared:      0.87084
+Adj. R-Squared: 0.86144
+F-statistic: 185.407 on 2 and 55 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+</div>
+<p>Q: Are the fixed effects really needed?</p>
+<p>A: Compare fixed effects and pooled OLS fits via <code>pFtest()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pFtest</span>(gr_fe, gr_pool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test for individual effects
+
+data:  invest ~ value + capital
+F = 56.825, df1 = 2, df2 = 55, p-value = 4.148e-14
+alternative hypothesis: significant effects</code></pre>
+</div>
+</div>
+<p>This indicates substantial inter-firm variation.</p>
+<p>Two-way fixed effects <span class="math display">\[
+invest_{it} = \beta_1 value_{it} + \beta_2 capital_{it} + \alpha_i + \gamma_t + e_{it}.
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gr_fe2 <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">effect=</span><span class="st">"twoways"</span>, <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_fe2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Twoways effects Within Model
+
+Call:
+plm(formula = invest ~ value + capital, data = pgr, effect = "twoways", 
+    model = "within")
+
+Balanced Panel: n = 3, T = 20, N = 60
+
+Residuals:
+     Min.   1st Qu.    Median   3rd Qu.      Max. 
+-153.3683  -29.1392    2.2297   34.7902  125.2116 
+
+Coefficients:
+        Estimate Std. Error t-value  Pr(&gt;|t|)    
+value   0.129467   0.022436  5.7706 1.408e-06 ***
+capital 0.418383   0.035293 11.8546 5.471e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    956890
+Residual Sum of Squares: 137520
+R-Squared:      0.85628
+Adj. R-Squared: 0.76446
+F-statistic: 107.246 on 2 and 36 DF, p-value: 6.8414e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="random-effects" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="random-effects"><span class="header-section-number">14.3</span> Random Effects</h2>
+<p>Model set up same as fixed effects but with different assumptions.</p>
+<p><span class="math display">\[
+\begin{aligned}
+invest_{it}
+&amp;= \beta_1\, value_{it} + \beta_2\, capital_{it} + \alpha_i + e_{it} \\
+&amp;= \bx'_{it}\bbeta  + \alpha_i + e_{it} .
+\end{aligned}
+\]</span></p>
+<p>Assumptions</p>
+<p><span class="math display">\[
+\begin{aligned}
+\E[e_{it}] &amp;= 0 \\
+\E[\bx_{it}e_{it}] &amp;= 0 \\
+\E[\alpha_{it}e_{it}] &amp;= 0 \\
+\E[\bx_{it}\alpha_{i}] &amp;= 0 \Leftarrow \text{New assumption}\\
+\end{aligned}
+\]</span></p>
+<p><span class="math inline">\(\E[\bx_{it}u_{it}] = 0\)</span> imposes uncorrelation between the covariates (<span class="math inline">\(\bx_{it}\)</span>) and the fixed effects (<span class="math inline">\(u_{i}\)</span>).</p>
+<p>By contrast, in the fixed effects model, there is no such constraint, we can think of <span class="math inline">\(u_i\)</span> as random, but potentially correlated with <span class="math inline">\(\bx_{it}.\)</span></p>
+<blockquote class="blockquote">
+<p>In the panel data literature, approaches that do not restrict the dependence between the unobserved and the observed components are called “fixed effects.”</p>
+</blockquote>
+<p>Random effects models is estimated by generalized least squares (GLS) by specify <code>model = "random"</code> in <code>plm()</code> call.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using Wallace-Hussain for Grunfeld data.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gr_re <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">model =</span> <span class="st">"random"</span>, <span class="at">random.method =</span> <span class="st">"walhus"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oneway (individual) effect Random Effect Model 
+   (Wallace-Hussain's transformation)
+
+Call:
+plm(formula = invest ~ value + capital, data = pgr, model = "random", 
+    random.method = "walhus")
+
+Balanced Panel: n = 3, T = 20, N = 60
+
+Effects:
+                  var std.dev share
+idiosyncratic 4389.31   66.25 0.352
+individual    8079.74   89.89 0.648
+theta: 0.8374
+
+Residuals:
+     Min.   1st Qu.    Median   3rd Qu.      Max. 
+-187.3987  -32.9206    6.9595   31.4322  210.2006 
+
+Coefficients:
+               Estimate  Std. Error z-value  Pr(&gt;|z|)    
+(Intercept) -109.976572   61.701384 -1.7824   0.07468 .  
+value          0.104280    0.014996  6.9539 3.553e-12 ***
+capital        0.344784    0.024520 14.0613 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Total Sum of Squares:    1988300
+Residual Sum of Squares: 257520
+R-Squared:      0.87048
+Adj. R-Squared: 0.86594
+Chisq: 383.089 on 2 DF, p-value: &lt; 2.22e-16</code></pre>
+</div>
+</div>
+<p>Recall: Random-effects estimator is essentially FGLS estimator, utilizing OLS after “quasi-demeaning” all variables. Precise form of quasi-demeaning depends on <code>random.method</code> selected. Four methods available: Swamy-Arora (default), Amemiya, Wallace-Hussain, and Nerlove.</p>
+<p>Comparison of regression coefficients shows that fixed- and random-effects methods yield rather similar results for these data.</p>
+<p>Q: Are the random effects really needed?</p>
+<p>A: Use Lagrange multiplier test. Several versions available in <code>plmtest()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plmtest</span>(gr_pool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Lagrange Multiplier Test - (Honda)
+
+data:  invest ~ value + capital
+normal = 15.47, p-value &lt; 2.2e-16
+alternative hypothesis: significant effects</code></pre>
+</div>
+</div>
+<p>Test also suggests that some form of parameter heterogeneity must be taken into account.</p>
+<p>Random-effects methods more efficient than fixed-effects estimator under more restrictive assumptions, namely <strong>exogeneity of the individual effects</strong>.</p>
+<p>Use Hausman test to test for endogeneity.</p>
+<p><span class="math display">\[
+H_0: \text{The individual effects are uncorrelated with other regressors.}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phtest</span>(gr_re, gr_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Hausman Test
+
+data:  invest ~ value + capital
+chisq = 0.04038, df = 2, p-value = 0.98
+alternative hypothesis: one model is inconsistent</code></pre>
+</div>
+</div>
+<p>In line with estimates presented above, endogeneity does not appear to be a problem here. We can apply the Random effects model here.</p>
+</section>
+<section id="dynamic-linear-models" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="dynamic-linear-models"><span class="header-section-number">14.4</span> Dynamic Linear Models</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"EmplUK"</span>, <span class="at">package =</span> <span class="st">"plm"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">log</span>(emp) <span class="sc">~</span> <span class="fu">log</span>(wage) <span class="sc">+</span> <span class="fu">log</span>(capital) <span class="sc">+</span> <span class="fu">log</span>(output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Arellano-Bond estimator is provided by <code>pgmm()</code>. Dynamic formula derived from static formula via list of lags.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arellano and Bond (1991), table 4, col. b </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>empl_ab <span class="ot">&lt;-</span> <span class="fu">pgmm</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dynformula</span>(form, <span class="fu">list</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> EmplUK, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect =</span> <span class="st">"twoways"</span>, <span class="at">model =</span> <span class="st">"twosteps"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">gmm.inst =</span> <span class="sc">~</span> <span class="fu">log</span>(emp), <span class="at">lag.gmm =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">99</span>)) </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: use of 'dynformula()' is deprecated, use a multi-part formula instead
+
+Warning: use of 'dynformula()' is deprecated, use a multi-part formula instead</code></pre>
+</div>
+</div>
+<p>Dynamic model with</p>
+<ul>
+<li><span class="math inline">\(p=2\)</span> lagged endogenous terms</li>
+<li><span class="math inline">\(\log(wage)\)</span> and <span class="math inline">\(\log(output)\)</span> occur up to lag 1</li>
+<li><span class="math inline">\(\log(capital)\)</span> contemporaneous term only</li>
+<li>time- and firm-specific effects,</li>
+<li>instruments are lagged terms of the dependent variable (all lags beyond lag 1 are to be used).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(empl_ab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Twoways effects Two-steps model Difference GMM 
+
+Call:
+pgmm(formula = dynformula(form, list(2, 1, 0, 1)), data = EmplUK, 
+    effect = "twoways", model = "twosteps", index = c("firm", 
+        "year"), gmm.inst = ~log(emp), lag.gmm = list(c(2, 99)))
+
+Unbalanced Panel: n = 140, T = 7-9, N = 1031
+
+Number of Observations Used: 611
+Residuals:
+      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+-0.6190677 -0.0255683  0.0000000 -0.0001339  0.0332013  0.6410272 
+
+Coefficients:
+                         Estimate Std. Error z-value  Pr(&gt;|z|)    
+lag(log(emp), c(1, 2))1  0.474151   0.185398  2.5575 0.0105437 *  
+lag(log(emp), c(1, 2))2 -0.052967   0.051749 -1.0235 0.3060506    
+log(wage)               -0.513205   0.145565 -3.5256 0.0004225 ***
+lag(log(wage), 1)        0.224640   0.141950  1.5825 0.1135279    
+log(capital)             0.292723   0.062627  4.6741 2.953e-06 ***
+log(output)              0.609775   0.156263  3.9022 9.530e-05 ***
+lag(log(output), 1)     -0.446373   0.217302 -2.0542 0.0399605 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Sargan test: chisq(25) = 30.11247 (p-value = 0.22011)
+Autocorrelation test (1): normal = -1.53845 (p-value = 0.12394)
+Autocorrelation test (2): normal = -0.2796829 (p-value = 0.77972)
+Wald test for coefficients: chisq(7) = 142.0353 (p-value = &lt; 2.22e-16)
+Wald test for time dummies: chisq(6) = 16.97046 (p-value = 0.0093924)</code></pre>
+</div>
+</div>
+<p><strong>Interpretation</strong>: Autoregressive dynamics important for these data.</p>
+<p><strong>Diagnostics</strong>: Tests at the bottom of summary indicate that model could be improved. Arellano and Bond (1991) address this by additionally treating wages and capital as endogenous.</p>
+<p><strong>Note</strong>: Due to constructing lags and taking first differences, three cross sections are lost. Hence, estimation period is 1979–1984 and only 611 observations effectively available for estimation.</p>
+<hr>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li>Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <a href="https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html" class="uri">https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html</a></li>
-<li>Vladislav Morozov, GitHub course repository, <a href="https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd" class="uri">https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd</a></li>
+<li><p>Kleiber, C. and Zeileis A. (2017), Chap 3 Linear Regression, <em>Applied Econometrics with R</em>.</p></li>
+<li><p>Arellano M, Bond S (1991). “Some Tests of Specification for Panel Data : Monte Carlo Evidence and an Application to Employment Equations.” <em>Review of Economic Studies</em>, <strong>58</strong>, 277–297.</p></li>
+<li><p>Arellano M, Bond S (1998). “Dynamic panel data estimation using DPD98 for GAUSS: a guide for users.” unpublished.</p></li>
+<li><p>Arellano M, Bond S (2012). “Panel data estimation using DPD for Ox.” unpublished, <a href="https://www.doornik.com/download/oxmetrics7/Ox_Packages/dpd.pdf" class="uri">https://www.doornik.com/download/oxmetrics7/Ox_Packages/dpd.pdf</a>.</p></li>
+<li><p>Blundell R, Bond S (1998). “Initital Conditions and Moment Restrictions in Dynamic Panel Data Models.” <em>Journal of Econometrics</em>, <strong>87</strong>, 115–143.</p></li>
+<li><p>Roodman D (2009). “How to do xtabond2: An introduction to difference and system GMM in Stata.” <em>The Stata Journal</em>, <strong>9</strong>, 86-136. <a href="https://www.stata-journal.com/article.html?article=st0159" class="uri">https://www.stata-journal.com/article.html?article=st0159</a>.</p></li>
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Card2001" class="csl-entry" role="listitem">
-Card, David. 2001. <span>“<span class="nocase">Estimating the Return to Schooling: Progress on Some Persistent Econometric Problems</span>.”</span> <em>Econometrica</em> 69 (5): 1127–60. <a href="https://doi.org/10.1111/1468-0262.00237">https://doi.org/10.1111/1468-0262.00237</a>.
-</div>
-<div id="ref-Combes2012b" class="csl-entry" role="listitem">
-Combes, Pierre Philippe, Gilles Duranton, Laurent Gobillon, Diego Puga, and Sébastien Roux. 2012. <span>“<span class="nocase">The Productivity Advantages of Large Cities: Distinguishing Agglomeration From Firm Selection</span>.”</span> <em>Econometrica</em> 80 (6): 2543–94. <a href="https://doi.org/10.3982/ecta8442">https://doi.org/10.3982/ecta8442</a>.
-</div>
-<div id="ref-Hansen2022" class="csl-entry" role="listitem">
-Hansen, Bruce. 2022. <em>Econometrics</em>. Princeton University Press.
-</div>
-<div id="ref-Heckman1998" class="csl-entry" role="listitem">
-Heckman, James, and Edward Vytlacil. 1998. <span>“<span class="nocase">Instrumental variables methods for the correlated random coefficient model</span>.”</span> <em>Journal of Human Resources</em> 33 (4): 974–87.
-</div>
-<div id="ref-Sury2011" class="csl-entry" role="listitem">
-Sury, Tavneet. 2011. <span>“<span class="nocase">Selection and Comparative Advantage in Technology Adoption</span>.”</span> <em>Econometrica</em> 79 (1): 159–209. <a href="https://doi.org/10.3982/ecta7749">https://doi.org/10.3982/ecta7749</a>.
-</div>
-<div id="ref-Wooldridge2005" class="csl-entry" role="listitem">
-Wooldridge, Jeffrey M. 2005. <span>“<span class="nocase">Fixed-effects and related estimators for correlated random-coefficient and treatment-effect panel data models</span>.”</span> <em>The Review of Economics and Statistics</em> 87 (May): 385–90.
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
@@ -1134,11 +1424,14 @@ Wooldridge, Jeffrey M. 2005. <span>“<span class="nocase">Fixed-effects and rel
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./TS04_dynamical_models.html" class="pagination-link" aria-label="Time Series Regression">
+      <a href="./TS04_TimeSeries_regression.html" class="pagination-link" aria-label="Time Series Regression">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./PA02_Hetero_lm.html" class="pagination-link" aria-label="Linear Models with Heterogeneous Coefficients">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

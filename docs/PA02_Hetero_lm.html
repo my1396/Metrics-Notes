@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; AR – Example – Metrics Notes</title>
+<title>15&nbsp; Linear Models with Heterogeneous Coefficients – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,42 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
 }
-</style>
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -65,8 +50,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS01_phillips-curve.html" rel="next">
-<link href="./TS01_AR1.html" rel="prev">
+<link href="./PA01_Panel_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -279,8 +263,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   };
 </script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -492,7 +474,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA02_Hetero_lm.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -561,7 +543,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS01_AR_example.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS01_AR_example.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></span></a>
   </div>
 </li>
@@ -632,7 +614,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA02_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+  <a href="./PA02_Hetero_lm.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
@@ -648,10 +630,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#dataset-description" id="toc-dataset-description" class="nav-link active" data-scroll-target="#dataset-description"><span class="header-section-number">5.1</span> Dataset Description</a></li>
-  <li><a href="#empirical-model" id="toc-empirical-model" class="nav-link" data-scroll-target="#empirical-model"><span class="header-section-number">5.2</span> Empirical Model</a></li>
-  <li><a href="#test-for-serial-correlation" id="toc-test-for-serial-correlation" class="nav-link" data-scroll-target="#test-for-serial-correlation"><span class="header-section-number">5.3</span> Test for Serial Correlation</a></li>
-  <li><a href="#consequence-for-serial-correlation" id="toc-consequence-for-serial-correlation" class="nav-link" data-scroll-target="#consequence-for-serial-correlation"><span class="header-section-number">5.4</span> Consequence for Serial Correlation</a></li>
+  <li><a href="#linearity-and-heterogeneity" id="toc-linearity-and-heterogeneity" class="nav-link active" data-scroll-target="#linearity-and-heterogeneity"><span class="header-section-number">15.1</span> Linearity and Heterogeneity</a>
+  <ul class="collapse">
+  <li><a href="#models-with-homogeneous-slopes" id="toc-models-with-homogeneous-slopes" class="nav-link" data-scroll-target="#models-with-homogeneous-slopes"><span class="header-section-number">15.1.1</span> Models with Homogeneous Slopes</a></li>
+  <li><a href="#heterogeneity-in-slopes." id="toc-heterogeneity-in-slopes." class="nav-link" data-scroll-target="#heterogeneity-in-slopes."><span class="header-section-number">15.1.2</span> Heterogeneity in Slopes.</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -659,9 +642,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_AR_example.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA02_Hetero_lm.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">AR – Example</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></h1>
 </div>
 
 
@@ -678,529 +661,68 @@ window.Quarto = {
 </header>
 
 
-<!-- Chunk option settings -->
-<!-- Define chunk option `max.lines` -->
-<!-- controls max lines printed -->
-<p>This script provides an example of autocorrelated residuals using expectations augmented Phillips Curve.</p>
-<section id="dataset-description" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="dataset-description"><span class="header-section-number">5.1</span> Dataset Description</h2>
-<p>US Macroeconomics Data Set, Quarterly, 1950I to 2000IV, 204 Quarterly Observations<br>
-Source: Department of Commerce, BEA website and <a href="www.economagic.com">www.economagic.com</a></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 85%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Feild Name</th>
-<th style="text-align: left;">Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">year</td>
-<td style="text-align: left;">Year</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">qtr</td>
-<td style="text-align: left;">Quarter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">realgdp</td>
-<td style="text-align: left;">Real GDP ($bil)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">realcons</td>
-<td style="text-align: left;">Real consumption expenditures</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">realinvs</td>
-<td style="text-align: left;">Real investment by private sector</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">realgovt</td>
-<td style="text-align: left;">Real government expenditures</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">realdpi</td>
-<td style="text-align: left;">Real disposable personal income</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">cpi_u</td>
-<td style="text-align: left;">Consumer price index</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">M1</td>
-<td style="text-align: left;">Nominal money stock</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">tbilrate</td>
-<td style="text-align: left;">Quarterly average of month end 90 day t bill rate</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">unemp</td>
-<td style="text-align: left;">Unemployment rate</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">pop</td>
-<td style="text-align: left;">Population, mil. interpolate of year end figures using constant growth rate per quarter</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">infl</td>
-<td style="text-align: left;">Rate of inflation (First observation is missing)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">realint</td>
-<td style="text-align: left;">Ex post real interest rate = Tbilrate - Infl. (First observation is missing)</td>
-</tr>
-</tbody>
-</table>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/TableF5-2.txt"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">delta_infl =</span> infl<span class="sc">-</span><span class="fu">lag</span>(infl))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"striped"</span>, <span class="st">"hover"</span>), <span class="at">full_width =</span> <span class="cn">FALSE</span>, <span class="at">latex_options=</span><span class="st">"scale_down"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">"100%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: right;" data-quarto-table-cell-role="th">Year</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">qtr</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">realgdp</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">realcons</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">realinvs</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">realgovt</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">realdpi</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">cpi_u</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">M1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">tbilrate</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">unemp</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">pop</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">infl</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">realint</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">delta_infl</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">1950</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1610.5</td>
-<td style="text-align: right;">1058.9</td>
-<td style="text-align: right;">198.1</td>
-<td style="text-align: right;">361.0</td>
-<td style="text-align: right;">1186.1</td>
-<td style="text-align: right;">70.6</td>
-<td style="text-align: right;">110.20</td>
-<td style="text-align: right;">1.12</td>
-<td style="text-align: right;">6.4</td>
-<td style="text-align: right;">149.461</td>
-<td style="text-align: right;">0.0000</td>
-<td style="text-align: right;">0.0000</td>
-<td style="text-align: right;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1950</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1658.8</td>
-<td style="text-align: right;">1075.9</td>
-<td style="text-align: right;">220.4</td>
-<td style="text-align: right;">366.4</td>
-<td style="text-align: right;">1178.1</td>
-<td style="text-align: right;">71.4</td>
-<td style="text-align: right;">111.75</td>
-<td style="text-align: right;">1.17</td>
-<td style="text-align: right;">5.6</td>
-<td style="text-align: right;">150.260</td>
-<td style="text-align: right;">4.5071</td>
-<td style="text-align: right;">-3.3404</td>
-<td style="text-align: right;">4.5071</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1950</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">1723.0</td>
-<td style="text-align: right;">1131.0</td>
-<td style="text-align: right;">239.7</td>
-<td style="text-align: right;">359.6</td>
-<td style="text-align: right;">1196.5</td>
-<td style="text-align: right;">73.2</td>
-<td style="text-align: right;">112.95</td>
-<td style="text-align: right;">1.23</td>
-<td style="text-align: right;">4.6</td>
-<td style="text-align: right;">151.064</td>
-<td style="text-align: right;">9.9590</td>
-<td style="text-align: right;">-8.7290</td>
-<td style="text-align: right;">5.4519</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1950</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1753.9</td>
-<td style="text-align: right;">1097.6</td>
-<td style="text-align: right;">271.8</td>
-<td style="text-align: right;">382.5</td>
-<td style="text-align: right;">1210.0</td>
-<td style="text-align: right;">74.9</td>
-<td style="text-align: right;">113.93</td>
-<td style="text-align: right;">1.35</td>
-<td style="text-align: right;">4.2</td>
-<td style="text-align: right;">151.871</td>
-<td style="text-align: right;">9.1834</td>
-<td style="text-align: right;">-7.8301</td>
-<td style="text-align: right;">-0.7756</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1951</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1773.5</td>
-<td style="text-align: right;">1122.8</td>
-<td style="text-align: right;">242.9</td>
-<td style="text-align: right;">421.9</td>
-<td style="text-align: right;">1207.9</td>
-<td style="text-align: right;">77.3</td>
-<td style="text-align: right;">115.08</td>
-<td style="text-align: right;">1.40</td>
-<td style="text-align: right;">3.5</td>
-<td style="text-align: right;">152.393</td>
-<td style="text-align: right;">12.6160</td>
-<td style="text-align: right;">-11.2160</td>
-<td style="text-align: right;">3.4326</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1951</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">1803.7</td>
-<td style="text-align: right;">1091.4</td>
-<td style="text-align: right;">249.2</td>
-<td style="text-align: right;">480.1</td>
-<td style="text-align: right;">1225.8</td>
-<td style="text-align: right;">77.6</td>
-<td style="text-align: right;">116.19</td>
-<td style="text-align: right;">1.53</td>
-<td style="text-align: right;">3.1</td>
-<td style="text-align: right;">152.917</td>
-<td style="text-align: right;">1.5494</td>
-<td style="text-align: right;">-0.0161</td>
-<td style="text-align: right;">-11.0666</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+<section id="linearity-and-heterogeneity" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="linearity-and-heterogeneity"><span class="header-section-number">15.1</span> Linearity and Heterogeneity</h2>
+<section id="models-with-homogeneous-slopes" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="models-with-homogeneous-slopes"><span class="header-section-number">15.1.1</span> Models with Homogeneous Slopes</h3>
+<p>We begin our journey where standard textbooks and first-year foundational courses in econometrics leave off. The “standard” linear models considered in such courses often assume homogeneity in individual responses to covariates (e.g., <span class="citation" data-cites="Hansen2022">Hansen (<a href="#ref-Hansen2022" role="doc-biblioref">2022</a>)</span>). A common cross-sectional specification is:</p>
+<p><span id="eq-standard_linear"><span class="math display">\[
+y_i = \bbeta'\bx_i + u_{i},
+\tag{15.1}\]</span></span> where <span class="math inline">\(i=1, \dots, N\)</span> indexes cross-sectional units.</p>
+<p>In panel data, models often include unit-specific <span class="math inline">\((i)\)</span> and time-specific <span class="math inline">\((t)\)</span> intercepts while maintaining a common slope vector <span class="math inline">\(\bbeta\)</span>:</p>
+<p><span id="eq-panel_linear"><span class="math display">\[
+y_{it} = \alpha_i + \delta_t +  \bbeta'\bx_{it} + u_{it}.
+\tag{15.2}\]</span></span></p>
 </section>
-<section id="empirical-model" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="empirical-model"><span class="header-section-number">5.2</span> Empirical Model</h2>
-<p><span class="math display">\[
-\Delta I_t =  \beta_1 + \beta_2 u_t + \varepsilon_t
-\]</span> where</p>
+<section id="heterogeneity-in-slopes." class="level3" data-number="15.1.2">
+<h3 data-number="15.1.2" class="anchored" data-anchor-id="heterogeneity-in-slopes."><span class="header-section-number">15.1.2</span> Heterogeneity in Slopes.</h3>
+<p>However, modern economic theory rarely supports the assumption of homogeneous slopes <span class="math inline">\(\bbeta.\)</span> Theoretical models recognize that observationally identical individuals, firms, and countries can respond differently to the same stimulus. In a linear model, this requires us to consider more flexible models with heterogeneous coefficients:</p>
+<ol type="1">
+<li><p>Cross-sectional model (<a href="#eq-standard_linear" class="quarto-xref"><span>15.1</span></a>) generalizes to</p>
+<p><span id="eq-cross_sectional_hetero"><span class="math display">\[
+y_i = \bbeta_{i}'\bx + u_i.
+\tag{15.3}\]</span></span></p></li>
+<li><p>Panel data model (<a href="#eq-panel_linear" class="quarto-xref"><span>15.2</span></a>) generalizes to</p>
+<p><span id="eq-panel_hetero"><span class="math display">\[
+y_{it}  = \bbeta_{it}'\bx_{it} + u_{it}.
+\tag{15.4}\]</span></span></p></li>
+</ol>
+<p>Such models are worth studying, as they naturally arise in a variety of contexts:</p>
 <ul>
-<li><span class="math inline">\(I_t\)</span> is the inflation rate; <span class="math inline">\(\Delta I_t = I_t - I_{t-1}\)</span> is the first difference of the inflation rate;</li>
-<li><span class="math inline">\(u_t\)</span> is the unemployment rate;</li>
-<li><span class="math inline">\(\varepsilon_t\)</span> is the error term.</li>
+<li><p><strong>Structural models with parametric restrictions:</strong> Certain parametric restrictions yield linear relationships in coefficients. An example is given by firm-level Cobb-Douglas production functions where firm-specific productivity differences induce heterogeneous coefficients (<span class="citation" data-cites="Combes2012b">Combes et al. (<a href="#ref-Combes2012b" role="doc-biblioref">2012</a>)</span>; <span class="citation" data-cites="Sury2011">Sury (<a href="#ref-Sury2011" role="doc-biblioref">2011</a>)</span>).</p></li>
+<li><p><strong>Binary covariates and interaction terms</strong>: if all covariates are binary and all interactions are included, a linear model encodes all treatment effects without loss of generality (see, e.g., <span class="citation" data-cites="Wooldridge2005">Wooldridge (<a href="#ref-Wooldridge2005" role="doc-biblioref">2005</a>)</span>).</p></li>
+<li><p><strong>Log-linearized models:</strong> Nonlinear models may be approximated by linear models around a steady-state. For example, <span class="citation" data-cites="Heckman1998">Heckman and Vytlacil (<a href="#ref-Heckman1998" role="doc-biblioref">1998</a>)</span> demonstrate how the nonlinear <span class="citation" data-cites="Card2001">Card (<a href="#ref-Card2001" role="doc-biblioref">2001</a>)</span> education model simplifies to a heterogeneous linear specification after linearization.</p></li>
 </ul>
-<p>We remove the first two quarters due to missing value in the first observation and the change in the rate of inflation.</p>
-<p>Regression result for OLS.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_phillips <span class="ot">&lt;-</span> <span class="fu">lm</span>(delta_infl <span class="sc">~</span> unemp, <span class="at">data =</span> data <span class="sc">%&gt;%</span> <span class="fu">tail</span>(<span class="sc">-</span><span class="dv">2</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm_phillips, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">"html"</span>, </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Phillips Curve Regression"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes =</span> <span class="st">"&lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01 &lt;br&gt; Standard errors in parentheses."</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes.append =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table style="text-align:center">
-<caption>
-<strong>Phillips Curve Regression</strong>
-</caption>
-<tbody><tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-delta_infl
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-unemp
-</td>
-<td>
--0.090
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.126)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
-0.492
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.740)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-202
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.003
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
--0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Residual Std. Error
-</td>
-<td>
-2.822 (df = 200)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-0.513 (df = 1; 200)
-</td>
-</tr>
-<tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
-</td>
-</tr>
-</tbody></table>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            (Intercept)       unemp
-(Intercept)  0.54830829 -0.08973175
-unemp       -0.08973175  0.01582211</code></pre>
-</div>
-</div>
-<p>HAC (heteroskedasticity and autocorrelation consistent) standard errors</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vcovHAC</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            (Intercept)        unemp
-(Intercept)  0.23561076 -0.039847043
-unemp       -0.03984704  0.006986272</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vcovHC</span>(lm_phillips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            (Intercept)       unemp
-(Intercept)   0.9319139 -0.16120691
-unemp        -0.1612069  0.02912351</code></pre>
-</div>
-</div>
-<p><strong>Autocorrelated residuals</strong></p>
-<p>Plot the residuals.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-ar-res" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="TS01_AR_example_files/figure-html/fig-ar-res-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ar-res-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.1: Phillips Curve Deviations from Expected Inflation
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p><a href="#fig-ar-res" class="quarto-xref">Figure&nbsp;<span>5.1</span></a> shows striking <strong>negative autocorrelation</strong>. The correlogram tells the same story (<a href="#fig-res-acf" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>). The blue dotted lines give the values beyond which the autocorrelations are (statistically) significantly different from zero.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">'correlation'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-res-acf" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-res-acf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="TS01_AR_example_files/figure-html/fig-res-acf-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-res-acf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5.2: Correlogram of the residuals
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>We can get the autocorrelation coefficients by setting <code>plot = FALSE</code></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(lm_phillips<span class="sc">$</span>residuals, <span class="at">type=</span><span class="st">'correlation'</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>acf <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.vector</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1]  1.000000000 -0.424730192 -0.112169741  0.073423178  0.147639239
- [6] -0.111740533 -0.036632121  0.009911709  0.036784781 -0.020769323</code></pre>
-</div>
-</div>
-<p>Now we test the serial correlation of the residuals by regressing <span class="math inline">\(\varepsilon_t\)</span> on <span class="math inline">\(\varepsilon_{t-1}\)</span>.</p>
-<p><span class="math display">\[
-\varepsilon_t = \phi\varepsilon_{t-1} + e_t
-\]</span></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t =</span> lm_phillips<span class="sc">$</span>residuals,</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">res_t1 =</span> <span class="fu">lag</span>(lm_phillips<span class="sc">$</span>residuals))</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>lm_res <span class="ot">&lt;-</span> <span class="fu">lm</span>(res_t <span class="sc">~</span> res_t1, <span class="at">data =</span> res)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = res_t ~ res_t1, data = res)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--9.8694 -1.4800  0.0718  1.4990  8.3258 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.02155    0.17854  -0.121    0.904    
-res_t1      -0.42630    0.06355  -6.708    2e-10 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2.531 on 199 degrees of freedom
-  (1 observation deleted due to missingness)
-Multiple R-squared:  0.1844,    Adjusted R-squared:  0.1803 
-F-statistic: 44.99 on 1 and 199 DF,  p-value: 2.002e-10</code></pre>
-</div>
-</div>
-<p>The regression of the least squares residuals on their past values gives a slope of -0.4263 with a highly significant <span class="math inline">\(t\)</span> ratio of -6.7078. We thus conclude that the residuals in this models are highly negatively autocorrelated.</p>
 </section>
-<section id="test-for-serial-correlation" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="test-for-serial-correlation"><span class="header-section-number">5.3</span> Test for Serial Correlation</h2>
-<ul>
-<li>Durbin-Watson (DW) test for AR(1)</li>
-<li>Breusch-Godfrey test for AR(q)</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(lm_phillips, <span class="at">alternative =</span> <span class="st">"two.sided"</span>) <span class="co"># Durbin Watson test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Durbin-Watson test
-
-data:  lm_phillips
-DW = 2.8276, p-value = 5.212e-09
-alternative hypothesis: true autocorrelation is not 0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bgtest</span>(lm_phillips, <span class="at">order=</span><span class="dv">1</span>) <span class="co"># Breusch-Godfrey test </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Breusch-Godfrey test for serial correlation of order up to 1
-
-data:  lm_phillips
-LM test = 36.601, df = 1, p-value = 1.45e-09</code></pre>
-</div>
-</div>
-<p>Both tests show strong evidence of AR(1) serial correlation in the errors.</p>
-</section>
-<section id="consequence-for-serial-correlation" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="consequence-for-serial-correlation"><span class="header-section-number">5.4</span> Consequence for Serial Correlation</h2>
-<p>The presence of autocorrelation can lead to misleading results as they violate the assumptions of least squares.</p>
-<p>The least squares estimator is still a linear <strong>unbiased</strong> estimator, but is <strong>no longer best</strong>.</p>
-<p>One <strong>consequence</strong> of the serial correlated errors is that the standard error and <span class="math inline">\(t\)</span> statistics are not valid anymore. In the case if serial correlation, you can either</p>
-<ul>
-<li><p>Transform the model to remove the serial correlation, or alternatively,</p>
-<p>FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.</p>
-<p>This approach assumes strictly exogeneous regressors, that is, no lagged <span class="math inline">\(y\)</span> in the RHS of the equation. See Chapter 12.3 in Wooldridge (2013), Introductory Econometrics: A Modern Approach.</p></li>
-<li><p>Use serial correlation-robust standard errors</p>
-<p>HAC (Heteroskedasticity and autocorrelation consistent) standard errors or Newey-West standard errors.</p></li>
-<li><p>Infinite Distributed Lag Models</p>
-<p>Geomoetric (or Koyck) and Rational Distributed Lag Models.</p></li>
-</ul>
-<hr>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li>Ex. 12.3, Chap 12 Serial Correlation, <em>Econometric Analysis</em>, Greene 5th Edition, pp 251.</li>
+<li>Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <a href="https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html" class="uri">https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html</a></li>
+<li>Vladislav Morozov, GitHub course repository, <a href="https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd" class="uri">https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd</a></li>
 </ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Card2001" class="csl-entry" role="listitem">
+Card, David. 2001. <span>“<span class="nocase">Estimating the Return to Schooling: Progress on Some Persistent Econometric Problems</span>.”</span> <em>Econometrica</em> 69 (5): 1127–60. <a href="https://doi.org/10.1111/1468-0262.00237">https://doi.org/10.1111/1468-0262.00237</a>.
+</div>
+<div id="ref-Combes2012b" class="csl-entry" role="listitem">
+Combes, Pierre Philippe, Gilles Duranton, Laurent Gobillon, Diego Puga, and Sébastien Roux. 2012. <span>“<span class="nocase">The Productivity Advantages of Large Cities: Distinguishing Agglomeration From Firm Selection</span>.”</span> <em>Econometrica</em> 80 (6): 2543–94. <a href="https://doi.org/10.3982/ecta8442">https://doi.org/10.3982/ecta8442</a>.
+</div>
+<div id="ref-Hansen2022" class="csl-entry" role="listitem">
+Hansen, Bruce. 2022. <em>Econometrics</em>. Princeton University Press.
+</div>
+<div id="ref-Heckman1998" class="csl-entry" role="listitem">
+Heckman, James, and Edward Vytlacil. 1998. <span>“<span class="nocase">Instrumental variables methods for the correlated random coefficient model</span>.”</span> <em>Journal of Human Resources</em> 33 (4): 974–87.
+</div>
+<div id="ref-Sury2011" class="csl-entry" role="listitem">
+Sury, Tavneet. 2011. <span>“<span class="nocase">Selection and Comparative Advantage in Technology Adoption</span>.”</span> <em>Econometrica</em> 79 (1): 159–209. <a href="https://doi.org/10.3982/ecta7749">https://doi.org/10.3982/ecta7749</a>.
+</div>
+<div id="ref-Wooldridge2005" class="csl-entry" role="listitem">
+Wooldridge, Jeffrey M. 2005. <span>“<span class="nocase">Fixed-effects and related estimators for correlated random-coefficient and treatment-effect panel data models</span>.”</span> <em>The Review of Economics and Statistics</em> 87 (May): 385–90.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -1618,14 +1140,11 @@ LM test = 36.601, df = 1, p-value = 1.45e-09</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./TS01_AR1.html" class="pagination-link" aria-label="AR(1)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span>
+      <a href="./PA01_Panel_regression.html" class="pagination-link" aria-label="Panel Regressions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS01_phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -1,0 +1,224 @@
+---
+title: "Panel Regressions"
+format: html
+---
+
+
+Example: Data from Grunfeld (1958).
+
+- 20 annual observations (1935–1954).
+- 11 large US firms.
+- Three variables: real gross investment (`invest`), real value of the firm (`value`), and real value of the capital stock (`capital`).
+
+Data structure:
+
+- Two-dimensional index.
+- Cross-sectional objects are called "individuals".
+- Time identifier is called "time".
+
+Data handling: Select subset of three firms for illustration and declare
+individuals ("firm") and time identifier ("year").
+
+```{r}
+data("Grunfeld", package = "AER")
+library(plm)
+gr <- subset(Grunfeld, firm %in% c("General Electric", "General Motors", "IBM"))
+pgr <- pdata.frame(gr, index = c("firm", "year"), drop.index = FALSE)
+```
+
+
+## Pooled model
+
+Pooled model:
+
+$$
+invest_{it} = \beta_0 + \beta_1\, value_{it} + \beta_2\, capital_{it} + e_{it}.
+$$
+
+
+```{r}
+gr_pool <- plm(invest ~ value + capital, data = pgr, model = "pooling")
+summary(gr_pool)
+```
+
+## Fixed Effects
+
+Individual fixed effects
+$$
+\begin{aligned}
+invest_{it} 
+&= \beta_1\, value_{it} + \beta_2\, capital_{it} + \alpha_i + e_{it} \\
+&= \bx'_{it}\bbeta  + \alpha_i + e_{it} .
+\end{aligned}
+$$
+
+Assumptions
+
+$$
+\begin{aligned}
+\E[e_{it}] &= 0 \\
+\E[\bx_{it}e_{it}] &= 0 \\
+\E[\alpha_{it}e_{it}] &= 0 \\
+\end{aligned}
+$$
+
+```{r}
+gr_fe <- plm(invest ~ value + capital, data = pgr, effect = "individual", model = "within")
+summary(gr_fe)
+```
+
+
+Q: Are the fixed effects really needed? 
+
+A: Compare fixed effects and pooled OLS fits via `pFtest()`.
+
+```{r}
+pFtest(gr_fe, gr_pool)
+```
+
+This indicates substantial inter-firm variation.
+
+
+Two-way fixed effects
+$$
+invest_{it} = \beta_1\, value_{it} + \beta_2\, capital_{it} + \alpha_i + \gamma_t + e_{it}.
+$$
+
+```{r}
+gr_fe2 <- plm(invest ~ value + capital, data = pgr, effect = "twoways", model = "within")
+summary(gr_fe2)
+```
+
+
+## Random Effects
+
+Model specification same as fixed effects but with **different assumptions**.
+
+$$
+\begin{aligned}
+invest_{it} 
+&= \beta_1\, value_{it} + \beta_2\, capital_{it} + \alpha_i + e_{it} \\
+&= \bx'_{it}\bbeta  + \alpha_i + e_{it} .
+\end{aligned}
+$$
+
+Assumptions
+
+$$
+\begin{aligned}
+\E[e_{it}] &= 0 \\
+\E[\bx_{it}e_{it}] &= 0 \\
+\E[\alpha_{it}e_{it}] &= 0 \\
+\E[\bx_{it}\alpha_{i}] &= 0 \Leftarrow \text{New assumption}\\
+\end{aligned}
+$$
+
+$\E[\bx_{it}u_{it}] = 0$ imposes uncorrelation between the covariates ($\bx_{it}$) and the fixed effects ($u_{i}$). 
+
+By contrast, in the fixed effects model, there is no such constraint, we can think of $u_i$ as random, but potentially correlated with $\bx_{it}.$
+
+> In the panel data literature, approaches that do not restrict the dependence between the unobserved and the observed components are called “fixed effects.”
+
+
+Random effects models is estimated by generalized least squares (GLS) by specify `model = "random"` in `plm()` call.
+
+```{r}
+# Using Wallace-Hussain for Grunfeld data.
+gr_re <- plm(invest ~ value + capital, data = pgr, model = "random", random.method = "walhus")
+summary(gr_re)
+```
+
+Recall: Random-effects estimator is essentially FGLS estimator, utilizing OLS after "quasi-demeaning" all variables.
+Precise form of quasi-demeaning depends on `random.method` selected.
+Four methods available: Swamy-Arora (default), Amemiya, Wallace-Hussain, and Nerlove.
+
+Comparison of regression coefficients shows that fixed- and random-effects methods yield rather similar results for these data.
+
+Q: Are the random effects really needed? 
+
+A: Use Lagrange multiplier test. Several versions available in `plmtest()`.
+
+```{r}
+plmtest(gr_pool)
+```
+
+Test also suggests that some form of parameter heterogeneity must be taken into account.
+
+Random-effects methods more efficient than fixed-effects estimator under more restrictive assumptions, namely **exogeneity of the individual effects**.
+
+Use Hausman test to test for endogeneity.
+
+$$
+H_0: \text{The individual effects are uncorrelated with other regressors.}
+$$
+
+```{r}
+phtest(gr_re, gr_fe)
+```
+
+In line with estimates presented above, endogeneity does not appear to
+be a problem here. We can apply the Random effects model here.
+
+
+## Dynamic Linear Models
+
+```{r}
+data("EmplUK", package = "plm")
+form <- log(emp) ~ log(wage) + log(capital) + log(output)
+```
+
+Arellano-Bond estimator is provided by `pgmm()`. Dynamic formula derived from static formula via list of lags.
+
+```{r}
+# Arellano and Bond (1991), table 4, col. b 
+empl_ab <- pgmm(
+    dynformula(form, list(2, 1, 0, 1)),
+    data = EmplUK, index = c("firm", "year"),
+    effect = "twoways", model = "twosteps",
+    gmm.inst = ~ log(emp), lag.gmm = list(c(2, 99)) 
+    )
+```
+
+Dynamic model with
+
+- $p=2$ lagged endogenous terms
+- $\log(wage)$  and $\log(output)$ occur up to lag 1
+- $\log(capital)$ contemporaneous term only
+- time- and firm-specific effects,
+- instruments are lagged terms of the dependent variable (all lags
+beyond lag 1 are to be used).
+
+```{r}
+summary(empl_ab)
+```
+
+
+**Interpretation**: Autoregressive dynamics important for these data.
+
+**Diagnostics**: Tests at the bottom of summary indicate that model could be improved. Arellano and Bond (1991) address this by additionally treating wages and capital as endogenous.
+
+**Note**: Due to constructing lags and taking first differences, three cross
+sections are lost. Hence, estimation period is 1979–1984 and only 611
+observations effectively available for estimation.
+
+--------------------------------------------------------------------------------
+
+## References {.unlisted .unnumbered}
+
+- Kleiber, C. and Zeileis A. (2017), Chap 3 Linear Regression, *Applied Econometrics with R*.
+
+- Arellano M, Bond S (1991). “Some Tests of Specification for Panel Data : Monte Carlo Evidence and an Application to Employment Equations.” *Review of Economic Studies*, **58**, 277–297.
+
+- Arellano M, Bond S (1998). “Dynamic panel data estimation using DPD98 for GAUSS: a guide for users.” unpublished.
+
+- Arellano M, Bond S (2012). “Panel data estimation using DPD for Ox.” unpublished, <https://www.doornik.com/download/oxmetrics7/Ox_Packages/dpd.pdf>.
+
+- Blundell R, Bond S (1998). “Initital Conditions and Moment Restrictions in Dynamic Panel Data Models.” *Journal of Econometrics*, **87**, 115–143.
+
+- Roodman D (2009). “How to do xtabond2: An introduction to difference and system GMM in Stata.” *The Stata Journal*, **9**, 86-136. <https://www.stata-journal.com/article.html?article=st0159>.
+
+
+
+
+
+

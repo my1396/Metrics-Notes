@@ -96,6 +96,7 @@ HAC (heteroskedasticity and autocorrelation consistent) standard errors
 library(lmtest)
 library(sandwich)
 vcovHAC(lm_phillips)
+vcovHC(lm_phillips)
 ```
 
 **Autocorrelated residuals**
@@ -107,7 +108,7 @@ Plot the residuals.
 plot(lm_phillips$residuals, type="l")
 ```
 
-@fig-ar-res shows striking negative autocorrelation. The correlogram tells the same story (@fig-res-acf). The blue dotted lines give the values beyond which the autocorrelations are (statistically) significantly different from zero. 
+@fig-ar-res shows striking **negative autocorrelation**. The correlogram tells the same story (@fig-res-acf). The blue dotted lines give the values beyond which the autocorrelations are (statistically) significantly different from zero. 
 
 
 ```{r}
