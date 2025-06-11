@@ -16,8 +16,9 @@ y_{it} &= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
 \text{or}\quad y_{it} &= \alpha_i + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
 \end{aligned}
 $$  {#eq-within-lecture-random-intercept}
+There are $K$ regressors in $\bs_{it},$ not including an intercept.
 
-where we assume strict exogeneity
+We assume strict exogeneity:
 
 $$
 \E[\bu_i|\bX_i]=0.

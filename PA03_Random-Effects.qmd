@@ -3,7 +3,7 @@ title: "Random Effects Model"
 format: html
 ---
 
-We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved effect, $\alpha_i$, has zero mean.
+We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved random heterogeneity specific to the $i$th observation, $\alpha_i$, has zero mean. $\alpha_i$ is constant through time. $\beta_0$ is the mean of the unobserved heterogeneity.
 
 $$
 \begin{aligned}
@@ -20,23 +20,100 @@ $$
 
 In this case, the fixed effects or first differencing model which eliminates $\alpha_i$ results in inefficient estimators.
 
-If we define the composite error term as 
+If we define the composite error term $v_{it}$ as 
 
 $$
 v_{it} = a_i + u_{it},
-$$
+$${#eq-error_component_model}
 
-then we have 
+@eq-error_component_model is often called an "error components model."
+
+Then we have 
 
 $$
 y_{it} = \beta_0 + \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + v_{it}.
 $${#eq-randome_effects}
-Because $a_i$ is in the composite error in each time period, the $v_{it}$ are **serially correlated** across time. In fact, under the random effects assumptions,
+Because $a_i$ is in the composite error in each time period, the $v_{it}$ are **serially correlated** across time. 
+
+Assumptions of random effects model:
+
+- $\E[a_i\mid \bX] = \E[u_{it}\mid \bX] = 0$
+- $\E[a_i\mid \bX] = \sigma_a^2$ and $\E[u_{it}\mid \bX] = \sigma_u^2$
+- $\E[u_{it}a_j\mid \bX] = 0$ for all $i,t$, and $j$
+- $\E[u_{it}u_{js}\mid \bX] = 0$ if $i\ne j$ or $t\ne s$ 
+- $\E[a_ia_j\mid \bX] = 0$ for $i\ne j$
+
+We view the data structure as blocks of $T$ observations for group $i.$
+
+Let 
+
+$$
+\bv_i = \begin{bmatrix}
+v_{i1}, v_{i2}, \cdots , v_{iT}
+\end{bmatrix}'.
+$$
+Let's have a look at the variance-covariance matrix of $\bv_i.$
+We have
+
+$$
+\begin{aligned}
+\E[v_{it}^2\mid \bX] &= \E[a_i^2 + u_{it}^2 + 2a_iu_{it} \mid \bx] \\
+&= \sigma_a^2 + \sigma_u^2 .
+\end{aligned}
+$$
+For $t\ne s$,
+$$
+\begin{aligned}
+\E[v_{it}v_{is}\mid \bX] 
+&= \E[(a_i+u_{it})(a_i+u_{is})] \\
+&= \E[a_i^2 + a_iu_{it} + a_iu_{is} + u_{it}u_{is} \mid \bx] \\
+&= \sigma_a^2 ,
+\end{aligned}
+$$
+
+For $i\ne j$ and all $t$ and $s$, since observations $i$ and $j$ are independent, we have:
+$$
+\E[v_{it}v_{js}\mid \bX] = 0.
+$$
+
+Let $\Sigma = \E[\bv_i\bv_i'\mid \bX]$ be the covariance matrix for observation $i$, then
+
+$$
+\begin{aligned}
+\Sigma &= \E[\bv_i\bv_i'\mid \bX] \\
+&= \begin{bmatrix}
+\sigma_a^2 + \sigma_u^2 & \sigma_a^2 & \cdots & \sigma_a^2 \\
+\sigma_a^2  & \sigma_a^2 + \sigma_u^2 & \cdots & \sigma_a^2 \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_a^2  & \sigma_a^2  & \cdots & \sigma_a^2 + \sigma_u^2\\
+\end{bmatrix} \\
+&= \sigma_a^2 \bI_T + \sigma_u^2\bi_T\bi_T'
+\end{aligned}
+$$
+where $\bI_T$ is an $T\times T$ identity matrix and $\bi_T$ is a $T\times 1$ column vector of 1's.
+
+The disturbance covariance matrix for the full $NT$ observations is
+
+$$
+\Omega = \begin{bmatrix}
+\Sigma & 0 & \cdots & 0 \\
+0 & \Sigma & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \Sigma \\
+\end{bmatrix} = \bI_N \otimes \Sigma
+$$
+
+Note that the errors are serially correlated under the random effects assumptions:
 $$
 \text{Corr}(v_{it}, v_{is}) = \frac{\sigma_a^2}{\sigma_a^2 + \sigma_u^2}, \quad t \neq s,
 $$
 
-where $\sigma_a^2 = \text{Var}(a_i)$ and $\sigma_u^2 = \text{Var}(u_{it})$. This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be incorrect, as will the usual test statistics. Generalized least squares can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large $N$ and relatively small $T$. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.
+where $\sigma_a^2 = \text{Var}(a_i)$ and $\sigma_u^2 = \text{Var}(u_{it})$.
+
+
+This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be **incorrect**, as will the usual test statistics.
+
+**Generalized least squares** can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large $N$ and relatively small $T$. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.
 
 Deriving the GLS transformation that **eliminates serial correlation in the errors** requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define
 $$

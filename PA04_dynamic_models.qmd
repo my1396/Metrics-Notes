@@ -90,7 +90,7 @@ where $\Delta y_{it} = y_{it} - y_{it-1}.$
 
 ## References {.unlisted .unnumbered}
 
-- Chapter 12, "Serial Correlation and Heteroskedasticity in Time Series Regressions", *Introductory Econometrics: A Modern Approach*, 7e by Jeffrey M. Wooldridge
+- Chapter 12, "Serial Correlation and Heteroskedasticity in Time Series Regressions." *Introductory Econometrics: A Modern Approach*, 7e by Jeffrey M. Wooldridge
 
 
 

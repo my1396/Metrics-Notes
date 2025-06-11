@@ -650,7 +650,7 @@ window.Quarto = {
 </header>
 
 
-<p>We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved effect, <span class="math inline">\(\alpha_i\)</span>, has zero mean.</p>
+<p>We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved random heterogeneity specific to the <span class="math inline">\(i\)</span>th observation, <span class="math inline">\(\alpha_i\)</span>, has zero mean. <span class="math inline">\(\alpha_i\)</span> is constant through time. <span class="math inline">\(\beta_0\)</span> is the mean of the unobserved heterogeneity.</p>
 <p><span class="math display">\[
 \begin{aligned}
 y_{it} &amp;= a_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
@@ -662,17 +662,74 @@ y_{it} &amp;= a_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
 \cov(x_{itj}, a_i) = 0, \quad t=1,2,\ldots,T;\, j=1,2,\ldots,K.
 \]</span></p>
 <p>In this case, the fixed effects or first differencing model which eliminates <span class="math inline">\(\alpha_i\)</span> results in inefficient estimators.</p>
-<p>If we define the composite error term as</p>
-<p><span class="math display">\[
+<p>If we define the composite error term <span class="math inline">\(v_{it}\)</span> as</p>
+<p><span id="eq-error_component_model"><span class="math display">\[
 v_{it} = a_i + u_{it},
-\]</span></p>
-<p>then we have</p>
+\tag{16.1}\]</span></span></p>
+<p><a href="#eq-error_component_model" class="quarto-xref">Equation&nbsp;<span>16.1</span></a> is often called an “error components model.”</p>
+<p>Then we have</p>
 <p><span id="eq-randome_effects"><span class="math display">\[
 y_{it} = \beta_0 + \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + v_{it}.
-\tag{16.1}\]</span></span> Because <span class="math inline">\(a_i\)</span> is in the composite error in each time period, the <span class="math inline">\(v_{it}\)</span> are <strong>serially correlated</strong> across time. In fact, under the random effects assumptions, <span class="math display">\[
+\tag{16.2}\]</span></span> Because <span class="math inline">\(a_i\)</span> is in the composite error in each time period, the <span class="math inline">\(v_{it}\)</span> are <strong>serially correlated</strong> across time.</p>
+<p>Assumptions of random effects model:</p>
+<ul>
+<li><span class="math inline">\(\E[a_i\mid \bX] = \E[u_{it}\mid \bX] = 0\)</span></li>
+<li><span class="math inline">\(\E[a_i\mid \bX] = \sigma_a^2\)</span> and <span class="math inline">\(\E[u_{it}\mid \bX] = \sigma_u^2\)</span></li>
+<li><span class="math inline">\(\E[u_{it}a_j\mid \bX] = 0\)</span> for all <span class="math inline">\(i,t\)</span>, and <span class="math inline">\(j\)</span></li>
+<li><span class="math inline">\(\E[u_{it}u_{js}\mid \bX] = 0\)</span> if <span class="math inline">\(i\ne j\)</span> or <span class="math inline">\(t\ne s\)</span></li>
+<li><span class="math inline">\(\E[a_ia_j\mid \bX] = 0\)</span> for <span class="math inline">\(i\ne j\)</span></li>
+</ul>
+<p>We view the data structure as blocks of <span class="math inline">\(T\)</span> observations for group <span class="math inline">\(i.\)</span></p>
+<p>Let</p>
+<p><span class="math display">\[
+\bv_i = \begin{bmatrix}
+v_{i1}, v_{i2}, \cdots , v_{iT}
+\end{bmatrix}'.
+\]</span> Let’s have a look at the variance-covariance matrix of <span class="math inline">\(\bv_i.\)</span> We have</p>
+<p><span class="math display">\[
+\begin{aligned}
+\E[v_{it}^2\mid \bX] &amp;= \E[a_i^2 + u_{it}^2 + 2a_iu_{it} \mid \bx] \\
+&amp;= \sigma_a^2 + \sigma_u^2 .
+\end{aligned}
+\]</span> For <span class="math inline">\(t\ne s\)</span>, <span class="math display">\[
+\begin{aligned}
+\E[v_{it}v_{is}\mid \bX]
+&amp;= \E[(a_i+u_{it})(a_i+u_{is})] \\
+&amp;= \E[a_i^2 + a_iu_{it} + a_iu_{is} + u_{it}u_{is} \mid \bx] \\
+&amp;= \sigma_a^2 ,
+\end{aligned}
+\]</span></p>
+<p>For <span class="math inline">\(i\ne j\)</span> and all <span class="math inline">\(t\)</span> and <span class="math inline">\(s\)</span>, since observations <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are independent, we have: <span class="math display">\[
+\E[v_{it}v_{js}\mid \bX] = 0.
+\]</span></p>
+<p>Let <span class="math inline">\(\Sigma = \E[\bv_i\bv_i'\mid \bX]\)</span> be the covariance matrix for observation <span class="math inline">\(i\)</span>, then</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Sigma &amp;= \E[\bv_i\bv_i'\mid \bX] \\
+&amp;= \begin{bmatrix}
+\sigma_a^2 + \sigma_u^2 &amp; \sigma_a^2 &amp; \cdots &amp; \sigma_a^2 \\
+\sigma_a^2  &amp; \sigma_a^2 + \sigma_u^2 &amp; \cdots &amp; \sigma_a^2 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_a^2  &amp; \sigma_a^2  &amp; \cdots &amp; \sigma_a^2 + \sigma_u^2\\
+\end{bmatrix} \\
+&amp;= \sigma_a^2 \bI_T + \sigma_u^2\bi_T\bi_T'
+\end{aligned}
+\]</span> where <span class="math inline">\(\bI_T\)</span> is an <span class="math inline">\(T\times T\)</span> identity matrix and <span class="math inline">\(\bi_T\)</span> is a <span class="math inline">\(T\times 1\)</span> column vector of 1’s.</p>
+<p>The disturbance covariance matrix for the full <span class="math inline">\(NT\)</span> observations is</p>
+<p><span class="math display">\[
+\Omega = \begin{bmatrix}
+\Sigma &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \Sigma &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \Sigma \\
+\end{bmatrix} = \bI_N \otimes \Sigma
+\]</span></p>
+<p>Note that the errors are serially correlated under the random effects assumptions: <span class="math display">\[
 \text{Corr}(v_{it}, v_{is}) = \frac{\sigma_a^2}{\sigma_a^2 + \sigma_u^2}, \quad t \neq s,
 \]</span></p>
-<p>where <span class="math inline">\(\sigma_a^2 = \text{Var}(a_i)\)</span> and <span class="math inline">\(\sigma_u^2 = \text{Var}(u_{it})\)</span>. This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be incorrect, as will the usual test statistics. Generalized least squares can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large <span class="math inline">\(N\)</span> and relatively small <span class="math inline">\(T\)</span>. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.</p>
+<p>where <span class="math inline">\(\sigma_a^2 = \text{Var}(a_i)\)</span> and <span class="math inline">\(\sigma_u^2 = \text{Var}(u_{it})\)</span>.</p>
+<p>This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be <strong>incorrect</strong>, as will the usual test statistics.</p>
+<p><strong>Generalized least squares</strong> can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large <span class="math inline">\(N\)</span> and relatively small <span class="math inline">\(T\)</span>. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.</p>
 <p>Deriving the GLS transformation that <strong>eliminates serial correlation in the errors</strong> requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define <span class="math display">\[
 \theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
 \]</span></p>
@@ -682,16 +739,16 @@ y_{it} = \beta_0 + \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + v_{it}.
 y_{it} - \theta \overline{y}_i &amp;= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - \theta \overline{x}_{i1}) + \cdots \\
 &amp;\phantom{=}\quad + \beta_K (x_{itK} - \theta \overline{x}_{iK}) + (v_{it} - \theta \overline{v}_i),
 \end{aligned}
-\tag{16.2}\]</span></span> where the overbar <span class="math inline">\(\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}\)</span> is the time averages of <span class="math inline">\(y\)</span> for individual <span class="math inline">\(i\)</span>, and similarly for <span class="math inline">\(\overline{x}_{ij},\)</span> <span class="math inline">\(j=1,\ldots,K.\)</span></p>
+\tag{16.3}\]</span></span> where the overbar <span class="math inline">\(\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}\)</span> is the time averages of <span class="math inline">\(y\)</span> for individual <span class="math inline">\(i\)</span>, and similarly for <span class="math inline">\(\overline{x}_{ij},\)</span> <span class="math inline">\(j=1,\ldots,K.\)</span></p>
 <p>This is a very interesting equation, as it involves <strong>quasi-demeaned</strong> data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on <span class="math inline">\(\sigma_u^2,\)</span> <span class="math inline">\(\sigma_a^2\)</span> and the number of time periods, <span class="math inline">\(T\)</span>.</p>
-<p>The GLS estimator is simply the pooled OLS estimator of <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.2</span></a>. The errors in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> are <strong>serially uncorrelated</strong>.</p>
-<p>The transformation in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with <span class="math inline">\(a_i\)</span>, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.</p>
+<p>The GLS estimator is simply the pooled OLS estimator of <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.3</span></a>. The errors in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> are <strong>serially uncorrelated</strong>.</p>
+<p>The transformation in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with <span class="math inline">\(a_i\)</span>, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.</p>
 <p>The parameter <span class="math inline">\(\theta\)</span> is never known in practice, but it can always be estimated. There are different ways to do this, which may be based on pooled OLS or fixed effects, for example. Generally, <span class="math inline">\(\hat{\theta}\)</span> takes the form <span class="math display">\[
 \hat{\theta} = 1 - \left[ \frac{\hat{\sigma}_u^2}{\hat{\sigma}_a^2 + T \hat{\sigma}_u^2} \right]^{1/2},
 \]</span> where <span class="math inline">\(\hat{\sigma}_a^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_a^2\)</span> and <span class="math inline">\(\hat{\sigma}_u^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_u^2\)</span>.</p>
 <p>These estimators can be based on the pooled OLS or the fixed effects residuals. <span class="math display">\[
 \hat{\sigma}_a^2 = \left[ \frac{NT(T - 1)}{2} - (K + 1) \right]^{-1} \sum_{i=1}^{N} \sum_{t=1}^{T-1} \sum_{s=t+1}^{T} \hat{v}_{it} \hat{v}_{is},
-\]</span> where the <span class="math inline">\(\hat{v}_{it}\)</span> are the residuals from estimating <a href="#eq-randome_effects" class="quarto-xref">Equation&nbsp;<span>16.1</span></a> by pooled OLS.</p>
+\]</span> where the <span class="math inline">\(\hat{v}_{it}\)</span> are the residuals from estimating <a href="#eq-randome_effects" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> by pooled OLS.</p>
 <p>Given this, we can estimate <span class="math inline">\(\sigma_u^2\)</span> by using <span class="math display">\[
 \hat{\sigma}_u^2 = \hat{\sigma}_v^2 - \hat{\sigma}_a^2,
 \]</span> where <span class="math inline">\(\hat{\sigma}_v^2\)</span> is the square of the usual standard error of the regression from pooled OLS. [See Wooldridge (2010, Chapter 10) for additional discussion of these estimators.]</p>
