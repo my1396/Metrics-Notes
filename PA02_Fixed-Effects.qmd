@@ -11,7 +11,10 @@ format: html
 Consider the following fixed effects model
 
 $$
-y_{it} = \alpha_i + \bbeta'\bx_{it} + u_{it}.
+\begin{aligned}
+y_{it} &= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
+\text{or}\quad y_{it} &= \alpha_i + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
+\end{aligned}
 $$  {#eq-within-lecture-random-intercept}
 
 where we assume strict exogeneity
@@ -24,7 +27,7 @@ Throughout, we will assume that the number $N$ of cross-sectional units is poten
 
 ## Within Estimator
 
-Within ("fixed effects") estimation of the random intercept model has two steps:
+Within (or "fixed effects") estimation of the random intercept model has two steps:
 
 1. Apply the within transformation to each unit.
 2. Apply OLS to the resulting pooled data.
@@ -37,26 +40,27 @@ $$
 y_{i\cdot} = \frac{1}{T} \sum_{t=1}^{T} y_{it}.
 $$
 
-The averaged outcome $y_{i\cdot}$ satisfies the averaged equation
+The averaged outcome $y_{i\cdot}$ satisfies the averaged (or "cross-sectional") equation
 
 $$
 y_{i\cdot} = \alpha_i + \bbeta' \bx_{i\cdot} + u_{i\cdot},
-$$
+$$ {#eq-within-lecture-avg}
 where $\bx_{i\cdot}$ and $u_{i\cdot}$ are defined analogously to $y_{i\cdot}$.
 
-Define the within-transformed variables by subtracting this averaged equation from the original equation for each $t$:
-$$
-\tilde{y}_{it} = y_{it} - y_{i\cdot}.
-$$
-where $\tilde{y}_{it}$ is the deviations from the group means.
+Define the within-transformed equation by subtracting this averaged equation (-@eq-within-lecture-avg) from the original equation (-@eq-within-lecture-random-intercept) for each $t$:
 
-If  @eq-within-lecture-random-intercept is true, the within transformed variables follow the within-transformed equation:
-
+$$
+y_{it} - y_{i\cdot} = (\alpha_i - \alpha_i) + \bbeta'(\bx_{it} - \bx_{i\cdot}) + (u_{it} - u_{i\cdot}) 
+$$
+or 
 $$
 \tilde{y}_{it} = \bbeta' \tilde{\bx}_{it} + \tilde{u}_{it}.
 $${#eq-within_transformed}
 
-Under @eq-within-lecture-random-intercept, the within transformation eliminates the individual random intercepts $\alpha_i$.  @eq-within_transformed now looks like a regular homogeneous regression. 
+where $\tilde{y}_{it} = y_{it} - y_{i\cdot}$ is the deviations from the group means, and similarly for $\tilde{\bx}_{it}$ and $\tilde{u}_{it}.$
+
+Under @eq-within-lecture-random-intercept, the within transformation eliminates the individual random intercepts $\alpha_i$. All average differences in $y$'s or $\bx$'s between individuals have been wiped out.
+@eq-within_transformed now looks like a regular homogeneous regression. 
 
 ### Step 2: OLS on the Within-Transformed Equation
 
@@ -94,7 +98,15 @@ Since $\bbeta$ is the average coefficient vector in this homogeneous model, we c
 
 ## Between-groups Estimator
 
-The Between-groups estimator is obtained by regressing the averaged variables on each other using OLS regression. It can be suitable for research questions that specifically address variation between different entities rather than changes within entities over time. One caveat is that the Between-groups estimator overlooks important information about how variables change over time.
+The Between-groups estimator (or between estimator) is obtained by regressing the time averaged variables on each other (-@eq-within-lecture-avg) (where we include an intercept, $\beta_0$) using OLS regression. 
+$$
+y_{i\cdot} = \alpha_i + \bbeta' \bx_{i\cdot} + u_{i\cdot},
+$$
+This is a cross-sectional regression, with a sample size being the number of entities.
+
+Note that the between estimator is **biased** when $\alpha_i$ is correlated with $\bx_{i\cdot}.$ If we think $\alpha_i$ is uncorrelated with $\bx_{i\cdot},$ it is better to use the random effects estimator.
+
+It can be suitable for research questions that specifically address variation between different entities rather than changes within entities over time. One caveat is that the Between-groups estimator *overlooks important information about how variables change over time*.
 
 To obtain unbiased estimates, it is crucial to ensure the assumption of zero correlation between the error term and averaged independent variables.
 

@@ -1,0 +1,130 @@
+---
+title: "Random Effects Model"
+format: html
+---
+
+We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved effect, $\alpha_i$, has zero mean.
+
+$$
+\begin{aligned}
+y_{it} &= a_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
+\text{or}\quad y_{it} &= a_i + \beta_0 + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
+\end{aligned}
+$$
+
+Here the random effects model assumes $\alpha_i$ is uncorrelated with each explanatory variable in all time periods.
+
+$$
+\cov(x_{itj}, a_i) = 0, \quad t=1,2,\ldots,T;\, j=1,2,\ldots,K.
+$$
+
+In this case, the fixed effects or first differencing model which eliminates $\alpha_i$ results in inefficient estimators.
+
+If we define the composite error term as 
+
+$$
+v_{it} = a_i + u_{it},
+$$
+
+then we have 
+
+$$
+y_{it} = \beta_0 + \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + v_{it}.
+$${#eq-randome_effects}
+Because $a_i$ is in the composite error in each time period, the $v_{it}$ are **serially correlated** across time. In fact, under the random effects assumptions,
+$$
+\text{Corr}(v_{it}, v_{is}) = \frac{\sigma_a^2}{\sigma_a^2 + \sigma_u^2}, \quad t \neq s,
+$$
+
+where $\sigma_a^2 = \text{Var}(a_i)$ and $\sigma_u^2 = \text{Var}(u_{it})$. This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be incorrect, as will the usual test statistics. Generalized least squares can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large $N$ and relatively small $T$. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.
+
+Deriving the GLS transformation that **eliminates serial correlation in the errors** requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define
+$$
+\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
+$$
+
+which is between zero and one. As $ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2}$ approaches zero, $\theta\to1.$ 
+
+Then, the transformed equation turns out to be
+$$
+\begin{aligned}
+y_{it} - \theta \overline{y}_i &= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - \theta \overline{x}_{i1}) + \cdots \\
+&\phantom{=}\quad + \beta_K (x_{itK} - \theta \overline{x}_{iK}) + (v_{it} - \theta \overline{v}_i),
+\end{aligned}
+$${#eq-randome_effects_transform}
+where the overbar $\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}$ is the time averages of $y$ for individual $i$, and similarly for $\overline{x}_{ij},$ $j=1,\ldots,K.$
+
+This is a very interesting equation, as it involves **quasi-demeaned** data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on $\sigma_u^2,$ $\sigma_a^2$ and the number of time periods, $T$. 
+
+The GLS estimator is simply the pooled OLS estimator of @eq-randome_effects_transform. The errors in @eq-randome_effects_transform are **serially uncorrelated**.
+
+
+The transformation in @eq-randome_effects_transform allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with $a_i$, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.
+
+The parameter $\theta$ is never known in practice, but it can always be estimated. There are different ways to do this, which may be based on pooled OLS or fixed effects, for example. 
+Generally, $\hat{\theta}$ takes the form 
+$$
+\hat{\theta} = 1 - \left[ \frac{\hat{\sigma}_u^2}{\hat{\sigma}_a^2 + T \hat{\sigma}_u^2} \right]^{1/2},
+$$
+where $\hat{\sigma}_a^2$ is a consistent estimator of $\sigma_a^2$ and $\hat{\sigma}_u^2$ is a consistent estimator of $\sigma_u^2$. 
+
+These estimators can be based on the pooled OLS or the fixed effects residuals.
+$$
+\hat{\sigma}_a^2 = \left[ \frac{NT(T - 1)}{2} - (K + 1) \right]^{-1} \sum_{i=1}^{N} \sum_{t=1}^{T-1} \sum_{s=t+1}^{T} \hat{v}_{it} \hat{v}_{is},
+$$
+where the $\hat{v}_{it}$ are the residuals from estimating @eq-randome_effects by pooled OLS. 
+
+Given this, we can estimate $\sigma_u^2$ by using 
+$$
+\hat{\sigma}_u^2 = \hat{\sigma}_v^2 - \hat{\sigma}_a^2,
+$$
+where $\hat{\sigma}_v^2$ is the square of the usual standard error of the regression from pooled OLS. [See Wooldridge (2010, Chapter 10) for additional discussion of these estimators.]
+
+The feasible GLS estimator that uses $\hat{\theta}$ in place of $\theta$
+is called the **random effects estimator**. 
+
+Under the random effects assumptions, the estimator is **consistent (not unbiased) and asymptotically normally distributed as $N$ gets large with fixed $T$**. 
+
+The properties of the random effects (RE) estimator with **small $N$ and large $T$** are largely unknown, although it has certainly been used in such situations.
+
+
+--------------------------------------------------------------------------------
+
+**Comparing RE estimates and FE estimates**: When $\theta=1$, RE becomes the FE model. Recall that 
+$$
+\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
+$$
+There are three scenarios where $\theta\to1$:
+
+- $T$ is big $\rightarrow$ Lots of variation across time for each individual $\rightarrow$ more like fixed effects
+
+- $\sigma_a^2$ is big $\rightarrow$ Lots of variation in the fixed effects $\rightarrow$ more like fixed effects
+
+- $\sigma_u^2$ is small relative to $\sigma_a^2$ $\rightarrow$ idiosyncratic variation is small, more variation from fixed effects $\rightarrow$ more like fixed effects
+
+
+**Comparing RE estimates and Pooled OLS**: When $\theta=0$, RE becomes the Pooled OLS. This happens when the unobserved effect, $a_i,$ is relatively unimportant (because it has small variance relative to $\sigma^2_u$).
+
+--------------------------------------------------------------------------------
+
+**Summary of RE**:
+
+- Random effects estimators are a weighted average of the between estimator
+(variation between individuals in a cross section) and the within/fixed 
+estimator (variation within individuals over time)
+
+- Random effects estimators will be consistent and unbiased if **fixed effects are not correlated with** $\bx$’s. Fixed effects estimators will always be consistent and unbiased (under usual GM assumptions)
+
+- Random effects estimators will be more **efficient** (have smaller standard errors) than fixed effects estimators because they use more of the variation in $X$ (specifically, they use the cross sectional/between variation)
+
+
+
+
+
+
+
+
+
+
+
+

@@ -55,7 +55,7 @@ Therefore, a model with a lagged dependent variable cannot satisfy the strict ex
 
 For the weak dependence condition to hold, we must assume that $|\beta_1| < 1$. If this condition holds, then the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces **consistent** estimators of $\beta_0$ and $\beta_1$. 
 
-Unfortunately, $\hat{\beta}_1$ is **biased**, and this bias can be large if the sample size is small or if $\beta_1$ is near 1. (For $\beta_1$ near 1, $\hat{\beta}_1$ can have a severe downward bias.) In moderate to large samples, $\hat{\beta}_1$ should be a good estimator of $\beta_1$.
+Unfortunately, $\hat{\beta}_1$ is **biased**, and this *bias can be large if the sample size is small* or if $\beta_1$ is *near* 1. (For $\beta_1$ near 1, $\hat{\beta}_1$ can have a severe downward bias.) In moderate to large samples, $\hat{\beta}_1$ should be a good estimator of $\beta_1$.
 
 @eq-zero_mean is called the **sequential exogeneity** assumption.
 
@@ -78,11 +78,11 @@ $$ {#eq-dynamic-interlude-dynamic-simple}
 where $u_{it}$ satisfies sequential exogeneity in the form $\E[u_{it}|y_{is}, s<t] = 0$. 
 
 
-let us difference @eq-dynamic-interlude-dynamic-simple across $t$ to eliminate the random intercept $\alpha_i$. The differenced equation takes form
+Let us difference @eq-dynamic-interlude-dynamic-simple across $t$ to eliminate the random intercept $\alpha_i$. The differenced equation takes form
 $$
-\Delta y_{it} & = \lambda \Delta y_{it-1} + \Delta u_{it},
+\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it},
 $$ {#eq-dynamic-interlude-homogeneous-differenced}
-where $\Delta y_{it} & = y_{it} - y_{it-1}.$
+where $\Delta y_{it} = y_{it} - y_{it-1}.$
 @eq-dynamic-interlude-homogeneous-differenced seems like a simple regression equation. It is tempting to just apply OLS and regress $\Delta y_{it}$ on $\Delta y_{it-1}$.
 
 ### IV Estimator of Dynamic Panel Models

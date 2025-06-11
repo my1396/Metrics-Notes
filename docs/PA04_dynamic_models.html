@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Measure Theory – Metrics Notes</title>
+<title>17&nbsp; Dynamic Models – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS01_AR1.html" rel="next">
-<link href="./conditional_expectation.html" rel="prev">
+<link href="./PA07_Hetero_lm.html" rel="next">
+<link href="./PA03_Random-Effects.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -455,7 +455,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./measure_theory.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA04_dynamic_models.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dynamic Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -503,7 +503,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link active">
+  <a href="./measure_theory.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></span></a>
   </div>
 </li>
@@ -607,7 +607,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA04_dynamic_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./PA04_dynamic_models.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
   </div>
 </li>
@@ -629,7 +629,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#definitions" id="toc-definitions" class="nav-link active" data-scroll-target="#definitions"><span class="header-section-number">3.1</span> Definitions</a></li>
+  <li><a href="#exogeneity-and-dynamic-models" id="toc-exogeneity-and-dynamic-models" class="nav-link active" data-scroll-target="#exogeneity-and-dynamic-models"><span class="header-section-number">17.1</span> Exogeneity and Dynamic Models</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">17.1.1</span> Introduction</a></li>
+  <li><a href="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" id="toc-no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="nav-link" data-scroll-target="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">17.1.2</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</a></li>
+  </ul></li>
+  <li><a href="#dynamic-panel-representation" id="toc-dynamic-panel-representation" class="nav-link" data-scroll-target="#dynamic-panel-representation"><span class="header-section-number">17.2</span> Dynamic Panel Representation</a>
+  <ul class="collapse">
+  <li><a href="#iv-estimator-of-dynamic-panel-models" id="toc-iv-estimator-of-dynamic-panel-models" class="nav-link" data-scroll-target="#iv-estimator-of-dynamic-panel-models"><span class="header-section-number">17.2.1</span> IV Estimator of Dynamic Panel Models</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -637,9 +645,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA04_dynamic_models.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dynamic Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Measure Theory</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dynamic Models</span></h1>
 </div>
 
 
@@ -656,93 +664,65 @@ window.Quarto = {
 </header>
 
 
-<section id="definitions" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">3.1</span> Definitions</h2>
-<p>We denote the collection of subsets, or <strong>power set</strong>, of a set <span class="math inline">\(X\)</span> by <span class="math inline">\(\Pcal(X).\)</span></p>
-<p>The Cartesian product, or product, of sets <span class="math inline">\(X, Y\)</span> is the collection of all ordered pairs</p>
-<p><span class="math display">\[
-X\times Y = \{(x,y): x\in X, y\in Y\}.
+<section id="exogeneity-and-dynamic-models" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="exogeneity-and-dynamic-models"><span class="header-section-number">17.1</span> Exogeneity and Dynamic Models</h2>
+<section id="introduction" class="level3" data-number="17.1.1">
+<h3 data-number="17.1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">17.1.1</span> Introduction</h3>
+<p>Throughout the previous section, we assumed that the idiosyncratic term <span class="math inline">\(u_{it}\)</span> satisfied strict exogeneity with respect to the data: <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
+    \E[u_{it}|\bX_i] = 0.
+\tag{17.1}\]</span></span></p>
+<p>However, strict exogeneity is not an innocent assumption. In particular, it implies that for all pairs of indices <span class="math inline">\(s, t\)</span> it holds that <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
+    \E[u_{it}\bx_{is}] =0.
+\tag{17.2}\]</span></span></p>
+<p>For <span class="math inline">\(t&lt;s\)</span>, <a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref">Equation&nbsp;<span>17.2</span></a> means that <em>past</em> shocks are uncorrelated with <em>future</em> values of <span class="math inline">\(\bx\)</span>. In other words, one cannot predict <em>past</em> shocks from <em>future</em> <span class="math inline">\(\bx\)</span>s.</p>
+<p>This requirement might fail if <span class="math inline">\(\bx\)</span> is dynamic and its evolution is affected by <span class="math inline">\(u_{it}\)</span>. In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data.</p>
+</section>
+<section id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="level3" data-number="17.1.2">
+<h3 data-number="17.1.2" class="anchored" data-anchor-id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">17.1.2</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</h3>
+<p>Consider the AR(1) model, <span id="eq-AR1"><span class="math display">\[
+y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
+\tag{17.3}\]</span></span> where the error <span class="math inline">\(u_t\)</span> has a zero expected value, given all past values of <span class="math inline">\(y\)</span>: <span id="eq-zero_mean"><span class="math display">\[
+\mathbb{E}(u_t \mid y_{t-1}, y_{t-2}, \ldots) = 0.
+\tag{17.4}\]</span></span></p>
+<p>Combined, these two equations imply that <span class="math display">\[
+\mathbb{E}(y_t \mid y_{t-1}, y_{t-2}, \ldots) = \mathbb{E}(y_t \mid y_{t-1}) = \beta_0 + \beta_1 y_{t-1}.
 \]</span></p>
-<p>A <strong>topological space</strong> is a set equipped with a collection of open subsets that satisfies appropriate conditions.</p>
-<div id="def-topology" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1 (Topological Space)</strong></span> A topological space <span class="math inline">\((X, \Tcal)\)</span> is a set <span class="math inline">\(X\)</span> and a collection <span class="math inline">\(\Tcal \subset \Pcal(X)\)</span> of subsets of <span class="math inline">\(X,\)</span> called open sets, such that</p>
-<ol type="a">
-<li><p><span class="math inline">\(\emptyset, X \in \Tcal;\)</span></p></li>
-<li><p>If <span class="math inline">\(\{U_\alpha \in \Tcal: \alpha \in I \}\)</span> is an arbitrary collection of open sets, then their union</p>
+<p>This result is very important. First, it means that, once <span class="math inline">\(y\)</span> lagged one period has been controlled for, no further lags of <span class="math inline">\(y\)</span> affect the expected value of <span class="math inline">\(y_t\)</span>. (This is where the name “first order” originates.) Second, the relationship is assumed to be linear.</p>
+<p>Because <span class="math inline">\(x_t\)</span> contains only <span class="math inline">\(y_{t-1}\)</span>, <a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>17.4</span></a> implies that the <strong>contemporaneous exogeneity</strong> Assumption holds. By contrast, the strict exogeneity assumption needed for unbiasedness, which does not hold.</p>
+<p>In fact, because <span class="math inline">\(u_t\)</span> is uncorrelated with <span class="math inline">\(y_{t-1}\)</span> under <a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>17.4</span></a>, <span class="math inline">\(u_t\)</span> and <span class="math inline">\(y_t\)</span> must be correlated.</p>
 <p><span class="math display">\[
-\bigcup_{\alpha\in I} U_\alpha \in \Tcal
+\begin{aligned}
+\text{Cov}(y_t, u_t) &amp;= \text{Cov}(\beta_0 + \beta_1 y_{t-1} + u_t, u_t) \\
+&amp;= \text{Var}(u_t) &gt; 0.
+\end{aligned}
 \]</span></p>
-<p>is open;</p></li>
-<li><p>If <span class="math inline">\(\{U_i \in \Tcal: i=1,2,\dots,N \}\)</span> is a finite collection of open sets,Then their intersection</p>
-<p><span class="math display">\[
-\bigcap_{i=1}^N U_i \in \Tcal
+<p>Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.</p>
+<p>For the weak dependence condition to hold, we must assume that <span class="math inline">\(|\beta_1| &lt; 1\)</span>. If this condition holds, then the OLS estimator from the regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(y_{t-1}\)</span> produces <strong>consistent</strong> estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<p>Unfortunately, <span class="math inline">\(\hat{\beta}_1\)</span> is <strong>biased</strong>, and this <em>bias can be large if the sample size is small</em> or if <span class="math inline">\(\beta_1\)</span> is <em>near</em> 1. (For <span class="math inline">\(\beta_1\)</span> near 1, <span class="math inline">\(\hat{\beta}_1\)</span> can have a severe downward bias.) In moderate to large samples, <span class="math inline">\(\hat{\beta}_1\)</span> should be a good estimator of <span class="math inline">\(\beta_1\)</span>.</p>
+<p><a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>17.4</span></a> is called the <strong>sequential exogeneity</strong> assumption.</p>
+</section>
+</section>
+<section id="dynamic-panel-representation" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="dynamic-panel-representation"><span class="header-section-number">17.2</span> Dynamic Panel Representation</h2>
+<p>More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process for the outcome: <span id="eq-dynamic-interlude-dynamic-panel"><span class="math display">\[
+y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
+\tag{17.5}\]</span></span> In this model, a sequential exogeneity assumption takes form <span class="math display">\[
+     \E[u_{it}\mid \curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0.
 \]</span></p>
-<p>is open.</p></li>
-</ol>
-</div>
-<p>The complement of an open set in <span class="math inline">\(X\)</span> is called a closed set, and <span class="math inline">\(\Tcal\)</span> is called a topology on <span class="math inline">\(X.\)</span></p>
-<p>A <strong><span class="math inline">\(\sigma\)</span>-algebra</strong> on a set <span class="math inline">\(X\)</span> is a collection of subsets of a set <span class="math inline">\(X\)</span> that contains <span class="math inline">\(\emptyset\)</span> and <span class="math inline">\(X\)</span>, and is closed under complements, finite unions, countable unions, and countable intersections.</p>
-<div id="def-sigma_algebra" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> A <span class="math inline">\(\sigma\)</span>-algebra on a set <span class="math inline">\(X\)</span> is a collection <span class="math inline">\(\Acal\)</span> of subsets of a set <span class="math inline">\(X\)</span> such that:</p>
-<ol type="a">
-<li><span class="math inline">\(\emptyset, X \in \Acal;\)</span></li>
-<li>If <span class="math inline">\(A\in\Acal\)</span> then <span class="math inline">\(A^c\in\Acal;\)</span></li>
-<li>If <span class="math inline">\(A_i\in\Acal\)</span> then <span class="math display">\[
-\bigcup_{i=1}^\infty A_i \in \Acal, \quad \bigcap_{i=1}^\infty A_i \in \Acal.
-\]</span></li>
-</ol>
-</div>
-<div id="exm-sigma_algebra" class="theorem example">
-<p><span class="theorem-title"><strong>Example 3.1</strong></span> If <span class="math inline">\(X\)</span> is a set, then <span class="math inline">\(\{\emptyset,X\}\)</span> and <span class="math inline">\(\Pcal(X)\)</span> are <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>; they are the smallest and largest <span class="math inline">\(\sigma\)</span>-algebras on <span class="math inline">\(X\)</span>, respectively.</p>
-</div>
-<p>A measurable space <span class="math inline">\((X, \Acal)\)</span> is an non-empty set <span class="math inline">\(X\)</span> equipped with a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X.\)</span></p>
-<p>Difference between a measurable space and <span class="math inline">\(\sigma\)</span>-algebra:</p>
+<p>For the sake of simplicity, we will discuss a simple version of model (<a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref"><span>17.5</span></a>) without extra covariates <span class="math inline">\(\bx_{it}\)</span> and with only one lag of <span class="math inline">\(y_{it}\)</span>: <span id="eq-dynamic-interlude-dynamic-simple"><span class="math display">\[
+y_{it} = \alpha_i + \lambda y_{it-1} + u_{it},
+\tag{17.6}\]</span></span> where <span class="math inline">\(u_{it}\)</span> satisfies sequential exogeneity in the form <span class="math inline">\(\E[u_{it}|y_{is}, s&lt;t] = 0\)</span>.</p>
+<p>Let us difference <a href="#eq-dynamic-interlude-dynamic-simple" class="quarto-xref">Equation&nbsp;<span>17.6</span></a> across <span class="math inline">\(t\)</span> to eliminate the random intercept <span class="math inline">\(\alpha_i\)</span>. The differenced equation takes form <span id="eq-dynamic-interlude-homogeneous-differenced"><span class="math display">\[
+\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it},
+\tag{17.7}\]</span></span> where <span class="math inline">\(\Delta y_{it} = y_{it} - y_{it-1}.\)</span> <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> seems like a simple regression equation. It is tempting to just apply OLS and regress <span class="math inline">\(\Delta y_{it}\)</span> on <span class="math inline">\(\Delta y_{it-1}\)</span>.</p>
+<section id="iv-estimator-of-dynamic-panel-models" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="iv-estimator-of-dynamic-panel-models"><span class="header-section-number">17.2.1</span> IV Estimator of Dynamic Panel Models</h3>
+</section>
+</section>
+<section id="references" class="level2 unlisted unnumbered">
+<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li><p>The complement of a measurable set is measurable, but the complement of an open set is not, in general, open, excluding special cases such as the discrete topology <span class="math inline">\(\Tcal = \Pcal (X)\)</span></p></li>
-<li><p>Countable intersections and unions of measurable sets are measurable, but only finite intersections of open sets are open while arbitrary (even uncountable) unions of open sets are open.</p></li>
-</ul>
-<p>A <strong>measure</strong> <span class="math inline">\(\mu\)</span> is a countably additive, non-negative, extended real-valued function defined on a <span class="math inline">\(\sigma\)</span>-algebra.</p>
-<p>A <strong>measure space</strong> <span class="math inline">\((X, \Acal, \mu)\)</span> consist of a set <span class="math inline">\(X\)</span>, a <span class="math inline">\(\sigma\)</span>-algebra <span class="math inline">\(\Acal\)</span> on <span class="math inline">\(X\)</span>, and a measure <span class="math inline">\(\mu\)</span> defined on <span class="math inline">\(\Acal.\)</span> When <span class="math inline">\(\Acal\)</span> and <span class="math inline">\(\mu\)</span> are clear from the context, we will refer to the measure space <span class="math inline">\(X\)</span>.</p>
-<p>An abstract probability space <span class="math inline">\((\Omega, \Fcal, \P)\)</span></p>
-<ul>
-<li><p><span class="math inline">\(\omega\in \Omega\)</span> is called an <em>outcome</em>;</p></li>
-<li><p><span class="math inline">\(A\in \Fcal\)</span> is called an <em>event</em>;</p></li>
-<li><p><span class="math inline">\(\P(A)\)</span> is called the <em>probability</em> of <span class="math inline">\(A.\)</span></p>
-<p><span class="math inline">\(\P(\Omega)=1\)</span> the sum of probability of all possible outcomes is 1.</p></li>
-</ul>
-<p>A random variable is any function <span class="math inline">\(X: \Omega \to \Xcal.\)</span> We say that <span class="math inline">\(X\)</span> has distribution <span class="math inline">\(P,\)</span> and write <span class="math inline">\(X\sim P\)</span>, if</p>
-<p><span class="math display">\[
-\P(X\in B) = \P(\{\omega: X(\omega)\in B\}) = \P(B)
-\]</span></p>
-<p>We say the real-valued random variable <span class="math inline">\(X\)</span> is continuous if its distribution is absolutely continuous (with respect to the Lebesgue measure). If <span class="math inline">\(X\)</span> is a random variable, then <span class="math inline">\(f(X)\)</span> is also a random variable for any function <span class="math inline">\(f\)</span>.</p>
-<p>The expectation of a random variable is defined as an integral with respect to <span class="math inline">\(\P\)</span>:</p>
-<p><span class="math display">\[
-\E[X] = \int X(\omega)\, \mathrm d \P(\omega),
-\]</span></p>
-<p>and</p>
-<p><span class="math display">\[
-\E[f(X,Y)] = \int f(X(\omega), Y(\omega))\, \mathrm d \P(\omega).
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a measurable space <span class="math inline">\((X,\Acal)\)</span> is a function</p>
-<p><span class="math display">\[
-\mu: \Acal \to [0, \infty]
-\]</span></p>
-<p>such that</p>
-<ol type="1">
-<li><span class="math inline">\(\mu(\emptyset)=0;\)</span></li>
-<li>If <span class="math inline">\(\{A_i\in \Acal: i\in \N\}\)</span> is a countable disjoint collection of sets in <span class="math inline">\(\Acal,\)</span> then</li>
-</ol>
-<p><span class="math display">\[
-\mu \left( \bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i)
-\]</span></p>
-<p>A measure <span class="math inline">\(\mu\)</span> on a set <span class="math inline">\(X\)</span> is</p>
-<ul>
-<li><em>finite</em> if <span class="math inline">\(\mu(X)&lt;\infty,\)</span> and</li>
-<li><em><span class="math inline">\(\sigma\)</span>-finite</em> if <span class="math inline">\(X=\bigcup_{n=1}^\infty A_n\)</span> is a countable union of measurable sets <span class="math inline">\(A_n\)</span> with finite measure, <span class="math inline">\(\mu(A_n)&lt;\infty.\)</span></li>
-</ul>
-<p>References:</p>
-<ul>
-<li>J. K. Hunter (2011). <em>Measure Theory</em>. Department of Mathematics, University of California at Davis. <a href="https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf" class="uri">https://www.math.ucdavis.edu/~hunter/measure_theory/measure_notes.pdf</a></li>
+<li>Chapter 12, “Serial Correlation and Heteroskedasticity in Time Series Regressions”, <em>Introductory Econometrics: A Modern Approach</em>, 7e by Jeffrey M. Wooldridge</li>
 </ul>
 
 
@@ -1163,13 +1143,13 @@ X\times Y = \{(x,y): x\in X, y\in Y\}.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./conditional_expectation.html" class="pagination-link" aria-label="Conditional Expectation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Conditional Expectation</span></span>
+      <a href="./PA03_Random-Effects.html" class="pagination-link" aria-label="Random Effects Model">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS01_AR1.html" class="pagination-link" aria-label="AR(1)">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">AR(1)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA07_Hetero_lm.html" class="pagination-link" aria-label="Linear Models with Heterogeneous Coefficients">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

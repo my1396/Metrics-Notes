@@ -27,7 +27,8 @@ book:
       chapters:
         - PA01_Panel_regression.qmd
         - PA02_Fixed-Effects.qmd
-        - PA03_dynamic_models.qmd
+        - PA03_Random-Effects.qmd
+        - PA04_dynamic_models.qmd
         - PA07_Hetero_lm.qmd
         
 
