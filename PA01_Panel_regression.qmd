@@ -3,6 +3,11 @@ title: "Panel Regressions"
 format: html
 ---
 
+```{r}
+#| child: "_chunk-opt.qmd"
+#| include: false
+```
+
 
 Example: Data from Grunfeld (1958).
 

@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./PA02_Hetero_lm.html" rel="next">
+<link href="./PA02_Fixed-Effects.html" rel="next">
 <link href="./TS04_TimeSeries_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         be: "\\boldsymbol{e}",
         bg: "\\boldsymbol{g}",
         bh: "\\boldsymbol{h}",
-        bi: "\\boldsymbol{\\imath}",
+        bi: "\\boldsymbol{i}",
         bm: "\\boldsymbol{m}",
         bp: "\\boldsymbol{p}",
         bq: "\\boldsymbol{q}",
@@ -630,8 +630,20 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA02_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+  <a href="./PA02_Fixed-Effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PA03_dynamic_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PA07_Hetero_lm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -676,6 +688,9 @@ window.Quarto = {
 </header>
 
 
+<!-- Chunk option settings -->
+<!-- Define chunk option `max.lines` -->
+<!-- controls max lines printed -->
 <p>Example: Data from Grunfeld (1958).</p>
 <ul>
 <li>20 annual observations (1935–1954).</li>
@@ -689,7 +704,7 @@ window.Quarto = {
 <li>Time identifier is called “time”.</li>
 </ul>
 <p>Data handling: Select subset of three firms for illustration and declare individuals (“firm”) and time identifier (“year”).</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Grunfeld"</span>, <span class="at">package =</span> <span class="st">"AER"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">subset</span>(Grunfeld, firm <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"General Electric"</span>, <span class="st">"General Motors"</span>, <span class="st">"IBM"</span>))</span>
@@ -701,7 +716,7 @@ window.Quarto = {
 <p><span class="math display">\[
 invest_{it} = \beta_0 + \beta_1\, value_{it} + \beta_2\, capital_{it} + e_{it}.
 \]</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gr_pool <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">model =</span> <span class="st">"pooling"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_pool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -749,8 +764,8 @@ invest_{it}
 \E[\alpha_{it}e_{it}] &amp;= 0 \\
 \end{aligned}
 \]</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gr_fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">effect=</span><span class="st">"individual"</span>, <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gr_fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">effect =</span> <span class="st">"individual"</span>, <span class="at">model =</span> <span class="st">"within"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Oneway (individual) effect Within Model
@@ -781,7 +796,7 @@ F-statistic: 185.407 on 2 and 55 DF, p-value: &lt; 2.22e-16</code></pre>
 </div>
 <p>Q: Are the fixed effects really needed?</p>
 <p>A: Compare fixed effects and pooled OLS fits via <code>pFtest()</code>.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pFtest</span>(gr_fe, gr_pool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -794,10 +809,10 @@ alternative hypothesis: significant effects</code></pre>
 </div>
 <p>This indicates substantial inter-firm variation.</p>
 <p>Two-way fixed effects <span class="math display">\[
-invest_{it} = \beta_1 value_{it} + \beta_2 capital_{it} + \alpha_i + \gamma_t + e_{it}.
+invest_{it} = \beta_1\, value_{it} + \beta_2\, capital_{it} + \alpha_i + \gamma_t + e_{it}.
 \]</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gr_fe2 <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">effect=</span><span class="st">"twoways"</span>, <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gr_fe2 <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">effect =</span> <span class="st">"twoways"</span>, <span class="at">model =</span> <span class="st">"within"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_fe2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Twoways effects Within Model
@@ -829,7 +844,7 @@ F-statistic: 107.246 on 2 and 36 DF, p-value: 6.8414e-16</code></pre>
 </section>
 <section id="random-effects" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="random-effects"><span class="header-section-number">14.3</span> Random Effects</h2>
-<p>Model set up same as fixed effects but with different assumptions.</p>
+<p>Model specification same as fixed effects but with <strong>different assumptions</strong>.</p>
 <p><span class="math display">\[
 \begin{aligned}
 invest_{it}
@@ -852,7 +867,7 @@ invest_{it}
 <p>In the panel data literature, approaches that do not restrict the dependence between the unobserved and the observed components are called “fixed effects.”</p>
 </blockquote>
 <p>Random effects models is estimated by generalized least squares (GLS) by specify <code>model = "random"</code> in <code>plm()</code> call.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using Wallace-Hussain for Grunfeld data.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>gr_re <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> pgr, <span class="at">model =</span> <span class="st">"random"</span>, <span class="at">random.method =</span> <span class="st">"walhus"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gr_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -895,7 +910,7 @@ Chisq: 383.089 on 2 DF, p-value: &lt; 2.22e-16</code></pre>
 <p>Comparison of regression coefficients shows that fixed- and random-effects methods yield rather similar results for these data.</p>
 <p>Q: Are the random effects really needed?</p>
 <p>A: Use Lagrange multiplier test. Several versions available in <code>plmtest()</code>.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plmtest</span>(gr_pool)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -912,7 +927,7 @@ alternative hypothesis: significant effects</code></pre>
 <p><span class="math display">\[
 H_0: \text{The individual effects are uncorrelated with other regressors.}
 \]</span></p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">phtest</span>(gr_re, gr_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -927,12 +942,12 @@ alternative hypothesis: one model is inconsistent</code></pre>
 </section>
 <section id="dynamic-linear-models" class="level2" data-number="14.4">
 <h2 data-number="14.4" class="anchored" data-anchor-id="dynamic-linear-models"><span class="header-section-number">14.4</span> Dynamic Linear Models</h2>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"EmplUK"</span>, <span class="at">package =</span> <span class="st">"plm"</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">log</span>(emp) <span class="sc">~</span> <span class="fu">log</span>(wage) <span class="sc">+</span> <span class="fu">log</span>(capital) <span class="sc">+</span> <span class="fu">log</span>(output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Arellano-Bond estimator is provided by <code>pgmm()</code>. Dynamic formula derived from static formula via list of lags.</p>
-<div class="cell">
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arellano and Bond (1991), table 4, col. b </span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>empl_ab <span class="ot">&lt;-</span> <span class="fu">pgmm</span>(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dynformula</span>(form, <span class="fu">list</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)),</span>
@@ -940,11 +955,6 @@ alternative hypothesis: one model is inconsistent</code></pre>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect =</span> <span class="st">"twoways"</span>, <span class="at">model =</span> <span class="st">"twosteps"</span>,</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">gmm.inst =</span> <span class="sc">~</span> <span class="fu">log</span>(emp), <span class="at">lag.gmm =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">99</span>)) </span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: use of 'dynformula()' is deprecated, use a multi-part formula instead
-
-Warning: use of 'dynformula()' is deprecated, use a multi-part formula instead</code></pre>
-</div>
 </div>
 <p>Dynamic model with</p>
 <ul>
@@ -954,8 +964,8 @@ Warning: use of 'dynformula()' is deprecated, use a multi-part formula instead</
 <li>time- and firm-specific effects,</li>
 <li>instruments are lagged terms of the dependent variable (all lags beyond lag 1 are to be used).</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(empl_ab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(empl_ab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Twoways effects Two-steps model Difference GMM 
 
@@ -1429,8 +1439,8 @@ Wald test for time dummies: chisq(6) = 16.97046 (p-value = 0.0093924)</code></pr
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./PA02_Hetero_lm.html" class="pagination-link" aria-label="Linear Models with Heterogeneous Coefficients">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA02_Fixed-Effects.html" class="pagination-link" aria-label="Fixed Effects Model">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -4,7 +4,7 @@
 #| label: chunk-opt
 #| include: false
 # set default chunk options
-opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", fig.pos = "H")
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", fig.pos = "H")
 opts <- options(knitr.kable.NA = "")
 ```
 

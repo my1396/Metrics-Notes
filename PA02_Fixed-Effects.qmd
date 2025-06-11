@@ -1,0 +1,139 @@
+---
+title: "Fixed Effects Model"
+format: html
+---
+
+```{r}
+#| child: "_chunk-opt.qmd"
+#| include: false
+```
+
+Consider the following fixed effects model
+
+$$
+y_{it} = \alpha_i + \bbeta'\bx_{it} + u_{it}.
+$$  {#eq-within-lecture-random-intercept}
+
+where we assume strict exogeneity
+
+$$
+\E[\bu_i|\bX_i]=0.
+$$
+
+Throughout, we will assume that the number $N$ of cross-sectional units is potentially large, while the number $T$ of data points per unit is fixed. This setup is more reflective of typical micropanels. 
+
+## Within Estimator
+
+Within ("fixed effects") estimation of the random intercept model has two steps:
+
+1. Apply the within transformation to each unit.
+2. Apply OLS to the resulting pooled data.
+
+### Step 1: Within Transformation
+
+To perform the within transformation, we first average the equations for unit $i$ across $t$. Label the average of $y_{it}$ across $t$ for unit $i$ as  
+
+$$
+y_{i\cdot} = \frac{1}{T} \sum_{t=1}^{T} y_{it}.
+$$
+
+The averaged outcome $y_{i\cdot}$ satisfies the averaged equation
+
+$$
+y_{i\cdot} = \alpha_i + \bbeta' \bx_{i\cdot} + u_{i\cdot},
+$$
+where $\bx_{i\cdot}$ and $u_{i\cdot}$ are defined analogously to $y_{i\cdot}$.
+
+Define the within-transformed variables by subtracting this averaged equation from the original equation for each $t$:
+$$
+\tilde{y}_{it} = y_{it} - y_{i\cdot}.
+$$
+where $\tilde{y}_{it}$ is the deviations from the group means.
+
+If  @eq-within-lecture-random-intercept is true, the within transformed variables follow the within-transformed equation:
+
+$$
+\tilde{y}_{it} = \bbeta' \tilde{\bx}_{it} + \tilde{u}_{it}.
+$${#eq-within_transformed}
+
+Under @eq-within-lecture-random-intercept, the within transformation eliminates the individual random intercepts $\alpha_i$.  @eq-within_transformed now looks like a regular homogeneous regression. 
+
+### Step 2: OLS on the Within-Transformed Equation
+
+The within (fixed effects) estimator is obtained by simply pooling the data across $i$ and $t$ in @eq-within_transformed and applying OLS to it. Specifically, the estimator is given by
+
+$$
+\hat{\bbeta}^W = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i \tilde{\mathbf{y}}_i.
+$${#eq-within_representation_random_intercept}
+
+
+### Properties
+
+The within estimator enjoys several desirable properties if the random intercept model reflects the underlying causal model. Most of these properties can be derived from its sampling error representation
+$$
+\hat{\bbeta}^W = \bbeta + \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i \tilde{\bu}_i.
+$${#eq-within-sampling-error-homogeneous}
+
+- $\hat{\bbeta}^W$ is unbiased for $\bbeta$. To show this, it is sufficient to notice that strict exogeneity of $\bu_i$ with respect to $\bX_i$ implies strict exogeneity of $\tilde{\bu}_i$ with respect to $\tilde{\bX}_i$:
+$$
+\E[\tilde{\bu}_i|\tilde{\bX}_i] = 
+\E[\E[\tilde{\bu}_i|\bX_i]|\tilde{\bX}_i] = 0.
+$$
+It follows that the mean of the second term in @eq-within-sampling-error-homogeneous is 0, and so
+ $$
+\E[\hat{\bbeta}^W] = \bbeta.
+ $$
+
+- $\hat{\bbeta}^W$ is consistent for $\bbeta$ and asymptotically normal, provided a standard rank condition holds for $\tilde{\bX}_i$:
+$$
+\hat{\bbeta}^W \xrightarrow{p} \bbeta, \quad \sqrt{N}(\hat{\bbeta}^W - \bbeta) \Rightarrow N(0, \Sigma).  
+$${#eq-within_asymptotic}
+
+
+Since $\bbeta$ is the average coefficient vector in this homogeneous model, we conclude that the within estimator consistently estimates average coefficients under the random intercept model ([-@eq-within-lecture-random-intercept]).
+
+## Between-groups Estimator
+
+The Between-groups estimator is obtained by regressing the averaged variables on each other using OLS regression. It can be suitable for research questions that specifically address variation between different entities rather than changes within entities over time. One caveat is that the Between-groups estimator overlooks important information about how variables change over time.
+
+To obtain unbiased estimates, it is crucial to ensure the assumption of zero correlation between the error term and averaged independent variables.
+
+```{r}
+library(plm)
+library(AER) 
+data(Grunfeld) 
+
+# Estimate Between model
+model_between <- plm(invest ~ value + capital, 
+                      data = Grunfeld,
+                      index = c("firm", "year"),
+                      model = "between")
+# Estimate Within model
+model_within <- plm(invest ~ value + capital, 
+                      data = Grunfeld,
+                      index = c("firm", "year"),
+                      model = "within")
+```
+
+```{r results='asis'}
+library(stargazer)
+stargazer(model_between, model_within, 
+          column.labels = c("Between", "Within"),
+          type="html", digits=2, 
+          notes = "<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in parentheses.",
+          notes.append = F)
+```
+
+
+
+
+## References {.unlisted .unnumbered}
+
+- Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-within-estimator.html#recall-within-estimator-in-the-random-intercept-model>
+- Vladislav Morozov, GitHub course repository, <https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/main/src/linear/linear-within-estimator.qmd>
+
+
+
+
+
+

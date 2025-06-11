@@ -1,0 +1,98 @@
+---
+title: "Dynamic Models"
+format: html
+---
+
+## Exogeneity and Dynamic Models
+
+### Introduction
+
+Throughout the previous section, we assumed that the idiosyncratic term $u_{it}$ satisfied strict exogeneity with respect to the data:
+$$
+	\E[u_{it}|\bX_i] = 0.
+$${#eq-dynamic-interlude-strict-orthogonality}
+
+However, strict exogeneity is not an innocent assumption. In particular, it implies that for all pairs of indices $s, t$ it holds that 
+$$
+	\E[u_{it}\bx_{is}] =0.
+$$ {#eq-dynamic-interlude-strict-orthogonality}
+
+For $t<s$, @eq-dynamic-interlude-strict-orthogonality means that *past* shocks are uncorrelated with *future* values of $\bx$.  In other words, one cannot predict *past* shocks from *future* $\bx$s. 
+
+This requirement might fail if $\bx$ is dynamic and its evolution is affected by $u_{it}$. In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data. 
+
+
+### No Strict Exogeneity In the Presence of Lagged Dependent Variables
+
+Consider the AR(1) model,
+$$
+y_t = \beta_0 + \beta_1 y_{t-1} + u_t, 
+$$ {#eq-AR1}
+where the error $u_t$ has a zero expected value, given all past values of $y$:
+$$
+\mathbb{E}(u_t \mid y_{t-1}, y_{t-2}, \ldots) = 0. 
+$$ {#eq-zero_mean}
+
+Combined, these two equations imply that
+$$
+\mathbb{E}(y_t \mid y_{t-1}, y_{t-2}, \ldots) = \mathbb{E}(y_t \mid y_{t-1}) = \beta_0 + \beta_1 y_{t-1}. 
+$$
+
+This result is very important. First, it means that, once $y$ lagged one period has been controlled for, no further lags of $y$ affect the expected value of $y_t$. (This is where the name “first order” originates.) Second, the relationship is assumed to be linear.
+
+Because $x_t$ contains only $y_{t-1}$, @eq-zero_mean implies that the **contemporaneous exogeneity** Assumption holds. By contrast, the strict exogeneity assumption needed for unbiasedness, which does not hold. 
+
+In fact, because $u_t$ is uncorrelated with $y_{t-1}$ under @eq-zero_mean, $u_t$ and $y_t$ must be correlated.  
+
+$$
+\begin{aligned}
+\text{Cov}(y_t, u_t) &= \text{Cov}(\beta_0 + \beta_1 y_{t-1} + u_t, u_t) \\
+&= \text{Var}(u_t) > 0.
+\end{aligned}
+$$ 
+
+Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.
+
+For the weak dependence condition to hold, we must assume that $|\beta_1| < 1$. If this condition holds, then the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces **consistent** estimators of $\beta_0$ and $\beta_1$. 
+
+Unfortunately, $\hat{\beta}_1$ is **biased**, and this bias can be large if the sample size is small or if $\beta_1$ is near 1. (For $\beta_1$ near 1, $\hat{\beta}_1$ can have a severe downward bias.) In moderate to large samples, $\hat{\beta}_1$ should be a good estimator of $\beta_1$.
+
+@eq-zero_mean is called the **sequential exogeneity** assumption.
+
+
+## Dynamic Panel Representation
+
+More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process for the outcome:
+$$
+y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
+$$ {#eq-dynamic-interlude-dynamic-panel}
+In this model, a sequential exogeneity assumption takes form
+$$
+	 \E[u_{it}\mid \curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0. 
+$$
+
+For the sake of simplicity, we will discuss a simple version of model ([-@eq-dynamic-interlude-dynamic-panel]) without extra covariates $\bx_{it}$ and with only one lag of $y_{it}$:
+$$
+y_{it} = \alpha_i + \lambda y_{it-1} + u_{it}, 
+$$ {#eq-dynamic-interlude-dynamic-simple}
+where $u_{it}$ satisfies sequential exogeneity in the form $\E[u_{it}|y_{is}, s<t] = 0$. 
+
+
+let us difference @eq-dynamic-interlude-dynamic-simple across $t$ to eliminate the random intercept $\alpha_i$. The differenced equation takes form
+$$
+\Delta y_{it} & = \lambda \Delta y_{it-1} + \Delta u_{it},
+$$ {#eq-dynamic-interlude-homogeneous-differenced}
+where $\Delta y_{it} & = y_{it} - y_{it-1}.$
+@eq-dynamic-interlude-homogeneous-differenced seems like a simple regression equation. It is tempting to just apply OLS and regress $\Delta y_{it}$ on $\Delta y_{it-1}$.
+
+### IV Estimator of Dynamic Panel Models
+
+
+## References {.unlisted .unnumbered}
+
+- Chapter 12, "Serial Correlation and Heteroskedasticity in Time Series Regressions", *Introductory Econometrics: A Modern Approach*, 7e by Jeffrey M. Wooldridge
+
+
+
+
+

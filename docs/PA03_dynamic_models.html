@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Norah Jones">
-<meta name="dcterms.date" content="2025-05-14">
 
-<title>Metrics Notes</title>
+<title>16&nbsp; Dynamic Models – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -67,7 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./probability_theory.html" rel="next">
+<link href="./PA07_Hetero_lm.html" rel="next">
+<link href="./PA02_Fixed-Effects.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -281,6 +245,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -462,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_dynamic_models.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynamic Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -492,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -608,7 +601,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA03_dynamic_models.html" class="sidebar-item-text sidebar-link">
+  <a href="./PA03_dynamic_models.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
   </div>
 </li>
@@ -630,7 +623,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#exogeneity-and-dynamic-models" id="toc-exogeneity-and-dynamic-models" class="nav-link active" data-scroll-target="#exogeneity-and-dynamic-models"><span class="header-section-number">16.1</span> Exogeneity and Dynamic Models</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">16.1.1</span> Introduction</a></li>
+  <li><a href="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" id="toc-no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="nav-link" data-scroll-target="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">16.1.2</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</a></li>
+  </ul></li>
+  <li><a href="#dynamic-panel-representation" id="toc-dynamic-panel-representation" class="nav-link" data-scroll-target="#dynamic-panel-representation"><span class="header-section-number">16.2</span> Dynamic Panel Representation</a></li>
   </ul>
 </nav>
     </div>
@@ -638,28 +636,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_dynamic_models.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynamic Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Metrics Notes</h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Dynamic Models</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Norah Jones </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 14, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -669,16 +655,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This is a Quarto book.</p>
-<p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
+<section id="exogeneity-and-dynamic-models" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="exogeneity-and-dynamic-models"><span class="header-section-number">16.1</span> Exogeneity and Dynamic Models</h2>
+<section id="introduction" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">16.1.1</span> Introduction</h3>
+<p>Throughout the previous section, we assumed that the idiosyncratic term <span class="math inline">\(u_{it}\)</span> satisfied strict exogeneity with respect to the data: <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
+    \E[u_{it}|\bX_i] = 0.
+\tag{16.1}\]</span></span></p>
+<p>However, strict exogeneity is not an innocent assumption. In particular, it implies that for all pairs of indices <span class="math inline">\(s, t\)</span> it holds that <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
+    \E[u_{it}\bx_{is}] =0.
+\tag{16.2}\]</span></span></p>
+<p>For <span class="math inline">\(t&lt;s\)</span>, <a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> means that <em>past</em> shocks are uncorrelated with <em>future</em> values of <span class="math inline">\(\bx\)</span>. In other words, one cannot predict <em>past</em> shocks from <em>future</em> <span class="math inline">\(\bx\)</span>s.</p>
+<p>This requirement might fail if <span class="math inline">\(\bx\)</span> is dynamic and its evolution is affected by <span class="math inline">\(u_{it}\)</span>. In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data.</p>
+</section>
+<section id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="level3" data-number="16.1.2">
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">16.1.2</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</h3>
+<p>Consider the AR(1) model, <span id="eq-AR1"><span class="math display">\[
+y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
+\tag{16.3}\]</span></span> where the error <span class="math inline">\(u_t\)</span> has a zero expected value, given all past values of <span class="math inline">\(y\)</span>: <span id="eq-zero_mean"><span class="math display">\[
+\mathbb{E}(u_t \mid y_{t-1}, y_{t-2}, \ldots) = 0.
+\tag{16.4}\]</span></span></p>
+<p>Combined, these two equations imply that <span class="math display">\[
+\mathbb{E}(y_t \mid y_{t-1}, y_{t-2}, \ldots) = \mathbb{E}(y_t \mid y_{t-1}) = \beta_0 + \beta_1 y_{t-1}.
+\]</span></p>
+<p>This result is very important. First, it means that, once <span class="math inline">\(y\)</span> lagged one period has been controlled for, no further lags of <span class="math inline">\(y\)</span> affect the expected value of <span class="math inline">\(y_t\)</span>. (This is where the name “first order” originates.) Second, the relationship is assumed to be linear.</p>
+<p>Because <span class="math inline">\(x_t\)</span> contains only <span class="math inline">\(y_{t-1}\)</span>, <a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>16.4</span></a> implies that the <strong>contemporaneous exogeneity</strong> Assumption holds. By contrast, the strict exogeneity assumption needed for unbiasedness, which does not hold.</p>
+<p>In fact, because <span class="math inline">\(u_t\)</span> is uncorrelated with <span class="math inline">\(y_{t-1}\)</span> under <a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>16.4</span></a>, <span class="math inline">\(u_t\)</span> and <span class="math inline">\(y_t\)</span> must be correlated.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Cov}(y_t, u_t) &amp;= \text{Cov}(\beta_0 + \beta_1 y_{t-1} + u_t, u_t) \\
+&amp;= \text{Var}(u_t) &gt; 0.
+\end{aligned}
+\]</span></p>
+<p>Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.</p>
+<p>For the weak dependence condition to hold, we must assume that <span class="math inline">\(|\beta_1| &lt; 1\)</span>. If this condition holds, then the OLS estimator from the regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(y_{t-1}\)</span> produces <strong>consistent</strong> estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<p>Unfortunately, <span class="math inline">\(\hat{\beta}_1\)</span> is <strong>biased</strong>, and this bias can be large if the sample size is small or if <span class="math inline">\(\beta_1\)</span> is near 1. (For <span class="math inline">\(\beta_1\)</span> near 1, <span class="math inline">\(\hat{\beta}_1\)</span> can have a severe downward bias.) In moderate to large samples, <span class="math inline">\(\hat{\beta}_1\)</span> should be a good estimator of <span class="math inline">\(\beta_1\)</span>.</p>
+<p><a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>16.4</span></a> is called the <strong>sequential exogeneity</strong> assumption.</p>
+</section>
+</section>
+<section id="dynamic-panel-representation" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="dynamic-panel-representation"><span class="header-section-number">16.2</span> Dynamic Panel Representation</h2>
+<p>More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process for the outcome: <span id="eq-dynamic-interlude-dynamic-panel"><span class="math display">\[
+y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
+\tag{16.5}\]</span></span> In this model, a sequential exogeneity assumption takes form <span class="math display">\[
+     \E[u_{it}|\curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0.
+\]</span></p>
+</section>
+<section id="references" class="level2 unlisted unnumbered">
+<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Chapter 12, “Serial Correlation and Heteroskedasticity in Time Series Regressions”, <em>Introductory Econometrics: A Modern Approach</em>, 7e by Jeffrey M. Wooldridge</li>
+</ul>
 
 
 </section>
@@ -1098,10 +1125,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./PA02_Fixed-Effects.html" class="pagination-link" aria-label="Fixed Effects Model">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./probability_theory.html" class="pagination-link" aria-label="Probability Refresher">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Probability Refresher</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA07_Hetero_lm.html" class="pagination-link" aria-label="Linear Models with Heterogeneous Coefficients">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

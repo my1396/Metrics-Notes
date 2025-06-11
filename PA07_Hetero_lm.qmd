@@ -50,5 +50,5 @@ Such models are worth studying, as they naturally arise in a variety of contexts
 ## References {.unlisted .unnumbered}
 
 - Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html>
-- Vladislav Morozov, GitHub course repository, <https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/fix/linear/src/linear/linear-introduction.qmd>
+- Vladislav Morozov, GitHub course repository, <https://github.com/vladislav-morozov/econometrics-heterogeneity/tree/main/src/linear>
 
