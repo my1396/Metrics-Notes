@@ -55,7 +55,7 @@ Therefore, a model with a lagged dependent variable cannot satisfy the strict ex
 
 For the weak dependence condition to hold, we must assume that $|\beta_1| < 1$. If this condition holds, then the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces **consistent** estimators of $\beta_0$ and $\beta_1$. 
 
-Unfortunately, $\hat{\beta}_1$ is **biased**, and this *bias can be large if the sample size is small* or if $\beta_1$ is *near* 1. (For $\beta_1$ near 1, $\hat{\beta}_1$ can have a severe downward bias.) In moderate to large samples, $\hat{\beta}_1$ should be a good estimator of $\beta_1$.
+Unfortunately, $\hat{\beta}_1^{OLS}$ is **biased**, and this *bias can be large if the sample size is small* or if $\beta_1$ is *near* 1. (For $\beta_1$ near 1, $\hat{\beta}_1^{OLS}$ can have a severe downward bias.) In moderate to large samples, $\hat{\beta}_1^{OLS}$ should be a good estimator of $\beta_1$.
 
 @eq-zero_mean is called the **sequential exogeneity** assumption.
 
@@ -79,13 +79,64 @@ where $u_{it}$ satisfies sequential exogeneity in the form $\E[u_{it}|y_{is}, s<
 
 
 Let us difference @eq-dynamic-interlude-dynamic-simple across $t$ to eliminate the random intercept $\alpha_i$. The differenced equation takes form
+
 $$
 \Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it},
 $$ {#eq-dynamic-interlude-homogeneous-differenced}
+
 where $\Delta y_{it} = y_{it} - y_{it-1}.$
-@eq-dynamic-interlude-homogeneous-differenced seems like a simple regression equation. It is tempting to just apply OLS and regress $\Delta y_{it}$ on $\Delta y_{it-1}$.
+@eq-dynamic-interlude-homogeneous-differenced seems like a simple regression equation. It is tempting to just apply OLS and regress $\Delta y_{it}$ on $\Delta y_{it-1}$. But it turns out that @eq-dynamic-interlude-homogeneous-differenced has an endogeneity problem. To prove this, we can show that $\E[\Delta y_{it-1} \Delta u_{it}] \ne 0.$
+
+Plug in $\Delta y_{it-1} = y_{it-1}-y_{it-2}$ and $\Delta u_{it} = u_{it}-u_{it-1}.$
+
+$$
+\begin{aligned}
+\E[\Delta y_{it-1} \Delta u_{it}] 
+&= \E[(y_{it-1}-y_{it-2})(u_{it}-u_{it-1})] \\
+&= \underbrace{\E[y_{it-1}u_{it}]}_{0} - \underbrace{\E[y_{it-2}u_{it}]}_0 - \E[y_{it-1}u_{it-1}] + \underbrace{\E[y_{it-2}u_{it-1}]}_0 \\
+&= -\E[y_{it-1}u_{it-1}] \\
+&= -\E[(\alpha_i + \lambda y_{it-2} + u_{it-1}) u_{it-1}] \\
+&= -\E[u_{it-1}^2] \\
+&= -\sigma_u^2 \ne 0
+\end{aligned}
+$$
+
+Hence we conclude that 
+
+$$
+\E[\Delta y_{it-1} \Delta u_{it}] \ne 0,
+$$
+and that $\Delta y_{it-1}$ is an endogeneous regressor in the differenced @eq-dynamic-interlude-homogeneous-differenced.
 
 ### IV Estimator of Dynamic Panel Models
+
+Given the endogeneity issue in first-differencing, instrumental variable methods offer a potential solution. We only need to find suitable instruments -- variables $z_{it}$ which satisfy relevance and exogeneity conditions:
+$$
+\begin{aligned}
+	\E[z_{it}\Delta y_{it-1}] \neq 0,\\
+	\E[z_{it}\Delta u_{it}] = 0.
+\end{aligned}
+$$
+
+
+In most contexts, one has to look for external variables that can serve as instruments.
+
+However, model  ([-@eq-dynamic-interlude-homogeneous-differenced]) is a very special case where one can use instruments internal to the model! 
+
+#### The Anderson-Hsiao Estimator
+
+In particular, consider using $y_{it-2}$ as an instrument. 
+
+- Relevance seems to be relatively straightforward, as the target endogenous variable $\Delta y_{it-1}= y_{it-1}-y_{it-2}$ actually has the instrument inside.
+- Exogeneity can be justified by appealing to sequential exogeneity: $$	\E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0. $$
+
+Hence $y_{it-2}$ is a valid instrument! 
+
+The resulting IV estimator is known as the @Anderson1982 estimator and given by
+$$
+\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it} }.
+$$
+
 
 
 ## References {.unlisted .unnumbered}

@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -698,7 +718,7 @@ y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
 \]</span></p>
 <p>Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.</p>
 <p>For the weak dependence condition to hold, we must assume that <span class="math inline">\(|\beta_1| &lt; 1\)</span>. If this condition holds, then the OLS estimator from the regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(y_{t-1}\)</span> produces <strong>consistent</strong> estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
-<p>Unfortunately, <span class="math inline">\(\hat{\beta}_1\)</span> is <strong>biased</strong>, and this <em>bias can be large if the sample size is small</em> or if <span class="math inline">\(\beta_1\)</span> is <em>near</em> 1. (For <span class="math inline">\(\beta_1\)</span> near 1, <span class="math inline">\(\hat{\beta}_1\)</span> can have a severe downward bias.) In moderate to large samples, <span class="math inline">\(\hat{\beta}_1\)</span> should be a good estimator of <span class="math inline">\(\beta_1\)</span>.</p>
+<p>Unfortunately, <span class="math inline">\(\hat{\beta}_1^{OLS}\)</span> is <strong>biased</strong>, and this <em>bias can be large if the sample size is small</em> or if <span class="math inline">\(\beta_1\)</span> is <em>near</em> 1. (For <span class="math inline">\(\beta_1\)</span> near 1, <span class="math inline">\(\hat{\beta}_1^{OLS}\)</span> can have a severe downward bias.) In moderate to large samples, <span class="math inline">\(\hat{\beta}_1^{OLS}\)</span> should be a good estimator of <span class="math inline">\(\beta_1\)</span>.</p>
 <p><a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>17.4</span></a> is called the <strong>sequential exogeneity</strong> assumption.</p>
 </section>
 </section>
@@ -712,11 +732,49 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 <p>For the sake of simplicity, we will discuss a simple version of model (<a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref"><span>17.5</span></a>) without extra covariates <span class="math inline">\(\bx_{it}\)</span> and with only one lag of <span class="math inline">\(y_{it}\)</span>: <span id="eq-dynamic-interlude-dynamic-simple"><span class="math display">\[
 y_{it} = \alpha_i + \lambda y_{it-1} + u_{it},
 \tag{17.6}\]</span></span> where <span class="math inline">\(u_{it}\)</span> satisfies sequential exogeneity in the form <span class="math inline">\(\E[u_{it}|y_{is}, s&lt;t] = 0\)</span>.</p>
-<p>Let us difference <a href="#eq-dynamic-interlude-dynamic-simple" class="quarto-xref">Equation&nbsp;<span>17.6</span></a> across <span class="math inline">\(t\)</span> to eliminate the random intercept <span class="math inline">\(\alpha_i\)</span>. The differenced equation takes form <span id="eq-dynamic-interlude-homogeneous-differenced"><span class="math display">\[
+<p>Let us difference <a href="#eq-dynamic-interlude-dynamic-simple" class="quarto-xref">Equation&nbsp;<span>17.6</span></a> across <span class="math inline">\(t\)</span> to eliminate the random intercept <span class="math inline">\(\alpha_i\)</span>. The differenced equation takes form</p>
+<p><span id="eq-dynamic-interlude-homogeneous-differenced"><span class="math display">\[
 \Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it},
-\tag{17.7}\]</span></span> where <span class="math inline">\(\Delta y_{it} = y_{it} - y_{it-1}.\)</span> <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> seems like a simple regression equation. It is tempting to just apply OLS and regress <span class="math inline">\(\Delta y_{it}\)</span> on <span class="math inline">\(\Delta y_{it-1}\)</span>.</p>
+\tag{17.7}\]</span></span></p>
+<p>where <span class="math inline">\(\Delta y_{it} = y_{it} - y_{it-1}.\)</span> <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> seems like a simple regression equation. It is tempting to just apply OLS and regress <span class="math inline">\(\Delta y_{it}\)</span> on <span class="math inline">\(\Delta y_{it-1}\)</span>. But it turns out that <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> has an endogeneity problem. To prove this, we can show that <span class="math inline">\(\E[\Delta y_{it-1} \Delta u_{it}] \ne 0.\)</span></p>
+<p>Plug in <span class="math inline">\(\Delta y_{it-1} = y_{it-1}-y_{it-2}\)</span> and <span class="math inline">\(\Delta u_{it} = u_{it}-u_{it-1}.\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\E[\Delta y_{it-1} \Delta u_{it}]
+&amp;= \E[(y_{it-1}-y_{it-2})(u_{it}-u_{it-1})] \\
+&amp;= \underbrace{\E[y_{it-1}u_{it}]}_{0} - \underbrace{\E[y_{it-2}u_{it}]}_0 - \E[y_{it-1}u_{it-1}] + \underbrace{\E[y_{it-2}u_{it-1}]}_0 \\
+&amp;= -\E[y_{it-1}u_{it-1}] \\
+&amp;= -\E[(\alpha_i + \lambda y_{it-2} + u_{it-1}) u_{it-1}] \\
+&amp;= -\E[u_{it-1}^2] \\
+&amp;= -\sigma_u^2 \ne 0
+\end{aligned}
+\]</span></p>
+<p>Hence we conclude that</p>
+<p><span class="math display">\[
+\E[\Delta y_{it-1} \Delta u_{it}] \ne 0,
+\]</span> and that <span class="math inline">\(\Delta y_{it-1}\)</span> is an endogeneous regressor in the differenced <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a>.</p>
 <section id="iv-estimator-of-dynamic-panel-models" class="level3" data-number="17.2.1">
 <h3 data-number="17.2.1" class="anchored" data-anchor-id="iv-estimator-of-dynamic-panel-models"><span class="header-section-number">17.2.1</span> IV Estimator of Dynamic Panel Models</h3>
+<p>Given the endogeneity issue in first-differencing, instrumental variable methods offer a potential solution. We only need to find suitable instruments – variables <span class="math inline">\(z_{it}\)</span> which satisfy relevance and exogeneity conditions: <span class="math display">\[
+\begin{aligned}
+    \E[z_{it}\Delta y_{it-1}] \neq 0,\\
+    \E[z_{it}\Delta u_{it}] = 0.
+\end{aligned}
+\]</span></p>
+<p>In most contexts, one has to look for external variables that can serve as instruments.</p>
+<p>However, model (<a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref"><span>17.7</span></a>) is a very special case where one can use instruments internal to the model!</p>
+<section id="the-anderson-hsiao-estimator" class="level4" data-number="17.2.1.1">
+<h4 data-number="17.2.1.1" class="anchored" data-anchor-id="the-anderson-hsiao-estimator"><span class="header-section-number">17.2.1.1</span> The Anderson-Hsiao Estimator</h4>
+<p>In particular, consider using <span class="math inline">\(y_{it-2}\)</span> as an instrument.</p>
+<ul>
+<li>Relevance seems to be relatively straightforward, as the target endogenous variable <span class="math inline">\(\Delta y_{it-1}= y_{it-1}-y_{it-2}\)</span> actually has the instrument inside.</li>
+<li>Exogeneity can be justified by appealing to sequential exogeneity: <span class="math display">\[ \E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0. \]</span></li>
+</ul>
+<p>Hence <span class="math inline">\(y_{it-2}\)</span> is a valid instrument!</p>
+<p>The resulting IV estimator is known as the <span class="citation" data-cites="Anderson1982">Anderson and Hsiao (<a href="#ref-Anderson1982" role="doc-biblioref">1982</a>)</span> estimator and given by <span class="math display">\[
+\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it} }.
+\]</span></p>
+</section>
 </section>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
@@ -726,6 +784,11 @@ y_{it} = \alpha_i + \lambda y_{it-1} + u_{it},
 </ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Anderson1982" class="csl-entry" role="listitem">
+Anderson, T. W., and Cheng Hsiao. 1982. <span>“<span class="nocase">Formulation and estimation of dynamic models using panel data</span>.”</span> <em>Journal of Econometrics</em> 18 (1): 47–82. <a href="https://doi.org/10.1016/0304-4076(82)90095-1">https://doi.org/10.1016/0304-4076(82)90095-1</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
