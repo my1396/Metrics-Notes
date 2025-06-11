@@ -125,16 +125,29 @@ However, model  ([-@eq-dynamic-interlude-homogeneous-differenced]) is a very spe
 
 #### The Anderson-Hsiao Estimator
 
-In particular, consider using $y_{it-2}$ as an instrument. 
+In particular, consider using twice lagged level of dependent variable $y_{it-2}$ as an instrument for $\Delta y_{it-1}.$ 
 
-- Relevance seems to be relatively straightforward, as the target endogenous variable $\Delta y_{it-1}= y_{it-1}-y_{it-2}$ actually has the instrument inside.
-- Exogeneity can be justified by appealing to sequential exogeneity: $$	\E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0. $$
+- **Relevance** seems to be relatively straightforward, as the target endogenous variable $\Delta y_{it-1} = y_{it-1}-y_{it-2}$ actually has the instrument inside.
+
+    $$
+    \E[y_{it-2}\Delta y_{it-1}] = \E[y_{it-2}(y_{it-1}-y_{it-2})] \ne 0.
+    $$
+    
+    $y_{it-2}$ is correlated with the endogenous variable $\Delta y_{it-1}.$
+
+- **Exogeneity** can be justified by appealing to sequential exogeneity: 
+
+    $$	
+    \E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0. 
+    $$
+    $y_{it-2}$ is not correlated with the error term $\Delta u_{it}.$
+
 
 Hence $y_{it-2}$ is a valid instrument! 
 
 The resulting IV estimator is known as the @Anderson1982 estimator and given by
 $$
-\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it} }.
+\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it-1} }.
 $$
 
 

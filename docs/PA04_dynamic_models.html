@@ -765,14 +765,21 @@ y_{it} = \alpha_i + \lambda y_{it-1} + u_{it},
 <p>However, model (<a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref"><span>17.7</span></a>) is a very special case where one can use instruments internal to the model!</p>
 <section id="the-anderson-hsiao-estimator" class="level4" data-number="17.2.1.1">
 <h4 data-number="17.2.1.1" class="anchored" data-anchor-id="the-anderson-hsiao-estimator"><span class="header-section-number">17.2.1.1</span> The Anderson-Hsiao Estimator</h4>
-<p>In particular, consider using <span class="math inline">\(y_{it-2}\)</span> as an instrument.</p>
+<p>In particular, consider using twice lagged level of dependent variable <span class="math inline">\(y_{it-2}\)</span> as an instrument for <span class="math inline">\(\Delta y_{it-1}.\)</span></p>
 <ul>
-<li>Relevance seems to be relatively straightforward, as the target endogenous variable <span class="math inline">\(\Delta y_{it-1}= y_{it-1}-y_{it-2}\)</span> actually has the instrument inside.</li>
-<li>Exogeneity can be justified by appealing to sequential exogeneity: <span class="math display">\[ \E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0. \]</span></li>
+<li><p><strong>Relevance</strong> seems to be relatively straightforward, as the target endogenous variable <span class="math inline">\(\Delta y_{it-1} = y_{it-1}-y_{it-2}\)</span> actually has the instrument inside.</p>
+<p><span class="math display">\[
+  \E[y_{it-2}\Delta y_{it-1}] = \E[y_{it-2}(y_{it-1}-y_{it-2})] \ne 0.
+  \]</span></p>
+<p><span class="math inline">\(y_{it-2}\)</span> is correlated with the endogenous variable <span class="math inline">\(\Delta y_{it-1}.\)</span></p></li>
+<li><p><strong>Exogeneity</strong> can be justified by appealing to sequential exogeneity:</p>
+<p><span class="math display">\[  
+  \E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0.
+  \]</span> <span class="math inline">\(y_{it-2}\)</span> is not correlated with the error term <span class="math inline">\(\Delta u_{it}.\)</span></p></li>
 </ul>
 <p>Hence <span class="math inline">\(y_{it-2}\)</span> is a valid instrument!</p>
 <p>The resulting IV estimator is known as the <span class="citation" data-cites="Anderson1982">Anderson and Hsiao (<a href="#ref-Anderson1982" role="doc-biblioref">1982</a>)</span> estimator and given by <span class="math display">\[
-\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it} }.
+\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it-1} }.
 \]</span></p>
 </section>
 </section>
