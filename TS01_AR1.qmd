@@ -191,7 +191,7 @@ include_graphics(f_name)
 We have seen the cases when $\rho$ is positive, now let's consider when $\rho$ is **negative**.
 @fig-AR1-neg(a) shows an AR(1) process with $\rho=-0.5$, and @fig-AR1-neg(a) shows an AR(1) process with $\rho=-0.95\,.$
 
-We see that <span style='color:#337ab7'>the sample path is very choppy when $\rho$ is negative</span>. The different patterns for positive and negative $\rho$'s are due to their <span style='color:#008B45FF'>*autocorrelation functions*</span> (ACFs).
+We see that <span style='color:#337ab7'>the sample path is very choppy when $\rho$ is negative</span>. The different patterns for positive and negative $\rho$'s are due to their <span style='color:#337ab7'>*autocorrelation functions*</span> (ACFs).
 
 ```{r echo=FALSE}
 # rho=-0.5
@@ -292,7 +292,7 @@ ___
 
 ### Autocovariance
 
-The <span style='color:#008B45FF'>autocovariance function</span> of the AR(1) process is
+The <span style='color:#337ab7'>autocovariance function</span> of the AR(1) process is
 $$
 \begin{aligned}
 \gamma (h) &= \text{Cov}(\varepsilon_{t+h}, \varepsilon_t) \\
@@ -300,14 +300,14 @@ $$
 &= E\left[\left(\sum_{j=0}^\infty \rho^j \,w_{t+h-j}\right)  \left(\sum_{k=0}^\infty \rho^k \,w_{t-k}\right) \right] \\
 &= \sum_{l=0}^{\infty} \rho^{h+l} \rho^l \sigma_w^2 \\
 &= \sigma_w^2 \cdot \rho^{h} \cdot \sum_{l=0}^{\infty} \rho^{2l}  \\
-&= \frac{\sigma_w^2 \cdot \rho^{h} }{1-\rho^2}, \quad h>0 \,.
+&= {\color{red} \frac{\sigma_w^2 \cdot \rho^{h} }{1-\rho^2} }, \quad h>0 \,.
 \end{aligned}
 $$
 When $h=0$, 
 $$
-\gamma(0) = \frac{\sigma_w^2}{1-\rho^2}
+{\color{red} \gamma(0) = \var(\varepsilon_t) = \frac{\sigma_w^2}{1-\rho^2}}
 $$ 
-is the <span style='color:#008B45FF'>variance of the process</span> $\text{Var}(\varepsilon_t)$.
+is the <span style='color:#008B45'>variance of the process</span> $\text{Var}(\varepsilon_t)$.
 
 
 Note that 
@@ -320,12 +320,18 @@ ___
 
 ### Autocorrelation
 
-The <span style='color:#008B45FF'>autocorrelation function</span> (ACF) is given by
+The <span style='color:#337ab7'>autocorrelation function</span> (ACF) is given by
 
 $$
-\rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h,
+{\color{#337ab7} \rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h },
 $$
 which is simply the correlation between $\varepsilon_{t+h}$ and $\varepsilon_{t}\,.$
+
+The autocorrelation of the stationary AR(1) -@eq-AR1 is a simple geometric decay ($\abs{\rho}<1$):
+
+- If $\abs{\rho}$ is small, the autocorrelations decay rapidly to zero with $h$
+- If $\abs{\rho}$ is large (close to unity), then the autocorrelations decay moderately
+- The AR(1) parameter $\abs{\rho}$ describes the persistence in the time series
 
 
 Note that $\rho(h)$ satisfies the recursion

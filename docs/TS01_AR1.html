@@ -697,7 +697,7 @@ y_t = \beta_1 + \beta_2x_t + \beta_3x_{t-1} + \gamma y_{t-1} + \varepsilon_t.
 \]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -718,7 +718,7 @@ Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -732,10 +732,10 @@ Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inlin
 </div>
 <hr>
 <p>We have seen the cases when <span class="math inline">\(\rho\)</span> is positive, now let’s consider when <span class="math inline">\(\rho\)</span> is <strong>negative</strong>. <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.5\)</span>, and <a href="#fig-AR1-neg" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>(a) shows an AR(1) process with <span class="math inline">\(\rho=-0.95\,.\)</span></p>
-<p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#008B45FF"><em>autocorrelation functions</em></span> (ACFs).</p>
+<p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#337ab7"><em>autocorrelation functions</em></span> (ACFs).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
+<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -785,18 +785,18 @@ E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
 </section>
 <section id="autocovariance" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="autocovariance"><span class="header-section-number">4.3.2</span> Autocovariance</h3>
-<p>The <span style="color:#008B45FF">autocovariance function</span> of the AR(1) process is <span class="math display">\[
+<p>The <span style="color:#337ab7">autocovariance function</span> of the AR(1) process is <span class="math display">\[
 \begin{aligned}
 \gamma (h) &amp;= \text{Cov}(\varepsilon_{t+h}, \varepsilon_t) \\
 &amp;= E(\varepsilon_{t+h}, \varepsilon_t) \\
 &amp;= E\left[\left(\sum_{j=0}^\infty \rho^j \,w_{t+h-j}\right)  \left(\sum_{k=0}^\infty \rho^k \,w_{t-k}\right) \right] \\
 &amp;= \sum_{l=0}^{\infty} \rho^{h+l} \rho^l \sigma_w^2 \\
 &amp;= \sigma_w^2 \cdot \rho^{h} \cdot \sum_{l=0}^{\infty} \rho^{2l}  \\
-&amp;= \frac{\sigma_w^2 \cdot \rho^{h} }{1-\rho^2}, \quad h&gt;0 \,.
+&amp;= {\color{red} \frac{\sigma_w^2 \cdot \rho^{h} }{1-\rho^2} }, \quad h&gt;0 \,.
 \end{aligned}
 \]</span> When <span class="math inline">\(h=0\)</span>, <span class="math display">\[
-\gamma(0) = \frac{\sigma_w^2}{1-\rho^2}
-\]</span> is the <span style="color:#008B45FF">variance of the process</span> <span class="math inline">\(\text{Var}(\varepsilon_t)\)</span>.</p>
+{\color{red} \gamma(0) = \var(\varepsilon_t) = \frac{\sigma_w^2}{1-\rho^2}}
+\]</span> is the <span style="color:#008B45">variance of the process</span> <span class="math inline">\(\text{Var}(\varepsilon_t)\)</span>.</p>
 <p>Note that</p>
 <ul>
 <li><span class="math inline">\(\gamma(0) \ge |\gamma (h)|\)</span> for all <span class="math inline">\(h\)</span>. Maximum value at 0 lag.</li>
@@ -806,10 +806,16 @@ E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
 </section>
 <section id="autocorrelation" class="level3" data-number="4.3.3">
 <h3 data-number="4.3.3" class="anchored" data-anchor-id="autocorrelation"><span class="header-section-number">4.3.3</span> Autocorrelation</h3>
-<p>The <span style="color:#008B45FF">autocorrelation function</span> (ACF) is given by</p>
+<p>The <span style="color:#337ab7">autocorrelation function</span> (ACF) is given by</p>
 <p><span class="math display">\[
-\rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h,
+{\color{#337ab7} \rho(h) = \frac{\gamma (h)}{\gamma (0)} = \rho^h },
 \]</span> which is simply the correlation between <span class="math inline">\(\varepsilon_{t+h}\)</span> and <span class="math inline">\(\varepsilon_{t}\,.\)</span></p>
+<p>The autocorrelation of the stationary AR(1) <a href="PA04_dynamic_models.html#eq-AR1" class="quarto-xref"><span>17.3</span></a> is a simple geometric decay (<span class="math inline">\(\abs{\rho}&lt;1\)</span>):</p>
+<ul>
+<li>If <span class="math inline">\(\abs{\rho}\)</span> is small, the autocorrelations decay rapidly to zero with <span class="math inline">\(h\)</span></li>
+<li>If <span class="math inline">\(\abs{\rho}\)</span> is large (close to unity), then the autocorrelations decay moderately</li>
+<li>The AR(1) parameter <span class="math inline">\(\abs{\rho}\)</span> describes the persistence in the time series</li>
+</ul>
 <p>Note that <span class="math inline">\(\rho(h)\)</span> satisfies the recursion <span class="math display">\[
 \rho(h) = \rho\cdot \rho(h-1) \,.
 \]</span></p>
