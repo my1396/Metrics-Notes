@@ -79,7 +79,7 @@ $$
 
 For the sake of simplicity, we will discuss a simple version of model ([-@eq-dynamic-interlude-dynamic-panel]) without extra covariates $\bx_{it}$ and with only one lag of $y_{it}$:
 $$
-y_{it} = \alpha_i + \lambda y_{it-1} + u_{it}, 
+\color{#008B45} {y_{it} = \alpha_i + \lambda y_{it-1} + u_{it}, }
 $$ {#eq-dynamic-interlude-dynamic-simple}
 where $u_{it}$ satisfies sequential exogeneity in the form $\E[u_{it}|y_{is}, s<t] = 0$. 
 
@@ -87,7 +87,7 @@ where $u_{it}$ satisfies sequential exogeneity in the form $\E[u_{it}|y_{is}, s<
 Let us difference @eq-dynamic-interlude-dynamic-simple across $t$ to eliminate the random intercept $\alpha_i$. The differenced equation takes form
 
 $$
-\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it},
+\color{#008B45} {\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it}} ,
 $$ {#eq-dynamic-interlude-homogeneous-differenced}
 
 where $\Delta y_{it} = y_{it} - y_{it-1}.$
@@ -150,8 +150,9 @@ In particular, consider using twice lagged level of dependent variable $y_{it-2}
 
     $$	
     \E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0. 
-    $$
-    $y_{it-2}$ is not correlated with the error term $\Delta u_{it}.$
+    $$ {#eq-ortho-cond}
+    
+    $y_{it-2}$ is not correlated with the error term $\Delta u_{it}.$ The orthogonality condition (-@eq-ortho-cond) ensures the validity of the instrument.
 
 
 Hence $y_{it-2}$ is a valid instrument for $\Delta y_{it-1}.$ 
@@ -166,7 +167,7 @@ One might use the twice lagged differences $\Delta y_{it-2} = y_{it-2}-y_{it-3}$
 - One observation less compared to using $y_{it-2}$
 - Larger asymptotic variance
 
-The AH estimator delivers **consistent but not eﬃcient** estimates of the parameters in the model. This is due to the fact that the IV doesn't exploit all the available moments conditions.
+The Anderson-Hsiao (AH) estimator delivers **consistent but not eﬃcient** estimates of the parameters in the model. This is due to the fact that the IV doesn't exploit all the available moments conditions.
 
 The IV estimator also ignores the structure of the error component in the transformed model.
 
@@ -175,6 +176,9 @@ The IV estimator also ignores the structure of the error component in the transf
 
 
 #### The Arellano-Bond Estimator
+
+The orthogonality condition (-@eq-ortho-cond) is one of many implied by the dynamic panel model. Indeed, all lags $y_{it-2},$ $y_{it-3},$ are valid instruments. 
+If $T > p + 2$ ($p$ is the order of autocorrelation) these can be used to potentially improve estimation efficiency. This was first pointed out by @Holtz-Eakin1988 and further developed by @Arellano1991.
 
 @Arellano1991 expanded the idea by using additional lags of the dependent variable as instruments.
 
@@ -187,15 +191,59 @@ $$
 **Valid instruments:**
 
 - $t = 2 \text{ or } t = 1$: no instruments,  
-- $t = 3$: the valid instrument for $\Delta y_{i2} = (y_{i2} - y_{i1})$ is $y_{i1}$,  
-- $t = 4$: the valid instruments for $\Delta y_{i3} = (y_{i3} - y_{i2})$ are $y_{i2}$ as well as $y_{i1}$,  
-- $t = 5$: the valid instruments for $\Delta y_{i4} = (y_{i4} - y_{i3})$ are $y_{i3}$ as well as $y_{i2}$ and $y_{i1}$,  
-- $t = 6$: the valid instruments for $\Delta y_{i5} = (y_{i5} - y_{i4})$ are $y_{i4}$ as well as $y_{i3}$, $y_{i2}$, and $y_{i1}$,  
-- $t = T$: the valid instruments for $\Delta y_{iT-1} = (y_{iT-1} - y_{iT-2})$ are $y_{iT-2}$ as well as $y_{iT-3}, \dots, y_{i1}$.
 
-As $t$ increases, the number of instruments available also increases.
+- $t = 3$: the valid instrument for $\Delta y_{i2} = (y_{i2} - y_{i1})$ is $y_{i1}$, the moment condition is 
 
-We'll have an instrument matrix with one row for each time period that we are instrumenting:
+$$
+\E[y_{i1}\Delta u_{i3}] = 0 \text{ for }i=1,2,\ldots,N
+$$
+
+
+- $t = 4$: the valid instruments for $\Delta y_{i3} = (y_{i3} - y_{i2})$ are $y_{i2}$ as well as $y_{i1}$, the moment conditions are
+
+$$
+\begin{aligned}
+\E[y_{i1}\Delta u_{i4}] &= 0 \\
+\E[y_{i2}\Delta u_{i4}] &= 0 
+\end{aligned}
+$$ 
+
+- $t = 5$: the valid instruments for $\Delta y_{i4} = (y_{i4} - y_{i3})$ are $y_{i3}$ as well as $y_{i2}$ and $y_{i1}$, the moment conditions are
+
+$$
+\begin{aligned}
+\E[y_{i1}\Delta u_{i5}] &= 0 \\
+\E[y_{i2}\Delta u_{i5}] &= 0 \\
+\E[y_{i3}\Delta u_{i5}] &= 0 \\
+\end{aligned}
+$$  
+
+- $t = 6$: the valid instruments for $\Delta y_{i5} = (y_{i5} - y_{i4})$ are $y_{i4}$ as well as $y_{i3}$, $y_{i2}$, and $y_{i1}$, the moment conditions are
+
+$$
+\begin{aligned}
+\E[y_{i1}\Delta u_{i6}] &= 0 \\
+\E[y_{i2}\Delta u_{i6}] &= 0 \\
+\E[y_{i3}\Delta u_{i6}] &= 0 \\
+\E[y_{i4}\Delta u_{i6}] &= 0 \\
+\end{aligned}
+$$  
+
+- $t = T$: the valid instruments for $\Delta y_{iT-1} = (y_{iT-1} - y_{iT-2})$ are $y_{iT-2}$ as well as $y_{iT-3}, \dots, y_{i1}$, the moment conditions are
+
+$$
+\begin{aligned}
+\E[y_{i1}\Delta u_{iT}] &= 0 \\
+\E[y_{i2}\Delta u_{iT}] &= 0 \\
+\E[y_{i3}\Delta u_{iT}] &= 0 \\
+\vdots \\
+\E[y_{i,T-2}\Delta u_{iT}] &= 0 \\
+\end{aligned}
+$$  
+
+As $t$ increases, the number of instruments available also increases. The total number of instruments will be quadratic in $T.$ One disadvantage of this strategy should be apparent.  If $T <10$, that may be a manageable number, but for a longer times eries, it may be necessary to restrict the number of past lags used. 
+
+We'll have an instrument matrix with one row for each time period that we are instrumenting. $Z_i$ is the corresponding matrix of instruments for the lagged difference.
 
 $$
 Z_i =
@@ -207,6 +255,12 @@ y_{i,1} & 0 & 0 & 0 & 0 & 0 & \cdots & 0 & 0 \\
 0 & 0 & 0 & 0 & \cdots & 0 & y_{i,1} & \cdots & y_{i,T-2} 
 \end{bmatrix}
 $$
+
+The number of rows of $Z_i$ is $T-2.$ The number of columns of $Z_i$ depends on the length of $T,$ it can grow very quickly with $T:$
+
+$$
+1+ 2 + \cdots + (T-2) = \sum_{k=1}^{T-2} k = \frac{(T-1)(T-2)}{2}
+$$
 Rewrite the model in the vector form
 
 $$
@@ -215,7 +269,6 @@ $$
 where 
 
 $$
-
 \Delta y_{i\cdot} =
 \begin{bmatrix}
 \Delta y_{i2} \\
@@ -223,7 +276,6 @@ $$
 \vdots \\
 \Delta y_{iT}
 \end{bmatrix},
-
 \quad
 \Delta y_{i\cdot-1} =
 \begin{bmatrix}
@@ -232,25 +284,107 @@ $$
 \vdots \\
 \Delta y_{i,T-1}
 \end{bmatrix},
-
 \quad
-\Delta \varepsilon_{i\cdot} =
+\Delta u_{i\cdot} =
 \begin{bmatrix}
-\Delta \varepsilon_{i2} \\
-\Delta \varepsilon_{i3} \\
+\Delta u_{i2} \\
+\Delta u_{i3} \\
 \vdots \\
-\Delta \varepsilon_{iT}
+\Delta u_{iT}
 \end{bmatrix}.
 $$
 
-The number of rows of $Z_i$ is $T-3.$ The number of columns of $Z_i$ depends on the length of $T,$ it can grow very quickly with $T:$
+
+@Arellano1991 suggested using a GMM approach based on all available moment conditions:
 
 $$
-\sum_{k=1}^{T-2} k = \frac{(T-1)(T-2)}{2}
+\E[Z_i'\Delta u_{i\cdot}] = \boldsymbol{0}
+$$
+> Alternative notation: Sometimes you see the moment conditions as $\E[Z_i' u_{i\cdot}^*] = \boldsymbol{0}$, where $u_{i\cdot}^*$ refers to the first difference transformed erros. 
+
+There are all together $\frac{(T-1)(T-2)}{2}$ conditions.
+
+The one-step Arellano-Bond estimator is a GMM estimator:
+
+$$
+\hat{\lambda}^{GMM} =  Q_1^{-1} \left(\sum_{i=1}^N \Delta y_{i\cdot -1}^{\prime} Z_i\right) A_1 \left(\sum_{i=1}^N Z_i' \Delta y_i \right)
+$$
+where
+
+$$
+Q_1 = \left(\sum_{i=1}^N \Delta y_{i\cdot -1}^{\prime} Z_i\right) A_1 \left(\sum_{i=1}^N Z_i'  \Delta y_{i\cdot -1} \right)
+$$
+and
+
+$$
+\begin{aligned}
+A_1 &= \left( \sum_{i=1}^N Z_i^\prime H_i Z_i \right)^{-1} , \\
+H_i &= \E[\Delta u_i \Delta u_i^{\prime}] = \sigma_u^2 
+\begin{bmatrix}
+2 & -1 & 0 & \cdots & 0 & 0 \\
+-1 & 2 & -1 & \cdots & 0 & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & 0 & \cdots & 2 & -1 \\
+0 & 0 & 0 & \cdots & -1 & 2 \\
+\end{bmatrix} .
+\end{aligned}
 $$
 
+$A_1$ is the optimal weighting matrix: $H_i$ is the covariance matrix of the differenced idiosyncratic errors. Note that $H_i$ implies homoskedesticity while taking into account the dynamic structure of the error term.
 
-@Arellano1991 suggested using a GMM approach based on all available conditions.
+The two-step estimator is based on one-step estimator:
+
+$$
+\hat{\lambda}^{GMM} =  Q_2^{-1} \left(\sum_{i=1}^N \Delta y_{i\cdot -1}^{\prime} Z_i\right) A_2 \left(\sum_{i=1}^N Z_i' \Delta y_i \right)
+$$
+where
+
+$$
+Q_2 = \left(\sum_{i=1}^N \Delta y_{i\cdot -1}^{\prime} Z_i\right) A_2 \left(\sum_{i=1}^N Z_i'  \Delta y_{i\cdot -1} \right)
+$$
+and
+
+$$
+\begin{aligned}
+A_1 &= \left( \sum_{i=1}^N Z_i^\prime G_i Z_i \right)^{-1} , \\
+G_i &= \widehat{\Delta u_i}\; \widehat{\Delta u_i}^{\prime}  .
+\end{aligned}
+$$
+That is, the only diﬀerence between one-step and two-step estimator is the
+weighting matrix $A_1$ and $A_2$. $A_2$ uses the one-step residual from the one-step
+estimation. 
+
+Simulation studies have suggested very modest eﬃciency gain from using the two-step version, even in the presence of considerable heteroskedasticity. More importantly the dependence of the two-step weight matrix on estimated parameters makes the usual asymptotic distribution approximations less reliable for the two step estimator. Simulation studies have shown that the asymptotic standard errors tend to be much too small for the two-step estimator. These are the reasons that much applied work has focused on the results of one-step estimator.
+
+
+The Arellano-Bond (AB) estimator is suitable for situations with:
+
+- "small $T$, large $N$" panels: few time periods and many individual units
+- a linear functional relationship
+- one left-hand variable that is dynamic, depending on its own past realizations
+- right-hand variables that are not strictly exogenous: correlated with past and possibly current realizations of the error
+- fixed individual effects, implying unobserved heterogeneity
+- heteroskedasticity and autocorrelation within individual units’ errors, but not across them
+
+The AB estimator is usually called **difference GMM**.
+
+A potential weakness in the Arellano-Bond DPD estimator was revealed in later work by @Arellano1995 and @Blundell1998. 
+
+- The lagged levels are often rather poor instruments for first differenced variables, especially if the variables are close to a random walk, i.e., $\lambda$ is close to unity.
+
+- For long panel (large $T$) the number of instruments increases dramatically, i.e., $\frac{(T-1)(T-2)}{2}.$ This leads to potential loss of efficiency.
+
+    By using the lag limits options, you may specify, for instance, that only lags 2--5 are to be used in constructing the GMM instruments.
+
+- Consistency of the GMM estimator bases on the assumption that the trans-
+formed error term is not serially correlated for lags greater or equal to two, i.e., $\E[\Delta u_{it} \Delta u_{it-k}] = 0$ for $k\ge 2.$ It's crucial to test whether the second-order autocorrelation is zero for all periods in the sample. 
+
+    If a significant AR(2) statistic is encountered, the second lags of endogenous variables will not be appropriate instruments for their current values.
+
+- When $T > 3$ and the model is over-identified, a **Sargan–Hansen test** can be used to test the overidentifying restrictions.
+
+Their modification of the estimator includes lagged levels as well as lagged differences. The expanded estimator is commonly termed **System GMM**. The cost of
+the System GMM estimator involves a set of additional restrictions on the initial conditions of the process generating $y.$
 
 ## References {.unlisted .unnumbered}
 
