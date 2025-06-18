@@ -724,9 +724,12 @@ y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
 </section>
 <section id="dynamic-panel-representation" class="level2" data-number="17.2">
 <h2 data-number="17.2" class="anchored" data-anchor-id="dynamic-panel-representation"><span class="header-section-number">17.2</span> Dynamic Panel Representation</h2>
-<p>More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process for the outcome: <span id="eq-dynamic-interlude-dynamic-panel"><span class="math display">\[
+<p>More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process in the <span class="math inline">\(K\)</span>-th order for the outcome: <span id="eq-dynamic-interlude-dynamic-panel"><span class="math display">\[
 y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
-\tag{17.5}\]</span></span> In this model, a sequential exogeneity assumption takes form <span class="math display">\[
+\tag{17.5}\]</span></span></p>
+<p>Notice that the RHS now includes the lagged dependent variables <span class="math inline">\(y_{i,t-k},\)</span> <span class="math inline">\(k=1,\ldots,K.\)</span> Adding dynamics to a model makes major changes in the interpretation of the equation.</p>
+<p>The entire history of the LHS variable enters into the equation. Any measured influence is conditioned on this history. Any impact of <span class="math inline">\(\bx_{it}\)</span> represents the effects of <em>new</em> information.</p>
+<p>In <a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref">Equation&nbsp;<span>17.5</span></a>, a sequential exogeneity assumption takes form <span class="math display">\[
      \E[u_{it}\mid \curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0.
 \]</span></p>
 <p>For the sake of simplicity, we will discuss a simple version of model (<a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref"><span>17.5</span></a>) without extra covariates <span class="math inline">\(\bx_{it}\)</span> and with only one lag of <span class="math inline">\(y_{it}\)</span>: <span id="eq-dynamic-interlude-dynamic-simple"><span class="math display">\[
@@ -752,7 +755,9 @@ y_{it} = \alpha_i + \lambda y_{it-1} + u_{it},
 <p>Hence we conclude that</p>
 <p><span class="math display">\[
 \E[\Delta y_{it-1} \Delta u_{it}] \ne 0,
-\]</span> and that <span class="math inline">\(\Delta y_{it-1}\)</span> is an endogeneous regressor in the differenced <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a>.</p>
+\]</span> and that <span class="math inline">\(\Delta y_{it-1}\)</span> is an endogeneous regressor in the differenced <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a>. Hence, we see that the first difference estimator is biased.</p>
+<p>Note that the bias is large when <span class="math inline">\(T\)</span> is relatively small, which is common for micro data. When <span class="math inline">\(T\)</span> is large the Nickell’s bias is relatively small.</p>
+<p>The dynamic panel data (DPD) models are designed to account for this endogeneity.</p>
 <section id="iv-estimator-of-dynamic-panel-models" class="level3" data-number="17.2.1">
 <h3 data-number="17.2.1" class="anchored" data-anchor-id="iv-estimator-of-dynamic-panel-models"><span class="header-section-number">17.2.1</span> IV Estimator of Dynamic Panel Models</h3>
 <p>Given the endogeneity issue in first-differencing, instrumental variable methods offer a potential solution. We only need to find suitable instruments – variables <span class="math inline">\(z_{it}\)</span> which satisfy relevance and exogeneity conditions: <span class="math display">\[
@@ -777,10 +782,57 @@ y_{it} = \alpha_i + \lambda y_{it-1} + u_{it},
   \E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0.
   \]</span> <span class="math inline">\(y_{it-2}\)</span> is not correlated with the error term <span class="math inline">\(\Delta u_{it}.\)</span></p></li>
 </ul>
-<p>Hence <span class="math inline">\(y_{it-2}\)</span> is a valid instrument!</p>
+<p>Hence <span class="math inline">\(y_{it-2}\)</span> is a valid instrument for <span class="math inline">\(\Delta y_{it-1}.\)</span></p>
 <p>The resulting IV estimator is known as the <span class="citation" data-cites="Anderson1982">Anderson and Hsiao (<a href="#ref-Anderson1982" role="doc-biblioref">1982</a>)</span> estimator and given by <span class="math display">\[
 \hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it-1} }.
 \]</span></p>
+<p>One might use the twice lagged differences <span class="math inline">\(\Delta y_{it-2} = y_{it-2}-y_{it-3}\)</span> as an instrument for <span class="math inline">\(\Delta y_{it-1}.\)</span> But</p>
+<ul>
+<li>One observation less compared to using <span class="math inline">\(y_{it-2}\)</span></li>
+<li>Larger asymptotic variance</li>
+</ul>
+<p>The AH estimator delivers <strong>consistent but not eﬃcient</strong> estimates of the parameters in the model. This is due to the fact that the IV doesn’t exploit all the available moments conditions.</p>
+<p>The IV estimator also ignores the structure of the error component in the transformed model.</p>
+<ul>
+<li>The autocorrelation in the first differenced errors leads to inconsistency of the IV estimates.</li>
+<li>The IV estimates would be inconsistent when other regressors are correlated with the error term.</li>
+</ul>
+</section>
+<section id="the-arellano-bond-estimator" class="level4" data-number="17.2.1.2">
+<h4 data-number="17.2.1.2" class="anchored" data-anchor-id="the-arellano-bond-estimator"><span class="header-section-number">17.2.1.2</span> The Arellano-Bond Estimator</h4>
+<p><span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span> expanded the idea by using additional lags of the dependent variable as instruments.</p>
+<p>Starting point: the FD estimator</p>
+<p><span class="math display">\[
+\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it},
+\]</span></p>
+<p><strong>Valid instruments:</strong></p>
+<ul>
+<li><span class="math inline">\(t = 2 \text{ or } t = 1\)</span>: no instruments,<br>
+</li>
+<li><span class="math inline">\(t = 3\)</span>: the valid instrument for <span class="math inline">\(\Delta y_{i2} = (y_{i2} - y_{i1})\)</span> is <span class="math inline">\(y_{i1}\)</span>,<br>
+</li>
+<li><span class="math inline">\(t = 4\)</span>: the valid instruments for <span class="math inline">\(\Delta y_{i3} = (y_{i3} - y_{i2})\)</span> are <span class="math inline">\(y_{i2}\)</span> as well as <span class="math inline">\(y_{i1}\)</span>,<br>
+</li>
+<li><span class="math inline">\(t = 5\)</span>: the valid instruments for <span class="math inline">\(\Delta y_{i4} = (y_{i4} - y_{i3})\)</span> are <span class="math inline">\(y_{i3}\)</span> as well as <span class="math inline">\(y_{i2}\)</span> and <span class="math inline">\(y_{i1}\)</span>,<br>
+</li>
+<li><span class="math inline">\(t = 6\)</span>: the valid instruments for <span class="math inline">\(\Delta y_{i5} = (y_{i5} - y_{i4})\)</span> are <span class="math inline">\(y_{i4}\)</span> as well as <span class="math inline">\(y_{i3}\)</span>, <span class="math inline">\(y_{i2}\)</span>, and <span class="math inline">\(y_{i1}\)</span>,<br>
+</li>
+<li><span class="math inline">\(t = T\)</span>: the valid instruments for <span class="math inline">\(\Delta y_{iT-1} = (y_{iT-1} - y_{iT-2})\)</span> are <span class="math inline">\(y_{iT-2}\)</span> as well as <span class="math inline">\(y_{iT-3}, \dots, y_{i1}\)</span>.</li>
+</ul>
+<p>As <span class="math inline">\(t\)</span> increases, the number of instruments available also increases.</p>
+<p>We’ll have an instrument matrix with one row for each time period that we are instrumenting:</p>
+<p><span class="math display">\[
+Z_i =
+\begin{bmatrix}
+y_{i,1} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 \\
+0 &amp; y_{i,1} &amp; y_{i,2} &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; y_{i,1} &amp; y_{i,2} &amp; y_{i,3} &amp; \cdots &amp; 0 &amp; 0  \\
+\vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \cdots &amp; \vdots &amp; \vdots  \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; y_{i,1} &amp; \cdots &amp; y_{i,T-2}
+\end{bmatrix}
+\]</span></p>
+<p>The number of rows of <span class="math inline">\(Z_i\)</span> is <span class="math inline">\(T-3.\)</span> The number of columns of <span class="math inline">\(Z_i\)</span> depends on the length of <span class="math inline">\(T,\)</span> it can grow very quickly with <span class="math inline">\(T.\)</span></p>
+<p><span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span> suggested using a GMM approach based on all available conditions.</p>
 </section>
 </section>
 </section>
@@ -788,12 +840,16 @@ y_{it} = \alpha_i + \lambda y_{it-1} + u_{it},
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
 <li>Chapter 12, “Serial Correlation and Heteroskedasticity in Time Series Regressions.” <em>Introductory Econometrics: A Modern Approach</em>, 7e by Jeffrey M. Wooldridge</li>
+<li>Vladislav Morozov, “Interlude: Standard Dynamic Panel Estimators.” Econometrics with Unobserved Heterogeneity, Course material, <a href="https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-dynamic-panel-iv.html#extra-endogeneity-and-the-within-estimator" class="uri">https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-dynamic-panel-iv.html#extra-endogeneity-and-the-within-estimator</a></li>
 </ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Anderson1982" class="csl-entry" role="listitem">
 Anderson, T. W., and Cheng Hsiao. 1982. <span>“<span class="nocase">Formulation and estimation of dynamic models using panel data</span>.”</span> <em>Journal of Econometrics</em> 18 (1): 47–82. <a href="https://doi.org/10.1016/0304-4076(82)90095-1">https://doi.org/10.1016/0304-4076(82)90095-1</a>.
+</div>
+<div id="ref-Arellano1991" class="csl-entry" role="listitem">
+Arellano, Manuel, and Stephen Bond. 1991. <span>“<span class="nocase">Some Tests of Specification for Panel Carlo Application to Data: Monte Carlo Evidence and an Application to Employment Equations</span>.”</span> <em>Review of Economic Studies</em> 58: 277–97.
 </div>
 </div>
 </section>

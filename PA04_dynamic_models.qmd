@@ -62,11 +62,17 @@ Unfortunately, $\hat{\beta}_1^{OLS}$ is **biased**, and this *bias can be large 
 
 ## Dynamic Panel Representation
 
-More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process for the outcome:
+More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process in the $K$-th order for the outcome:
 $$
 y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
 $$ {#eq-dynamic-interlude-dynamic-panel}
-In this model, a sequential exogeneity assumption takes form
+
+Notice that the RHS now includes the lagged dependent variables $y_{i,t-k},$ $k=1,\ldots,K.$ Adding dynamics to a model makes major changes in the interpretation of the equation.
+
+The entire history of the LHS variable enters into the equation. Any measured influence is conditioned on this history. Any impact of $\bx_{it}$ represents the effects of *new* information.
+
+
+In @eq-dynamic-interlude-dynamic-panel, a sequential exogeneity assumption takes form
 $$
 	 \E[u_{it}\mid \curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0. 
 $$
@@ -106,7 +112,12 @@ Hence we conclude that
 $$
 \E[\Delta y_{it-1} \Delta u_{it}] \ne 0,
 $$
-and that $\Delta y_{it-1}$ is an endogeneous regressor in the differenced @eq-dynamic-interlude-homogeneous-differenced.
+and that $\Delta y_{it-1}$ is an endogeneous regressor in the differenced @eq-dynamic-interlude-homogeneous-differenced. Hence, we see that the first difference estimator is biased.
+
+Note that the bias is large when $T$ is relatively small, which is common for micro data. When $T$ is large the Nickell's bias is relatively small.
+
+
+The dynamic panel data (DPD) models are designed to account for this endogeneity.
 
 ### IV Estimator of Dynamic Panel Models
 
@@ -143,18 +154,108 @@ In particular, consider using twice lagged level of dependent variable $y_{it-2}
     $y_{it-2}$ is not correlated with the error term $\Delta u_{it}.$
 
 
-Hence $y_{it-2}$ is a valid instrument! 
+Hence $y_{it-2}$ is a valid instrument for $\Delta y_{it-1}.$ 
 
 The resulting IV estimator is known as the @Anderson1982 estimator and given by
 $$
 \hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it-1} }.
 $$
 
+One might use the twice lagged differences $\Delta y_{it-2} = y_{it-2}-y_{it-3}$ as an instrument for $\Delta y_{it-1}.$ But
 
+- One observation less compared to using $y_{it-2}$
+- Larger asymptotic variance
+
+The AH estimator delivers **consistent but not eﬃcient** estimates of the parameters in the model. This is due to the fact that the IV doesn't exploit all the available moments conditions.
+
+The IV estimator also ignores the structure of the error component in the transformed model.
+
+- The autocorrelation in the first differenced errors leads to inconsistency of the IV estimates.
+- The IV estimates would be inconsistent when other regressors are correlated with the error term.
+
+
+#### The Arellano-Bond Estimator
+
+@Arellano1991 expanded the idea by using additional lags of the dependent variable as instruments.
+
+Starting point: the FD estimator
+
+$$
+\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it},
+$$
+
+**Valid instruments:**
+
+- $t = 2 \text{ or } t = 1$: no instruments,  
+- $t = 3$: the valid instrument for $\Delta y_{i2} = (y_{i2} - y_{i1})$ is $y_{i1}$,  
+- $t = 4$: the valid instruments for $\Delta y_{i3} = (y_{i3} - y_{i2})$ are $y_{i2}$ as well as $y_{i1}$,  
+- $t = 5$: the valid instruments for $\Delta y_{i4} = (y_{i4} - y_{i3})$ are $y_{i3}$ as well as $y_{i2}$ and $y_{i1}$,  
+- $t = 6$: the valid instruments for $\Delta y_{i5} = (y_{i5} - y_{i4})$ are $y_{i4}$ as well as $y_{i3}$, $y_{i2}$, and $y_{i1}$,  
+- $t = T$: the valid instruments for $\Delta y_{iT-1} = (y_{iT-1} - y_{iT-2})$ are $y_{iT-2}$ as well as $y_{iT-3}, \dots, y_{i1}$.
+
+As $t$ increases, the number of instruments available also increases.
+
+We'll have an instrument matrix with one row for each time period that we are instrumenting:
+
+$$
+Z_i =
+\begin{bmatrix}
+y_{i,1} & 0 & 0 & 0 & 0 & 0 & \cdots & 0 & 0 \\
+0 & y_{i,1} & y_{i,2} & 0 & 0 & 0 & \cdots & 0 & 0 \\
+0 & 0 & 0 & y_{i,1} & y_{i,2} & y_{i,3} & \cdots & 0 & 0  \\
+\vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \cdots & \vdots & \vdots  \\
+0 & 0 & 0 & 0 & \cdots & 0 & y_{i,1} & \cdots & y_{i,T-2} 
+\end{bmatrix}
+$$
+Rewrite the model in the vector form
+
+$$
+\Delta \by_{i\cdot} = \lambda \Delta y_{i\cdot-1} + \Delta u_{i\cdot},
+$$
+where 
+
+$$
+
+\Delta y_{i\cdot} =
+\begin{bmatrix}
+\Delta y_{i2} \\
+\Delta y_{i3} \\
+\vdots \\
+\Delta y_{iT}
+\end{bmatrix},
+
+\quad
+\Delta y_{i\cdot-1} =
+\begin{bmatrix}
+\Delta y_{i1} \\
+\Delta y_{i2} \\
+\vdots \\
+\Delta y_{i,T-1}
+\end{bmatrix},
+
+\quad
+\Delta \varepsilon_{i\cdot} =
+\begin{bmatrix}
+\Delta \varepsilon_{i2} \\
+\Delta \varepsilon_{i3} \\
+\vdots \\
+\Delta \varepsilon_{iT}
+\end{bmatrix}.
+$$
+
+The number of rows of $Z_i$ is $T-3.$ The number of columns of $Z_i$ depends on the length of $T,$ it can grow very quickly with $T:$
+
+$$
+\sum_{k=1}^{T-2} k = \frac{(T-1)(T-2)}{2}
+$$
+
+
+@Arellano1991 suggested using a GMM approach based on all available conditions.
 
 ## References {.unlisted .unnumbered}
 
 - Chapter 12, "Serial Correlation and Heteroskedasticity in Time Series Regressions." *Introductory Econometrics: A Modern Approach*, 7e by Jeffrey M. Wooldridge
+- Vladislav Morozov, "Interlude: Standard Dynamic Panel Estimators." Econometrics with Unobserved Heterogeneity, Course material, <https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-dynamic-panel-iv.html#extra-endogeneity-and-the-within-estimator>
 
 
 
