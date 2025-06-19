@@ -202,7 +202,11 @@ ul.task-list li input[type="checkbox"] {
         bSigma: "\\boldsymbol{\\Sigma}",
         bTau: "\\boldsymbol{\\tau}",
         bXi: "\\boldsymbol{\\Xi}",
+        bLambda: "\\boldsymbol{\\Lambda}",
+        
         bbeta: "\\boldsymbol{\\beta}",
+        bepsilon: "\\boldsymbol{\\epsilon}",
+        bvarepsilon: "\\boldsymbol{\\varepsilon}",
         bdelta: "\\boldsymbol{\\delta}",
         blambda: "\\boldsymbol{\\lambda}",
         bmu: "\\boldsymbol{\\mu}",
@@ -802,6 +806,16 @@ E(\varepsilon_t) = \sum_{j=0}^\infty \rho^j \, E(w_{t-j})
 <li><span class="math inline">\(\gamma(0) \ge |\gamma (h)|\)</span> for all <span class="math inline">\(h\)</span>. Maximum value at 0 lag.</li>
 <li><span class="math inline">\(\gamma (h)\)</span> is symmetric, i.e., <span class="math inline">\(\gamma (-h) = \gamma (h)\)</span></li>
 </ul>
+<p>The autocovariance matrix is</p>
+<p><span class="math display">\[
+\bOmega = \frac{\sigma_w^2}{1-\rho^2}
+\begin{bmatrix}
+1 &amp; \rho &amp; \cdots &amp; \rho^{n-1} \\
+\rho &amp; 1 &amp; \cdots &amp; \rho^{n-2} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\rho^{n-1} &amp; \rho^{n-2} &amp; \cdots &amp; 1 \\
+\end{bmatrix} = \bOmega (\rho)
+\]</span></p>
 <hr>
 </section>
 <section id="autocorrelation" class="level3" data-number="4.3.3">

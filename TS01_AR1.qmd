@@ -315,6 +315,17 @@ Note that
 - $\gamma(0) \ge |\gamma (h)|$ for all $h$. Maximum value at 0 lag.
 - $\gamma (h)$ is symmetric, i.e., $\gamma (-h) = \gamma (h)$
 
+The autocovariance matrix is
+
+$$
+\bOmega = \frac{\sigma_w^2}{1-\rho^2}
+\begin{bmatrix}
+1 & \rho & \cdots & \rho^{n-1} \\
+\rho & 1 & \cdots & \rho^{n-2} \\
+\vdots & \vdots & \ddots & \vdots \\
+\rho^{n-1} & \rho^{n-2} & \cdots & 1 \\
+\end{bmatrix} = \bOmega (\rho)
+$$
 
 ___
 
