@@ -300,6 +300,7 @@ $$
 $$
 \E[Z_i'\Delta u_{i\cdot}] = \boldsymbol{0}
 $$
+
 > Alternative notation: Sometimes you see the moment conditions as $\E[Z_i' u_{i\cdot}^*] = \boldsymbol{0}$, where $u_{i\cdot}^*$ refers to the first difference transformed erros. 
 
 There are all together $\frac{(T-1)(T-2)}{2}$ conditions.

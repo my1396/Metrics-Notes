@@ -801,7 +801,7 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 </section>
 <section id="the-arellano-bond-estimator" class="level4" data-number="17.2.1.2">
 <h4 data-number="17.2.1.2" class="anchored" data-anchor-id="the-arellano-bond-estimator"><span class="header-section-number">17.2.1.2</span> The Arellano-Bond Estimator</h4>
-<p>The orthogonality condition (<a href="#eq-ortho-cond" class="quarto-xref"><span>17.8</span></a>) is one of many implied by the dynamic panel model. Indeed, all lags <span class="math inline">\(y_{it-2},\)</span> <span class="math inline">\(y_{it-3},\)</span> are valid instruments. If <span class="math inline">\(T &gt; p + 2\)</span> (<span class="math inline">\(p\)</span> is the order of autocorrelation) these can be used to potentially improve estimation efficiency. This was first pointed out by Holtz-Eakin, Newey and Rosen (1988) and further developed by @<span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span>.</p>
+<p>The orthogonality condition (<a href="#eq-ortho-cond" class="quarto-xref"><span>17.8</span></a>) is one of many implied by the dynamic panel model. Indeed, all lags <span class="math inline">\(y_{it-2},\)</span> <span class="math inline">\(y_{it-3},\)</span> are valid instruments. If <span class="math inline">\(T &gt; p + 2\)</span> (<span class="math inline">\(p\)</span> is the order of autocorrelation) these can be used to potentially improve estimation efficiency. This was first pointed out by <span class="citation" data-cites="Holtz-Eakin1988">Holtz-Eakin, Newey, and Rosen (<a href="#ref-Holtz-Eakin1988" role="doc-biblioref">1988</a>)</span> and further developed by <span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span>.</p>
 <p><span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span> expanded the idea by using additional lags of the dependent variable as instruments.</p>
 <p>Starting point: the FD estimator</p>
 <p><span class="math display">\[
@@ -904,7 +904,10 @@ y_{i,1} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 \\
 <p><span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span> suggested using a GMM approach based on all available moment conditions:</p>
 <p><span class="math display">\[
 \E[Z_i'\Delta u_{i\cdot}] = \boldsymbol{0}
-\]</span> &gt; Alternative notation: Sometimes you see the moment conditions as <span class="math inline">\(\E[Z_i' u_{i\cdot}^*] = \boldsymbol{0}\)</span>, where <span class="math inline">\(u_{i\cdot}^*\)</span> refers to the first difference transformed erros.</p>
+\]</span></p>
+<blockquote class="blockquote">
+<p>Alternative notation: Sometimes you see the moment conditions as <span class="math inline">\(\E[Z_i' u_{i\cdot}^*] = \boldsymbol{0}\)</span>, where <span class="math inline">\(u_{i\cdot}^*\)</span> refers to the first difference transformed erros.</p>
+</blockquote>
 <p>There are all together <span class="math inline">\(\frac{(T-1)(T-2)}{2}\)</span> conditions.</p>
 <p>The one-step Arellano-Bond estimator is a GMM estimator:</p>
 <p><span class="math display">\[
@@ -984,6 +987,9 @@ Arellano, Manuel, and Olympia Bover. 1995. <span>“<span class="nocase">Another
 </div>
 <div id="ref-Blundell1998" class="csl-entry" role="listitem">
 Blundell, Richard, and Stephen Bond. 1998. <span>“<span class="nocase">Initial Conditions and Moment Restrictions in Dynamic Panel Data Models</span>.”</span> <em>Journal of Econometrics</em> 87: 115–43.
+</div>
+<div id="ref-Holtz-Eakin1988" class="csl-entry" role="listitem">
+Holtz-Eakin, Douglas, Whitney K. Newey, and Harvey S. Rosen. 1988. <span>“<span class="nocase">Estimating Vector Autoregressions with Panel Data</span>.”</span> <em>Econometrica</em> 56 (6): 1371–95.
 </div>
 </div>
 </section>
