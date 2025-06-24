@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -237,6 +257,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         bSigma: "\\boldsymbol{\\Sigma}",
         bTau: "\\boldsymbol{\\tau}",
         bXi: "\\boldsymbol{\\Xi}",
+        bLambda: "\\boldsymbol{\\Lambda}",
+        
         bbeta: "\\boldsymbol{\\beta}",
         bepsilon: "\\boldsymbol{\\epsilon}",
         bvarepsilon: "\\boldsymbol{\\varepsilon}",
@@ -961,8 +983,9 @@ alternative hypothesis: one model is inconsistent</code></pre>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dynformula</span>(form, <span class="fu">list</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)),</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> EmplUK, <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>),</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect =</span> <span class="st">"twoways"</span>, <span class="at">model =</span> <span class="st">"twosteps"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">gmm.inst =</span> <span class="sc">~</span> <span class="fu">log</span>(emp), <span class="at">lag.gmm =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">99</span>)) </span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">transform =</span> <span class="st">"d"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">gmm.inst =</span> <span class="sc">~</span> <span class="fu">log</span>(emp), <span class="at">lag.gmm =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">99</span>)) </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dynamic model with</p>
 <ul>
@@ -971,6 +994,7 @@ alternative hypothesis: one model is inconsistent</code></pre>
 <li><span class="math inline">\(\log(capital)\)</span> contemporaneous term only</li>
 <li>time- and firm-specific effects,</li>
 <li>instruments are lagged terms of the dependent variable (all lags beyond lag 1 are to be used).</li>
+<li><code>transform = "d"</code> uses the “difference GMM” model (see Arellano and Bond 1991) or “ld” for the “system GMM” model (see Blundell and Bond 1998).</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(empl_ab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -979,8 +1003,9 @@ alternative hypothesis: one model is inconsistent</code></pre>
 
 Call:
 pgmm(formula = dynformula(form, list(2, 1, 0, 1)), data = EmplUK, 
-    effect = "twoways", model = "twosteps", index = c("firm", 
-        "year"), gmm.inst = ~log(emp), lag.gmm = list(c(2, 99)))
+    effect = "twoways", model = "twosteps", transformation = "d", 
+    index = c("firm", "year"), gmm.inst = ~log(emp), lag.gmm = list(c(2, 
+        99)))
 
 Unbalanced Panel: n = 140, T = 7-9, N = 1031
 
@@ -1009,13 +1034,20 @@ Wald test for time dummies: chisq(6) = 16.97046 (p-value = 0.0093924)</code></pr
 </div>
 </div>
 <p><strong>Interpretation</strong>: Autoregressive dynamics important for these data.</p>
-<p><strong>Diagnostics</strong>: Tests at the bottom of summary indicate that model could be improved. Arellano and Bond (1991) address this by additionally treating wages and capital as endogenous.</p>
+<p><strong>Diagnostics</strong>:</p>
+<ul>
+<li><p>Sargan test: Assesses the validity of the instruments. A p-value of 0.22 indicates the instruments are valid.</p></li>
+<li><p>Autocorrelation test (1): Tests for first-order serial correlation. A p-value &gt; 0.05 indicates that first-order serial correlation is not present.</p>
+<p>The autocorrelation test is based on Arellano and Bond Serial Correlation Test. The null hypothesis is that there is no serial correlation of a particular order. The test statistic is computed as proposed by <span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span> and <span class="citation" data-cites="Arellano2003">Arellano (<a href="#ref-Arellano2003" role="doc-biblioref">2003</a>)</span>.</p></li>
+<li><p>Wald Tests: Assesses the joint significance of all the coefficients or time dummies in the model. The p-value &lt; 0.05 confirms the coefficients and time dummies significantly affect the dependent variable.</p></li>
+</ul>
 <p><strong>Note</strong>: Due to constructing lags and taking first differences, three cross sections are lost. Hence, estimation period is 1979–1984 and only 611 observations effectively available for estimation.</p>
 <hr>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
+<li><p>Guillermo Corredor, Dynamic AR(1) Panel Estimation in R, <a href="https://bookdown.org/gcorredor/dynamic_ar1_panel/dynamic_ar1_panel.html" class="uri">https://bookdown.org/gcorredor/dynamic_ar1_panel/dynamic_ar1_panel.html</a></p></li>
 <li><p>Kleiber, C. and Zeileis A. (2017), Chap 3 Linear Regression, <em>Applied Econometrics with R</em>.</p></li>
 <li><p>Arellano M, Bond S (1991). “Some Tests of Specification for Panel Data : Monte Carlo Evidence and an Application to Employment Equations.” <em>Review of Economic Studies</em>, <strong>58</strong>, 277–297.</p></li>
 <li><p>Arellano M, Bond S (1998). “Dynamic panel data estimation using DPD98 for GAUSS: a guide for users.” unpublished.</p></li>
@@ -1025,6 +1057,14 @@ Wald test for time dummies: chisq(6) = 16.97046 (p-value = 0.0093924)</code></pr
 </ul>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Arellano2003" class="csl-entry" role="listitem">
+Arellano, Manuel. 2003. <em>Panel Data Econometrics</em>. <em>Panel Data Econometrics</em>. Oxford University Press. <a href="https://doi.org/10.1093/0199245282.001.0001">https://doi.org/10.1093/0199245282.001.0001</a>.
+</div>
+<div id="ref-Arellano1991" class="csl-entry" role="listitem">
+Arellano, Manuel, and Stephen Bond. 1991. <span>“<span class="nocase">Some Tests of Specification for Panel Carlo Application to Data: Monte Carlo Evidence and an Application to Employment Equations</span>.”</span> <em>Review of Economic Studies</em> 58: 277–97.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

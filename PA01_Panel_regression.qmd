@@ -174,13 +174,16 @@ form <- log(emp) ~ log(wage) + log(capital) + log(output)
 
 Arellano-Bond estimator is provided by `pgmm()`. Dynamic formula derived from static formula via list of lags.
 
+GitHub repo for `pgmm`: <https://github.com/cran/plm/blob/59318399c6eb7bcaeb1d0560f1ce08882f0f55c1/R/est_gmm.R#L159>
+
 ```{r}
 # Arellano and Bond (1991), table 4, col. b 
 empl_ab <- pgmm(
     dynformula(form, list(2, 1, 0, 1)),
     data = EmplUK, index = c("firm", "year"),
     effect = "twoways", model = "twosteps",
-    gmm.inst = ~ log(emp), lag.gmm = list(c(2, 99)) 
+    transform = "d",
+    gmm.inst = ~ log(emp), lag.gmm = list(c(2, 3)) 
     )
 ```
 
@@ -192,6 +195,7 @@ Dynamic model with
 - time- and firm-specific effects,
 - instruments are lagged terms of the dependent variable (all lags
 beyond lag 1 are to be used).
+- `transform = "d"` uses the "difference GMM" model (see Arellano and Bond 1991) or "ld" for the "system GMM" model (see Blundell and Bond 1998).
 
 ```{r}
 summary(empl_ab)
@@ -200,19 +204,39 @@ summary(empl_ab)
 
 **Interpretation**: Autoregressive dynamics important for these data.
 
-**Diagnostics**: Tests at the bottom of summary indicate that model could be improved. Arellano and Bond (1991) address this by additionally treating wages and capital as endogenous.
+**Diagnostics**: 
+
+- Sargan test: Assesses the validity of the instruments. A p-value of 0.2 indicates the instruments are valid.
+
+- Autocorrelation test (1): Tests for first-order serial correlation. A p-value > 0.05 indicates that first-order serial correlation is not present.
+
+    The autocorrelation test is based on Arellano and Bond Serial Correlation Test. The null hypothesis is that there is no serial correlation of a particular order. The test statistic is computed as proposed by @Arellano1991 and @Arellano2003.
+    
+    - p-value < 0.05 indicates the presence of serial correlation.
+
+- Wald Tests: Assesses the joint significance of all the coefficients or time dummies in the model. The p-value < 0.05 confirms the coefficients and time dummies significantly affect the dependent variable.
 
 **Note**: Due to constructing lags and taking first differences, three cross
 sections are lost. Hence, estimation period is 1979–1984 and only 611
 observations effectively available for estimation.
 
+
+`pgmm.W`: a list of instruments matrices for every individual
+
+```{r}
+# print the instrument matrix for firm 1
+empl_ab$W[[1]]
+```
+
+
 --------------------------------------------------------------------------------
 
 ## References {.unlisted .unnumbered}
 
-- Kleiber, C. and Zeileis A. (2017), Chap 3 Linear Regression, *Applied Econometrics with R*.
 
-- Arellano M, Bond S (1991). “Some Tests of Specification for Panel Data : Monte Carlo Evidence and an Application to Employment Equations.” *Review of Economic Studies*, **58**, 277–297.
+- Guillermo Corredor, Dynamic AR(1) Panel Estimation in R, <https://bookdown.org/gcorredor/dynamic_ar1_panel/dynamic_ar1_panel.html>
+
+- Kleiber, C. and Zeileis A. (2017), Chap 3 Linear Regression, *Applied Econometrics with R*.
 
 - Arellano M, Bond S (1998). “Dynamic panel data estimation using DPD98 for GAUSS: a guide for users.” unpublished.
 

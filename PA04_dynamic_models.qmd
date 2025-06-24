@@ -62,6 +62,10 @@ Unfortunately, $\hat{\beta}_1^{OLS}$ is **biased**, and this *bias can be large 
 
 ## Dynamic Panel Representation
 
+Dynamic models account for temporal dependencies by including the lagged dependent variable, often providing more accurate results than static panel models.
+
+A Nickell bias arises from including the lagged dependent variable as an explanatory variable, making standard panel data estimators (FE, RE, FD) inconsistent, especially in analyses with short T and large N. System-GMM estimation addresses this by instrumenting the endogenous variables with their lagged values.
+
 More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process in the $K$-th order for the outcome:
 $$
 y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  

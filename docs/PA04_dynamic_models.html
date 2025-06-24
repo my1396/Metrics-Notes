@@ -222,6 +222,8 @@ div.csl-indent {
         bSigma: "\\boldsymbol{\\Sigma}",
         bTau: "\\boldsymbol{\\tau}",
         bXi: "\\boldsymbol{\\Xi}",
+        bLambda: "\\boldsymbol{\\Lambda}",
+        
         bbeta: "\\boldsymbol{\\beta}",
         bepsilon: "\\boldsymbol{\\epsilon}",
         bvarepsilon: "\\boldsymbol{\\varepsilon}",
@@ -726,6 +728,8 @@ y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
 </section>
 <section id="dynamic-panel-representation" class="level2" data-number="17.2">
 <h2 data-number="17.2" class="anchored" data-anchor-id="dynamic-panel-representation"><span class="header-section-number">17.2</span> Dynamic Panel Representation</h2>
+<p>Dynamic models account for temporal dependencies by including the lagged dependent variable, often providing more accurate results than static panel models.</p>
+<p>A Nickell bias arises from including the lagged dependent variable as an explanatory variable, making standard panel data estimators (FE, RE, FD) inconsistent, especially in analyses with short T and large N. System-GMM estimation addresses this by instrumenting the endogenous variables with their lagged values.</p>
 <p>More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process in the <span class="math inline">\(K\)</span>-th order for the outcome: <span id="eq-dynamic-interlude-dynamic-panel"><span class="math display">\[
 y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
 \tag{17.5}\]</span></span></p>
