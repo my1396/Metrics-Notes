@@ -1,0 +1,331 @@
+---
+title: "Dynamic Model Applications with `pdynmc`"
+format: html
+---
+
+Model Setup
+
+$$
+\begin{split}
+emp_{i,t} 
+&= \alpha_1 emp_{i,t-1} + \alpha_2 emp_{i,t-2} + \bbeta'(L) \bx_{it} + \lambda_t + \eta_i + \varepsilon_{i,t} \\
+&= \alpha_1 emp_{i,t-1} + \alpha_2 emp_{i,t-2}  \\
+&\phantom{=}\quad  + \beta_1 wage_{i,t} + \beta_2 wage_{i,t-1} \\
+&\phantom{=}\quad  + \beta_3 capital_{i,t} + \beta_4 capital_{i,t-1} + \beta_5 capital_{i,t-2} \\
+&\phantom{=}\quad + \beta_6 output_{i,t} + \beta_7 output_{i,t-1} + \beta_8 output_{i,t-2}  \\
+&\phantom{=}\quad + \gamma_3 d_3 + \dots + \gamma_T d_T + \eta_i + \varepsilon_{i,t},
+\end{split}
+$$ 
+
+
+
+## No time dummies
+
+```r
+library(pdynmc)
+data("EmplUK", package = "plm")
+# Run pdynmc
+m0 <- pdynmc(
+    dat = EmplUK_log, varname.i = "firm", varname.t = "year",
+    use.mc.diff = TRUE, use.mc.lev = FALSE, use.mc.nonlin = FALSE,
+    include.y = TRUE, varname.y = "emp", lagTerms.y = 2,
+    fur.con = TRUE, fur.con.diff = TRUE, fur.con.lev = FALSE,
+    varname.reg.fur = c("wage", "capital", "output"), lagTerms.reg.fur = c(1,2,2),
+    include.dum = FALSE,
+    w.mat = "iid.err", std.err = "corrected",
+    estimation = "onestep", opt.meth = "none" 
+)
+summary(m0)
+mtest.fct(m0)
+jtest.fct(m0)
+wald.fct(m0, param = "all")
+```
+
+```r
+> summary(m0)
+
+Dynamic linear panel estimation (onestep)
+GMM estimation steps: 1
+
+Coefficients:
+           Estimate Std.Err.rob z-value.rob Pr(>|z.rob|)    
+L1.emp      0.72011     0.14893       4.835      < 2e-16 ***
+L2.emp     -0.09164     0.05816      -1.576      0.11503    
+L0.wage    -0.61195     0.17805      -3.437      0.00059 ***
+L1.wage     0.38730     0.18285       2.118      0.03418 *  
+L0.capital  0.36127     0.05858       6.167      < 2e-16 ***
+L1.capital -0.06120     0.07179      -0.852      0.39421    
+L2.capital -0.02891     0.03515      -0.822      0.41108    
+L0.output   0.65801     0.11697       5.625      < 2e-16 ***
+L1.output  -0.53246     0.21663      -2.458      0.01397 *  
+L2.output   0.01351     0.14734       0.092      0.92670    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+ 35 total instruments are employed to estimate 10 parameters
+ 27 linear (DIF) 
+ 8 further controls (DIF) 
+ no time dummies 
+ 
+J-Test (overid restrictions):  42.68 with 25 DF, pvalue: 0.0152
+F-Statistic (slope coeff):  2025.03 with 10 DF, pvalue: <0.001
+F-Statistic (time dummies):  no time dummies included in estimation
+Warning message:
+In jtest.fct(object) :
+  Hansen J-Test statistic is inconsistent when error terms are non-spherical.
+```
+
+```r
+> mtest.fct(m0)
+
+	Arellano and Bond (1991) serial correlation test of degree 2
+
+data:  1step GMM Estimation
+normal = -0.50782, p-value = 0.6116
+alternative hypothesis: serial correlation of order 2 in the error terms
+```
+
+```r
+> wald.fct(m0, param = "all")
+
+	Wald test
+
+data:  1step GMM Estimation
+chisq = 2025, df = 10, p-value < 2.2e-16
+alternative hypothesis: at least one time dummy and/or slope coefficient is not equal to zero
+```
+
+
+
+
+
+## With time dummies
+
+
+```r
+m2 <- pdynmc(
+    dat = EmplUK_log, varname.i = "firm", varname.t = "year",
+    use.mc.diff = TRUE, use.mc.lev = FALSE, use.mc.nonlin = FALSE,
+    include.y = TRUE, varname.y = "emp", lagTerms.y = 2,
+    fur.con = TRUE, fur.con.diff = TRUE, fur.con.lev = FALSE,
+    varname.reg.fur = c("wage", "capital", "output"), lagTerms.reg.fur = c(1,2,2),
+    include.dum = TRUE, dum.diff = TRUE, dum.lev = FALSE, varname.dum = "year",
+    w.mat = "iid.err", std.err = "corrected", 
+    estimation = "twostep", opt.meth = "none"
+    )
+
+summary(m2)
+mtest.fct(m2)
+jtest.fct(m2)
+wald.fct(m2, param = "all")
+```
+
+```r
+> summary(m2)
+
+Dynamic linear panel estimation (twostep)
+GMM estimation steps: 2
+
+Coefficients:
+           Estimate Std.Err.rob z-value.rob Pr(>|z.rob|)    
+L1.emp      0.62871     0.19341       3.251      0.00115 ** 
+L2.emp     -0.06519     0.04505      -1.447      0.14790    
+L0.wage    -0.52576     0.15461      -3.401      0.00067 ***
+L1.wage     0.31129     0.20300       1.533      0.12528    
+L0.capital  0.27836     0.07280       3.824      0.00013 ***
+L1.capital  0.01410     0.09246       0.152      0.87919    
+L2.capital -0.04025     0.04327      -0.930      0.35237    
+L0.output   0.59192     0.17309       3.420      0.00063 ***
+L1.output  -0.56599     0.26110      -2.168      0.03016 *  
+L2.output   0.10054     0.16110       0.624      0.53263    
+1979        0.01122     0.01168       0.960      0.33706    
+1980        0.02307     0.02006       1.150      0.25014    
+1981       -0.02136     0.03324      -0.642      0.52087    
+1982       -0.03112     0.03397      -0.916      0.35967    
+1983       -0.01799     0.03693      -0.487      0.62626    
+1976       -0.02337     0.03661      -0.638      0.52347    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+ 41 total instruments are employed to estimate 16 parameters
+ 27 linear (DIF) 
+ 8 further controls (DIF) 
+ 6 time dummies (DIF) 
+ 
+J-Test (overid restrictions):  31.38 with 25 DF, pvalue: 0.1767
+F-Statistic (slope coeff):  269.16 with 10 DF, pvalue: <0.001
+F-Statistic (time dummies):  15.43 with 6 DF, pvalue: 0.0172
+```
+
+# Firm-specifit linear time trends
+
+```r
+EmplUK_log_panel <- EmplUK_log %>% 
+    pdata.frame(index=c("firm", "year")) %>% 
+    make.pbalanced()
+N.obs <- EmplUK_log_panel$firm %>% n_distinct()
+T.obs <- EmplUK_log_panel$year %>% n_distinct()
+cat (sprintf("No.sample: %s \nNo.time: %s \n", N.obs, T.obs) )
+
+## create country specific trend variables: `regressor_t`
+## kronecker product %x%
+ttrend <- diag(N.obs) %x% matrix(1:T.obs, ncol=1)
+colnames(ttrend) <- paste("T1", 1:N.obs, sep="_")
+EmplUK_log_panel <- cbind(EmplUK_log_panel, ttrend)
+
+m3 <- pdynmc(
+    dat = EmplUK_log_panel, varname.i = "firm", varname.t = "year",
+    use.mc.diff = TRUE, use.mc.lev = FALSE, use.mc.nonlin = FALSE,
+    include.y = TRUE, varname.y = "emp", lagTerms.y = 2,
+    fur.con = TRUE, fur.con.diff = TRUE, fur.con.lev = FALSE,
+    varname.reg.fur = c("wage", "capital", "output", colnames(ttrend)), 
+    lagTerms.reg.fur = c(1,2,2, rep(0, N.obs)),
+    include.dum = TRUE, dum.diff = TRUE, dum.lev = FALSE, varname.dum = c("year"),
+    w.mat = "iid.err", std.err = "corrected", 
+    estimation = "twostep", opt.meth = "none"
+    )
+```
+
+
+```r
+> summary(m3)
+
+Dynamic linear panel estimation (twostep)
+GMM estimation steps: 2
+
+Coefficients:
+             Estimate Std.Err.rob z-value.rob Pr(>|z.rob|)    
+L1.emp      7.463e-02   3.806e-01       0.196      0.84461    
+L2.emp     -8.382e-02   1.837e-01      -0.456      0.64839    
+L0.wage    -4.833e-01   3.582e-01      -1.350      0.17702    
+L1.wage    -1.071e-02   2.451e-01      -0.044      0.96490    
+L0.capital  3.747e-01   9.702e-02       3.862      0.00011 ***
+L1.capital  1.419e-01   1.563e-01       0.908      0.36388    
+L2.capital  9.285e-02   8.815e-02       1.053      0.29234    
+L0.output   9.019e-01   3.223e-01       2.798      0.00514 ** 
+L1.output  -9.272e-02   2.880e-01      -0.322      0.74745    
+L2.output  -1.657e-01   3.760e-01      -0.441      0.65921    
+L0.T1_1    -1.149e-01   5.979e-02      -1.922      0.05461 .  
+L0.T1_2    -6.668e-03   7.266e-02      -0.092      0.92670    
+L0.T1_3    -1.637e-02   5.466e-02      -0.300      0.76418    
+L0.T1_4     3.984e-02   8.438e-02       0.472      0.63693    
+L0.T1_5    -1.225e-02   9.437e-02      -0.130      0.89657    
+L0.T1_6    -5.775e-02   1.996e-01      -0.289      0.77258    
+L0.T1_7    -2.695e-02   3.351e-02      -0.804      0.42140    
+L0.T1_8    -1.981e-01   2.075e-01      -0.954      0.34008    
+L0.T1_9    -5.667e-03   1.462e-01      -0.039      0.96889    
+L0.T1_10    7.218e-03   6.189e-02       0.117      0.90686    
+  ...         ...         ...
+  ...         ...         ...
+L0.T1_130  -3.148e-01   1.988e-01      -1.584      0.11319    
+L0.T1_131  -6.253e-02   1.036e-01      -0.603      0.54651    
+L0.T1_132   1.565e-01   1.226e-01       1.277      0.20160    
+L0.T1_133  -1.234e-02   6.907e-02      -0.179      0.85794    
+L0.T1_134   7.236e-02   5.395e-02       1.341      0.17992    
+L0.T1_135  -6.632e-02   1.444e-01      -0.459      0.64623    
+L0.T1_136  -1.602e-01   3.659e-01      -0.438      0.66139    
+L0.T1_137   6.105e-02   1.576e-01       0.387      0.69876    
+L0.T1_138  -6.108e-03   1.046e-02      -0.584      0.55922    
+L0.T1_139   1.123e-01   1.697e-01       0.662      0.50797    
+L0.T1_140   1.746e-02   4.531e-02       0.385      0.70024    
+1979        2.480e-02   1.869e-02       1.327      0.18451    
+1980        6.252e-02   2.764e-02       2.262      0.02370 *  
+1981        7.584e-02   5.168e-02       1.468      0.14210    
+1982        6.072e-02   7.399e-02       0.821      0.41165    
+1983        3.723e-02   1.118e-01       0.333      0.73913    
+1984        8.839e-03   1.083e-01       0.082      0.93465    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+ 181 total instruments are employed to estimate 156 parameters
+ 27 linear (DIF) 
+ 148 further controls (DIF) 
+ 6 time dummies (DIF) 
+ 
+J-Test (overid restrictions):  5.14 with 25 DF, pvalue: 1
+F-Statistic (slope coeff):  84020.91 with 150 DF, pvalue: <0.001
+F-Statistic (time dummies):  9.01 with 6 DF, pvalue: 0.1732
+```
+
+
+# Firm-specifit quadratic time trends
+
+```r
+ttrend2 <- diag(N.obs) %x% matrix((1:T.obs)^2, ncol=1)
+colnames(ttrend2) <- paste("T2", 1:N.obs, sep="_")
+EmplUK_log_panel <- cbind(EmplUK_log_panel, ttrend2)
+
+m4 <- pdynmc(
+    dat = EmplUK_log_panel, varname.i = "firm", varname.t = "year",
+    use.mc.diff = TRUE, use.mc.lev = FALSE, use.mc.nonlin = FALSE,
+    include.y = TRUE, varname.y = "emp", lagTerms.y = 2,
+    fur.con = TRUE, fur.con.diff = TRUE, fur.con.lev = FALSE,
+    varname.reg.fur = c("wage", "capital", "output", colnames(ttrend), colnames(ttrend2)), 
+    lagTerms.reg.fur = c(1,2,2, rep(0, N.obs*2)),
+    include.dum = TRUE, dum.diff = TRUE, dum.lev = FALSE, varname.dum = c("year"),
+    w.mat = "iid.err", std.err = "corrected", 
+    estimation = "twostep", opt.meth = "none"
+    )
+```
+
+```r
+> summary(m4)
+
+Dynamic linear panel estimation (twostep)
+GMM estimation steps: 2
+
+Coefficients:
+             Estimate Std.Err.rob z-value.rob Pr(>|z.rob|)    
+L1.emp      7.828e-03   1.748e-03       4.478        1e-05 ***
+L2.emp      8.853e-04   1.941e-03       0.456      0.64839    
+L0.wage    -7.606e-03   3.138e-03      -2.424      0.01535 *  
+L1.wage    -3.598e-03   2.001e-03      -1.798      0.07218 .  
+L0.capital  3.593e-02   4.618e-03       7.781      < 2e-16 ***
+L1.capital  4.628e-03   4.121e-03       1.123      0.26144    
+L2.capital -6.552e-03   1.081e-03      -6.064      < 2e-16 ***
+L0.output   4.490e-03   6.282e-04       7.147      < 2e-16 ***
+L1.output   8.206e-03   6.349e-04      12.924      < 2e-16 ***
+L2.output   5.053e-03   6.662e-04       7.584      < 2e-16 ***
+L0.T1_1    -6.607e-04   6.616e-05      -9.986      < 2e-16 ***
+L0.T1_2    -6.192e-04   8.240e-04      -0.751      0.45265    
+L0.T1_3    -6.293e-04   3.986e-04      -1.579      0.11434    
+L0.T1_4    -8.577e-04   6.119e-04      -1.402      0.16092    
+L0.T1_5     2.480e-03   6.805e-04       3.644      0.00027 ***
+  ...         ...         ...
+  ...         ...         ...
+L0.T1_135  -5.362e-04   1.030e-04      -5.207      < 2e-16 ***
+L0.T1_136   3.437e-04   2.877e-04       1.195      0.23209    
+L0.T1_137  -9.721e-04   1.670e-04      -5.822      < 2e-16 ***
+L0.T1_138  -5.116e-04   6.030e-05      -8.484      < 2e-16 ***
+L0.T1_139   4.887e-04   1.205e-04       4.057        5e-05 ***
+L0.T1_140  -4.254e-04   3.149e-05     -13.508      < 2e-16 ***
+L0.T2_1    -7.406e-03   1.342e-03      -5.521      < 2e-16 ***
+L0.T2_2    -4.010e-03   3.472e-03      -1.155      0.24809    
+L0.T2_3    -4.735e-03   1.315e-03      -3.601      0.00032 ***
+L0.T2_4    -9.115e-03   3.379e-03      -2.698      0.00698 ** 
+L0.T2_5     1.934e-03   6.044e-04       3.200      0.00137 ** 
+  ...         ...         ...
+  ...         ...         ...
+L0.T2_47   -1.122e-02   5.929e-04     -18.933      < 2e-16 ***
+L0.T2_48   -5.041e-03   6.041e-04      -8.344      < 2e-16 ***
+L0.T2_49   -2.077e-02   3.003e-03      -6.917      < 2e-16 ***
+L0.T2_50   -1.849e-02   1.140e-03     -16.217      < 2e-16 ***
+ [ reached getOption("max.print") -- omitted 96 rows ]
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+ 321 total instruments are employed to estimate 296 parameters
+ 27 linear (DIF) 
+ 288 further controls (DIF) 
+ 6 time dummies (DIF) 
+ 
+J-Test (overid restrictions):  2.87 with 25 DF, pvalue: 1
+F-Statistic (slope coeff):  1028276.76 with 290 DF, pvalue: <0.001
+F-Statistic (time dummies):  1183.36 with 6 DF, pvalue: <0.001
+```
+
+
+
+
+
+

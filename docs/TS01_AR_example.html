@@ -122,6 +122,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       processEscapes: true, // use \$ to produce a literal dollar sign
       tags: 'ams',  // should be 'ams', 'none', or 'all'
       macros: {  //define TeX macros
+        bold: ["{\\boldsymbol #1}", 1],  // use \bold as a shorthand
+        indep: "{\\perp \\!\\!\\! \\perp}",
         vect: ["\\mathbf{#1}", 1],
         mat: ["\\mathbf{#1}", 1], 
 
@@ -654,8 +656,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./PA05_dynamic_models_with_pdynmc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./PA07_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>

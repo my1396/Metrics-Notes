@@ -87,6 +87,8 @@ ul.task-list li input[type="checkbox"] {
       processEscapes: true, // use \$ to produce a literal dollar sign
       tags: 'ams',  // should be 'ams', 'none', or 'all'
       macros: {  //define TeX macros
+        bold: ["{\\boldsymbol #1}", 1],  // use \bold as a shorthand
+        indep: "{\\perp \\!\\!\\! \\perp}",
         vect: ["\\mathbf{#1}", 1],
         mat: ["\\mathbf{#1}", 1], 
 
@@ -617,8 +619,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./PA05_dynamic_models_with_pdynmc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./PA07_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -671,18 +679,25 @@ window.Quarto = {
 </div>
 <div id="cnj-32" class="theorem conjecture">
 <p><span class="theorem-title"><strong>Assumption 11.3 (Zero Conditional Mean)</strong></span> The explanatory variables <span class="math inline">\(\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})\)</span> are <strong>contemporaneously exogenous</strong>:</p>
-<p><span class="math display">\[
+<p><span id="eq-exo-contemp"><span class="math display">\[
 \E(u_t\mid \bx_t) = 0.
-\]</span></p>
+\tag{11.1}\]</span></span></p>
 </div>
+<p><a href="#eq-exo-contemp" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> implies</p>
+<p><span class="math display">\[
+\E(u_t) = 0 ,
+\]</span> and</p>
+<p><span class="math display">\[
+\E(u_t\bx_t) = \bold{0} .
+\]</span></p>
 <p>It is equivalent to say that <span class="math inline">\(u_t\)</span> has zero unconditional mean and is uncorrelated with each <span class="math inline">\(x_{tj}, j=1,\ldots,K\)</span>:</p>
 <p><span class="math display">\[
-\E(u_t) = 0, \cov(x_{tj}, u_t)=0, j=1,\ldots,K.
+\cov(x_{tj}, u_t)=0, \quad j=1,\ldots,K.
 \]</span></p>
 <div id="cnj-42" class="theorem conjecture">
 <p><span class="theorem-title"><strong>Assumption 11.4 (Homoskedasticity)</strong></span> The errors are <strong><em>contemporaneously homoskedastic</em></strong>, that is, conditional on <span class="math inline">\(\bx_t,\)</span> the variance of <span class="math inline">\(u_t\)</span> is the same for all <span class="math inline">\(t:\)</span></p>
 <p><span class="math display">\[
-\var(u_t\mid \bx_t)=\var(u_t)=\sigma^2,\, t=1,2,\ldots,n.
+\var(u_t\mid \bx_t)=\var(u_t)=\sigma^2,\quad t=1,2,\ldots,T.
 \]</span></p>
 </div>
 <p>Note that the condition is only on the explanatory variables at time <span class="math inline">\(t.\)</span></p>
@@ -713,25 +728,25 @@ y_t = \beta_0 + \beta_1y_{t-1} + u_t,
 \]</span> where the error <span class="math inline">\(u_t\)</span> has a zero expected value, given all past values of <span class="math inline">\(y:\)</span></p>
 <p><span id="eq-AR_err"><span class="math display">\[
 \E(u_t\mid y_{t-1},y_{t-2},\ldots)=0.
-\tag{11.1}\]</span></span></p>
+\tag{11.2}\]</span></span></p>
 <p>Combined, these two equations imply that</p>
 <p><span class="math display">\[
 \E(y_t\mid y_{t-1},y_{t-2},\ldots) = \E(y_t\mid y_{t-1}) =  \beta_0 + \beta_1y_{t-1}.
 \]</span> It means that, once <span class="math inline">\(y\)</span> lagged one period has been controlled for, no further lags of <span class="math inline">\(y\)</span> affect the expected value of <span class="math inline">\(y_t.\)</span></p>
-<p>Because <span class="math inline">\(\bx_t\)</span> contains only <span class="math inline">\(y_{t-1},\)</span> <a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> implies that contemporaneous exogeneity holds.</p>
+<p>Because <span class="math inline">\(\bx_t\)</span> contains only <span class="math inline">\(y_{t-1},\)</span> <a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.2</span></a> implies that contemporaneous exogeneity holds.</p>
 <p>By contrast, the strict exogeneity assumption is needed for unbiasedness. Since <span class="math inline">\(u_t\)</span> is always correlated with <span class="math inline">\(y_t\)</span> (<span class="math inline">\(\cov(u_t, y_t)=\var(u_t)&gt;0\)</span>), strict exogeneity assumption cannot be true.</p>
 <p>Therefore, <strong>a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption</strong>.</p>
 <p>For the weak dependence of <span class="math inline">\(y_t\)</span> to hold, we must assume that <span class="math inline">\(\abs{\beta_1}&lt;1.\)</span> If this condition holds, then Assumptions <a href="#cnj-12" class="quarto-xref"><span>11.1</span></a> through <a href="#cnj-32" class="quarto-xref"><span>11.3</span></a> implies that the OLS estimator from the regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(y_{t-1}\)</span> produces consistent estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1.\)</span></p>
 <p>Unfortunately, <span class="math inline">\(\hat{\beta}_1\)</span> s biased, and this bias can be large if the sample size is small or if <span class="math inline">\(\beta_1\)</span> is near 1. For <span class="math inline">\(\beta_1\)</span> near 1, <span class="math inline">\(\hat{\beta}_1\)</span> can have a severe downward bias. In moderate to large samples, <span class="math inline">\(\hat{\beta}_1\)</span> should be a good estimator of <span class="math inline">\(\beta_1.\)</span></p>
 </div>
 <hr>
-<p><a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> also indicates no serial correlation in <span class="math inline">\(u_t.\)</span></p>
+<p><a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.2</span></a> also indicates no serial correlation in <span class="math inline">\(u_t.\)</span></p>
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>To show that the errors <span class="math inline">\(\{u_t\}\)</span> are serially uncorrelated, we must show that <span class="math inline">\(\E(u_tu_s\mid \bx_t, \bx_s)=0\)</span> for <span class="math inline">\(t\ne s.\)</span> The explanatory variable at <span class="math inline">\(t\)</span> is <span class="math inline">\(y_{t-1}\)</span>, hence we need to prove</p>
 <p><span class="math display">\[
 \E(u_tu_s\mid y_{t-1}, y_{s-1})=0
 \]</span> Assume <span class="math inline">\(s&lt;t,\)</span> rewrite <span class="math inline">\(u_s = y_s-beta_0-beta_1y_{s-1},\)</span> that is, <span class="math inline">\(u_s\)</span> is a function of <span class="math inline">\(y\)</span> dated before time <span class="math inline">\(t.\)</span></p>
-<p>By <a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.1</span></a>, we have</p>
+<p>By <a href="#eq-AR_err" class="quarto-xref">Equation&nbsp;<span>11.2</span></a>, we have</p>
 <p><span class="math display">\[
 \E(u_t\mid u_s, y_{t-1}, y_{s-1}) = 0.
 \]</span> Then <span class="math display">\[

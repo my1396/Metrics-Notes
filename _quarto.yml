@@ -29,6 +29,7 @@ book:
         - PA02_Fixed-Effects.qmd
         - PA03_Random-Effects.qmd
         - PA04_dynamic_models.qmd
+        - PA05_dynamic_models_with_pdynmc.qmd
         - PA07_Hetero_lm.qmd
         
 

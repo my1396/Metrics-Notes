@@ -7,19 +7,43 @@ format: html
 
 ### Introduction
 
-Throughout the previous section, we assumed that the idiosyncratic term $u_{it}$ satisfied strict exogeneity with respect to the data:
+Throughout the previous section, we assumed that the idiosyncratic term $u_{it}$ satisfied **strict exogeneity** with respect to the data:
 $$
 	\E[u_{it}|\bX_i] = 0.
-$${#eq-dynamic-interlude-strict-orthogonality}
+$$
 
-However, strict exogeneity is not an innocent assumption. In particular, it implies that for all pairs of indices $s, t$ it holds that 
+It implies that for all pairs of indices $s$ and $t,$ it holds that 
 $$
 	\E[u_{it}\bx_{is}] =0.
 $$ {#eq-dynamic-interlude-strict-orthogonality}
 
-For $t<s$, @eq-dynamic-interlude-strict-orthogonality means that *past* shocks are uncorrelated with *future* values of $\bx$.  In other words, one cannot predict *past* shocks from *future* $\bx$s. 
 
-This requirement might fail if $\bx$ is dynamic and its evolution is affected by $u_{it}$. In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data. 
+- However, strict exogeneity is not possible in the presence of lagged dependent variables. 
+
+    Therefore, **sequential exogeneity** requires only (-@eq-dynamic-interlude-strict-orthogonality) holds for $t\ge s.$ That is,         
+    
+    $$
+    \E[u_{it}\bx_{is}] = 0 \text{ for } t\ge s.
+    $${#eq-dynamic-interlude-seq-orthogonality}
+    
+    In plain language, the current and past values of $\bx$ are uncorrelated with the current error term, although its future values may not be.
+    
+    In this case, the regressor $\bx$ is called "**predetermined**" as its value is *determined prior to the current period*. 
+    
+    Examples of predetermined variables:
+    
+    - Lagged dependent variables: Variables that represent past values of the dependent variable.
+    - Exogenous variables: Variables that are determined outside the model and are not influenced by the endogenous variables within the current period.
+
+- For $t<s$, @eq-dynamic-interlude-strict-orthogonality means that *past* shocks are uncorrelated with *future* values of $\bx$.  In other words, one cannot predict *future* $\bx$'s from *past* shocks. 
+
+    This requirement might **fail** if $\bx$ is dynamic, e.g., covaraites including lagged dependent variables, and its evolution is affected by $u_{it}$. That is, 
+    $$
+    \E[u_{it}\bx_{is}] \ne 0 \text{ for } t<s.
+    $$ 
+    This means, $\bx_{is}$ can respond dynamically to past values of $y_{it}.$
+    
+    In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data. 
 
 
 ### No Strict Exogeneity In the Presence of Lagged Dependent Variables
@@ -51,13 +75,20 @@ $$
 \end{aligned}
 $$ 
 
-Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.
+Therefore, a model with a lagged dependent variable **cannot** satisfy the strict exogeneity assumption.
 
 For the weak dependence condition to hold, we must assume that $|\beta_1| < 1$. If this condition holds, then the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces **consistent** estimators of $\beta_0$ and $\beta_1$. 
 
 Unfortunately, $\hat{\beta}_1^{OLS}$ is **biased**, and this *bias can be large if the sample size is small* or if $\beta_1$ is *near* 1. (For $\beta_1$ near 1, $\hat{\beta}_1^{OLS}$ can have a severe downward bias.) In moderate to large samples, $\hat{\beta}_1^{OLS}$ should be a good estimator of $\beta_1$.
 
 @eq-zero_mean is called the **sequential exogeneity** assumption.
+Or more generally, using $\bx$ to represent the vector of covariates, the sequential exogeneity is:
+
+$$
+\E(u_t \mid \bx_t, \bx_{t-1}, \ldots,) = \E(u_t) = 0, t=1,2,\ldots.
+$$ {#eq-seq_exogeneity}
+
+We can see that sequential exogeneity implies contemporaneous exogeneity.
 
 
 ## Dynamic Panel Representation
@@ -71,8 +102,21 @@ $$
 y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
 $$ {#eq-dynamic-interlude-dynamic-panel}
 
-Notice that the RHS now includes the lagged dependent variables $y_{i,t-k},$ $k=1,\ldots,K.$ Adding dynamics to a model makes major changes in the interpretation of the equation.
+Notice that the RHS now includes the lagged dependent variables $y_{i,t-k},$ $k=1,\ldots,K.$ $\lambda_k$ are the autoregressive coefficients, $\bx_{it}$ is a vector of regressors. $\alpha_i$ is an individual-effect, and $u_{it}$ is an idiosyncratic error.
 
+It is conventional to assume that $\alpha_i$ and the error  $u_{it}$ are mutually independent
+
+$$
+\cov(\alpha_i, u_{it}) = 0,
+$$
+
+and $u_{it}$ are serially uncorrelated:
+
+$$
+\E[u_{it}u_{is}] = 0 \quad \text{for } t \ne s.
+$$
+
+Adding dynamics to a model makes major changes in the interpretation of the equation.
 The entire history of the LHS variable enters into the equation. Any measured influence is conditioned on this history. Any impact of $\bx_{it}$ represents the effects of *new* information.
 
 

@@ -20,20 +20,31 @@ The explanatory variables $\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})$ are **contemp
 
 $$
 \E(u_t\mid \bx_t) = 0.
-$$
+$${#eq-exo-contemp}
 :::
+
+@eq-exo-contemp implies
+
+$$
+\E(u_t) = 0 ,
+$$
+and
+
+$$
+\E(u_t\bx_t) = \bold{0} .
+$$
 
 It is equivalent to say that $u_t$ has zero unconditional mean and is uncorrelated with each $x_{tj}, j=1,\ldots,K$:
 
 $$
-\E(u_t) = 0, \cov(x_{tj}, u_t)=0, j=1,\ldots,K.
+\cov(x_{tj}, u_t)=0, \quad j=1,\ldots,K.
 $$
 
 :::{#cnj-42 name="Homoskedasticity"}
 The errors are ***contemporaneously homoskedastic***, that is, conditional on $\bx_t,$ the variance of $u_t$ is the same for all $t:$ 
 
 $$
-\var(u_t\mid \bx_t)=\var(u_t)=\sigma^2,\, t=1,2,\ldots,n.
+\var(u_t\mid \bx_t)=\var(u_t)=\sigma^2,\quad t=1,2,\ldots,T.
 $$
 :::
 

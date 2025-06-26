@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./PA07_Hetero_lm.html" rel="next">
+<link href="./PA05_dynamic_models_with_pdynmc.html" rel="next">
 <link href="./PA03_Random-Effects.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -107,6 +107,8 @@ div.csl-indent {
       processEscapes: true, // use \$ to produce a literal dollar sign
       tags: 'ams',  // should be 'ams', 'none', or 'all'
       macros: {  //define TeX macros
+        bold: ["{\\boldsymbol #1}", 1],  // use \bold as a shorthand
+        indep: "{\\perp \\!\\!\\! \\perp}",
         vect: ["\\mathbf{#1}", 1],
         mat: ["\\mathbf{#1}", 1], 
 
@@ -637,8 +639,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./PA05_dynamic_models_with_pdynmc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./PA07_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -692,14 +700,31 @@ window.Quarto = {
 <h2 data-number="17.1" class="anchored" data-anchor-id="exogeneity-and-dynamic-models"><span class="header-section-number">17.1</span> Exogeneity and Dynamic Models</h2>
 <section id="introduction" class="level3" data-number="17.1.1">
 <h3 data-number="17.1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">17.1.1</span> Introduction</h3>
-<p>Throughout the previous section, we assumed that the idiosyncratic term <span class="math inline">\(u_{it}\)</span> satisfied strict exogeneity with respect to the data: <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
+<p>Throughout the previous section, we assumed that the idiosyncratic term <span class="math inline">\(u_{it}\)</span> satisfied <strong>strict exogeneity</strong> with respect to the data: <span class="math display">\[
     \E[u_{it}|\bX_i] = 0.
-\tag{17.1}\]</span></span></p>
-<p>However, strict exogeneity is not an innocent assumption. In particular, it implies that for all pairs of indices <span class="math inline">\(s, t\)</span> it holds that <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
+\]</span></p>
+<p>It implies that for all pairs of indices <span class="math inline">\(s\)</span> and <span class="math inline">\(t,\)</span> it holds that <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
     \E[u_{it}\bx_{is}] =0.
-\tag{17.2}\]</span></span></p>
-<p>For <span class="math inline">\(t&lt;s\)</span>, <a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref">Equation&nbsp;<span>17.2</span></a> means that <em>past</em> shocks are uncorrelated with <em>future</em> values of <span class="math inline">\(\bx\)</span>. In other words, one cannot predict <em>past</em> shocks from <em>future</em> <span class="math inline">\(\bx\)</span>s.</p>
-<p>This requirement might fail if <span class="math inline">\(\bx\)</span> is dynamic and its evolution is affected by <span class="math inline">\(u_{it}\)</span>. In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data.</p>
+\tag{17.1}\]</span></span></p>
+<ul>
+<li><p>However, strict exogeneity is not possible in the presence of lagged dependent variables.</p>
+<p>Therefore, <strong>sequential exogeneity</strong> requires only (<a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref"><span>17.1</span></a>) holds for <span class="math inline">\(t\ge s.\)</span> That is,</p>
+<p><span id="eq-dynamic-interlude-seq-orthogonality"><span class="math display">\[
+  \E[u_{it}\bx_{is}] = 0 \text{ for } t\ge s.
+   \tag{17.2}\]</span></span></p>
+<p>In plain language, the current and past values of <span class="math inline">\(\bx\)</span> are uncorrelated with the current error term, although its future values may not be.</p>
+<p>In this case, the regressor <span class="math inline">\(\bx\)</span> is called “<strong>predetermined</strong>” as its value is <em>determined prior to the current period</em>.</p>
+<p>Examples of predetermined variables:</p>
+<ul>
+<li>Lagged dependent variables: Variables that represent past values of the dependent variable.</li>
+<li>Exogenous variables: Variables that are determined outside the model and are not influenced by the endogenous variables within the current period.</li>
+</ul></li>
+<li><p>For <span class="math inline">\(t&lt;s\)</span>, <a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref">Equation&nbsp;<span>17.1</span></a> means that <em>past</em> shocks are uncorrelated with <em>future</em> values of <span class="math inline">\(\bx\)</span>. In other words, one cannot predict <em>future</em> <span class="math inline">\(\bx\)</span>’s from <em>past</em> shocks.</p>
+<p>This requirement might <strong>fail</strong> if <span class="math inline">\(\bx\)</span> is dynamic, e.g., covaraites including lagged dependent variables, and its evolution is affected by <span class="math inline">\(u_{it}\)</span>. That is, <span class="math display">\[
+  \E[u_{it}\bx_{is}] \ne 0 \text{ for } t&lt;s.
+  \]</span> This means, <span class="math inline">\(\bx_{is}\)</span> can respond dynamically to past values of <span class="math inline">\(y_{it}.\)</span></p>
+<p>In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data.</p></li>
+</ul>
 </section>
 <section id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="level3" data-number="17.1.2">
 <h3 data-number="17.1.2" class="anchored" data-anchor-id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">17.1.2</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</h3>
@@ -720,10 +745,14 @@ y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
 &amp;= \text{Var}(u_t) &gt; 0.
 \end{aligned}
 \]</span></p>
-<p>Therefore, a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption.</p>
+<p>Therefore, a model with a lagged dependent variable <strong>cannot</strong> satisfy the strict exogeneity assumption.</p>
 <p>For the weak dependence condition to hold, we must assume that <span class="math inline">\(|\beta_1| &lt; 1\)</span>. If this condition holds, then the OLS estimator from the regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(y_{t-1}\)</span> produces <strong>consistent</strong> estimators of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
 <p>Unfortunately, <span class="math inline">\(\hat{\beta}_1^{OLS}\)</span> is <strong>biased</strong>, and this <em>bias can be large if the sample size is small</em> or if <span class="math inline">\(\beta_1\)</span> is <em>near</em> 1. (For <span class="math inline">\(\beta_1\)</span> near 1, <span class="math inline">\(\hat{\beta}_1^{OLS}\)</span> can have a severe downward bias.) In moderate to large samples, <span class="math inline">\(\hat{\beta}_1^{OLS}\)</span> should be a good estimator of <span class="math inline">\(\beta_1\)</span>.</p>
-<p><a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>17.4</span></a> is called the <strong>sequential exogeneity</strong> assumption.</p>
+<p><a href="#eq-zero_mean" class="quarto-xref">Equation&nbsp;<span>17.4</span></a> is called the <strong>sequential exogeneity</strong> assumption. Or more generally, using <span class="math inline">\(\bx\)</span> to represent the vector of covariates, the sequential exogeneity is:</p>
+<p><span id="eq-seq_exogeneity"><span class="math display">\[
+\E(u_t \mid \bx_t, \bx_{t-1}, \ldots,) = \E(u_t) = 0, t=1,2,\ldots.
+\tag{17.5}\]</span></span></p>
+<p>We can see that sequential exogeneity implies contemporaneous exogeneity.</p>
 </section>
 </section>
 <section id="dynamic-panel-representation" class="level2" data-number="17.2">
@@ -732,20 +761,28 @@ y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
 <p>A Nickell bias arises from including the lagged dependent variable as an explanatory variable, making standard panel data estimators (FE, RE, FD) inconsistent, especially in analyses with short T and large N. System-GMM estimation addresses this by instrumenting the endogenous variables with their lagged values.</p>
 <p>More generally, consider a panel data linear model with homogeneous coefficients, a random intercept, and a dynamic process in the <span class="math inline">\(K\)</span>-th order for the outcome: <span id="eq-dynamic-interlude-dynamic-panel"><span class="math display">\[
 y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.  
-\tag{17.5}\]</span></span></p>
-<p>Notice that the RHS now includes the lagged dependent variables <span class="math inline">\(y_{i,t-k},\)</span> <span class="math inline">\(k=1,\ldots,K.\)</span> Adding dynamics to a model makes major changes in the interpretation of the equation.</p>
-<p>The entire history of the LHS variable enters into the equation. Any measured influence is conditioned on this history. Any impact of <span class="math inline">\(\bx_{it}\)</span> represents the effects of <em>new</em> information.</p>
-<p>In <a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref">Equation&nbsp;<span>17.5</span></a>, a sequential exogeneity assumption takes form <span class="math display">\[
+\tag{17.6}\]</span></span></p>
+<p>Notice that the RHS now includes the lagged dependent variables <span class="math inline">\(y_{i,t-k},\)</span> <span class="math inline">\(k=1,\ldots,K.\)</span> <span class="math inline">\(\lambda_k\)</span> are the autoregressive coefficients, <span class="math inline">\(\bx_{it}\)</span> is a vector of regressors. <span class="math inline">\(\alpha_i\)</span> is an individual-effect, and <span class="math inline">\(u_{it}\)</span> is an idiosyncratic error.</p>
+<p>It is conventional to assume that <span class="math inline">\(\alpha_i\)</span> and the error <span class="math inline">\(u_{it}\)</span> are mutually independent</p>
+<p><span class="math display">\[
+\cov(\alpha_i, u_{it}) = 0,
+\]</span></p>
+<p>and <span class="math inline">\(u_{it}\)</span> are serially uncorrelated:</p>
+<p><span class="math display">\[
+\E[u_{it}u_{is}] = 0 \quad \text{for } t \ne s.
+\]</span></p>
+<p>Adding dynamics to a model makes major changes in the interpretation of the equation. The entire history of the LHS variable enters into the equation. Any measured influence is conditioned on this history. Any impact of <span class="math inline">\(\bx_{it}\)</span> represents the effects of <em>new</em> information.</p>
+<p>In <a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref">Equation&nbsp;<span>17.6</span></a>, a sequential exogeneity assumption takes form <span class="math display">\[
      \E[u_{it}\mid \curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0.
 \]</span></p>
-<p>For the sake of simplicity, we will discuss a simple version of model (<a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref"><span>17.5</span></a>) without extra covariates <span class="math inline">\(\bx_{it}\)</span> and with only one lag of <span class="math inline">\(y_{it}\)</span>: <span id="eq-dynamic-interlude-dynamic-simple"><span class="math display">\[
+<p>For the sake of simplicity, we will discuss a simple version of model (<a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref"><span>17.6</span></a>) without extra covariates <span class="math inline">\(\bx_{it}\)</span> and with only one lag of <span class="math inline">\(y_{it}\)</span>: <span id="eq-dynamic-interlude-dynamic-simple"><span class="math display">\[
 \color{#008B45} {y_{it} = \alpha_i + \lambda y_{it-1} + u_{it}, }
-\tag{17.6}\]</span></span> where <span class="math inline">\(u_{it}\)</span> satisfies sequential exogeneity in the form <span class="math inline">\(\E[u_{it}|y_{is}, s&lt;t] = 0\)</span>.</p>
-<p>Let us difference <a href="#eq-dynamic-interlude-dynamic-simple" class="quarto-xref">Equation&nbsp;<span>17.6</span></a> across <span class="math inline">\(t\)</span> to eliminate the random intercept <span class="math inline">\(\alpha_i\)</span>. The differenced equation takes form</p>
+\tag{17.7}\]</span></span> where <span class="math inline">\(u_{it}\)</span> satisfies sequential exogeneity in the form <span class="math inline">\(\E[u_{it}|y_{is}, s&lt;t] = 0\)</span>.</p>
+<p>Let us difference <a href="#eq-dynamic-interlude-dynamic-simple" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> across <span class="math inline">\(t\)</span> to eliminate the random intercept <span class="math inline">\(\alpha_i\)</span>. The differenced equation takes form</p>
 <p><span id="eq-dynamic-interlude-homogeneous-differenced"><span class="math display">\[
 \color{#008B45} {\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it}} ,
-\tag{17.7}\]</span></span></p>
-<p>where <span class="math inline">\(\Delta y_{it} = y_{it} - y_{it-1}.\)</span> <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> seems like a simple regression equation. It is tempting to just apply OLS and regress <span class="math inline">\(\Delta y_{it}\)</span> on <span class="math inline">\(\Delta y_{it-1}\)</span>. But it turns out that <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> has an endogeneity problem. To prove this, we can show that <span class="math inline">\(\E[\Delta y_{it-1} \Delta u_{it}] \ne 0.\)</span></p>
+\tag{17.8}\]</span></span></p>
+<p>where <span class="math inline">\(\Delta y_{it} = y_{it} - y_{it-1}.\)</span> <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.8</span></a> seems like a simple regression equation. It is tempting to just apply OLS and regress <span class="math inline">\(\Delta y_{it}\)</span> on <span class="math inline">\(\Delta y_{it-1}\)</span>. But it turns out that <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.8</span></a> has an endogeneity problem. To prove this, we can show that <span class="math inline">\(\E[\Delta y_{it-1} \Delta u_{it}] \ne 0.\)</span></p>
 <p>Plug in <span class="math inline">\(\Delta y_{it-1} = y_{it-1}-y_{it-2}\)</span> and <span class="math inline">\(\Delta u_{it} = u_{it}-u_{it-1}.\)</span></p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -761,7 +798,7 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 <p>Hence we conclude that</p>
 <p><span class="math display">\[
 \E[\Delta y_{it-1} \Delta u_{it}] \ne 0,
-\]</span> and that <span class="math inline">\(\Delta y_{it-1}\)</span> is an endogeneous regressor in the differenced <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.7</span></a>. Hence, we see that the first difference estimator is biased.</p>
+\]</span> and that <span class="math inline">\(\Delta y_{it-1}\)</span> is an endogeneous regressor in the differenced <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.8</span></a>. Hence, we see that the first difference estimator is biased.</p>
 <p>Note that the bias is large when <span class="math inline">\(T\)</span> is relatively small, which is common for micro data. When <span class="math inline">\(T\)</span> is large the Nickell’s bias is relatively small.</p>
 <p>The dynamic panel data (DPD) models are designed to account for this endogeneity.</p>
 <section id="iv-estimator-of-dynamic-panel-models" class="level3" data-number="17.2.1">
@@ -773,7 +810,7 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 \end{aligned}
 \]</span></p>
 <p>In most contexts, one has to look for external variables that can serve as instruments.</p>
-<p>However, model (<a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref"><span>17.7</span></a>) is a very special case where one can use instruments internal to the model!</p>
+<p>However, model (<a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref"><span>17.8</span></a>) is a very special case where one can use instruments internal to the model!</p>
 <section id="the-anderson-hsiao-estimator" class="level4" data-number="17.2.1.1">
 <h4 data-number="17.2.1.1" class="anchored" data-anchor-id="the-anderson-hsiao-estimator"><span class="header-section-number">17.2.1.1</span> The Anderson-Hsiao Estimator</h4>
 <p>In particular, consider using twice lagged level of dependent variable <span class="math inline">\(y_{it-2}\)</span> as an instrument for <span class="math inline">\(\Delta y_{it-1}.\)</span></p>
@@ -786,8 +823,8 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 <li><p><strong>Exogeneity</strong> can be justified by appealing to sequential exogeneity:</p>
 <p><span id="eq-ortho-cond"><span class="math display">\[  
   \E[y_{it-2}\Delta u_{it}]  = \E[y_{it-2}u_{it} - y_{it-2}u_{it-1}]=0.
-   \tag{17.8}\]</span></span></p>
-<p><span class="math inline">\(y_{it-2}\)</span> is not correlated with the error term <span class="math inline">\(\Delta u_{it}.\)</span> The orthogonality condition (<a href="#eq-ortho-cond" class="quarto-xref"><span>17.8</span></a>) ensures the validity of the instrument.</p></li>
+   \tag{17.9}\]</span></span></p>
+<p><span class="math inline">\(y_{it-2}\)</span> is not correlated with the error term <span class="math inline">\(\Delta u_{it}.\)</span> The orthogonality condition (<a href="#eq-ortho-cond" class="quarto-xref"><span>17.9</span></a>) ensures the validity of the instrument.</p></li>
 </ul>
 <p>Hence <span class="math inline">\(y_{it-2}\)</span> is a valid instrument for <span class="math inline">\(\Delta y_{it-1}.\)</span></p>
 <p>The resulting IV estimator is known as the <span class="citation" data-cites="Anderson1982">Anderson and Hsiao (<a href="#ref-Anderson1982" role="doc-biblioref">1982</a>)</span> estimator and given by <span class="math display">\[
@@ -807,7 +844,7 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 </section>
 <section id="the-arellano-bond-estimator" class="level4" data-number="17.2.1.2">
 <h4 data-number="17.2.1.2" class="anchored" data-anchor-id="the-arellano-bond-estimator"><span class="header-section-number">17.2.1.2</span> The Arellano-Bond Estimator</h4>
-<p>The orthogonality condition (<a href="#eq-ortho-cond" class="quarto-xref"><span>17.8</span></a>) is one of many implied by the dynamic panel model. Indeed, all lags <span class="math inline">\(y_{it-2},\)</span> <span class="math inline">\(y_{it-3},\)</span> are valid instruments. If <span class="math inline">\(T &gt; p + 2\)</span> (<span class="math inline">\(p\)</span> is the order of autocorrelation) these can be used to potentially improve estimation efficiency. This was first pointed out by <span class="citation" data-cites="Holtz-Eakin1988">Holtz-Eakin, Newey, and Rosen (<a href="#ref-Holtz-Eakin1988" role="doc-biblioref">1988</a>)</span> and further developed by <span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span>.</p>
+<p>The orthogonality condition (<a href="#eq-ortho-cond" class="quarto-xref"><span>17.9</span></a>) is one of many implied by the dynamic panel model. Indeed, all lags <span class="math inline">\(y_{it-2},\)</span> <span class="math inline">\(y_{it-3},\)</span> are valid instruments. If <span class="math inline">\(T &gt; p + 2\)</span> (<span class="math inline">\(p\)</span> is the order of autocorrelation) these can be used to potentially improve estimation efficiency. This was first pointed out by <span class="citation" data-cites="Holtz-Eakin1988">Holtz-Eakin, Newey, and Rosen (<a href="#ref-Holtz-Eakin1988" role="doc-biblioref">1988</a>)</span> and further developed by <span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span>.</p>
 <p><span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span> expanded the idea by using additional lags of the dependent variable as instruments.</p>
 <p>Starting point: the FD estimator</p>
 <p><span class="math display">\[
@@ -1420,8 +1457,8 @@ Holtz-Eakin, Douglas, Whitney K. Newey, and Harvey S. Rosen. 1988. <span>“<spa
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./PA07_Hetero_lm.html" class="pagination-link" aria-label="Linear Models with Heterogeneous Coefficients">
-        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA05_dynamic_models_with_pdynmc.html" class="pagination-link" aria-label="Dynamic Model Applications with `pdynmc`">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

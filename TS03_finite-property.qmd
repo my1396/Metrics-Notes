@@ -15,7 +15,10 @@ In this section, we give a complete listing of the *finite sample, or small samp
 The stochastic process $\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, n\}$ follows the linear model
 
 $$
-y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \cdots + + \beta_Kx_{tK} + u_t,
+\begin{split}
+y_t &= \bx'\bbeta + u_t \\
+&= \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \cdots + + \beta_Kx_{tK} + u_t,
+\end{split}
 $$
 
 where $\{u_t: t=1,2,\ldots, n\}$ is the sequence of errors or disturbances. Here $n$ is the number of observations (time periods).
@@ -40,13 +43,13 @@ $$
 \bx_1 \\
 \bx_2 \\
 \vdots \\
-\bx_n
+\bx_T
 \end{bmatrix} 
 = \begin{bmatrix}
 x_{11} & x_{12} & \cdots & x_{1K} \\
 x_{21} & x_{22} & \cdots & x_{2K} \\
 \vdots & \vdots & \ddots & \vdots \\
-x_{n1} & x_{n2} & \cdots & x_{nK} \\
+x_{T1} & x_{T2} & \cdots & x_{TK} \\
 \end{bmatrix} 
 $$
 
@@ -62,12 +65,19 @@ In the sample (and therefore in the underlying time series process), no independ
 For each $t$, the expected value of the error $u_t,$ given the explanatory variables for *all* time periods, is zero. Mathematically,
 
 $$
-\E(u_t\mid \bX) = 0,\, t=1,2,\ldots,n.
-$$
+\E(u_t\mid \bx_1, \ldots, \bx_T) = \E(u_t\mid \bX) = 0,\, t=1,2,\ldots, T.
+$$ {#eq-mean_indep}
 :::
 
-@cnj-3 implies that the error at time $t$, $u_t,$ is uncorrelated with each explanatory in every time period. This is called the ***strict exogeneity***. 
+@cnj-3 (strict mean independence) *implies* that the error at time $t$, $u_t,$ is uncorrelated with each explanatory in every time period. 
+$$
+\E(\bx_s u_t) = \bold{0}, \quad \text{for } s=1,\ldots,T.
+$$ {#eq-strict_exo}
+This is called the ***strict exogeneity***. 
 
+Note that (-@eq-mean_indep) implies (-@eq-strict_exo), but not conversely. While strict exogeneity is sufficient for identification and asymptotic theory, we will use the stronger condition (-@eq-mean_indep) for finite sample analysis.
+
+Strict exogeneity is typically inappropriate in dynamic models.
 A relaxed version is ***contemporaneously exogenous***, which only requires $u_t$ to be uncorrelated with the explanatory variables dated at time $t$: in conditional mean terms,
 
 $$
@@ -77,7 +87,7 @@ Contemporaneously exogeneity is much weaker than strict exogeneity because it pu
 
 
 :::{#cnj-4 name="Homoskedasticity"}
-Conditional on $\bX,$ the variance of $u_t$ is the same for all $t:$ $\var(u_t\mid \bX)=\var(u_t)=\sigma^2,$ $t=1,2,\ldots,n.$
+Conditional on $\bX,$ the variance of $u_t$ is the same for all $t:$ $\var(u_t\mid \bX)=\var(u_t)=\sigma^2,$ $t=1,2,\ldots,T.$
 :::
 
 
@@ -105,7 +115,7 @@ Under Assumptions [-@cnj-1] through [-@cnj-5], the OLS estimators are the **best
 ## Violation of Strict Exogeneity
 
 
-**Strict exogeneity** (@cnj-3) requires $u_t$ to be uncorrelated with $\bx_s$, for $s=1,2,\ldots,n.$
+**Strict exogeneity** (@cnj-3) requires $u_t$ to be uncorrelated with $\bx_s$, for $s=1,2,\ldots,T.$
 
 If the unobservables at time $t$are correlated with any of the explanatory variables in any time period, then Zero Conditional Mean fails. Two leading candidates for failure are 
 
