@@ -57,6 +57,24 @@ $$
 \mathbb{E}(u_t \mid y_{t-1}, y_{t-2}, \ldots) = 0. 
 $$ {#eq-zero_mean}
 
+Conventions for $t$:
+
+- The first observation is $y_1$, and $t=2, \ldots, T$, so that the first available equation is
+
+    $$
+    y_2 = \beta_0 + \beta_1 y_{1} + u_2 .
+    $$
+    
+    and there are ($T-1$) equations in levels. We will mostly use this convention.
+
+- The first observation is $y_0$, and $t=1, \ldots, T$, so that the first available equation is
+    
+    $$
+    y_1 = \beta_0 + \beta_1 y_{0} + u_1 .
+    $$
+    
+    and there are ($T$) equations in levels.
+
 Combined, these two equations imply that
 $$
 \mathbb{E}(y_t \mid y_{t-1}, y_{t-2}, \ldots) = \mathbb{E}(y_t \mid y_{t-1}) = \beta_0 + \beta_1 y_{t-1}. 
@@ -129,8 +147,10 @@ For the sake of simplicity, we will discuss a simple version of model ([-@eq-dyn
 $$
 \color{#008B45} {y_{it} = \alpha_i + \lambda y_{it-1} + u_{it}, }
 $$ {#eq-dynamic-interlude-dynamic-simple}
-where $u_{it}$ satisfies sequential exogeneity in the form $\E[u_{it}|y_{is}, s<t] = 0$. 
+where $i=1,\ldots,N,$ and $t=2,\ldots,T.$ And $u_{it}$ satisfies sequential exogeneity in the form $\E[u_{it}|y_{is}, s<t] = 0.$
 
+A popular class of estimators that are consistent as $N\to\infty$ with $T$ fixed
+first transform the model to eliminate the individual effects $\alpha_i$, and then apply instrumental variables.
 
 Let us difference @eq-dynamic-interlude-dynamic-simple across $t$ to eliminate the random intercept $\alpha_i$. The differenced equation takes form
 
@@ -138,7 +158,7 @@ $$
 \color{#008B45} {\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it}} ,
 $$ {#eq-dynamic-interlude-homogeneous-differenced}
 
-where $\Delta y_{it} = y_{it} - y_{it-1}.$
+for $t=3,\ldots,T,$ where $\Delta y_{it} = y_{it} - y_{it-1}.$ 
 @eq-dynamic-interlude-homogeneous-differenced seems like a simple regression equation. It is tempting to just apply OLS and regress $\Delta y_{it}$ on $\Delta y_{it-1}$. But it turns out that @eq-dynamic-interlude-homogeneous-differenced has an endogeneity problem. To prove this, we can show that $\E[\Delta y_{it-1} \Delta u_{it}] \ne 0.$
 
 Plug in $\Delta y_{it-1} = y_{it-1}-y_{it-2}$ and $\Delta u_{it} = u_{it}-u_{it-1}.$
@@ -205,17 +225,44 @@ In particular, consider using twice lagged level of dependent variable $y_{it-2}
 
 Hence $y_{it-2}$ is a valid instrument for $\Delta y_{it-1}.$ 
 
-The resulting IV estimator is known as the @Anderson1982 estimator and given by
+The resulting IV estimator ($\hat{\bbeta}_{\mathrm{iv}} = (\bZ'\bX)^{-1}(\bZ'\by)$) is known as the @Anderson1982 estimator and given by
 $$
-\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it-1} }.
+\begin{split}
+\hat{\lambda}_{AH}^{\mathrm{iv}} 
+&= (\bZ'\Delta\by_{-1})^{-1} (\bZ'\Delta\by)  \\
+&= \dfrac{ \sum_{i=1}^N \sum_{t=3}^T y_{it-2}\Delta y_{it} }{\sum_{i=1}^N \sum_{t=3}^T y_{it-2}\Delta y_{it-1} }.
+\end{split}
+$$
+where 
+
+- $\Delta \by$ is the stacked $N(T-2)\times 1$ vector of observations on $\Delta y_{it},$
+- $\Delta \by_{-1}$ is the stacked  $N(T-2)\times 1$ vector of observations on $\Delta y_{i,t-1},$ and
+- $\bZ$ is the stacked $N(T-2)\times 1$ vector of observations on $y_{i,t-2}.$
+
+
+The 2SLS estimator ($\widehat{\bbeta}_{2\text{sls}} = \left[\bX'\bZ (\bZ'\bZ)^{-1} \bZ'\bX \right]^{-1} \left[\bX'\bZ (\bZ'\bZ)^{-1} \bZ'\by \right]$) is given by
+
+$$
+\begin{split}
+\hat{\lambda}_{AH}^{\text{2sls}} 
+&= \left[\Delta\by_{-1}'\bZ (\bZ'\bZ)^{-1} \bZ'\Delta\by_{-1}\right]^{-1} \left[\Delta\by_{-1}'\bZ (\bZ'\bZ)^{-1} \bZ'\Delta\by \right]  .
+\end{split}
 $$
 
 One might use the twice lagged differences $\Delta y_{it-2} = y_{it-2}-y_{it-3}$ as an instrument for $\Delta y_{it-1}.$ But
 
-- One observation less compared to using $y_{it-2}$
+- One further time series observation is lost if $\Delta y_{i,t-2}$ rather than $y_{it-2}$ is used as the instrument. 
+
 - Larger asymptotic variance
 
 The Anderson-Hsiao (AH) estimator delivers **consistent but not eﬃcient** estimates of the parameters in the model. This is due to the fact that the IV doesn't exploit all the available moments conditions.
+
+With $T=3,$ we have one instrument $y_{i1}$ for $\Delta y_{i2}$ in the equation
+
+$$
+\Delta y_{i3} = \lambda \Delta y_{i2} + \Delta u_{i3} , \quad \text{for } i=1,\ldots, N.
+$$
+With $T>3,$ further valid instruments become available for the first differenced equations in the later time periods. Efficiency can be improved by exploiting these additional instruments.
 
 The IV estimator also ignores the structure of the error component in the transformed model.
 
@@ -317,29 +364,32 @@ $$
 where 
 
 $$
+\begin{split}
 \Delta y_{i\cdot} =
 \begin{bmatrix}
-\Delta y_{i2} \\
 \Delta y_{i3} \\
+\Delta y_{i4} \\
 \vdots \\
 \Delta y_{iT}
 \end{bmatrix},
 \quad
 \Delta y_{i\cdot-1} =
 \begin{bmatrix}
-\Delta y_{i1} \\
 \Delta y_{i2} \\
+\Delta y_{i3} \\
 \vdots \\
 \Delta y_{i,T-1}
 \end{bmatrix},
 \quad
-\Delta u_{i\cdot} =
+\Delta u_{i\cdot} & =
 \begin{bmatrix}
-\Delta u_{i2} \\
 \Delta u_{i3} \\
+\Delta u_{i4} \\
 \vdots \\
 \Delta u_{iT}
-\end{bmatrix}.
+\end{bmatrix}.  \\ 
+& \phantom{=} (T-2) \times 1
+\end{split}
 $$
 
 
@@ -347,6 +397,12 @@ $$
 
 $$
 \E[Z_i'\Delta u_{i\cdot}] = \boldsymbol{0}
+$$
+
+Sample analogue
+
+$$
+J_N(\lambda) = \frac{1}{N} \sum_{i=1}^N \bZ'\Delta u_{i\cdot}
 $$
 
 > Alternative notation: Sometimes you see the moment conditions as $\E[Z_i' u_{i\cdot}^*] = \boldsymbol{0}$, where $u_{i\cdot}^*$ refers to the first difference transformed errors. 

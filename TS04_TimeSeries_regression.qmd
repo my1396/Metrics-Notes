@@ -38,13 +38,13 @@ Given the dynamic relationship of time series data, there are three different wa
     y_t = y(y_{t-1}, x_t)
     $$
 
-We can also combine the first two features of the above and previous equation so that we have a dynamic model with lagged values of both the *dependent* and *independent* variables, such as
-
-$$
-y_t = f(y_{t-1}, x_t, x_{t-1}, x_{t-2}, \ldots)
-$$
+    We can also combine the first two features of the above and previous equation so that we have a dynamic model with lagged values of both the *dependent* and *independent* variables, such as
     
-Such models are called **autoregressive distributed lag models (ARDL)**. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.
+    $$
+    y_t = f(y_{t-1}, x_t, x_{t-1}, x_{t-2}, \ldots)
+    $$
+        
+    Such models are called **autoregressive distributed lag models (ARDL)**. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.
 
 3. A third way of modeling the continuing change over several periods is via an error term. For example, using $f(\cdot)$ and $g(\cdot)$, both of which are replaced later with linear functions, we can write
 

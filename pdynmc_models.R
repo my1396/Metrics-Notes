@@ -21,7 +21,7 @@ m0 <- pdynmc(
     include.dum = FALSE,
     w.mat = "iid.err", std.err = "corrected",
     estimation = "onestep", opt.meth = "none" 
-)
+    )
 
 summary(m0)
 mtest.fct(m0)
@@ -38,7 +38,7 @@ m1 <- pdynmc(
     include.dum = TRUE, dum.diff = TRUE, dum.lev = FALSE, varname.dum = "year",
     w.mat = "iid.err", std.err = "corrected",
     estimation = "onestep", opt.meth = "none" 
-)
+    )
 
 summary(m1)
 mtest.fct(m1)
@@ -55,7 +55,7 @@ m2 <- pdynmc(
     include.dum = TRUE, dum.diff = TRUE, dum.lev = FALSE, varname.dum = "year",
     w.mat = "iid.err", std.err = "corrected", 
     estimation = "twostep", opt.meth = "none"
-)
+    )
 
 
 summary(m2)
@@ -93,7 +93,7 @@ m3 <- pdynmc(
     include.dum = TRUE, dum.diff = TRUE, dum.lev = FALSE, varname.dum = c("year"),
     w.mat = "iid.err", std.err = "corrected", 
     estimation = "twostep", opt.meth = "none"
-)
+    )
 
 summary(m3)
 mtest.fct(m3)
@@ -118,7 +118,7 @@ m4 <- pdynmc(
     include.dum = TRUE, dum.diff = TRUE, dum.lev = FALSE, varname.dum = c("year"),
     w.mat = "iid.err", std.err = "corrected", 
     estimation = "twostep", opt.meth = "none"
-)
+    )
 
 summary(m4)
 mtest.fct(m4)

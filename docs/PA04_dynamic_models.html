@@ -733,6 +733,19 @@ y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
 \tag{17.3}\]</span></span> where the error <span class="math inline">\(u_t\)</span> has a zero expected value, given all past values of <span class="math inline">\(y\)</span>: <span id="eq-zero_mean"><span class="math display">\[
 \mathbb{E}(u_t \mid y_{t-1}, y_{t-2}, \ldots) = 0.
 \tag{17.4}\]</span></span></p>
+<p>Conventions for <span class="math inline">\(t\)</span>:</p>
+<ul>
+<li><p>The first observation is <span class="math inline">\(y_1\)</span>, and <span class="math inline">\(t=2, \ldots, T\)</span>, so that the first available equation is</p>
+<p><span class="math display">\[
+  y_2 = \beta_0 + \beta_1 y_{1} + u_2 .
+  \]</span></p>
+<p>and there are (<span class="math inline">\(T-1\)</span>) equations in levels. We will mostly use this convention.</p></li>
+<li><p>The first observation is <span class="math inline">\(y_0\)</span>, and <span class="math inline">\(t=1, \ldots, T\)</span>, so that the first available equation is</p>
+<p><span class="math display">\[
+  y_1 = \beta_0 + \beta_1 y_{0} + u_1 .
+  \]</span></p>
+<p>and there are (<span class="math inline">\(T\)</span>) equations in levels.</p></li>
+</ul>
 <p>Combined, these two equations imply that <span class="math display">\[
 \mathbb{E}(y_t \mid y_{t-1}, y_{t-2}, \ldots) = \mathbb{E}(y_t \mid y_{t-1}) = \beta_0 + \beta_1 y_{t-1}.
 \]</span></p>
@@ -777,12 +790,13 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 \]</span></p>
 <p>For the sake of simplicity, we will discuss a simple version of model (<a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref"><span>17.6</span></a>) without extra covariates <span class="math inline">\(\bx_{it}\)</span> and with only one lag of <span class="math inline">\(y_{it}\)</span>: <span id="eq-dynamic-interlude-dynamic-simple"><span class="math display">\[
 \color{#008B45} {y_{it} = \alpha_i + \lambda y_{it-1} + u_{it}, }
-\tag{17.7}\]</span></span> where <span class="math inline">\(u_{it}\)</span> satisfies sequential exogeneity in the form <span class="math inline">\(\E[u_{it}|y_{is}, s&lt;t] = 0\)</span>.</p>
+\tag{17.7}\]</span></span> where <span class="math inline">\(i=1,\ldots,N,\)</span> and <span class="math inline">\(t=2,\ldots,T.\)</span> And <span class="math inline">\(u_{it}\)</span> satisfies sequential exogeneity in the form <span class="math inline">\(\E[u_{it}|y_{is}, s&lt;t] = 0.\)</span></p>
+<p>A popular class of estimators that are consistent as <span class="math inline">\(N\to\infty\)</span> with <span class="math inline">\(T\)</span> fixed first transform the model to eliminate the individual effects <span class="math inline">\(\alpha_i\)</span>, and then apply instrumental variables.</p>
 <p>Let us difference <a href="#eq-dynamic-interlude-dynamic-simple" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> across <span class="math inline">\(t\)</span> to eliminate the random intercept <span class="math inline">\(\alpha_i\)</span>. The differenced equation takes form</p>
 <p><span id="eq-dynamic-interlude-homogeneous-differenced"><span class="math display">\[
 \color{#008B45} {\Delta y_{it} = \lambda \Delta y_{it-1} + \Delta u_{it}} ,
 \tag{17.8}\]</span></span></p>
-<p>where <span class="math inline">\(\Delta y_{it} = y_{it} - y_{it-1}.\)</span> <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.8</span></a> seems like a simple regression equation. It is tempting to just apply OLS and regress <span class="math inline">\(\Delta y_{it}\)</span> on <span class="math inline">\(\Delta y_{it-1}\)</span>. But it turns out that <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.8</span></a> has an endogeneity problem. To prove this, we can show that <span class="math inline">\(\E[\Delta y_{it-1} \Delta u_{it}] \ne 0.\)</span></p>
+<p>for <span class="math inline">\(t=3,\ldots,T,\)</span> where <span class="math inline">\(\Delta y_{it} = y_{it} - y_{it-1}.\)</span> <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.8</span></a> seems like a simple regression equation. It is tempting to just apply OLS and regress <span class="math inline">\(\Delta y_{it}\)</span> on <span class="math inline">\(\Delta y_{it-1}\)</span>. But it turns out that <a href="#eq-dynamic-interlude-homogeneous-differenced" class="quarto-xref">Equation&nbsp;<span>17.8</span></a> has an endogeneity problem. To prove this, we can show that <span class="math inline">\(\E[\Delta y_{it-1} \Delta u_{it}] \ne 0.\)</span></p>
 <p>Plug in <span class="math inline">\(\Delta y_{it-1} = y_{it-1}-y_{it-2}\)</span> and <span class="math inline">\(\Delta u_{it} = u_{it}-u_{it-1}.\)</span></p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -827,15 +841,35 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 <p><span class="math inline">\(y_{it-2}\)</span> is not correlated with the error term <span class="math inline">\(\Delta u_{it}.\)</span> The orthogonality condition (<a href="#eq-ortho-cond" class="quarto-xref"><span>17.9</span></a>) ensures the validity of the instrument.</p></li>
 </ul>
 <p>Hence <span class="math inline">\(y_{it-2}\)</span> is a valid instrument for <span class="math inline">\(\Delta y_{it-1}.\)</span></p>
-<p>The resulting IV estimator is known as the <span class="citation" data-cites="Anderson1982">Anderson and Hsiao (<a href="#ref-Anderson1982" role="doc-biblioref">1982</a>)</span> estimator and given by <span class="math display">\[
-\hat{\lambda}^{AH} = \dfrac{ \sum_{t=2}^T y_{it-2}\Delta y_{it} }{\sum_{t=2}^T y_{it-2}\Delta y_{it-1} }.
+<p>The resulting IV estimator (<span class="math inline">\(\hat{\bbeta}_{\mathrm{iv}} = (\bZ'\bX)^{-1}(\bZ'\by)\)</span>) is known as the <span class="citation" data-cites="Anderson1982">Anderson and Hsiao (<a href="#ref-Anderson1982" role="doc-biblioref">1982</a>)</span> estimator and given by <span class="math display">\[
+\begin{split}
+\hat{\lambda}_{AH}^{\mathrm{iv}}
+&amp;= (\bZ'\Delta\by_{-1})^{-1} (\bZ'\Delta\by)  \\
+&amp;= \dfrac{ \sum_{i=1}^N \sum_{t=3}^T y_{it-2}\Delta y_{it} }{\sum_{i=1}^N \sum_{t=3}^T y_{it-2}\Delta y_{it-1} }.
+\end{split}
+\]</span> where</p>
+<ul>
+<li><span class="math inline">\(\Delta \by\)</span> is the stacked <span class="math inline">\(N(T-2)\times 1\)</span> vector of observations on <span class="math inline">\(\Delta y_{it},\)</span></li>
+<li><span class="math inline">\(\Delta \by_{-1}\)</span> is the stacked <span class="math inline">\(N(T-2)\times 1\)</span> vector of observations on <span class="math inline">\(\Delta y_{i,t-1},\)</span> and</li>
+<li><span class="math inline">\(\bZ\)</span> is the stacked <span class="math inline">\(N(T-2)\times 1\)</span> vector of observations on <span class="math inline">\(y_{i,t-2}.\)</span></li>
+</ul>
+<p>The 2SLS estimator (<span class="math inline">\(\widehat{\bbeta}_{2\text{sls}} = \left[\bX'\bZ (\bZ'\bZ)^{-1} \bZ'\bX \right]^{-1} \left[\bX'\bZ (\bZ'\bZ)^{-1} \bZ'\by \right]\)</span>) is given by</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\lambda}_{AH}^{\text{2sls}}
+&amp;= \left[\Delta\by_{-1}'\bZ (\bZ'\bZ)^{-1} \bZ'\Delta\by_{-1}\right]^{-1} \left[\Delta\by_{-1}'\bZ (\bZ'\bZ)^{-1} \bZ'\Delta\by \right]  .
+\end{split}
 \]</span></p>
 <p>One might use the twice lagged differences <span class="math inline">\(\Delta y_{it-2} = y_{it-2}-y_{it-3}\)</span> as an instrument for <span class="math inline">\(\Delta y_{it-1}.\)</span> But</p>
 <ul>
-<li>One observation less compared to using <span class="math inline">\(y_{it-2}\)</span></li>
-<li>Larger asymptotic variance</li>
+<li><p>One further time series observation is lost if <span class="math inline">\(\Delta y_{i,t-2}\)</span> rather than <span class="math inline">\(y_{it-2}\)</span> is used as the instrument.</p></li>
+<li><p>Larger asymptotic variance</p></li>
 </ul>
 <p>The Anderson-Hsiao (AH) estimator delivers <strong>consistent but not eﬃcient</strong> estimates of the parameters in the model. This is due to the fact that the IV doesn’t exploit all the available moments conditions.</p>
+<p>With <span class="math inline">\(T=3,\)</span> we have one instrument <span class="math inline">\(y_{i1}\)</span> for <span class="math inline">\(\Delta y_{i2}\)</span> in the equation</p>
+<p><span class="math display">\[
+\Delta y_{i3} = \lambda \Delta y_{i2} + \Delta u_{i3} , \quad \text{for } i=1,\ldots, N.
+\]</span> With <span class="math inline">\(T&gt;3,\)</span> further valid instruments become available for the first differenced equations in the later time periods. Efficiency can be improved by exploiting these additional instruments.</p>
 <p>The IV estimator also ignores the structure of the error component in the transformed model.</p>
 <ul>
 <li>The autocorrelation in the first differenced errors leads to inconsistency of the IV estimates.</li>
@@ -920,33 +954,40 @@ y_{i,1} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 \\
 \Delta \by_{i\cdot} = \lambda \Delta y_{i\cdot-1} + \Delta u_{i\cdot},
 \]</span> where</p>
 <p><span class="math display">\[
+\begin{split}
 \Delta y_{i\cdot} =
 \begin{bmatrix}
-\Delta y_{i2} \\
 \Delta y_{i3} \\
+\Delta y_{i4} \\
 \vdots \\
 \Delta y_{iT}
 \end{bmatrix},
 \quad
 \Delta y_{i\cdot-1} =
 \begin{bmatrix}
-\Delta y_{i1} \\
 \Delta y_{i2} \\
+\Delta y_{i3} \\
 \vdots \\
 \Delta y_{i,T-1}
 \end{bmatrix},
 \quad
-\Delta u_{i\cdot} =
+\Delta u_{i\cdot} &amp; =
 \begin{bmatrix}
-\Delta u_{i2} \\
 \Delta u_{i3} \\
+\Delta u_{i4} \\
 \vdots \\
 \Delta u_{iT}
-\end{bmatrix}.
+\end{bmatrix}.  \\
+&amp; \phantom{=} (T-2) \times 1
+\end{split}
 \]</span></p>
 <p><span class="citation" data-cites="Arellano1991">Arellano and Bond (<a href="#ref-Arellano1991" role="doc-biblioref">1991</a>)</span> suggested using a GMM approach based on all available moment conditions:</p>
 <p><span class="math display">\[
 \E[Z_i'\Delta u_{i\cdot}] = \boldsymbol{0}
+\]</span></p>
+<p>Sample analogue</p>
+<p><span class="math display">\[
+J_N(\lambda) = \frac{1}{N} \sum_{i=1}^N \bZ'\Delta u_{i\cdot}
 \]</span></p>
 <blockquote class="blockquote">
 <p>Alternative notation: Sometimes you see the moment conditions as <span class="math inline">\(\E[Z_i' u_{i\cdot}^*] = \boldsymbol{0}\)</span>, where <span class="math inline">\(u_{i\cdot}^*\)</span> refers to the first difference transformed errors.</p>

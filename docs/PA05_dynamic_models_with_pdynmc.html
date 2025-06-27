@@ -286,6 +286,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -677,6 +706,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Model Setup</p>
+<p><span class="math display">\[
+\begin{split}
+emp_{i,t}
+&amp;= \alpha_1 emp_{i,t-1} + \alpha_2 emp_{i,t-2} + \bbeta'(L) \bx_{it} + \lambda_t + \eta_i + \varepsilon_{i,t} \\
+&amp;= \alpha_1 emp_{i,t-1} + \alpha_2 emp_{i,t-2}  \\
+&amp;\phantom{=}\quad  + \beta_1 wage_{i,t} + \beta_2 wage_{i,t-1} \\
+&amp;\phantom{=}\quad  + \beta_3 capital_{i,t} + \beta_4 capital_{i,t-1} + \beta_5 capital_{i,t-2} \\
+&amp;\phantom{=}\quad + \beta_6 output_{i,t} + \beta_7 output_{i,t-1} + \beta_8 output_{i,t-2}  \\
+&amp;\phantom{=}\quad + \gamma_3 d_3 + \dots + \gamma_T d_T + \eta_i + \varepsilon_{i,t},
+\end{split}
+\]</span></p>
 <section id="no-time-dummies" class="level2" data-number="18.1">
 <h2 data-number="18.1" class="anchored" data-anchor-id="no-time-dummies"><span class="header-section-number">18.1</span> No time dummies</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdynmc)</span>

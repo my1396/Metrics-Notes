@@ -722,14 +722,12 @@ y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)
 <li><p>Specify a model with a <strong>lagged dependent variable</strong> as one of the explanatory variables.</p>
 <p><span class="math display">\[
 y_t = y(y_{t-1}, x_t)
-\]</span></p></li>
-</ol>
+\]</span></p>
 <p>We can also combine the first two features of the above and previous equation so that we have a dynamic model with lagged values of both the <em>dependent</em> and <em>independent</em> variables, such as</p>
 <p><span class="math display">\[
 y_t = f(y_{t-1}, x_t, x_{t-1}, x_{t-2}, \ldots)
 \]</span></p>
-<p>Such models are called <strong>autoregressive distributed lag models (ARDL)</strong>. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.</p>
-<ol start="3" type="1">
+<p>Such models are called <strong>autoregressive distributed lag models (ARDL)</strong>. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.</p></li>
 <li><p>A third way of modeling the continuing change over several periods is via an error term. For example, using <span class="math inline">\(f(\cdot)\)</span> and <span class="math inline">\(g(\cdot)\)</span>, both of which are replaced later with linear functions, we can write</p>
 <p><span class="math display">\[
 y_t = f(x_t) + e_t \quad \text{and} \quad e_t = g(e_{t-1})

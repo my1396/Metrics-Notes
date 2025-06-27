@@ -325,6 +325,22 @@ F-Statistic (time dummies):  1183.36 with 6 DF, pvalue: <0.001
 ```
 
 
+--------------------------------------------------------------------------------
+
+## References {.unlisted .unnumbered}
+
+
+- Guillermo Corredor, Dynamic AR(1) Panel Estimation in R, <https://bookdown.org/gcorredor/dynamic_ar1_panel/dynamic_ar1_panel.html>
+
+- Maria R. Koldasheva and Nikolai A. Popov, Dynamic Models, <https://rpubs.com/Nick_Popov/thesis_dynamic_models>
+
+- Package `pdynmc` resources:
+    - Vignettes: <https://cran.r-project.org/web/packages/pdynmc/vignettes/pdynmc-introLong.pdf>
+    - Reference: <https://cran.r-project.org/web/packages/pdynmc/pdynmc.pdf>
+    - GitHub repo: <https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R>
+
+
+
 
 
 
