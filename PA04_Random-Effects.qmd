@@ -76,11 +76,11 @@ $$
 \E[v_{it}v_{js}\mid \bX] = 0.
 $$
 
-Let $\Sigma = \E[\bv_i\bv_i'\mid \bX]$ be the covariance matrix for observation $i$, then
+Let $\Sigma = \E[\bv_i\bv_i'\mid \bX]$ be the $T\times T$ covariance matrix for observation $i$, then
 
 $$
 \begin{aligned}
-\Sigma &= \E[\bv_i\bv_i'\mid \bX] \\
+\underset{(T\times T)}{\Sigma} &= \E[\bv_i\bv_i'\mid \bX] \\
 &= \begin{bmatrix}
 \sigma_a^2 + \sigma_u^2 & \sigma_a^2 & \cdots & \sigma_a^2 \\
 \sigma_a^2  & \sigma_a^2 + \sigma_u^2 & \cdots & \sigma_a^2 \\
@@ -95,7 +95,7 @@ where $\bI_T$ is an $T\times T$ identity matrix and $\bi_T$ is a $T\times 1$ col
 The disturbance covariance matrix for the full $NT$ observations is
 
 $$
-\Omega = \begin{bmatrix}
+\underset{(NT\times NT)}{\Omega} = \begin{bmatrix}
 \Sigma & 0 & \cdots & 0 \\
 0 & \Sigma & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
@@ -113,14 +113,21 @@ where $\sigma_a^2 = \text{Var}(a_i)$ and $\sigma_u^2 = \text{Var}(u_{it})$.
 
 This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be **incorrect**, as will the usual test statistics.
 
-**Generalized least squares** can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large $N$ and relatively small $T$. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.
+**Generalized least squares** (GLS) can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large $N$ and relatively small $T$. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.
+
+$$
+\begin{split}
+\hat{\bbeta}_{\text{GLS}} &= \left(\bX'\bOmega^{-1}\bX \right)^{-1} \bX'\bOmega^{-1}\by \\
+&= \left(\sum_{i=1}^N \bX_i'\bSigma^{-1}\bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i'\bSigma^{-1}\by_i \right)
+\end{split}
+$$
 
 Deriving the GLS transformation that **eliminates serial correlation in the errors** requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define
 $$
-\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
+\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} ,
 $$
 
-which is between zero and one. As $ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2}$ approaches zero, $\theta\to1.$ 
+which is between zero and one. As $\frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2}$ approaches zero, $\theta\to1.$ 
 
 Then, the transformed equation turns out to be
 $$
@@ -129,14 +136,35 @@ y_{it} - \theta \overline{y}_i &= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - \the
 &\phantom{=}\quad + \beta_K (x_{itK} - \theta \overline{x}_{iK}) + (v_{it} - \theta \overline{v}_i),
 \end{aligned}
 $${#eq-randome_effects_transform}
+
 where the overbar $\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}$ is the time averages of $y$ for individual $i$, and similarly for $\overline{x}_{ij},$ $j=1,\ldots,K.$
 
-This is a very interesting equation, as it involves **quasi-demeaned** data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on $\sigma_u^2,$ $\sigma_a^2$ and the number of time periods, $T$. 
+This is a very interesting equation, as it involves **quasi-demeaned** data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on $\sigma_u^2,$ $\sigma_a^2$ and the number of time periods, $T$. This transformation is known as "theta-differencing."
 
-The GLS estimator is simply the pooled OLS estimator of @eq-randome_effects_transform. The errors in @eq-randome_effects_transform are **serially uncorrelated**.
+The GLS estimator is simply the pooled OLS estimator of the transformed model (-@eq-randome_effects_transform). The errors in (-@eq-randome_effects_transform) are **serially uncorrelated**.
+
+@eq-randome_effects_transform can be written more compactly as follows:
+
+$$
+y_{it}^\ast = \bbeta' \bx_{it}^\ast + u_{it}^\ast,
+$$ {#eq-randome_effects_transform-compact}
+where
+$$
+y_{it}^\ast = y_{it} - \theta \overline{y}_i ,
+$$
+and 
+
+$$
+\begin{split}
+\theta &= 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} , \\
+\overline{y}_i &= T^{-1}\sum_{t=1}^Ty_{it}  .
+\end{split}
+$$
+
+$\hat{\bbeta}_{\text{GLS}}$ can be obtained by using OLS on the transformed model (-@eq-randome_effects_transform-compact).
 
 
-The transformation in @eq-randome_effects_transform allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with $a_i$, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.
+The transformation in (-@eq-randome_effects_transform) allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with $a_i$, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.
 
 The parameter $\theta$ is never known in practice, but it can always be estimated. There are different ways to do this, which may be based on pooled OLS or fixed effects, for example. 
 Generally, $\hat{\theta}$ takes the form 
@@ -145,7 +173,7 @@ $$
 $$
 where $\hat{\sigma}_a^2$ is a consistent estimator of $\sigma_a^2$ and $\hat{\sigma}_u^2$ is a consistent estimator of $\sigma_u^2$. 
 
-These estimators can be based on the pooled OLS or the fixed effects residuals.
+These estimators can be based on the pooled OLS or the fixed effects residuals (Within Groups or Between Groups estimators).
 $$
 \hat{\sigma}_a^2 = \left[ \frac{NT(T - 1)}{2} - (K + 1) \right]^{-1} \sum_{i=1}^{N} \sum_{t=1}^{T-1} \sum_{s=t+1}^{T} \hat{v}_{it} \hat{v}_{is},
 $$

@@ -137,13 +137,13 @@ Given (-@eq-zero_mean), $\hat{\bbeta}_{\text{pool}}$ is **unbiased**.
 - If $\varepsilon_{it}$ is serially correlated: use **cluster-robust covariance matrix**:
 
 $$
-\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \hat{\bvarepsilon}_i \hat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
 $$
 
 With Stata's degrees-of-freedom adjustment:
 
 $$
-\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \hat{\bvarepsilon}_i \hat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
 $$
 
 When strict mean independence (-@eq-zero_mean) fails, however, the pooled least-squares estimator $\hat{\bbeta}_{\text{pool}}$ is not necessarily consistent for $\bbeta$. Since strict mean independence is a strong and typically undesirable

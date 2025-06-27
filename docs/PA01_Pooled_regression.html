@@ -785,11 +785,11 @@ y_{iT}  \\
 <li>If <span class="math inline">\(\varepsilon_{it}\)</span> is serially correlated: use <strong>cluster-robust covariance matrix</strong>:</li>
 </ul>
 <p><span class="math display">\[
-\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \hat{\bvarepsilon}_i \hat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
 \]</span></p>
 <p>With Stata’s degrees-of-freedom adjustment:</p>
 <p><span class="math display">\[
-\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \hat{\bvarepsilon}_i \hat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
 \]</span></p>
 <p>When strict mean independence (<a href="PA05_dynamic_models.html#eq-zero_mean" class="quarto-xref"><span>18.4</span></a>) fails, however, the pooled least-squares estimator <span class="math inline">\(\hat{\bbeta}_{\text{pool}}\)</span> is not necessarily consistent for <span class="math inline">\(\bbeta\)</span>. Since strict mean independence is a strong and typically undesirable restriction, it is typically preferred to adopt one of the alternative estimation approaches such as Fixed Effects or Random Effects models.</p>
 

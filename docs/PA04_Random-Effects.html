@@ -721,10 +721,10 @@ v_{i1}, v_{i2}, \cdots , v_{iT}
 <p>For <span class="math inline">\(i\ne j\)</span> and all <span class="math inline">\(t\)</span> and <span class="math inline">\(s\)</span>, since observations <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are independent, we have: <span class="math display">\[
 \E[v_{it}v_{js}\mid \bX] = 0.
 \]</span></p>
-<p>Let <span class="math inline">\(\Sigma = \E[\bv_i\bv_i'\mid \bX]\)</span> be the covariance matrix for observation <span class="math inline">\(i\)</span>, then</p>
+<p>Let <span class="math inline">\(\Sigma = \E[\bv_i\bv_i'\mid \bX]\)</span> be the <span class="math inline">\(T\times T\)</span> covariance matrix for observation <span class="math inline">\(i\)</span>, then</p>
 <p><span class="math display">\[
 \begin{aligned}
-\Sigma &amp;= \E[\bv_i\bv_i'\mid \bX] \\
+\underset{(T\times T)}{\Sigma} &amp;= \E[\bv_i\bv_i'\mid \bX] \\
 &amp;= \begin{bmatrix}
 \sigma_a^2 + \sigma_u^2 &amp; \sigma_a^2 &amp; \cdots &amp; \sigma_a^2 \\
 \sigma_a^2  &amp; \sigma_a^2 + \sigma_u^2 &amp; \cdots &amp; \sigma_a^2 \\
@@ -736,7 +736,7 @@ v_{i1}, v_{i2}, \cdots , v_{iT}
 \]</span> where <span class="math inline">\(\bI_T\)</span> is an <span class="math inline">\(T\times T\)</span> identity matrix and <span class="math inline">\(\bi_T\)</span> is a <span class="math inline">\(T\times 1\)</span> column vector of 1’s.</p>
 <p>The disturbance covariance matrix for the full <span class="math inline">\(NT\)</span> observations is</p>
 <p><span class="math display">\[
-\Omega = \begin{bmatrix}
+\underset{(NT\times NT)}{\Omega} = \begin{bmatrix}
 \Sigma &amp; 0 &amp; \cdots &amp; 0 \\
 0 &amp; \Sigma &amp; \cdots &amp; 0 \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
@@ -748,24 +748,44 @@ v_{i1}, v_{i2}, \cdots , v_{iT}
 \]</span></p>
 <p>where <span class="math inline">\(\sigma_a^2 = \text{Var}(a_i)\)</span> and <span class="math inline">\(\sigma_u^2 = \text{Var}(u_{it})\)</span>.</p>
 <p>This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be <strong>incorrect</strong>, as will the usual test statistics.</p>
-<p><strong>Generalized least squares</strong> can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large <span class="math inline">\(N\)</span> and relatively small <span class="math inline">\(T\)</span>. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.</p>
-<p>Deriving the GLS transformation that <strong>eliminates serial correlation in the errors</strong> requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define <span class="math display">\[
-\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
+<p><strong>Generalized least squares</strong> (GLS) can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large <span class="math inline">\(N\)</span> and relatively small <span class="math inline">\(T\)</span>. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\bbeta}_{\text{GLS}} &amp;= \left(\bX'\bOmega^{-1}\bX \right)^{-1} \bX'\bOmega^{-1}\by \\
+&amp;= \left(\sum_{i=1}^N \bX_i'\bSigma^{-1}\bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i'\bSigma^{-1}\by_i \right)
+\end{split}
 \]</span></p>
-<p>which is between zero and one. As $ $ approaches zero, <span class="math inline">\(\theta\to1.\)</span></p>
+<p>Deriving the GLS transformation that <strong>eliminates serial correlation in the errors</strong> requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define <span class="math display">\[
+\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} ,
+\]</span></p>
+<p>which is between zero and one. As <span class="math inline">\(\frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2}\)</span> approaches zero, <span class="math inline">\(\theta\to1.\)</span></p>
 <p>Then, the transformed equation turns out to be <span id="eq-randome_effects_transform"><span class="math display">\[
 \begin{aligned}
 y_{it} - \theta \overline{y}_i &amp;= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - \theta \overline{x}_{i1}) + \cdots \\
 &amp;\phantom{=}\quad + \beta_K (x_{itK} - \theta \overline{x}_{iK}) + (v_{it} - \theta \overline{v}_i),
 \end{aligned}
-\tag{17.3}\]</span></span> where the overbar <span class="math inline">\(\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}\)</span> is the time averages of <span class="math inline">\(y\)</span> for individual <span class="math inline">\(i\)</span>, and similarly for <span class="math inline">\(\overline{x}_{ij},\)</span> <span class="math inline">\(j=1,\ldots,K.\)</span></p>
-<p>This is a very interesting equation, as it involves <strong>quasi-demeaned</strong> data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on <span class="math inline">\(\sigma_u^2,\)</span> <span class="math inline">\(\sigma_a^2\)</span> and the number of time periods, <span class="math inline">\(T\)</span>.</p>
-<p>The GLS estimator is simply the pooled OLS estimator of <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>17.3</span></a>. The errors in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> are <strong>serially uncorrelated</strong>.</p>
+\tag{17.3}\]</span></span></p>
+<p>where the overbar <span class="math inline">\(\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}\)</span> is the time averages of <span class="math inline">\(y\)</span> for individual <span class="math inline">\(i\)</span>, and similarly for <span class="math inline">\(\overline{x}_{ij},\)</span> <span class="math inline">\(j=1,\ldots,K.\)</span></p>
+<p>This is a very interesting equation, as it involves <strong>quasi-demeaned</strong> data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on <span class="math inline">\(\sigma_u^2,\)</span> <span class="math inline">\(\sigma_a^2\)</span> and the number of time periods, <span class="math inline">\(T\)</span>. This transformation is known as “theta-differencing.”</p>
+<p>The GLS estimator is simply the pooled OLS estimator of the transformed model (<a href="#eq-randome_effects_transform" class="quarto-xref"><span>17.3</span></a>). The errors in (<a href="#eq-randome_effects_transform" class="quarto-xref"><span>17.3</span></a>) are <strong>serially uncorrelated</strong>.</p>
+<p><a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> can be written more compactly as follows:</p>
+<p><span id="eq-randome_effects_transform-compact"><span class="math display">\[
+y_{it}^\ast = \bbeta' \bx_{it}^\ast + u_{it}^\ast,
+\tag{17.4}\]</span></span> where <span class="math display">\[
+y_{it}^\ast = y_{it} - \theta \overline{y}_i ,
+\]</span> and</p>
+<p><span class="math display">\[
+\begin{split}
+\theta &amp;= 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} , \\
+\overline{y}_i &amp;= T^{-1}\sum_{t=1}^Ty_{it}  .
+\end{split}
+\]</span></p>
+<p><span class="math inline">\(\hat{\bbeta}_{\text{GLS}}\)</span> can be obtained by using OLS on the transformed model (<a href="#eq-randome_effects_transform-compact" class="quarto-xref"><span>17.4</span></a>).</p>
 <p>The transformation in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with <span class="math inline">\(a_i\)</span>, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.</p>
 <p>The parameter <span class="math inline">\(\theta\)</span> is never known in practice, but it can always be estimated. There are different ways to do this, which may be based on pooled OLS or fixed effects, for example. Generally, <span class="math inline">\(\hat{\theta}\)</span> takes the form <span class="math display">\[
 \hat{\theta} = 1 - \left[ \frac{\hat{\sigma}_u^2}{\hat{\sigma}_a^2 + T \hat{\sigma}_u^2} \right]^{1/2},
 \]</span> where <span class="math inline">\(\hat{\sigma}_a^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_a^2\)</span> and <span class="math inline">\(\hat{\sigma}_u^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_u^2\)</span>.</p>
-<p>These estimators can be based on the pooled OLS or the fixed effects residuals. <span class="math display">\[
+<p>These estimators can be based on the pooled OLS or the fixed effects residuals (Within Groups or Between Groups estimators). <span class="math display">\[
 \hat{\sigma}_a^2 = \left[ \frac{NT(T - 1)}{2} - (K + 1) \right]^{-1} \sum_{i=1}^{N} \sum_{t=1}^{T-1} \sum_{s=t+1}^{T} \hat{v}_{it} \hat{v}_{is},
 \]</span> where the <span class="math inline">\(\hat{v}_{it}\)</span> are the residuals from estimating <a href="#eq-randome_effects" class="quarto-xref">Equation&nbsp;<span>17.2</span></a> by pooled OLS.</p>
 <p>Given this, we can estimate <span class="math inline">\(\sigma_u^2\)</span> by using <span class="math display">\[
