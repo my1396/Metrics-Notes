@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>16&nbsp; Random Effects Model – Metrics Notes</title>
+<title>16&nbsp; Fixed Effects Model – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./PA04_dynamic_models.html" rel="next">
-<link href="./PA02_Fixed-Effects.html" rel="prev">
+<link href="./PA04_Random-Effects.html" rel="next">
+<link href="./PA02_Panel_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -206,6 +241,7 @@ ul.task-list li input[type="checkbox"] {
         bXi: "\\boldsymbol{\\Xi}",
         bLambda: "\\boldsymbol{\\Lambda}",
         
+        balpha: "\\boldsymbol{\\alpha}",
         bbeta: "\\boldsymbol{\\beta}",
         bepsilon: "\\boldsymbol{\\epsilon}",
         bvarepsilon: "\\boldsymbol{\\varepsilon}",
@@ -461,7 +497,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_Random-Effects.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Random Effects Model</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Pooled_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_Fixed-Effects.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -595,38 +631,44 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA01_Panel_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
+  <a href="./PA01_Pooled_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA02_Fixed-Effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
+  <a href="./PA02_Panel_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA03_Random-Effects.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span></a>
+  <a href="./PA03_Fixed-Effects.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA04_dynamic_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
+  <a href="./PA04_Random-Effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA05_dynamic_models_with_pdynmc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
+  <a href="./PA05_dynamic_models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./PA06_dynamic_models_with_pdynmc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA07_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -636,16 +678,28 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#within-estimator" id="toc-within-estimator" class="nav-link active" data-scroll-target="#within-estimator"><span class="header-section-number">16.1</span> Within Estimator</a>
+  <ul class="collapse">
+  <li><a href="#step-1-within-transformation" id="toc-step-1-within-transformation" class="nav-link" data-scroll-target="#step-1-within-transformation"><span class="header-section-number">16.1.1</span> Step 1: Within Transformation</a></li>
+  <li><a href="#step-2-ols-on-the-within-transformed-equation" id="toc-step-2-ols-on-the-within-transformed-equation" class="nav-link" data-scroll-target="#step-2-ols-on-the-within-transformed-equation"><span class="header-section-number">16.1.2</span> Step 2: OLS on the Within-Transformed Equation</a></li>
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties"><span class="header-section-number">16.1.3</span> Properties</a></li>
+  </ul></li>
+  <li><a href="#between-groups-estimator" id="toc-between-groups-estimator" class="nav-link" data-scroll-target="#between-groups-estimator"><span class="header-section-number">16.2</span> Between-groups Estimator</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Panel_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_Random-Effects.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Random Effects Model</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Pooled_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_Fixed-Effects.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Random Effects Model</span></h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></h1>
 </div>
 
 
@@ -662,130 +716,360 @@ window.Quarto = {
 </header>
 
 
-<p>We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved random heterogeneity specific to the <span class="math inline">\(i\)</span>th observation, <span class="math inline">\(\alpha_i\)</span>, has zero mean. <span class="math inline">\(\alpha_i\)</span> is constant through time. <span class="math inline">\(\beta_0\)</span> is the mean of the unobserved heterogeneity.</p>
-<p><span class="math display">\[
+<!-- Chunk option settings -->
+<!-- Define chunk option `max.lines` -->
+<!-- controls max lines printed -->
+<p>Consider the following individual fixed effects model (at the level of the observation):</p>
+<p><span id="eq-within-lecture-random-intercept"><span class="math display">\[
 \begin{aligned}
-y_{it} &amp;= a_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
-\text{or}\quad y_{it} &amp;= a_i + \beta_0 + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
+y_{it} &amp;= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
+\text{or}\quad y_{it} &amp;= \alpha_i + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
 \end{aligned}
-\]</span></p>
-<p>Here the random effects model assumes <span class="math inline">\(\alpha_i\)</span> is uncorrelated with each explanatory variable in all time periods.</p>
+\tag{16.1}\]</span></span> There are <span class="math inline">\(K\)</span> regressors in <span class="math inline">\(\bx_{it},\)</span> <strong>NOT</strong> including an intercept.</p>
+<p>We assume strict exogeneity:</p>
 <p><span class="math display">\[
-\cov(x_{itj}, a_i) = 0, \quad t=1,2,\ldots,T;\, j=1,2,\ldots,K.
+\E[\bu_i|\bX_i]=0.
 \]</span></p>
-<p>In this case, the fixed effects or first differencing model which eliminates <span class="math inline">\(\alpha_i\)</span> results in inefficient estimators.</p>
-<p>If we define the composite error term <span class="math inline">\(v_{it}\)</span> as</p>
-<p><span id="eq-error_component_model"><span class="math display">\[
-v_{it} = a_i + u_{it},
-\tag{16.1}\]</span></span></p>
-<p><a href="#eq-error_component_model" class="quarto-xref">Equation&nbsp;<span>16.1</span></a> is often called an “error components model.”</p>
-<p>Then we have</p>
-<p><span id="eq-randome_effects"><span class="math display">\[
-y_{it} = \beta_0 + \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + v_{it}.
-\tag{16.2}\]</span></span> Because <span class="math inline">\(a_i\)</span> is in the composite error in each time period, the <span class="math inline">\(v_{it}\)</span> are <strong>serially correlated</strong> across time.</p>
-<p>Assumptions of random effects model:</p>
-<ul>
-<li><span class="math inline">\(\E[a_i\mid \bX] = \E[u_{it}\mid \bX] = 0\)</span></li>
-<li><span class="math inline">\(\E[a_i\mid \bX] = \sigma_a^2\)</span> and <span class="math inline">\(\E[u_{it}\mid \bX] = \sigma_u^2\)</span></li>
-<li><span class="math inline">\(\E[u_{it}a_j\mid \bX] = 0\)</span> for all <span class="math inline">\(i,t\)</span>, and <span class="math inline">\(j\)</span></li>
-<li><span class="math inline">\(\E[u_{it}u_{js}\mid \bX] = 0\)</span> if <span class="math inline">\(i\ne j\)</span> or <span class="math inline">\(t\ne s\)</span></li>
-<li><span class="math inline">\(\E[a_ia_j\mid \bX] = 0\)</span> for <span class="math inline">\(i\ne j\)</span></li>
-</ul>
-<p>We view the data structure as blocks of <span class="math inline">\(T\)</span> observations for group <span class="math inline">\(i.\)</span></p>
-<p>Let</p>
+<p>Throughout, we will assume that the number <span class="math inline">\(N\)</span> of cross-sectional units is potentially large, while the number <span class="math inline">\(T\)</span> of data points per unit is fixed. This setup is more reflective of typical micropanels.</p>
+<p><strong>Alternative notations</strong>:</p>
+<p>At the level of the individual, the model is written as:</p>
 <p><span class="math display">\[
-\bv_i = \begin{bmatrix}
-v_{i1}, v_{i2}, \cdots , v_{iT}
-\end{bmatrix}'.
-\]</span> Let’s have a look at the variance-covariance matrix of <span class="math inline">\(\bv_i.\)</span> We have</p>
+\by_i = \bX_i \bbeta + \bold{1} \alpha_i + \bvarepsilon_i  ,
+\]</span> where <span class="math inline">\(\bold{1}\)</span> is a <span class="math inline">\(T\times 1\)</span> column of ones.</p>
+<p>Equation for the full sample:</p>
 <p><span class="math display">\[
-\begin{aligned}
-\E[v_{it}^2\mid \bX] &amp;= \E[a_i^2 + u_{it}^2 + 2a_iu_{it} \mid \bx] \\
-&amp;= \sigma_a^2 + \sigma_u^2 .
-\end{aligned}
-\]</span> For <span class="math inline">\(t\ne s\)</span>, <span class="math display">\[
-\begin{aligned}
-\E[v_{it}v_{is}\mid \bX]
-&amp;= \E[(a_i+u_{it})(a_i+u_{is})] \\
-&amp;= \E[a_i^2 + a_iu_{it} + a_iu_{is} + u_{it}u_{is} \mid \bx] \\
-&amp;= \sigma_a^2 ,
-\end{aligned}
-\]</span></p>
-<p>For <span class="math inline">\(i\ne j\)</span> and all <span class="math inline">\(t\)</span> and <span class="math inline">\(s\)</span>, since observations <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are independent, we have: <span class="math display">\[
-\E[v_{it}v_{js}\mid \bX] = 0.
-\]</span></p>
-<p>Let <span class="math inline">\(\Sigma = \E[\bv_i\bv_i'\mid \bX]\)</span> be the covariance matrix for observation <span class="math inline">\(i\)</span>, then</p>
-<p><span class="math display">\[
-\begin{aligned}
-\Sigma &amp;= \E[\bv_i\bv_i'\mid \bX] \\
-&amp;= \begin{bmatrix}
-\sigma_a^2 + \sigma_u^2 &amp; \sigma_a^2 &amp; \cdots &amp; \sigma_a^2 \\
-\sigma_a^2  &amp; \sigma_a^2 + \sigma_u^2 &amp; \cdots &amp; \sigma_a^2 \\
+\begin{bmatrix}
+\by_{1}  \\
+\by_{2}  \\
+\vdots \\
+\by_{N}  
+\end{bmatrix}  =
+\begin{bmatrix}
+\bX_{1}  \\
+\bX_{2}  \\
+\vdots \\
+\bX_{N}  
+\end{bmatrix} \bbeta + \begin{bmatrix}
+\bold{1} &amp; 0  &amp; \cdots &amp; 0 \\
+0 &amp; \bold{1} &amp; \cdots &amp; 0 \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\sigma_a^2  &amp; \sigma_a^2  &amp; \cdots &amp; \sigma_a^2 + \sigma_u^2\\
-\end{bmatrix} \\
-&amp;= \sigma_a^2 \bI_T + \sigma_u^2\bi_T\bi_T'
-\end{aligned}
-\]</span> where <span class="math inline">\(\bI_T\)</span> is an <span class="math inline">\(T\times T\)</span> identity matrix and <span class="math inline">\(\bi_T\)</span> is a <span class="math inline">\(T\times 1\)</span> column vector of 1’s.</p>
-<p>The disturbance covariance matrix for the full <span class="math inline">\(NT\)</span> observations is</p>
+0 &amp; 0  &amp; \cdots &amp; \bold{1} \\
+\end{bmatrix}
+\begin{bmatrix}
+\alpha_{1}  \\
+\alpha_{2}  \\
+\vdots \\
+\alpha_{N}
+\end{bmatrix}
++ \begin{bmatrix}
+\bvarepsilon_{1}  \\
+\bvarepsilon_{2}  \\
+\vdots \\
+\bvarepsilon_{M}  
+\end{bmatrix}
+\]</span> or</p>
 <p><span class="math display">\[
-\Omega = \begin{bmatrix}
-\Sigma &amp; 0 &amp; \cdots &amp; 0 \\
-0 &amp; \Sigma &amp; \cdots &amp; 0 \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-0 &amp; 0 &amp; \cdots &amp; \Sigma \\
-\end{bmatrix} = \bI_N \otimes \Sigma
+\begin{split}
+\by &amp;= \begin{bmatrix} \bX &amp; \bd_1 &amp; \bd_2 &amp; \cdots &amp; \bd_n \end{bmatrix}
+\begin{bmatrix}
+\bbeta \\
+\balpha
+\end{bmatrix} + \bvarepsilon \\
+&amp;= \bX\bbeta + \bD\balpha + \bvarepsilon  ,
+\end{split}
+\]</span> where <span class="math inline">\(\bd_i\)</span> is a dummy variable indicating the <span class="math inline">\(i\)</span>-th unit, and</p>
+<p><span class="math display">\[
+\underset{(NT\times N)}{\bD} = \begin{bmatrix}\bd_1 &amp; \bd_2 &amp; \cdots &amp; \bd_n \end{bmatrix} .
 \]</span></p>
-<p>Note that the errors are serially correlated under the random effects assumptions: <span class="math display">\[
-\text{Corr}(v_{it}, v_{is}) = \frac{\sigma_a^2}{\sigma_a^2 + \sigma_u^2}, \quad t \neq s,
+<section id="within-estimator" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="within-estimator"><span class="header-section-number">16.1</span> Within Estimator</h2>
+<p>Within (or “fixed effects”) estimation of the random intercept model has two steps:</p>
+<ol type="1">
+<li>Apply the within transformation to each unit.</li>
+<li>Apply OLS to the resulting pooled data.</li>
+</ol>
+<section id="step-1-within-transformation" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="step-1-within-transformation"><span class="header-section-number">16.1.1</span> Step 1: Within Transformation</h3>
+<p>To perform the within transformation, we first average the equations for unit <span class="math inline">\(i\)</span> across <span class="math inline">\(t\)</span>. Label the average of <span class="math inline">\(y_{it}\)</span> across <span class="math inline">\(t\)</span> for unit <span class="math inline">\(i\)</span> as</p>
+<p><span class="math display">\[
+y_{i\cdot} = \frac{1}{T} \sum_{t=1}^{T} y_{it}.
 \]</span></p>
-<p>where <span class="math inline">\(\sigma_a^2 = \text{Var}(a_i)\)</span> and <span class="math inline">\(\sigma_u^2 = \text{Var}(u_{it})\)</span>.</p>
-<p>This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be <strong>incorrect</strong>, as will the usual test statistics.</p>
-<p><strong>Generalized least squares</strong> can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large <span class="math inline">\(N\)</span> and relatively small <span class="math inline">\(T\)</span>. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.</p>
-<p>Deriving the GLS transformation that <strong>eliminates serial correlation in the errors</strong> requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define <span class="math display">\[
-\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
-\]</span></p>
-<p>which is between zero and one. As $ $ approaches zero, <span class="math inline">\(\theta\to1.\)</span></p>
-<p>Then, the transformed equation turns out to be <span id="eq-randome_effects_transform"><span class="math display">\[
-\begin{aligned}
-y_{it} - \theta \overline{y}_i &amp;= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - \theta \overline{x}_{i1}) + \cdots \\
-&amp;\phantom{=}\quad + \beta_K (x_{itK} - \theta \overline{x}_{iK}) + (v_{it} - \theta \overline{v}_i),
-\end{aligned}
-\tag{16.3}\]</span></span> where the overbar <span class="math inline">\(\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}\)</span> is the time averages of <span class="math inline">\(y\)</span> for individual <span class="math inline">\(i\)</span>, and similarly for <span class="math inline">\(\overline{x}_{ij},\)</span> <span class="math inline">\(j=1,\ldots,K.\)</span></p>
-<p>This is a very interesting equation, as it involves <strong>quasi-demeaned</strong> data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on <span class="math inline">\(\sigma_u^2,\)</span> <span class="math inline">\(\sigma_a^2\)</span> and the number of time periods, <span class="math inline">\(T\)</span>.</p>
-<p>The GLS estimator is simply the pooled OLS estimator of <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.3</span></a>. The errors in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> are <strong>serially uncorrelated</strong>.</p>
-<p>The transformation in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with <span class="math inline">\(a_i\)</span>, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.</p>
-<p>The parameter <span class="math inline">\(\theta\)</span> is never known in practice, but it can always be estimated. There are different ways to do this, which may be based on pooled OLS or fixed effects, for example. Generally, <span class="math inline">\(\hat{\theta}\)</span> takes the form <span class="math display">\[
-\hat{\theta} = 1 - \left[ \frac{\hat{\sigma}_u^2}{\hat{\sigma}_a^2 + T \hat{\sigma}_u^2} \right]^{1/2},
-\]</span> where <span class="math inline">\(\hat{\sigma}_a^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_a^2\)</span> and <span class="math inline">\(\hat{\sigma}_u^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_u^2\)</span>.</p>
-<p>These estimators can be based on the pooled OLS or the fixed effects residuals. <span class="math display">\[
-\hat{\sigma}_a^2 = \left[ \frac{NT(T - 1)}{2} - (K + 1) \right]^{-1} \sum_{i=1}^{N} \sum_{t=1}^{T-1} \sum_{s=t+1}^{T} \hat{v}_{it} \hat{v}_{is},
-\]</span> where the <span class="math inline">\(\hat{v}_{it}\)</span> are the residuals from estimating <a href="#eq-randome_effects" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> by pooled OLS.</p>
-<p>Given this, we can estimate <span class="math inline">\(\sigma_u^2\)</span> by using <span class="math display">\[
-\hat{\sigma}_u^2 = \hat{\sigma}_v^2 - \hat{\sigma}_a^2,
-\]</span> where <span class="math inline">\(\hat{\sigma}_v^2\)</span> is the square of the usual standard error of the regression from pooled OLS. [See Wooldridge (2010, Chapter 10) for additional discussion of these estimators.]</p>
-<p>The feasible GLS estimator that uses <span class="math inline">\(\hat{\theta}\)</span> in place of <span class="math inline">\(\theta\)</span> is called the <strong>random effects estimator</strong>.</p>
-<p>Under the random effects assumptions, the estimator is <strong>consistent (not unbiased) and asymptotically normally distributed as <span class="math inline">\(N\)</span> gets large with fixed <span class="math inline">\(T\)</span></strong>.</p>
-<p>The properties of the random effects (RE) estimator with <strong>small <span class="math inline">\(N\)</span> and large <span class="math inline">\(T\)</span></strong> are largely unknown, although it has certainly been used in such situations.</p>
-<hr>
-<p><strong>Comparing RE estimates and FE estimates</strong>: When <span class="math inline">\(\theta=1\)</span>, RE becomes the FE model. Recall that <span class="math display">\[
-\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
-\]</span> There are three scenarios where <span class="math inline">\(\theta\to1\)</span>:</p>
+<p>The averaged outcome <span class="math inline">\(y_{i\cdot}\)</span> satisfies the averaged (or “cross-sectional”) equation</p>
+<p><span id="eq-within-lecture-avg"><span class="math display">\[
+y_{i\cdot} = \alpha_i + \bbeta' \bx_{i\cdot} + u_{i\cdot},
+\tag{16.2}\]</span></span> where <span class="math inline">\(\bx_{i\cdot}\)</span> and <span class="math inline">\(u_{i\cdot}\)</span> are defined analogously to <span class="math inline">\(y_{i\cdot}\)</span>.</p>
+<p>Define the within-transformed equation by subtracting this averaged equation (<a href="#eq-within-lecture-avg" class="quarto-xref"><span>16.2</span></a>) from the original equation (<a href="#eq-within-lecture-random-intercept" class="quarto-xref"><span>16.1</span></a>) for each <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+y_{it} - y_{i\cdot} = (\alpha_i - \alpha_i) + \bbeta'(\bx_{it} - \bx_{i\cdot}) + (u_{it} - u_{i\cdot})
+\]</span> or <span id="eq-within_transformed"><span class="math display">\[
+\tilde{y}_{it} = \bbeta' \tilde{\bx}_{it} + \tilde{u}_{it}.
+\tag{16.3}\]</span></span></p>
+<p>where <span class="math inline">\(\tilde{y}_{it} = y_{it} - y_{i\cdot}\)</span> is the deviations from the group means, and similarly for <span class="math inline">\(\tilde{\bx}_{it}\)</span> and <span class="math inline">\(\tilde{u}_{it}.\)</span></p>
+<p>Under <a href="#eq-within-lecture-random-intercept" class="quarto-xref">Equation&nbsp;<span>16.1</span></a>, <span style="color:#008B45">the within transformation eliminates the individual random intercepts <span class="math inline">\(\alpha_i\)</span></span>. All average differences in <span class="math inline">\(y\)</span>’s or <span class="math inline">\(\bx\)</span>’s between individuals have been wiped out. <a href="#eq-within_transformed" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> now looks like a regular homogeneous regression.</p>
+</section>
+<section id="step-2-ols-on-the-within-transformed-equation" class="level3" data-number="16.1.2">
+<h3 data-number="16.1.2" class="anchored" data-anchor-id="step-2-ols-on-the-within-transformed-equation"><span class="header-section-number">16.1.2</span> Step 2: OLS on the Within-Transformed Equation</h3>
+<p>The within (fixed effects) estimator is obtained by simply pooling the data across <span class="math inline">\(i\)</span> and <span class="math inline">\(t\)</span> in <a href="#eq-within_transformed" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> and applying OLS to it. Specifically, the estimator is given by</p>
+<p><span id="eq-within_representation_random_intercept"><span class="math display">\[
+\hat{\bbeta}^W = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i \tilde{\mathbf{y}}_i.
+\tag{16.4}\]</span></span></p>
+</section>
+<section id="properties" class="level3" data-number="16.1.3">
+<h3 data-number="16.1.3" class="anchored" data-anchor-id="properties"><span class="header-section-number">16.1.3</span> Properties</h3>
+<p>The within estimator enjoys several desirable properties if the random intercept model reflects the underlying causal model. Most of these properties can be derived from its sampling error representation <span id="eq-within-sampling-error-homogeneous"><span class="math display">\[
+\hat{\bbeta}^W = \bbeta + \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i \tilde{\bu}_i.
+\tag{16.5}\]</span></span></p>
 <ul>
-<li><p><span class="math inline">\(T\)</span> is big <span class="math inline">\(\rightarrow\)</span> Lots of variation across time for each individual <span class="math inline">\(\rightarrow\)</span> more like fixed effects</p></li>
-<li><p><span class="math inline">\(\sigma_a^2\)</span> is big <span class="math inline">\(\rightarrow\)</span> Lots of variation in the fixed effects <span class="math inline">\(\rightarrow\)</span> more like fixed effects</p></li>
-<li><p><span class="math inline">\(\sigma_u^2\)</span> is small relative to <span class="math inline">\(\sigma_a^2\)</span> <span class="math inline">\(\rightarrow\)</span> idiosyncratic variation is small, more variation from fixed effects <span class="math inline">\(\rightarrow\)</span> more like fixed effects</p></li>
+<li><p><span class="math inline">\(\hat{\bbeta}^W\)</span> is unbiased for <span class="math inline">\(\bbeta\)</span>. To show this, it is sufficient to notice that strict exogeneity of <span class="math inline">\(\bu_i\)</span> with respect to <span class="math inline">\(\bX_i\)</span> implies strict exogeneity of <span class="math inline">\(\tilde{\bu}_i\)</span> with respect to <span class="math inline">\(\tilde{\bX}_i\)</span>: <span class="math display">\[
+\E[\tilde{\bu}_i|\tilde{\bX}_i] =
+\E[\E[\tilde{\bu}_i|\bX_i]|\tilde{\bX}_i] = 0.
+\]</span> It follows that the mean of the second term in <a href="#eq-within-sampling-error-homogeneous" class="quarto-xref">Equation&nbsp;<span>16.5</span></a> is 0, and so <span class="math display">\[
+\E[\hat{\bbeta}^W] = \bbeta.
+\]</span></p></li>
+<li><p><span class="math inline">\(\hat{\bbeta}^W\)</span> is consistent for <span class="math inline">\(\bbeta\)</span> and asymptotically normal, provided a standard rank condition holds for <span class="math inline">\(\tilde{\bX}_i\)</span>: <span id="eq-within_asymptotic"><span class="math display">\[
+\hat{\bbeta}^W \xrightarrow{p} \bbeta, \quad \sqrt{N}(\hat{\bbeta}^W - \bbeta) \Rightarrow N(0, \Sigma).  
+\tag{16.6}\]</span></span></p></li>
 </ul>
-<p><strong>Comparing RE estimates and Pooled OLS</strong>: When <span class="math inline">\(\theta=0\)</span>, RE becomes the Pooled OLS. This happens when the unobserved effect, <span class="math inline">\(a_i,\)</span> is relatively unimportant (because it has small variance relative to <span class="math inline">\(\sigma^2_u\)</span>).</p>
-<hr>
-<p><strong>Summary of RE</strong>:</p>
+<p>Since <span class="math inline">\(\bbeta\)</span> is the average coefficient vector in this homogeneous model, we conclude that the within estimator consistently estimates average coefficients under the random intercept model (<a href="#eq-within-lecture-random-intercept" class="quarto-xref"><span>16.1</span></a>).</p>
+</section>
+</section>
+<section id="between-groups-estimator" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="between-groups-estimator"><span class="header-section-number">16.2</span> Between-groups Estimator</h2>
+<p>The Between-groups estimator (or between estimator) is obtained by regressing the time averaged variables on each other (<a href="#eq-within-lecture-avg" class="quarto-xref"><span>16.2</span></a>) (where we include an intercept, <span class="math inline">\(\beta_0\)</span>) using OLS regression. <span class="math display">\[
+y_{i\cdot} = \alpha_i + \bbeta' \bx_{i\cdot} + u_{i\cdot},
+\]</span> This is a cross-sectional regression, with a sample size being the number of entities.</p>
+<p>Note that the between estimator is <strong>biased</strong> when <span class="math inline">\(\alpha_i\)</span> is correlated with <span class="math inline">\(\bx_{i\cdot}.\)</span> If we think <span class="math inline">\(\alpha_i\)</span> is uncorrelated with <span class="math inline">\(\bx_{i\cdot},\)</span> it is better to use the random effects estimator.</p>
+<p>It can be suitable for research questions that specifically address variation between different entities rather than changes within entities over time. One caveat is that the Between-groups estimator <em>overlooks important information about how variables change over time</em>.</p>
+<p>To obtain unbiased estimates, it is crucial to ensure the assumption of zero correlation between the error term and averaged independent variables.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Grunfeld) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate Between model</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>model_between <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> Grunfeld,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">model =</span> <span class="st">"between"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate Within model</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>model_within <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> Grunfeld,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                      <span class="at">model =</span> <span class="st">"within"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model_between, model_within, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Between"</span>, <span class="st">"Within"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">type=</span><span class="st">"html"</span>, <span class="at">digits=</span><span class="dv">2</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes =</span> <span class="st">"&lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01 &lt;br&gt; Standard errors in parentheses."</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes.append =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+invest
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Between
+</td>
+<td>
+Within
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+value
+</td>
+<td>
+0.13<sup>***</sup>
+</td>
+<td>
+0.11<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.01)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+capital
+</td>
+<td>
+0.03
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.17)
+</td>
+<td>
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-7.38
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(40.44)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+11
+</td>
+<td>
+220
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.86
+</td>
+<td>
+0.77
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.83
+</td>
+<td>
+0.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+25.50<sup>***</sup> (df = 2; 8)
+</td>
+<td>
+340.08<sup>***</sup> (df = 2; 207)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
+</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+<section id="references" class="level2 unlisted unnumbered">
+<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
-<li><p>Random effects estimators are a weighted average of the between estimator (variation between individuals in a cross section) and the within/fixed estimator (variation within individuals over time)</p></li>
-<li><p>Random effects estimators will be consistent and unbiased if <strong>fixed effects are not correlated with</strong> <span class="math inline">\(\bx\)</span>’s. Fixed effects estimators will always be consistent and unbiased (under usual GM assumptions)</p></li>
-<li><p>Random effects estimators will be more <strong>efficient</strong> (have smaller standard errors) than fixed effects estimators because they use more of the variation in <span class="math inline">\(X\)</span> (specifically, they use the cross sectional/between variation)</p></li>
+<li>Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <a href="https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-within-estimator.html#recall-within-estimator-in-the-random-intercept-model" class="uri">https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-within-estimator.html#recall-within-estimator-in-the-random-intercept-model</a></li>
+<li>Vladislav Morozov, GitHub course repository, <a href="https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/main/src/linear/linear-within-estimator.qmd" class="uri">https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/main/src/linear/linear-within-estimator.qmd</a></li>
 </ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1202,13 +1486,13 @@ y_{it} - \theta \overline{y}_i &amp;= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - 
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./PA02_Fixed-Effects.html" class="pagination-link" aria-label="Fixed Effects Model">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span>
+      <a href="./PA02_Panel_regression.html" class="pagination-link" aria-label="Panel Regressions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./PA04_dynamic_models.html" class="pagination-link" aria-label="Dynamic Models">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA04_Random-Effects.html" class="pagination-link" aria-label="Random Effects Model">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

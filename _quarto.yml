@@ -25,11 +25,12 @@ book:
         - TS04_TimeSeries_regression.qmd
     - part: "Panel Data"
       chapters:
-        - PA01_Panel_regression.qmd
-        - PA02_Fixed-Effects.qmd
-        - PA03_Random-Effects.qmd
-        - PA04_dynamic_models.qmd
-        - PA05_dynamic_models_with_pdynmc.qmd
+        - PA01_Pooled_regression.qmd
+        - PA02_Panel_regression.qmd
+        - PA03_Fixed-Effects.qmd
+        - PA04_Random-Effects.qmd
+        - PA05_dynamic_models.qmd
+        - PA06_dynamic_models_with_pdynmc.qmd
         - PA07_Hetero_lm.qmd
         
 

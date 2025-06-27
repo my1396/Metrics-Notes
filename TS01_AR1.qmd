@@ -255,7 +255,7 @@ $$
 \end{align}
 $$ {#eq-AR1}
 
-where $w_t$ is a white noise series with mean zero and variance $\sigma^2_w$. We also assume $|\rho|<1$.
+where <span style='color:#008B45'>$w_t$ is a white noise series with mean zero and variance $\sigma^2_w$</span>. We also assume $|\rho|<1$.
 
 We can represent the AR(1) model as a linear combination of the innovations $w_t$.
 

@@ -8,7 +8,7 @@ format: html
 #| include: false
 ```
 
-Consider the following fixed effects model
+Consider the following individual fixed effects model (at the level of the observation):
 
 $$
 \begin{aligned}
@@ -16,7 +16,7 @@ y_{it} &= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
 \text{or}\quad y_{it} &= \alpha_i + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
 \end{aligned}
 $$  {#eq-within-lecture-random-intercept}
-There are $K$ regressors in $\bs_{it},$ not including an intercept.
+There are $K$ regressors in $\bx_{it},$ **NOT** including an intercept.
 
 We assume strict exogeneity:
 
@@ -25,6 +25,66 @@ $$
 $$
 
 Throughout, we will assume that the number $N$ of cross-sectional units is potentially large, while the number $T$ of data points per unit is fixed. This setup is more reflective of typical micropanels. 
+
+**Alternative notations**:
+
+At the level of the individual, the model is written as:
+
+$$
+\by_i = \bX_i \bbeta + \bold{1} \alpha_i + \bvarepsilon_i  ,
+$$
+where $\bold{1}$ is a $T\times 1$ column of ones.
+
+Equation for the full sample:
+
+$$
+\begin{bmatrix}
+\by_{1}  \\
+\by_{2}  \\
+\vdots \\
+\by_{N}  
+\end{bmatrix}  = 
+\begin{bmatrix}
+\bX_{1}  \\
+\bX_{2}  \\
+\vdots \\
+\bX_{N}  
+\end{bmatrix} \bbeta + \begin{bmatrix}
+\bold{1} & 0  & \cdots & 0 \\
+0 & \bold{1} & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0  & \cdots & \bold{1} \\
+\end{bmatrix} 
+\begin{bmatrix}
+\alpha_{1}  \\
+\alpha_{2}  \\
+\vdots \\
+\alpha_{N} 
+\end{bmatrix} 
++ \begin{bmatrix}
+\bvarepsilon_{1}  \\
+\bvarepsilon_{2}  \\
+\vdots \\
+\bvarepsilon_{M}  
+\end{bmatrix}
+$$
+or 
+
+$$
+\begin{split}
+\by &= \begin{bmatrix} \bX & \bd_1 & \bd_2 & \cdots & \bd_n \end{bmatrix} 
+\begin{bmatrix}
+\bbeta \\
+\balpha
+\end{bmatrix} + \bvarepsilon \\
+&= \bX\bbeta + \bD\balpha + \bvarepsilon  ,
+\end{split}
+$$
+where $\bd_i$ is a dummy variable indicating the $i$-th unit, and 
+
+$$
+\underset{(NT\times N)}{\bD} = \begin{bmatrix}\bd_1 & \bd_2 & \cdots & \bd_n \end{bmatrix} .
+$$
 
 ## Within Estimator
 
@@ -60,7 +120,7 @@ $${#eq-within_transformed}
 
 where $\tilde{y}_{it} = y_{it} - y_{i\cdot}$ is the deviations from the group means, and similarly for $\tilde{\bx}_{it}$ and $\tilde{u}_{it}.$
 
-Under @eq-within-lecture-random-intercept, the within transformation eliminates the individual random intercepts $\alpha_i$. All average differences in $y$'s or $\bx$'s between individuals have been wiped out.
+Under @eq-within-lecture-random-intercept, <span style='color:#008B45'>the within transformation eliminates the individual random intercepts $\alpha_i$</span>. All average differences in $y$'s or $\bx$'s between individuals have been wiped out.
 @eq-within_transformed now looks like a regular homogeneous regression. 
 
 ### Step 2: OLS on the Within-Transformed Equation
