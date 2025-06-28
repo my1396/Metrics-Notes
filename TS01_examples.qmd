@@ -67,6 +67,12 @@ n &= 69, R^2=.232, \bar{R^2} = .197.
 \end{aligned}
 $$ {#eq-gfr_lag}
 
+We call model (-@eq-gfr_lag) an **finite distributed lag** (FDL) model of order two. A more general specification is
+
+$$
+y_t = \alpha_0 + \delta_0 z_t + \delta_1 z_{t-1} + \delta_2 z_{t-2} + u_t .
+$$
+
 Even though $\Delta pe$ and $\Delta pe_{-1}$ have negative coefficients, their coefficients are small and jointly insignificant ($p\text{-value}=.28,$ see Anova test below). 
 
 ```{r}

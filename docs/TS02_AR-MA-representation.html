@@ -583,6 +583,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS05_Spurious_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -597,43 +603,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA01_Pooled_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA02_Panel_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA03_Fixed-Effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA04_Random-Effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA05_dynamic_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA06_dynamic_models_with_pdynmc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA07_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -714,7 +720,7 @@ y_t - \mu = (1 - \phi L)^{-1} \varepsilon_t = (1 + \phi L + \phi^2 L^2 + \cdots)
 <p><span id="eq-ma-infty"><span class="math display">\[
 \text{or} \quad y_t = \mu + \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
 \tag{9.3}\]</span></span></p>
-<p>What we have shown is that, if <span class="math inline">\(\{y_t\}\)</span> is a covariance-stationary solution to the stochastic difference equation (<a href="PA05_dynamic_models.html#eq-AR1" class="quarto-xref"><span>18.3</span></a>) or (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>9.2</span></a>), then <span class="math inline">\(y_t\)</span> has the <strong>moving-average representation</strong> as in (<a href="#eq-ma-infty" class="quarto-xref"><span>9.3</span></a>). Conversely, if <span class="math inline">\(y_t\)</span> has the representation (<a href="#eq-ma-infty" class="quarto-xref"><span>9.3</span></a>), then it satisfies the difference equation.</p>
+<p>What we have shown is that, if <span class="math inline">\(\{y_t\}\)</span> is a covariance-stationary solution to the stochastic difference equation (<a href="PA05_dynamic_models.html#eq-AR1" class="quarto-xref"><span>19.3</span></a>) or (<a href="#eq-AR1-deviation-form" class="quarto-xref"><span>9.2</span></a>), then <span class="math inline">\(y_t\)</span> has the <strong>moving-average representation</strong> as in (<a href="#eq-ma-infty" class="quarto-xref"><span>9.3</span></a>). Conversely, if <span class="math inline">\(y_t\)</span> has the representation (<a href="#eq-ma-infty" class="quarto-xref"><span>9.3</span></a>), then it satisfies the difference equation.</p>
 <p>The condition <span class="math inline">\(\abs{\phi}&lt;1,\)</span> which is the stability condition associated with the first-degree polynomial equation <span class="math inline">\(1-\phi z=0,\)</span> is called the stationary condition in the context of autoregressive processes.</p>
 </section>
 <section id="case-2-absphi1" class="level2" data-number="9.2">

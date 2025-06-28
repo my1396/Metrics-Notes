@@ -583,6 +583,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS05_Spurious_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -597,43 +603,43 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA01_Pooled_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA02_Panel_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA03_Fixed-Effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA04_Random-Effects.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA05_dynamic_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA06_dynamic_models_with_pdynmc.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Dynamic Model Applications with <code>pdynmc</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./PA07_Hetero_lm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Linear Models with Heterogeneous Coefficients</span></span></a>
   </div>
 </li>
       </ul>
@@ -682,21 +688,21 @@ window.Quarto = {
 <section id="finite-sample-classical-assumptions-of-ols" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="finite-sample-classical-assumptions-of-ols"><span class="header-section-number">10.1</span> Finite Sample Classical Assumptions of OLS</h2>
 <div id="cnj-1" class="theorem conjecture">
-<p><span class="theorem-title"><strong>Assumption 10.1 (Linear in Parameters)</strong></span> The stochastic process <span class="math inline">\(\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, n\}\)</span> follows the linear model</p>
+<p><span class="theorem-title"><strong>Assumption 10.1 (Linear in Parameters)</strong></span> The stochastic process <span class="math inline">\(\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, T\}\)</span> follows the linear model</p>
 <p><span class="math display">\[
 \begin{split}
 y_t &amp;= \bx'\bbeta + u_t \\
 &amp;= \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \cdots + + \beta_Kx_{tK} + u_t,
 \end{split}
 \]</span></p>
-<p>where <span class="math inline">\(\{u_t: t=1,2,\ldots, n\}\)</span> is the sequence of errors or disturbances. Here <span class="math inline">\(n\)</span> is the number of observations (time periods).</p>
+<p>where <span class="math inline">\(\{u_t: t = 1,2,\ldots, T\}\)</span> is the sequence of errors or disturbances. Here <span class="math inline">\(T\)</span> is the number of observations (time periods).</p>
 </div>
 <p>In the notation <span class="math inline">\(x_{tj}\)</span>, <span class="math inline">\(t\)</span> denotes the time period, and <span class="math inline">\(j\)</span> is a label to indicate one of the <span class="math inline">\(K\)</span> explanatory variables.</p>
 <p>For example, a Finite Distributed Lag (FDL) model of order two</p>
 <p><span class="math display">\[
 y_t = \alpha_0 + \delta_0 z_t + \delta_1 z_{t-1} + \delta_2 z_{t-2} + u_t,
 \]</span> is obtained by setting <span class="math inline">\(x_{t1}=z_t,\)</span> <span class="math inline">\(x_{t2}=z_{t-1},\)</span> and <span class="math inline">\(x_{t3}=z_{t-2}.\)</span></p>
-<p>For the remaining assumptions, let <span class="math inline">\(\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})\)</span> denote the set of all independent variables at time <span class="math inline">\(t.\)</span> Further, <span class="math inline">\(\bX\)</span> denote the collection of all independent variables for all time periods. It is useful to think of <span class="math inline">\(\bX\)</span> as being an array, with <span class="math inline">\(n\)</span> rows and <span class="math inline">\(k\)</span> columns.</p>
+<p>For the remaining assumptions, let <span class="math inline">\(\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})\)</span> denote the set of all independent variables at time <span class="math inline">\(t.\)</span> Further, <span class="math inline">\(\bX\)</span> denote the collection of all independent variables for all time periods. It is useful to think of <span class="math inline">\(\bX\)</span> as being an array, with <span class="math inline">\(T\)</span> rows and <span class="math inline">\(k\)</span> columns.</p>
 <p><span class="math display">\[
 \bX = \begin{bmatrix}
 \bx_1 \\

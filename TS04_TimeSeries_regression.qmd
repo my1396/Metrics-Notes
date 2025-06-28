@@ -57,12 +57,14 @@ Given the dynamic relationship of time series data, there are three different wa
 
 **Stationarity**
 
-An assumption that we will maintain throughout this exercise is that variables in our equation are stationary, which means that a variable is one that is not explosive, nor trending, and nor wandering aimlessly without returning to its mean. A stationary variable simply means a variable whose mean, variance and other statistical properties remain constant over time.
+An assumption that we will maintain throughout this exercise is that *variables in our equation are stationary*, which means that a variable is one that is not explosive, nor trending, and nor wandering aimlessly without returning to its mean. A stationary variable simply means a variable whose mean, variance and other statistical properties remain constant over time.
 
 ## Finite Distributed Lags
 
-The first dynamic relationship we consider is the first model that we introduced, which took the form of  
-$y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)$,  
+The first dynamic relationship we consider is the first model that we introduced, which took the form of 
+$$
+y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots),
+$$
 with the additional assumption that the relationship is **linear**, and after $q$ time periods, changes in $x$ no longer have an impact on $y$. Under these conditions, we have the multiple regression model:
 
 $$
@@ -73,9 +75,9 @@ The above model can be treated in the same way as a multiple regression model. I
 
 1. **Forecasting future values of $y$.**  
 
-   To introduce notation for future values, suppose our sample period is $t = 1, 2, \ldots, T$.  
-   We use $t$ for the index and $T$ for the sample size to emphasize the time series nature of the data.  
-   Given the last observation in our sample is at $t = T$, the first post-sample observation that we wish to forecast is at $t = T + 1$.  
+   To introduce notation for future values, suppose our sample period is $t = 1, 2, \ldots, T$.
+   We use $t$ for the index and $T$ for the sample size to emphasize the time series nature of the data.
+   Given the last observation in our sample is at $t = T$, the first post-sample observation that we wish to forecast is at $t = T + 1$.
    The equation for this observation can be given by:
 
    $$
@@ -84,43 +86,59 @@ The above model can be treated in the same way as a multiple regression model. I
 
 2. **Strategic Analysis.**  
 
-   For example, to use an economic example, understanding the effects of the change in interest rate on unemployment and inflation, or the effect of advertising on sales on a firm's products.  
-   The coefficient $\beta_s$ gives the change in $E(y_t)$ when $x_{t-s}$ changes by one unit, but $x$ is held constant in other periods.  
+   For example, to use an economic example, understanding the effects of the change in interest rate on unemployment and inflation, or the effect of advertising on sales on a firm's products.
+   The coefficient $\beta_s$ gives the change in $E(y_t)$ when $x_{t-s}$ changes by one unit, but $x$ is held constant in other periods.
    Alternatively, if we look forward rather than backward, $\beta_s$ gives the changes in $E(y_{t+s})$ when $x_t$ changes by one unit, but $x$ in other periods is held constant. In terms of derivatives:
 
    $$
    \frac{\partial E(y_t)}{\partial x_{t-s}} = \frac{\partial E(y_{t+s})}{\partial x_t} = \beta_s
    $$
 
-The effect of a one-unit change in $x_t$ is **distributed** over the current and next $q$ periods.  
-It is called a **finite distributed lag model of order $q$** because it is assumed that after a finite number of periods $q$,  
-changes in $x$ no longer have an impact on $y$. The coefficient $\beta_s$ is called a **distributed-lag weight** or an **$s$-period delayed multiplier**.  
-The coefficient $\beta_0$ is called the **impact multiplier**.  
-Adding up a portion of the coefficients gives you the **interim multipliers**.  
-For example, the interim multiplier for two periods would be $(\beta_0 + \beta_1 + \beta_2)$.  
-The **total multiplier** is the final effect on $y$ on the sustained increase after $q$ or more periods have elapsed and is given by the equation:
+The effect of a one-unit change in $x_t$ is **distributed** over the current and next $q$ periods. It is called a **finite distributed lag model of order $q$** because it is assumed that after a finite number of periods $q$, changes in $x$ no longer have an impact on $y$. 
+
+To interpret the coefficients:
+
+- The coefficient $\beta_0 = y_t - y_{t-1}$ is called the **impact multiplier** or **impact propensity**, which shows that the immediate change in $y$ due to one-unit increase in $x$ at time $t.$
+
+- The coefficient $\beta_s$ is called a **distributed-lag weight** or an **$s$-period delayed multiplier**. 
+
+    $\beta_1 = y_{t+1} - y_{t-1}$ is the change in $y$ one period after the temporary change in $x$ at time $t$; $\beta_2 = y_{t+2} - y_{t-1}$ is the change in $y$ two periods after the change; at time $t+q+1,$ $y$ has reverted back to its initial level: $y_{t+q+1} = y_{t-1}$ because we have assumed that only $q$ lags of $x$ appear in (-@eq-FDL).
+
+- Adding up a portion of the coefficients gives you the **interim multipliers**. For example, the interim multiplier for two periods would be $(\beta_0 + \beta_1 + \beta_2)$. 
+
+- The **long-run propensity** (LRP), also called the long-run multiplier or total multiplier, is the final effect on $y$ on the sustained increase after $q$ or more periods have elapsed and is given by the equation:
 
 $$
-\sum_{s=0}^q \beta_s
+\text{LRP} = \sum_{s=0}^q \beta_s
 $$
 
+$\mathrm{LRP}$ measures the the long-run change in $y$ given a permanent increase in $x$ at time $t.$ For example, assume $x$ equals a constant $c$ before time $t.$ At time $t$, $x$ increases permanently to $c+1.$
+
+Mathematically,
+
+$$
+x_s = \begin{cases}
+c & s<t \\
+c+1 & x\ge t
+\end{cases} 
+$$
+Two graphs that are related to the multipliers:
+
+- Lag distribution, which graphs the $\beta_s$ as a function of $s$, summarizing the dynamic effect that a temporary increase in $x$ has on $y$
+- Cumulative effects as $\beta_0 + \beta_1 + \cdots + \beta_h$ for any horizon $h$
 
 
 ## Assumptions
 
-In distributed lag models, both $y$ and $x$ are typically random. That is, we do not know their values prior to sampling.  
-We do not “set” output growth, for example, and then observe the resulting level of unemployment.  
-To accommodate for this stochastic process, we assume that the $x$’s are random and that the error term $e_t$ is  
-**independent of all $x$’s in the sample – past, current, and future**.  
-This assumption, in conjunction with the other multiple regression assumptions, is sufficient for the least squares estimator to be unbiased and to be BLUE, conditional on the $x$’s in the sample.
+In distributed lag models, both $y$ and $x$ are typically random. That is, we do not know their values prior to sampling. We do not “set” output growth, for example, and then observe the resulting level of unemployment. To accommodate for this stochastic process, we assume that the $x$’s are random and that the error term $e_t$ is **independent of all $x$’s in the sample – past, current, and future**. This assumption, in conjunction with the other multiple regression assumptions, is sufficient for the least squares estimator to be unbiased and to be BLUE, conditional on the $x$’s in the sample.
 
 The assumptions of the distributed lag model are:
 
 1. $y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t$
 2. $y$ and $x$ are stationary random variables, and $e_t$ is independent of current, past, and future values of $x$
 3. $E(e_t) = 0$
-4. $\text{var}(e_t) = \sigma^2$
-5. $\text{cov}(e_t, e_s) = 0 \quad t \ne s$
+4. $\var(e_t) = \sigma^2$
+5. $\cov(e_t, e_s) = 0 \quad t \ne s$
 6. $e_t \sim N(0, \sigma^2)$
 
 
@@ -134,9 +152,18 @@ Mathematically, Okun's Law can be expressed as
 $$
 U_{t}-U_{t-1}=-\gamma(G_{t}-G_{N})
 $$
-where $U_{t}$ is the unemployment rate in period $t$, $G_{t}$ is the growth rate of output in period $t$, and $G_{N}$ is the "normal" growth rate, which we assume constant over time. 
+where 
 
-We can rewrite the above equation in more familiar notation of the multiple regression model by denoting the change in unemployment as $DU_{t}=\Delta U_{t}=U_{t}-U_{t-1}.$ We then set $\gamma = \beta_{0}$ and $G_{N} = \alpha.$ Including an error term to our equation yields
+- $U_{t}$ is the unemployment rate in period $t$, 
+- $G_{t}$ is the growth rate of output in period $t$, and 
+- $G_{N}$ is the "normal" growth rate, which we assume constant over time. 
+
+We can rewrite the above equation in more familiar notation of the multiple regression model by denoting the *change in unemployment* as 
+
+$$
+DU_{t} = \Delta U_{t} = U_{t}-U_{t-1}.
+$$ 
+We then set $\gamma = \beta_{0}$ and $G_{N} = \alpha.$ Including an error term to our equation yields
 
 $$
 DU_{t}=\alpha + \beta_{0}G_{t} + \varepsilon_{t}.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>18&nbsp; Random Effects Model – Metrics Notes</title>
+<title>14&nbsp; Spurious Regression – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./PA05_dynamic_models.html" rel="next">
-<link href="./PA03_Fixed-Effects.html" rel="prev">
+<link href="./PA01_Pooled_regression.html" rel="next">
+<link href="./TS04_TimeSeries_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -462,7 +462,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Pooled_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA04_Random-Effects.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Random Effects Model</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS05_Spurious_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -585,7 +585,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS05_Spurious_regression.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS05_Spurious_regression.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span></a>
   </div>
 </li>
@@ -620,7 +620,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA04_Random-Effects.html" class="sidebar-item-text sidebar-link active">
+  <a href="./PA04_Random-Effects.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span></a>
   </div>
 </li>
@@ -649,16 +649,27 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#trending-time-series" id="toc-trending-time-series" class="nav-link active" data-scroll-target="#trending-time-series"><span class="header-section-number">14.1</span> Trending Time Series</a>
+  <ul class="collapse">
+  <li><a href="#linear-time-trend" id="toc-linear-time-trend" class="nav-link" data-scroll-target="#linear-time-trend"><span class="header-section-number">14.1.1</span> Linear time trend</a></li>
+  <li><a href="#exponential-trend" id="toc-exponential-trend" class="nav-link" data-scroll-target="#exponential-trend"><span class="header-section-number">14.1.2</span> Exponential trend</a></li>
+  </ul></li>
+  <li><a href="#using-trendin-variables-in-regression-analysis" id="toc-using-trendin-variables-in-regression-analysis" class="nav-link" data-scroll-target="#using-trendin-variables-in-regression-analysis"><span class="header-section-number">14.2</span> Using Trendin Variables in Regression Analysis</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Pooled_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA04_Random-Effects.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Random Effects Model</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS05_Spurious_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Random Effects Model</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></h1>
 </div>
 
 
@@ -675,166 +686,105 @@ window.Quarto = {
 </header>
 
 
-<p>We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved random heterogeneity specific to the <span class="math inline">\(i\)</span>th observation, <span class="math inline">\(\alpha_i\)</span>, has zero mean. <span class="math inline">\(\alpha_i\)</span> is constant through time. <span class="math inline">\(\beta_0\)</span> is the mean of the unobserved heterogeneity.</p>
+<!-- Chunk option settings -->
+<!-- Define chunk option `max.lines` -->
+<!-- controls max lines printed -->
+<section id="trending-time-series" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="trending-time-series"><span class="header-section-number">14.1</span> Trending Time Series</h2>
+<p>It is important to characterize if some series contain a time trend in order to draw causual inference using time series data. Ignoring the fact that two sequences are trending in the same or opposite directions can lead us to falsely conclude that changes in one variable are actually caused by changes in another variable. In many cases, two time series processes appear to be correlated only because they are both trending over time for reasons related to other unobserved factors.</p>
+<p>The phenomenon of finding a relationship between two or more trending variables simply because each is growing over time is an example of a <strong>spurious regression problem</strong>. We can add a time trend to account for the trend in explained or explanatory variables.</p>
+<section id="linear-time-trend" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="linear-time-trend"><span class="header-section-number">14.1.1</span> Linear time trend</h3>
+<p>If <span class="math inline">\(\{y_t\}\)</span> has a linear time trend, then we can formulate the series as</p>
 <p><span class="math display">\[
-\begin{aligned}
-y_{it} &amp;= a_i + \bbeta'\bx_{it} + u_{it}, \\
-\text{or}\quad y_{it} &amp;= a_i + \beta_0 + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}  ,
-\end{aligned}
-\]</span> for $t = 1,2,,T, $ and <span class="math inline">\(i = 1,2,\ldots,N.\)</span></p>
-<p>Here the random effects model assumes <span class="math inline">\(\alpha_i\)</span> is uncorrelated with each explanatory variable in all time periods.</p>
+y_t = \alpha_0 + \alpha_1 t + e_t, \; t=1, 2, \ldots,
+\]</span> where <span class="math inline">\(e_t\sim iid (0, \sigma^2_e)\)</span> or a more realistic characterization allows <span class="math inline">\(\{e_t\}\)</span> to be correlated over time.</p>
+<p><a href="#fig-linear_trend" class="quarto-xref">Figure&nbsp;<span>14.1</span></a> shows a simulated series with a linear time trend. The values of <span class="math inline">\(y_t\)</span> do not fall exactly on the line in due to randomness, but the expected values are on the line:</p>
 <p><span class="math display">\[
-\cov(x_{itj}, a_i) = 0, \quad t=1,2,\ldots,T;\, j=1,2,\ldots,K.
+\E(y_t) = \alpha_0 + \alpha_1 t .
 \]</span></p>
-<p>In this case, the fixed effects or first differencing model which eliminates <span class="math inline">\(\alpha_i\)</span> results in inefficient estimators.</p>
-<p>If we define the <span style="color:#008B45">composite error term <span class="math inline">\(v_{it}\)</span></span> as</p>
-<p><span id="eq-error_component_model"><span class="math display">\[
-\color{#008B45} v_{it} = a_i + u_{it},
-\tag{18.1}\]</span></span></p>
-<p><a href="#eq-error_component_model" class="quarto-xref">Equation&nbsp;<span>18.1</span></a> is often called an “error components model.”</p>
-<p>Then we have</p>
-<p><span id="eq-randome_effects"><span class="math display">\[
-y_{it} = \beta_0 + \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + v_{it}.
-\tag{18.2}\]</span></span> Because <span class="math inline">\(a_i\)</span> is in the composite error in each time period, the <span class="math inline">\(v_{it}\)</span> are <strong>serially correlated</strong> across time.</p>
-<p>Assumptions of random effects model:</p>
-<ul>
-<li><span class="math inline">\(\E[a_i\mid \bX] = \E[u_{it}\mid \bX] = 0\)</span></li>
-<li><span class="math inline">\(\E[a_i\mid \bX] = \sigma_a^2\)</span> and <span class="math inline">\(\E[u_{it}\mid \bX] = \sigma_u^2\)</span></li>
-<li><span class="math inline">\(\E[u_{it}a_j\mid \bX] = 0\)</span> for all <span class="math inline">\(i,t\)</span>, and <span class="math inline">\(j\)</span></li>
-<li><span class="math inline">\(\E[u_{it}u_{js}\mid \bX] = 0\)</span> if <span class="math inline">\(i\ne j\)</span> or <span class="math inline">\(t\ne s\)</span></li>
-<li><span class="math inline">\(\E[a_ia_j\mid \bX] = 0\)</span> for <span class="math inline">\(i\ne j\)</span></li>
-</ul>
-<p>We view the data structure as blocks of <span class="math inline">\(T\)</span> observations for group <span class="math inline">\(i.\)</span></p>
-<p>Let</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-linear_trend" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="672" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-linear_trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="TS05_Spurious_regression_files/figure-html/fig-linear_trend-1.png" id="fig-linear_trend" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-fig-pos="H" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-linear_trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exponential-trend" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="exponential-trend"><span class="header-section-number">14.1.2</span> Exponential trend</h3>
+<p>When a series has the same average growth rate from period to period, we say that the time series has an exponential trend.</p>
+<p>I practice, an exponential trend in a time series is captured by modelling the natural logarithm of the series as linear trend (assuming that <span class="math inline">\(y_t&gt;0\)</span>):</p>
+<p><span id="eq-log_rate"><span class="math display">\[
+\log (y_t) = \beta_0 + \beta_1 t + e_t, \; t=1, 2, \ldots.
+\tag{14.1}\]</span></span></p>
+<p>Recall that, for small changes, <span class="math inline">\(\Delta \log(y_t) = \log(y_t) - \log(y_{t-1})\)</span> is approximately the proportionate change in <span class="math inline">\(y_t:\)</span></p>
 <p><span class="math display">\[
-\bv_i = \begin{bmatrix}
-v_{i1}, v_{i2}, \cdots , v_{iT}
-\end{bmatrix}'.
-\]</span> Let’s have a look at the variance-covariance matrix of <span class="math inline">\(\bv_i.\)</span> We have</p>
-<p><span class="math display">\[
-\begin{aligned}
-\E[v_{it}^2\mid \bX] &amp;= \E[a_i^2 + u_{it}^2 + 2a_iu_{it} \mid \bx] \\
-&amp;= \sigma_a^2 + \sigma_u^2 .
-\end{aligned}
-\]</span> For <span class="math inline">\(t\ne s\)</span>, <span class="math display">\[
-\begin{aligned}
-\E[v_{it}v_{is}\mid \bX]
-&amp;= \E[(a_i+u_{it})(a_i+u_{is})] \\
-&amp;= \E[a_i^2 + a_iu_{it} + a_iu_{is} + u_{it}u_{is} \mid \bx] \\
-&amp;= \sigma_a^2 ,
-\end{aligned}
+\beta_1 = \Delta \log(y_t) \approx \frac{y_t-y_{t-1}}{y_{t-1}}
 \]</span></p>
-<p>For <span class="math inline">\(i\ne j\)</span> and all <span class="math inline">\(t\)</span> and <span class="math inline">\(s\)</span>, since observations <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are independent, we have: <span class="math display">\[
-\E[v_{it}v_{js}\mid \bX] = 0.
+<p><span class="math inline">\(\beta_1\)</span> is interpreted as the growth rate in <span class="math inline">\(y\)</span> from period <span class="math inline">\(t-1\)</span> to period <span class="math inline">\(t\)</span>. In other words, <span class="math inline">\(\beta_1\)</span> is approximately the average per period growth rate in <span class="math inline">\(y_t.\)</span></p>
+<p>For example, if <span class="math inline">\(t\)</span> denotes year and <span class="math inline">\(\beta_1 = .027,\)</span> then <span class="math inline">\(y_t\)</span> grows about 2.7% per year on average.</p>
+<p>Exponentiating (<a href="#eq-log_rate" class="quarto-xref"><span>14.1</span></a>) shows that <span class="math inline">\(y_t\)</span> itself has an exponential trend:</p>
+<p><span class="math display">\[
+y_t = \exp (\beta_0 + \beta_1 t + e_t) .
 \]</span></p>
-<p>Let <span class="math inline">\(\Sigma = \E[\bv_i\bv_i'\mid \bX]\)</span> be the <span class="math inline">\(T\times T\)</span> covariance matrix for observation <span class="math inline">\(i\)</span>, then</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-exp_growth" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="672" data-fig-pos="H">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-exp_growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="TS05_Spurious_regression_files/figure-html/fig-exp_growth-1.png" id="fig-exp_growth" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-fig-pos="H" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-exp_growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14.2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-exp_growth" class="quarto-xref">Figure&nbsp;<span>14.2</span></a> show a simulated time series with an exponential trend. In the early years, we see that the change in <span class="math inline">\(y_t\)</span> over each year is relatively small, whereas the change increases as time passes. This is consistent with a <em>constant average growth rate</em>: the percentage change is roughly the same in each period.</p>
+</section>
+</section>
+<section id="using-trendin-variables-in-regression-analysis" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="using-trendin-variables-in-regression-analysis"><span class="header-section-number">14.2</span> Using Trendin Variables in Regression Analysis</h2>
+<p>For concreteness, consider a model where two observed factors, <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}\)</span>, affect <span class="math inline">\(y_t\)</span>. In addition, there are unobserved factors that are systematically growing or shrinking over time. A model that captures this is</p>
+<p><span id="eq-regression_time_trend"><span class="math display">\[
+y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3t + u_t  .
+\tag{14.2}\]</span></span> This fits into the multiple linear regression framework with <span class="math inline">\(x_{t3}=t.\)</span></p>
+<p>Allowing for the trend <span class="math inline">\(t\)</span> in this equation explicitly recognizes that <span class="math inline">\(y_t\)</span> may be growing (<span class="math inline">\(\beta_3&gt;0\)</span>) or shrinking (<span class="math inline">\(\beta_3&lt;0\)</span>) over time for reasons essentially unrelated to <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}.\)</span> Omiiting <span class="math inline">\(t\)</span> from the regression and regressing <span class="math inline">\(y_t\)</span> on <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}\)</span> will generally yield biased estimators of <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2.\)</span> This is especially true if <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}\)</span> are themselves trending, because they can then be highly correlated with <span class="math inline">\(t.\)</span></p>
+<p><strong>Frisch–Waugh–Lovell theorem Interpretation</strong></p>
+<p>Based on the Frisch–Waugh–Lovell theorem, <a href="#eq-regression_time_trend" class="quarto-xref">Equation&nbsp;<span>14.2</span></a> can have an alternative interpretation in terms of detrending the original data series before using them in regression analysis.</p>
+<p><span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span> can be obtained as follows.</p>
+<ol type="i">
+<li><p>Regress each of <span class="math inline">\(y_t\)</span>, <span class="math inline">\(x_{1t}\)</span>, and <span class="math inline">\(x_{2t}\)</span> on a constant and the time trend <span class="math inline">\(t\)</span> and save the residuals, say, <span class="math inline">\(\ddot{y}_t\)</span>, <span class="math inline">\(\ddot{x}_{1t}\)</span>, <span class="math inline">\(\ddot{x}_{2t}\)</span>, <span class="math inline">\(t = 1, 2, \ldots, T\)</span>. For example,</p>
 <p><span class="math display">\[
-\begin{aligned}
-\underset{(T\times T)}{\bSigma} &amp;= \E[\bv_i\bv_i'\mid \bX] \\
-&amp;= \begin{bmatrix}
-\sigma_a^2 + \sigma_u^2 &amp; \sigma_a^2 &amp; \cdots &amp; \sigma_a^2 \\
-\sigma_a^2  &amp; \sigma_a^2 + \sigma_u^2 &amp; \cdots &amp; \sigma_a^2 \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\sigma_a^2  &amp; \sigma_a^2  &amp; \cdots &amp; \sigma_a^2 + \sigma_u^2\\
-\end{bmatrix} \\
-&amp;= \sigma_a^2 \bI_T + \sigma_u^2\bi_T\bi_T'
-\end{aligned}
-\]</span> where <span class="math inline">\(\bI_T\)</span> is an <span class="math inline">\(T\times T\)</span> identity matrix and <span class="math inline">\(\bi_T\)</span> is a <span class="math inline">\(T\times 1\)</span> column vector of 1’s.</p>
-<p>The disturbance covariance matrix for the full <span class="math inline">\(NT\)</span> observations is</p>
-<p><span class="math display">\[
-\underset{(NT\times NT)}{\Omega} = \begin{bmatrix}
-\Sigma &amp; 0 &amp; \cdots &amp; 0 \\
-0 &amp; \Sigma &amp; \cdots &amp; 0 \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-0 &amp; 0 &amp; \cdots &amp; \Sigma \\
-\end{bmatrix} = \bI_N \otimes \bSigma
+\ddot{y}_t = y_t - \hat{\alpha}_0 - \hat{\alpha}_1 t.
 \]</span></p>
-<p>Note that the errors are serially correlated under the random effects assumptions: <span class="math display">\[
-\text{Corr}(v_{it}, v_{is}) = \frac{\sigma_a^2}{\sigma_a^2 + \sigma_u^2}, \quad t \neq s,
+<p>Thus, we can think of <span class="math inline">\(\ddot{y}_t\)</span> as being <em>linearly detrended</em>. In detrending <span class="math inline">\(y_t\)</span>, we have estimated the model</p>
+<p><span class="math display">\[
+y_t = \alpha_0 + \alpha_1 t + e_t
 \]</span></p>
-<p>where <span class="math inline">\(\sigma_a^2 = \text{Var}(a_i)\)</span> and <span class="math inline">\(\sigma_u^2 = \text{Var}(u_{it})\)</span>.</p>
-<p>This (necessarily) positive serial correlation in the error term can be substantial, and, because the usual pooled OLS standard errors ignore this correlation, they will be <strong>incorrect</strong>, as will the usual test statistics.</p>
-<p><strong>Generalized least squares</strong> (GLS) can be used to estimate models with autoregressive serial correlation. For the procedure to have good properties, we should have large <span class="math inline">\(N\)</span> and relatively small <span class="math inline">\(T\)</span>. We assume that we have a balanced panel, although the method can be extended to unbalanced panels.</p>
-<p><span class="math display">\[
-\begin{split}
-\hat{\bbeta}_{\text{GLS}} &amp;= \left(\bX'\bOmega^{-1}\bX \right)^{-1} \bX'\bOmega^{-1}\by \\
-&amp;= \left(\sum_{i=1}^N \bX_i'\bSigma^{-1}\bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i'\bSigma^{-1}\by_i \right)
-\end{split}
-\]</span></p>
-<p>Deriving the GLS transformation that <strong>eliminates serial correlation in the errors</strong> requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). We will require a transformation</p>
-<p><span class="math display">\[
-\bP = \bOmega^{-1/2} = (\mathbf{I}_N \otimes \bSigma)^{-1/2} .
-\]</span> We only need to find <span class="math inline">\(\bSigma^{-1/2},\)</span> which is</p>
-<p><span class="math display">\[
-\bSigma^{-1/2} = \mathbf{I} - \frac{\theta}{T} \bi_T\bi_T' ,
-\]</span> where</p>
-<p><span class="math display">\[
-\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} ,
-\]</span></p>
-<p>which is between zero and one. As <span class="math inline">\(\frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2}\)</span> approaches zero, <span class="math inline">\(\theta\to1.\)</span></p>
-<p>The transformation of <span class="math inline">\(\by_i\)</span> for GLS is therefore</p>
-<p><span class="math display">\[
-\bSigma^{-1/2} \by_i = \begin{bmatrix}
-y_{i1} - \theta \overline{y}_i \\
-y_{i2} - \theta \overline{y}_i \\
-\vdots \\
-y_{iT} - \theta \overline{y}_i \\
-\end{bmatrix}
-\]</span> and likewise for the rows of <span class="math inline">\(\bX_i.\)</span></p>
-<p>Then, the transformed equation turns out to be <span id="eq-randome_effects_transform"><span class="math display">\[
-\begin{aligned}
-y_{it} - \theta \overline{y}_i &amp;= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - \theta \overline{x}_{i1}) + \cdots \\
-&amp;\phantom{=}\quad + \beta_K (x_{itK} - \theta \overline{x}_{iK}) + (v_{it} - \theta \overline{v}_i),
-\end{aligned}
-\tag{18.3}\]</span></span></p>
-<p>where the overbar <span class="math inline">\(\overline{y}_i=T^{-1}\sum_{t=1}^Ty_{it}\)</span> is the time averages of <span class="math inline">\(y\)</span> for individual <span class="math inline">\(i\)</span>, and similarly for <span class="math inline">\(\overline{x}_{ij},\)</span> <span class="math inline">\(j=1,\ldots,K.\)</span></p>
-<p>This is a very interesting equation, as it involves <strong>quasi-demeaned</strong> data on each variable. The fixed effects estimator subtracts the time averages from the corresponding variable. The random effects transformation subtracts a fraction of that time average, where the fraction depends on <span class="math inline">\(\sigma_u^2,\)</span> <span class="math inline">\(\sigma_a^2\)</span> and the number of time periods, <span class="math inline">\(T\)</span>. This transformation is known as “theta-differencing.”</p>
-<p>The GLS estimator is simply the pooled OLS estimator of the transformed model (<a href="#eq-randome_effects_transform" class="quarto-xref"><span>18.3</span></a>). The errors in (<a href="#eq-randome_effects_transform" class="quarto-xref"><span>18.3</span></a>) are <strong>serially uncorrelated</strong>.</p>
-<p><a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>18.3</span></a> can be written more compactly as follows:</p>
-<p><span id="eq-randome_effects_transform-compact"><span class="math display">\[
-y_{it}^\ast = \bbeta' \bx_{it}^\ast + u_{it}^\ast,
-\tag{18.4}\]</span></span> where <span class="math display">\[
-y_{it}^\ast = y_{it} - \theta \overline{y}_i ,
-\]</span> and</p>
-<p><span class="math display">\[
-\begin{split}
-\theta &amp;= 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} , \\
-\overline{y}_i &amp;= T^{-1}\sum_{t=1}^Ty_{it}  .
-\end{split}
-\]</span></p>
-<p><span class="math inline">\(\hat{\bbeta}_{\text{GLS}}\)</span> can be obtained by using OLS on the transformed model (<a href="#eq-randome_effects_transform-compact" class="quarto-xref"><span>18.4</span></a>).</p>
-<p>The transformation in (<a href="#eq-randome_effects_transform" class="quarto-xref"><span>18.3</span></a>) allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with <span class="math inline">\(a_i\)</span>, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.</p>
-<p>The parameter <span class="math inline">\(\theta\)</span> is never known in practice, but it can always be estimated. There are different ways to do this, which may be based on pooled OLS or fixed effects, for example. Generally, <span class="math inline">\(\hat{\theta}\)</span> takes the form <span class="math display">\[
-\hat{\theta} = 1 - \left[ \frac{\hat{\sigma}_u^2}{\hat{\sigma}_a^2 + T \hat{\sigma}_u^2} \right]^{1/2},
-\]</span> where <span class="math inline">\(\hat{\sigma}_a^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_a^2\)</span> and <span class="math inline">\(\hat{\sigma}_u^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_u^2\)</span>.</p>
-<p>These estimators can be based on the pooled OLS or the fixed effects residuals (Within Groups or Between Groups estimators). <span class="math display">\[
-\hat{\sigma}_a^2 = \left[ \frac{NT(T - 1)}{2} - (K + 1) \right]^{-1} \sum_{i=1}^{N} \sum_{t=1}^{T-1} \sum_{s=t+1}^{T} \hat{v}_{it} \hat{v}_{is},
-\]</span> where the <span class="math inline">\(\hat{v}_{it}\)</span> are the residuals from estimating <a href="#eq-randome_effects" class="quarto-xref">Equation&nbsp;<span>18.2</span></a> by pooled OLS.</p>
-<p>Given this, we can estimate <span class="math inline">\(\sigma_u^2\)</span> by using <span class="math display">\[
-\hat{\sigma}_u^2 = \hat{\sigma}_v^2 - \hat{\sigma}_a^2,
-\]</span> where <span class="math inline">\(\hat{\sigma}_v^2\)</span> is the square of the usual standard error of the regression from pooled OLS. [See Wooldridge (2010, Chapter 10) for additional discussion of these estimators.]</p>
-<p>The feasible GLS estimator that uses <span class="math inline">\(\hat{\theta}\)</span> in place of <span class="math inline">\(\theta\)</span> is called the <strong>random effects estimator</strong>.</p>
-<p>Under the random effects assumptions, the estimator is <strong>consistent (not unbiased) and asymptotically normally distributed as <span class="math inline">\(N\)</span> gets large with fixed <span class="math inline">\(T\)</span></strong>.</p>
-<p>The properties of the random effects (RE) estimator with <strong>small <span class="math inline">\(N\)</span> and large <span class="math inline">\(T\)</span></strong> are largely unknown, although it has certainly been used in such situations.</p>
-<hr>
-<p><strong>Comparing RE estimates and FE estimates</strong>: When <span class="math inline">\(\theta=1\)</span>, RE becomes the FE model. Recall that <span class="math display">\[
-\theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_a^2 + T \sigma_u^2} \right]^{1/2},
-\]</span> There are three scenarios where <span class="math inline">\(\theta\to1\)</span>:</p>
-<ul>
-<li><p><span class="math inline">\(T\)</span> is big <span class="math inline">\(\rightarrow\)</span> Lots of variation across time for each individual <span class="math inline">\(\rightarrow\)</span> more like fixed effects</p></li>
-<li><p><span class="math inline">\(\sigma_a^2\)</span> is big <span class="math inline">\(\rightarrow\)</span> Lots of variation in the fixed effects <span class="math inline">\(\rightarrow\)</span> more like fixed effects</p></li>
-<li><p><span class="math inline">\(\sigma_u^2\)</span> is small relative to <span class="math inline">\(\sigma_a^2\)</span> <span class="math inline">\(\rightarrow\)</span> idiosyncratic variation is small, more variation from fixed effects <span class="math inline">\(\rightarrow\)</span> more like fixed effects</p></li>
-</ul>
-<p><strong>Comparing RE estimates and Pooled OLS</strong>: When <span class="math inline">\(\theta=0\)</span>, RE becomes the Pooled OLS. This happens when the unobserved effect, <span class="math inline">\(a_i,\)</span> is relatively unimportant (because it has small variance relative to <span class="math inline">\(\sigma^2_u\)</span>).</p>
-<hr>
-<p><strong>Summary of RE</strong>:</p>
-<ul>
-<li><p>Random effects estimators are a weighted average of the between estimator (variation between individuals in a cross section) and the within/fixed estimator (variation within individuals over time)</p></li>
-<li><p>Random effects estimators will be consistent and unbiased if <strong>fixed effects are not correlated with</strong> <span class="math inline">\(\bx\)</span>’s. Fixed effects estimators will always be consistent and unbiased (under usual GM assumptions)</p></li>
-<li><p>Random effects estimators will be more <strong>efficient</strong> (have smaller standard errors) than fixed effects estimators because they use more of the variation in <span class="math inline">\(X\)</span> (specifically, they use the cross sectional/between variation)</p></li>
-</ul>
+<p>by OLS; the residuals from this regression, <span class="math inline">\(\hat{e}_t = \ddot{y}_t\)</span>, have the time trend removed (at least in the sample). A similar interpretation holds for <span class="math inline">\(\ddot{x}_{1t}\)</span> and <span class="math inline">\(\ddot{x}_{2t}\)</span>.</p></li>
+<li><p>Run the regression of</p></li>
+</ol>
+<pre><code>$$
+\ddot{y}_t \text{ on } \ddot{x}_{1t}, \ddot{x}_{2t}.
+$$
+
+(No intercept is necessary, but including an intercept affects nothing: the intercept will be estimated to be zero.) This regression exactly yields $\hat{\beta}_1$ and $\hat{\beta}_2$ from (-@eq-regression_time_trend).</code></pre>
+<p>This means that the estimates of primary interest, <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span>, can be interpreted as coming from a regression <em>without</em> a time trend, but where we first detrend the dependent variable and other independent variables. The same conclusion holds with any number of independent variables and if the trend is quadratic or of some other polynomial degree.</p>
+<p>If <span class="math inline">\(t\)</span> is omitted from (<a href="#eq-regression_time_trend" class="quarto-xref"><span>14.2</span></a>), then no detrending occurs, and <span class="math inline">\(y_t\)</span> might seem to be related to one or more of the <span class="math inline">\(x_{jt}\)</span> simply because each contains a trend. If the time trend is statistically significant, and the results change in important ways when a time trend is added to a regression, then the initial results without a trend should be treated with suspicion.</p>
+<p>The interpretation of <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span> shows that it is a good idea to include a trend in the regression if any independent variable is trending, even if <span class="math inline">\(y_t\)</span> is not. If <span class="math inline">\(y_t\)</span> has no noticeable trend, but, say, <span class="math inline">\(x_{1t}\)</span> is growing over time, then excluding a trend from the regression may make it look as if <span class="math inline">\(x_{1t}\)</span> has no effect on <span class="math inline">\(y_t\)</span>, even though movements of <span class="math inline">\(x_{1t}\)</span> about its trend may affect <span class="math inline">\(y_t\)</span>. This will be captured if <span class="math inline">\(t\)</span> is included in the regression.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1251,13 +1201,13 @@ y_{it}^\ast = y_{it} - \theta \overline{y}_i ,
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./PA03_Fixed-Effects.html" class="pagination-link" aria-label="Fixed Effects Model">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span>
+      <a href="./TS04_TimeSeries_regression.html" class="pagination-link" aria-label="Time Series Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./PA05_dynamic_models.html" class="pagination-link" aria-label="Dynamic Models">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Dynamic Models</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA01_Pooled_regression.html" class="pagination-link" aria-label="Pooled Regression">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,0 +1,213 @@
+---
+title: "Spurious Regression"
+format: html
+---
+
+
+```{r}
+#| label: load-packages
+#| include: false
+library(knitr) # load packages
+library(broom)
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(xts)
+```
+
+```{r}
+#| child: "_chunk-opt.qmd"
+#| include: false
+```
+
+
+## Trending Time Series
+
+It is important to characterize if some series contain a time trend in order to draw causual inference using time series data. Ignoring the fact that two sequences are trending in the same or opposite directions can lead us to falsely conclude that changes in one variable are actually caused by changes in another variable. In many cases, two time series processes appear to be correlated only because they are both trending over time for reasons related to other unobserved factors.
+
+The phenomenon of finding a relationship between two or more trending variables simply because each is growing over time is an example of a **spurious regression problem**. We can add a time trend to account for the trend in explained or explanatory variables.
+
+### Linear time trend
+
+If $\{y_t\}$ has a linear time trend, then we can formulate the series as
+
+$$
+y_t = \alpha_0 + \alpha_1 t + e_t, \; t=1, 2, \ldots,
+$$
+where $e_t\sim iid (0, \sigma^2_e)$ or a more realistic characterization allows $\{e_t\}$ to be correlated over time. 
+
+@fig-linear_trend shows a simulated series with a linear time trend. The values of $y_t$ do not fall exactly on the line in due to randomness, but the expected values are on the line:
+
+$$
+\E(y_t) = \alpha_0 + \alpha_1 t .
+$$
+
+```{r fig-linear_trend, echo=FALSE}
+set.seed(42)
+
+# Define parameters
+alpha_0 <- 5        # Intercept
+alpha_1 <- 2        # Slope
+rho <- 0.7          # AR(1) coefficient
+sigma_u <- 10        # Std dev of white noise u_t
+n <- 100            # Number of time periods
+
+# Generate time index
+t <- 1:n
+
+# Simulate AR(1) error term
+u_t <- rnorm(n, mean = 0, sd = sigma_u)
+e_t <- numeric(n)
+e_t[1] <- u_t[1]  # Initial value
+
+for (i in 2:n) {
+  e_t[i] <- rho * e_t[i - 1] + u_t[i]
+}
+
+# Generate y_t using the model
+y_t <- alpha_0 + alpha_1 * t + e_t
+
+# Create data frame
+data <- data.frame(Time = t, y = y_t)
+
+# Plot the time series
+ggplot(data, aes(x = Time, y = y)) +
+  geom_line(color = 'blue') +
+  geom_smooth(method = "lm", se = FALSE, color = "red", linetype = "dashed", linewidth = 0.8) +
+  labs(title = "Simulated Linear Time Trend with AR(1) Error", x = "t", y = TeX("$y_t$")) +
+  theme_minimal(base_size = 12)
+```
+
+
+
+### Exponential trend
+
+When a series has the same average growth rate from period to period, we say that the time series has an exponential trend.
+
+I practice, an exponential trend in a time series is captured by modelling the natural logarithm of the series as linear trend (assuming that $y_t>0$):
+
+$$
+\log (y_t) = \beta_0 + \beta_1 t + e_t, \; t=1, 2, \ldots.
+$$ {#eq-log_rate}
+
+Recall that, for small changes, $\Delta \log(y_t) = \log(y_t) - \log(y_{t-1})$ is approximately the proportionate change in $y_t:$
+
+$$
+\beta_1 = \Delta \log(y_t) \approx \frac{y_t-y_{t-1}}{y_{t-1}}
+$$
+
+$\beta_1$ is interpreted as the growth rate in $y$ from period $t-1$ to period $t$.
+In other words, $\beta_1$ is approximately the average per period growth rate in $y_t.$
+
+For example, if $t$ denotes year and $\beta_1 = .027,$ then $y_t$ grows about 2.7\% per year on average.
+
+Exponentiating (-@eq-log_rate) shows that $y_t$ itself has an exponential trend:
+
+$$
+y_t = \exp (\beta_0 + \beta_1 t + e_t) .
+$$
+
+
+
+```{r fig-exp_growth, echo=FALSE}
+# Define parameters
+beta_0 <- 1        # Log-scale intercept
+beta_1 <- 0.05     # Log-scale slope (growth rate)
+sigma_e <- 0.2     # Standard deviation of noise
+n <- 100           # Number of time periods
+
+# Generate time index
+t <- 1:n
+
+# Simulate error term: iid normal noise
+
+e_t <- rnorm(n, mean = 0, sd = sigma_e)
+# Generate y_t using the model
+y_t <- exp(beta_0 + beta_1 * t + e_t)
+ey_t <- exp(beta_0 + beta_1 * t)
+# Create data frame
+data <- data.frame(Time = t, y = y_t, ey = ey_t)
+data <- data %>% gather("key", "value", -Time)
+# Plot the time series
+
+ggplot(data, aes(x = Time, y = value, color = key)) +
+  geom_line() +
+  scale_color_manual(
+    values = c("y"="blue", "ey" = "darkred"),
+    labels = c("y"="y", "ey" = "E[y]")) + 
+  labs(title = "Simulated Exponential Time Trend with i.i.d. Error", x = "t", y = TeX("$y_t$")) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = c(.1, 0.8),
+        legend.title =  element_blank(),
+        legend.text = element_text(size = rel(1)))
+```
+
+@fig-exp_growth show a simulated time series with an exponential trend. In the early years, we see that the change in $y_t$ over each year is relatively small, whereas the change increases as time passes. This is consistent with a *constant average growth rate*: the percentage change is roughly the same in each period.
+
+
+## Using Trendin Variables in Regression Analysis
+
+
+For concreteness, consider a model where two observed factors, $x_{t1}$ and $x_{t2}$, affect $y_t$. In addition, there are unobserved factors that are systematically growing or shrinking over time. A model that captures this is
+
+$$
+y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3t + u_t  .
+$$ {#eq-regression_time_trend}
+This fits into the multiple linear regression framework with $x_{t3}=t.$
+
+Allowing for the trend $t$ in this equation explicitly recognizes that $y_t$ may be growing ($\beta_3>0$) or shrinking ($\beta_3<0$) over time for reasons essentially unrelated to $x_{t1}$ and $x_{t2}.$ 
+Omiiting $t$ from the regression and regressing $y_t$ on $x_{t1}$ and $x_{t2}$ will generally yield biased estimators of $\beta_1$ and $\beta_2.$
+This is especially true if $x_{t1}$ and $x_{t2}$ are themselves trending, because they can then be highly correlated with $t.$
+
+
+**Frisch–Waugh–Lovell theorem Interpretation**
+
+Based on the Frisch–Waugh–Lovell theorem, @eq-regression_time_trend can have an alternative interpretation in terms of detrending the original data series before using them in regression analysis.
+
+$\hat{\beta}_1$ and $\hat{\beta}_2$ can be obtained as follows.
+
+(i) Regress each of $y_t$, $x_{1t}$, and $x_{2t}$ on a constant and the time trend $t$ and save the residuals, say, $\ddot{y}_t$, $\ddot{x}_{1t}$, $\ddot{x}_{2t}$, $t = 1, 2, \ldots, T$. For example,
+
+    $$
+    \ddot{y}_t = y_t - \hat{\alpha}_0 - \hat{\alpha}_1 t.
+    $$
+    
+    Thus, we can think of $\ddot{y}_t$ as being *linearly detrended*. In detrending $y_t$, we have estimated the model
+    
+    $$
+    y_t = \alpha_0 + \alpha_1 t + e_t
+    $$
+    
+    by OLS; the residuals from this regression, $\hat{e}_t = \ddot{y}_t$, have the time trend removed (at least in the sample). A similar interpretation holds for $\ddot{x}_{1t}$ and $\ddot{x}_{2t}$.
+
+(ii) Run the regression of
+
+    $$
+    \ddot{y}_t \text{ on } \ddot{x}_{1t}, \ddot{x}_{2t}.
+    $$
+    
+    (No intercept is necessary, but including an intercept affects nothing: the intercept will be estimated to be zero.) This regression exactly yields $\hat{\beta}_1$ and $\hat{\beta}_2$ from (-@eq-regression_time_trend).
+
+This means that the estimates of primary interest, $\hat{\beta}_1$ and $\hat{\beta}_2$, can be interpreted as coming from a regression *without* a time trend, but where we first detrend the dependent variable and other independent variables. The same conclusion holds with any number of independent variables and if the trend is quadratic or of some other polynomial degree.
+
+If $t$ is omitted from (-@eq-regression_time_trend), then no detrending occurs, and $y_t$ might seem to be related to one or more of the $x_{jt}$ simply because each contains a trend. If the time trend is statistically significant, and the results change in important ways when a time trend is added to a regression, then the initial results without a trend should be treated with suspicion.
+
+The interpretation of $\hat{\beta}_1$ and $\hat{\beta}_2$ shows that it is a good idea to include a trend in the regression if any independent variable is trending, even if $y_t$ is not. If $y_t$ has no noticeable trend, but, say, $x_{1t}$ is growing over time, then excluding a trend from the regression may make it look as if $x_{1t}$ has no effect on $y_t$, even though movements of $x_{1t}$ about its trend may affect $y_t$. This will be captured if $t$ is included in the regression.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

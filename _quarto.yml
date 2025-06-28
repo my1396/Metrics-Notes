@@ -23,6 +23,7 @@ book:
         - TS03_asymptotic-property.qmd
         - TS04_highly-persistent.qmd
         - TS04_TimeSeries_regression.qmd
+        - TS05_Spurious_regression.qmd
     - part: "Panel Data"
       chapters:
         - PA01_Pooled_regression.qmd

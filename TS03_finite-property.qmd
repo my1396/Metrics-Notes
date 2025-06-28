@@ -12,7 +12,7 @@ In this section, we give a complete listing of the *finite sample, or small samp
 
 
 :::{#cnj-1 name="Linear in Parameters"}
-The stochastic process $\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, n\}$ follows the linear model
+The stochastic process $\{(x_{t1}, x_{t2}, \ldots, x_{tK}, y_t): t=1,2,\ldots, T\}$ follows the linear model
 
 $$
 \begin{split}
@@ -21,7 +21,7 @@ y_t &= \bx'\bbeta + u_t \\
 \end{split}
 $$
 
-where $\{u_t: t=1,2,\ldots, n\}$ is the sequence of errors or disturbances. Here $n$ is the number of observations (time periods).
+where $\{u_t: t = 1,2,\ldots, T\}$ is the sequence of errors or disturbances. Here $T$ is the number of observations (time periods).
 :::
 
 
@@ -35,7 +35,7 @@ y_t = \alpha_0 + \delta_0 z_t + \delta_1 z_{t-1} + \delta_2 z_{t-2} + u_t,
 $$
 is obtained by setting $x_{t1}=z_t,$ $x_{t2}=z_{t-1},$ and $x_{t3}=z_{t-2}.$
 
-For the remaining assumptions, let $\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})$ denote the set of all independent variables at time $t.$ Further, $\bX$ denote the collection of all independent variables for all time periods. It is useful to think of $\bX$ as being an array, with $n$ rows and $k$ columns.
+For the remaining assumptions, let $\bx_t=(x_{t1}, x_{t2}, \ldots, x_{tk})$ denote the set of all independent variables at time $t.$ Further, $\bX$ denote the collection of all independent variables for all time periods. It is useful to think of $\bX$ as being an array, with $T$ rows and $k$ columns.
 
 
 $$
