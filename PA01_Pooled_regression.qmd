@@ -25,8 +25,8 @@ The simplest model in panel regression is the **pooled regression**. At the leve
 
 $$
 \begin{split}
-y_{it} &= \bx_{it}' \bbeta + \varepsilon_{it}, \\
-\mathbb{E}[\bx_{it} \varepsilon_{it}] &= 0
+y_{it} &= \bx_{it}' \bbeta + u_{it}, \\
+\mathbb{E}[\bx_{it} u_{it}] &= 0
 \end{split}
 $$
 
@@ -34,8 +34,8 @@ At the individual level:
 
 $$
 \begin{split}
-\by_i &= \bX_i \bbeta + \bvarepsilon_i, \\ 
-\mathbb{E}[X_i' \bvarepsilon_i] &= 0 .
+\by_i &= \bX_i \bbeta + \bu_i, \\ 
+\mathbb{E}[X_i' \bu_i] &= 0 .
 \end{split}
 $$
 
@@ -54,18 +54,18 @@ y_{iT}  \\
 \vdots \\
 \bx_{iT}'  \\
 \end{bmatrix} , \quad
-\underset{(N\times 1)}{\bvarepsilon_i} = \begin{bmatrix}
-\varepsilon_{i1}  \\
-\varepsilon_{i2}  \\
+\underset{(N\times 1)}{\bu_i} = \begin{bmatrix}
+u_{i1}  \\
+u_{i2}  \\
 \vdots \\
-\varepsilon_{iT}  \\
+u_{iT}  \\
 \end{bmatrix}
 $$
 
 For the full sample:
 
 $$
-\by = \bX\beta + \bvarepsilon
+\by = \bX\beta + \bu
 $$
 where
 
@@ -76,11 +76,11 @@ $$
 \vdots \\
 \by_{N}  
 \end{bmatrix} ,
-\underset{(NT\times 1)}{\bvarepsilon} = \begin{bmatrix}
-\bvarepsilon_{1}  \\
-\bvarepsilon_{2}  \\
+\underset{(NT\times 1)}{\bu} = \begin{bmatrix}
+\bu_{1}  \\
+\bu_{2}  \\
 \vdots \\
-\bvarepsilon_{N}  
+\bu_{N}  
 \end{bmatrix} ,
 \underset{(NT\times K)}{\bX} = \begin{bmatrix}
 \bX_{1}  \\
@@ -100,21 +100,22 @@ $$
 &= (X' X)^{-1} X' y
 \end{split}
 $$
+
 $\hat{\beta}_{\text{pool}}$ is called the **pooled regression estimator**.
 
 The residuals for individual $i$:
 
 $$
-\widehat{\bvarepsilon}_i = \by_i - \bX_i \hat{\bbeta}_{\text{pool}}
+\widehat{\bu}_i = \by_i - \bX_i \hat{\bbeta}_{\text{pool}}
 $$
 
 The pooled regression model is appropriate when:
 
 $$
-\mathbb{E}[\varepsilon_{it} \mid \bX_i] = 0
+\mathbb{E}[u_{it} \mid \bX_i] = 0
 $${#eq-zero_mean}
 
-This **strict mean independence** implies that neither lagged nor future values of $\bx_{it}$ help predict $\varepsilon_{it}$. It excludes lagged dependent variables (such as $y_{it-1}$) from $\bx_{it}$, otherwise $\varepsilon_{it}$ would be predictable given $\bx_{it}.$
+This **strict mean independence** implies that neither lagged nor future values of $\bx_{it}$ help predict $u_{it}$. It excludes lagged dependent variables (such as $y_{it-1}$) from $\bx_{it}$, otherwise $u_{it}$ would be predictable given $\bx_{it}.$
 
 
 
@@ -125,25 +126,25 @@ The estimator can be rewritten as:
 $$
 \begin{split}
 \hat{\bbeta}_{\text{pool}} 
-&= \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \left(\bX_i\bbeta + \bvarepsilon_i\right) \right)  \\
-&= \bbeta + \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \bvarepsilon_i \right)
+&= \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \left(\bX_i\bbeta + \bu_i\right) \right)  \\
+&= \bbeta + \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \bu_i \right)
 \end{split}
 $$
 
 Given (-@eq-zero_mean), $\hat{\bbeta}_{\text{pool}}$ is **unbiased**.
 
-- If $\varepsilon_{it}$ is homoskedastic and serially uncorrelated: use classical variance estimator.
-- If $\varepsilon_{it}$ is heteroskedastic: use heteroskedasticity-robust estimator.
-- If $\varepsilon_{it}$ is serially correlated: use **cluster-robust covariance matrix**:
+- If $u_{it}$ is homoskedastic and serially uncorrelated: use classical variance estimator.
+- If $u_{it}$ is heteroskedastic: use heteroskedasticity-robust estimator.
+- If $u_{it}$ is serially correlated: use **cluster-robust covariance matrix**:
 
 $$
-\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bu}_i \widehat{\bu}_i' \bX_i \right) (\bX' \bX)^{-1}
 $$
 
 With Stata's degrees-of-freedom adjustment:
 
 $$
-\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bu}_i \widehat{\bu}_i' \bX_i \right) (\bX' \bX)^{-1}
 $$
 
 When strict mean independence (-@eq-zero_mean) fails, however, the pooled least-squares estimator $\hat{\bbeta}_{\text{pool}}$ is not necessarily consistent for $\bbeta$. Since strict mean independence is a strong and typically undesirable

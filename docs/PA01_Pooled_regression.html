@@ -693,15 +693,15 @@ window.Quarto = {
 <p>The simplest model in panel regression is the <strong>pooled regression</strong>. At the level of the observation, the model is:</p>
 <p><span class="math display">\[
 \begin{split}
-y_{it} &amp;= \bx_{it}' \bbeta + \varepsilon_{it}, \\
-\mathbb{E}[\bx_{it} \varepsilon_{it}] &amp;= 0
+y_{it} &amp;= \bx_{it}' \bbeta + u_{it}, \\
+\mathbb{E}[\bx_{it} u_{it}] &amp;= 0
 \end{split}
 \]</span></p>
 <p>At the individual level:</p>
 <p><span class="math display">\[
 \begin{split}
-\by_i &amp;= \bX_i \bbeta + \bvarepsilon_i, \\
-\mathbb{E}[X_i' \bvarepsilon_i] &amp;= 0 .
+\by_i &amp;= \bX_i \bbeta + \bu_i, \\
+\mathbb{E}[X_i' \bu_i] &amp;= 0 .
 \end{split}
 \]</span></p>
 <p>where</p>
@@ -718,16 +718,16 @@ y_{iT}  \\
 \vdots \\
 \bx_{iT}'  \\
 \end{bmatrix} , \quad
-\underset{(N\times 1)}{\bvarepsilon_i} = \begin{bmatrix}
-\varepsilon_{i1}  \\
-\varepsilon_{i2}  \\
+\underset{(N\times 1)}{\bu_i} = \begin{bmatrix}
+u_{i1}  \\
+u_{i2}  \\
 \vdots \\
-\varepsilon_{iT}  \\
+u_{iT}  \\
 \end{bmatrix}
 \]</span></p>
 <p>For the full sample:</p>
 <p><span class="math display">\[
-\by = \bX\beta + \bvarepsilon
+\by = \bX\beta + \bu
 \]</span> where</p>
 <p><span class="math display">\[
 \underset{(NT\times 1)}{\by} = \begin{bmatrix}
@@ -736,11 +736,11 @@ y_{iT}  \\
 \vdots \\
 \by_{N}  
 \end{bmatrix} ,
-\underset{(NT\times 1)}{\bvarepsilon} = \begin{bmatrix}
-\bvarepsilon_{1}  \\
-\bvarepsilon_{2}  \\
+\underset{(NT\times 1)}{\bu} = \begin{bmatrix}
+\bu_{1}  \\
+\bu_{2}  \\
 \vdots \\
-\bvarepsilon_{N}  
+\bu_{N}  
 \end{bmatrix} ,
 \underset{(NT\times K)}{\bX} = \begin{bmatrix}
 \bX_{1}  \\
@@ -760,13 +760,13 @@ y_{iT}  \\
 \]</span> <span class="math inline">\(\hat{\beta}_{\text{pool}}\)</span> is called the <strong>pooled regression estimator</strong>.</p>
 <p>The residuals for individual <span class="math inline">\(i\)</span>:</p>
 <p><span class="math display">\[
-\widehat{\bvarepsilon}_i = \by_i - \bX_i \hat{\bbeta}_{\text{pool}}
+\widehat{\bu}_i = \by_i - \bX_i \hat{\bbeta}_{\text{pool}}
 \]</span></p>
 <p>The pooled regression model is appropriate when:</p>
 <p><span id="eq-zero_mean"><span class="math display">\[
-\mathbb{E}[\varepsilon_{it} \mid \bX_i] = 0
+\mathbb{E}[u_{it} \mid \bX_i] = 0
 \tag{14.1}\]</span></span></p>
-<p>This <strong>strict mean independence</strong> implies that neither lagged nor future values of <span class="math inline">\(\bx_{it}\)</span> help predict <span class="math inline">\(\varepsilon_{it}\)</span>. It excludes lagged dependent variables (such as <span class="math inline">\(y_{it-1}\)</span>) from <span class="math inline">\(\bx_{it}\)</span>, otherwise <span class="math inline">\(\varepsilon_{it}\)</span> would be predictable given <span class="math inline">\(\bx_{it}.\)</span></p>
+<p>This <strong>strict mean independence</strong> implies that neither lagged nor future values of <span class="math inline">\(\bx_{it}\)</span> help predict <span class="math inline">\(u_{it}\)</span>. It excludes lagged dependent variables (such as <span class="math inline">\(y_{it-1}\)</span>) from <span class="math inline">\(\bx_{it}\)</span>, otherwise <span class="math inline">\(u_{it}\)</span> would be predictable given <span class="math inline">\(\bx_{it}.\)</span></p>
 </section>
 <section id="statistical-properties" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="statistical-properties"><span class="header-section-number">14.3</span> Statistical Properties</h2>
@@ -774,22 +774,22 @@ y_{iT}  \\
 <p><span class="math display">\[
 \begin{split}
 \hat{\bbeta}_{\text{pool}}
-&amp;= \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \left(\bX_i\bbeta + \bvarepsilon_i\right) \right)  \\
-&amp;= \bbeta + \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \bvarepsilon_i \right)
+&amp;= \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \left(\bX_i\bbeta + \bu_i\right) \right)  \\
+&amp;= \bbeta + \left( \sum_{i=1}^N \bX_i' \bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i' \bu_i \right)
 \end{split}
 \]</span></p>
 <p>Given (<a href="PA05_dynamic_models.html#eq-zero_mean" class="quarto-xref"><span>18.4</span></a>), <span class="math inline">\(\hat{\bbeta}_{\text{pool}}\)</span> is <strong>unbiased</strong>.</p>
 <ul>
-<li>If <span class="math inline">\(\varepsilon_{it}\)</span> is homoskedastic and serially uncorrelated: use classical variance estimator.</li>
-<li>If <span class="math inline">\(\varepsilon_{it}\)</span> is heteroskedastic: use heteroskedasticity-robust estimator.</li>
-<li>If <span class="math inline">\(\varepsilon_{it}\)</span> is serially correlated: use <strong>cluster-robust covariance matrix</strong>:</li>
+<li>If <span class="math inline">\(u_{it}\)</span> is homoskedastic and serially uncorrelated: use classical variance estimator.</li>
+<li>If <span class="math inline">\(u_{it}\)</span> is heteroskedastic: use heteroskedasticity-robust estimator.</li>
+<li>If <span class="math inline">\(u_{it}\)</span> is serially correlated: use <strong>cluster-robust covariance matrix</strong>:</li>
 </ul>
 <p><span class="math display">\[
-\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bu}_i \widehat{\bu}_i' \bX_i \right) (\bX' \bX)^{-1}
 \]</span></p>
 <p>With Stata’s degrees-of-freedom adjustment:</p>
 <p><span class="math display">\[
-\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bvarepsilon}_i \widehat{\bvarepsilon}_i' \bX_i \right) (\bX' \bX)^{-1}
+\widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bu}_i \widehat{\bu}_i' \bX_i \right) (\bX' \bX)^{-1}
 \]</span></p>
 <p>When strict mean independence (<a href="PA05_dynamic_models.html#eq-zero_mean" class="quarto-xref"><span>18.4</span></a>) fails, however, the pooled least-squares estimator <span class="math inline">\(\hat{\bbeta}_{\text{pool}}\)</span> is not necessarily consistent for <span class="math inline">\(\bbeta\)</span>. Since strict mean independence is a strong and typically undesirable restriction, it is typically preferred to adopt one of the alternative estimation approaches such as Fixed Effects or Random Effects models.</p>
 

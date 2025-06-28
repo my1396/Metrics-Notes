@@ -672,18 +672,18 @@ window.Quarto = {
 <p>We begin with the unobserved effects model where we explicitly include an intercept so that we can make the assumption that the unobserved random heterogeneity specific to the <span class="math inline">\(i\)</span>th observation, <span class="math inline">\(\alpha_i\)</span>, has zero mean. <span class="math inline">\(\alpha_i\)</span> is constant through time. <span class="math inline">\(\beta_0\)</span> is the mean of the unobserved heterogeneity.</p>
 <p><span class="math display">\[
 \begin{aligned}
-y_{it} &amp;= a_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
-\text{or}\quad y_{it} &amp;= a_i + \beta_0 + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
+y_{it} &amp;= a_i + \bbeta'\bx_{it} + u_{it}, \\
+\text{or}\quad y_{it} &amp;= a_i + \beta_0 + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}  ,
 \end{aligned}
-\]</span></p>
+\]</span> for $t = 1,2,,T, $ and <span class="math inline">\(i = 1,2,\ldots,N.\)</span></p>
 <p>Here the random effects model assumes <span class="math inline">\(\alpha_i\)</span> is uncorrelated with each explanatory variable in all time periods.</p>
 <p><span class="math display">\[
 \cov(x_{itj}, a_i) = 0, \quad t=1,2,\ldots,T;\, j=1,2,\ldots,K.
 \]</span></p>
 <p>In this case, the fixed effects or first differencing model which eliminates <span class="math inline">\(\alpha_i\)</span> results in inefficient estimators.</p>
-<p>If we define the composite error term <span class="math inline">\(v_{it}\)</span> as</p>
+<p>If we define the <span style="color:#008B45">composite error term <span class="math inline">\(v_{it}\)</span></span> as</p>
 <p><span id="eq-error_component_model"><span class="math display">\[
-v_{it} = a_i + u_{it},
+\color{#008B45} v_{it} = a_i + u_{it},
 \tag{17.1}\]</span></span></p>
 <p><a href="#eq-error_component_model" class="quarto-xref">Equation&nbsp;<span>17.1</span></a> is often called an “error components model.”</p>
 <p>Then we have</p>
@@ -724,7 +724,7 @@ v_{i1}, v_{i2}, \cdots , v_{iT}
 <p>Let <span class="math inline">\(\Sigma = \E[\bv_i\bv_i'\mid \bX]\)</span> be the <span class="math inline">\(T\times T\)</span> covariance matrix for observation <span class="math inline">\(i\)</span>, then</p>
 <p><span class="math display">\[
 \begin{aligned}
-\underset{(T\times T)}{\Sigma} &amp;= \E[\bv_i\bv_i'\mid \bX] \\
+\underset{(T\times T)}{\bSigma} &amp;= \E[\bv_i\bv_i'\mid \bX] \\
 &amp;= \begin{bmatrix}
 \sigma_a^2 + \sigma_u^2 &amp; \sigma_a^2 &amp; \cdots &amp; \sigma_a^2 \\
 \sigma_a^2  &amp; \sigma_a^2 + \sigma_u^2 &amp; \cdots &amp; \sigma_a^2 \\
@@ -741,7 +741,7 @@ v_{i1}, v_{i2}, \cdots , v_{iT}
 0 &amp; \Sigma &amp; \cdots &amp; 0 \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
 0 &amp; 0 &amp; \cdots &amp; \Sigma \\
-\end{bmatrix} = \bI_N \otimes \Sigma
+\end{bmatrix} = \bI_N \otimes \bSigma
 \]</span></p>
 <p>Note that the errors are serially correlated under the random effects assumptions: <span class="math display">\[
 \text{Corr}(v_{it}, v_{is}) = \frac{\sigma_a^2}{\sigma_a^2 + \sigma_u^2}, \quad t \neq s,
@@ -755,10 +755,26 @@ v_{i1}, v_{i2}, \cdots , v_{iT}
 &amp;= \left(\sum_{i=1}^N \bX_i'\bSigma^{-1}\bX_i \right)^{-1} \left( \sum_{i=1}^N \bX_i'\bSigma^{-1}\by_i \right)
 \end{split}
 \]</span></p>
-<p>Deriving the GLS transformation that <strong>eliminates serial correlation in the errors</strong> requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define <span class="math display">\[
+<p>Deriving the GLS transformation that <strong>eliminates serial correlation in the errors</strong> requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). We will require a transformation</p>
+<p><span class="math display">\[
+\bP = \bOmega^{-1/2} = (\mathbf{I}_N \otimes \bSigma)^{-1/2} .
+\]</span> We only need to find <span class="math inline">\(\bSigma^{-1/2},\)</span> which is</p>
+<p><span class="math display">\[
+\bSigma^{-1/2} = \mathbf{I} - \frac{\theta}{T} \bi_T\bi_T' ,
+\]</span> where</p>
+<p><span class="math display">\[
 \theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} ,
 \]</span></p>
 <p>which is between zero and one. As <span class="math inline">\(\frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2}\)</span> approaches zero, <span class="math inline">\(\theta\to1.\)</span></p>
+<p>The transformation of <span class="math inline">\(\by_i\)</span> for GLS is therefore</p>
+<p><span class="math display">\[
+\bSigma^{-1/2} \by_i = \begin{bmatrix}
+y_{i1} - \theta \overline{y}_i \\
+y_{i2} - \theta \overline{y}_i \\
+\vdots \\
+y_{iT} - \theta \overline{y}_i \\
+\end{bmatrix}
+\]</span> and likewise for the rows of <span class="math inline">\(\bX_i.\)</span></p>
 <p>Then, the transformed equation turns out to be <span id="eq-randome_effects_transform"><span class="math display">\[
 \begin{aligned}
 y_{it} - \theta \overline{y}_i &amp;= \beta_0 (1 - \theta) + \beta_1 (x_{it1} - \theta \overline{x}_{i1}) + \cdots \\
@@ -781,7 +797,7 @@ y_{it}^\ast = y_{it} - \theta \overline{y}_i ,
 \end{split}
 \]</span></p>
 <p><span class="math inline">\(\hat{\bbeta}_{\text{GLS}}\)</span> can be obtained by using OLS on the transformed model (<a href="#eq-randome_effects_transform-compact" class="quarto-xref"><span>17.4</span></a>).</p>
-<p>The transformation in <a href="#eq-randome_effects_transform" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with <span class="math inline">\(a_i\)</span>, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.</p>
+<p>The transformation in (<a href="#eq-randome_effects_transform" class="quarto-xref"><span>17.3</span></a>) allows for explanatory variables that are constant over time, and this is one advantage of random effects (RE) over either fixed effects or first differencing. This is possible because RE assumes that the unobserved effect is uncorrelated with all explanatory variables, whether the explanatory variables are fixed over time or not. Thus, in a wage equation, we can include a variable such as education even if it does not change over time. But we are assuming that education is uncorrelated with <span class="math inline">\(a_i\)</span>, which contains ability and family background. In many applications, the whole reason for using panel data is to allow the unobserved effect to be correlated with the explanatory variables.</p>
 <p>The parameter <span class="math inline">\(\theta\)</span> is never known in practice, but it can always be estimated. There are different ways to do this, which may be based on pooled OLS or fixed effects, for example. Generally, <span class="math inline">\(\hat{\theta}\)</span> takes the form <span class="math display">\[
 \hat{\theta} = 1 - \left[ \frac{\hat{\sigma}_u^2}{\hat{\sigma}_a^2 + T \hat{\sigma}_u^2} \right]^{1/2},
 \]</span> where <span class="math inline">\(\hat{\sigma}_a^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_a^2\)</span> and <span class="math inline">\(\hat{\sigma}_u^2\)</span> is a consistent estimator of <span class="math inline">\(\sigma_u^2\)</span>.</p>

@@ -7,6 +7,11 @@ format: html
 
 ### Introduction
 
+Consider the model
+
+$$
+y_{it} = \bx_{it}' \bbeta + u_{it} .
+$$
 Throughout the previous section, we assumed that the idiosyncratic term $u_{it}$ satisfied **strict exogeneity** with respect to the data:
 $$
 	\E[u_{it}|\bX_i] = 0.

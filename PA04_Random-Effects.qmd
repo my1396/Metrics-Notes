@@ -7,10 +7,11 @@ We begin with the unobserved effects model where we explicitly include an interc
 
 $$
 \begin{aligned}
-y_{it} &= a_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
-\text{or}\quad y_{it} &= a_i + \beta_0 + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
+y_{it} &= a_i + \bbeta'\bx_{it} + u_{it}, \\
+\text{or}\quad y_{it} &= a_i + \beta_0 + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}  ,
 \end{aligned}
 $$
+for $t = 1,2,\ldots,T, $ and $i = 1,2,\ldots,N.$
 
 Here the random effects model assumes $\alpha_i$ is uncorrelated with each explanatory variable in all time periods.
 
@@ -20,10 +21,10 @@ $$
 
 In this case, the fixed effects or first differencing model which eliminates $\alpha_i$ results in inefficient estimators.
 
-If we define the composite error term $v_{it}$ as 
+If we define the <span style='color:#008B45'>composite error term $v_{it}$</span> as 
 
 $$
-v_{it} = a_i + u_{it},
+\color{#008B45} v_{it} = a_i + u_{it},
 $${#eq-error_component_model}
 
 @eq-error_component_model is often called an "error components model."
@@ -80,7 +81,7 @@ Let $\Sigma = \E[\bv_i\bv_i'\mid \bX]$ be the $T\times T$ covariance matrix for 
 
 $$
 \begin{aligned}
-\underset{(T\times T)}{\Sigma} &= \E[\bv_i\bv_i'\mid \bX] \\
+\underset{(T\times T)}{\bSigma} &= \E[\bv_i\bv_i'\mid \bX] \\
 &= \begin{bmatrix}
 \sigma_a^2 + \sigma_u^2 & \sigma_a^2 & \cdots & \sigma_a^2 \\
 \sigma_a^2  & \sigma_a^2 + \sigma_u^2 & \cdots & \sigma_a^2 \\
@@ -100,7 +101,7 @@ $$
 0 & \Sigma & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & \cdots & \Sigma \\
-\end{bmatrix} = \bI_N \otimes \Sigma
+\end{bmatrix} = \bI_N \otimes \bSigma
 $$
 
 Note that the errors are serially correlated under the random effects assumptions:
@@ -122,12 +123,36 @@ $$
 \end{split}
 $$
 
-Deriving the GLS transformation that **eliminates serial correlation in the errors** requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). But the transformation itself is simple. Define
+Deriving the GLS transformation that **eliminates serial correlation in the errors** requires sophisticated matrix algebra (see, for example, Wooldridge (2010, Chapter 10)). We will require a transformation  
+
+$$
+\bP = \bOmega^{-1/2} = (\mathbf{I}_N \otimes \bSigma)^{-1/2} .
+$$
+We only need to find $\bSigma^{-1/2},$ which is
+
+
+$$
+\bSigma^{-1/2} = \mathbf{I} - \frac{\theta}{T} \bi_T\bi_T' ,
+$$
+where
+
 $$
 \theta = 1 - \left[ \frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2} \right]^{1/2} ,
 $$
 
 which is between zero and one. As $\frac{\sigma_u^2}{\sigma_u^2 + T \sigma_a^2}$ approaches zero, $\theta\to1.$ 
+
+The transformation of $\by_i$ for GLS is therefore
+
+$$
+\bSigma^{-1/2} \by_i = \begin{bmatrix}
+y_{i1} - \theta \overline{y}_i \\
+y_{i2} - \theta \overline{y}_i \\
+\vdots \\
+y_{iT} - \theta \overline{y}_i \\
+\end{bmatrix}
+$$
+and likewise for the rows of $\bX_i.$
 
 Then, the transformed equation turns out to be
 $$

@@ -734,7 +734,7 @@ y_{it} &amp;= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
 <p><strong>Alternative notations</strong>:</p>
 <p>At the level of the individual, the model is written as:</p>
 <p><span class="math display">\[
-\by_i = \bX_i \bbeta + \bold{1} \alpha_i + \bvarepsilon_i  ,
+\by_i = \bX_i \bbeta + \bold{1} \alpha_i + \bu_i  ,
 \]</span> where <span class="math inline">\(\bold{1}\)</span> is a <span class="math inline">\(T\times 1\)</span> column of ones.</p>
 <p>Equation for the full sample:</p>
 <p><span class="math display">\[
@@ -762,10 +762,10 @@ y_{it} &amp;= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
 \alpha_{N}
 \end{bmatrix}
 + \begin{bmatrix}
-\bvarepsilon_{1}  \\
-\bvarepsilon_{2}  \\
+\bu_{1}  \\
+\bu_{2}  \\
 \vdots \\
-\bvarepsilon_{M}  
+\bu_{N}  
 \end{bmatrix}
 \]</span> or</p>
 <p><span class="math display">\[
@@ -774,8 +774,8 @@ y_{it} &amp;= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
 \begin{bmatrix}
 \bbeta \\
 \balpha
-\end{bmatrix} + \bvarepsilon \\
-&amp;= \bX\bbeta + \bD\balpha + \bvarepsilon  ,
+\end{bmatrix} + \bu \\
+&amp;= \bX\bbeta + \bD\balpha + \bu  ,
 \end{split}
 \]</span> where <span class="math inline">\(\bd_i\)</span> is a dummy variable indicating the <span class="math inline">\(i\)</span>-th unit, and</p>
 <p><span class="math display">\[
@@ -792,19 +792,19 @@ y_{it} &amp;= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
 <h3 data-number="16.1.1" class="anchored" data-anchor-id="step-1-within-transformation"><span class="header-section-number">16.1.1</span> Step 1: Within Transformation</h3>
 <p>To perform the within transformation, we first average the equations for unit <span class="math inline">\(i\)</span> across <span class="math inline">\(t\)</span>. Label the average of <span class="math inline">\(y_{it}\)</span> across <span class="math inline">\(t\)</span> for unit <span class="math inline">\(i\)</span> as</p>
 <p><span class="math display">\[
-y_{i\cdot} = \frac{1}{T} \sum_{t=1}^{T} y_{it}.
+\overline{y}_{i} = \frac{1}{T} \sum_{t=1}^{T} y_{it}.
 \]</span></p>
-<p>The averaged outcome <span class="math inline">\(y_{i\cdot}\)</span> satisfies the averaged (or “cross-sectional”) equation</p>
+<p>The averaged outcome <span class="math inline">\(\overline{y}_{i}\)</span> satisfies the averaged (or “cross-sectional”) equation</p>
 <p><span id="eq-within-lecture-avg"><span class="math display">\[
-y_{i\cdot} = \alpha_i + \bbeta' \bx_{i\cdot} + u_{i\cdot},
-\tag{16.2}\]</span></span> where <span class="math inline">\(\bx_{i\cdot}\)</span> and <span class="math inline">\(u_{i\cdot}\)</span> are defined analogously to <span class="math inline">\(y_{i\cdot}\)</span>.</p>
+\overline{y}_{i} = \alpha_i + \bbeta' \overline{\bx}_{i} + \overline{u}_{i},
+\tag{16.2}\]</span></span> where <span class="math inline">\(\overline{\bx}_{i}\)</span> and <span class="math inline">\(\overline{u}_{i}\)</span> are defined analogously to <span class="math inline">\(\overline{y}_{i}\)</span>.</p>
 <p>Define the within-transformed equation by subtracting this averaged equation (<a href="#eq-within-lecture-avg" class="quarto-xref"><span>16.2</span></a>) from the original equation (<a href="#eq-within-lecture-random-intercept" class="quarto-xref"><span>16.1</span></a>) for each <span class="math inline">\(t\)</span>:</p>
 <p><span class="math display">\[
-y_{it} - y_{i\cdot} = (\alpha_i - \alpha_i) + \bbeta'(\bx_{it} - \bx_{i\cdot}) + (u_{it} - u_{i\cdot})
+y_{it} - \overline{y}_{i} = (\alpha_i - \alpha_i) + \bbeta'(\bx_{it} - \overline{\bx}_{i}) + (u_{it} - \overline{u}_{i})
 \]</span> or <span id="eq-within_transformed"><span class="math display">\[
-\tilde{y}_{it} = \bbeta' \tilde{\bx}_{it} + \tilde{u}_{it}.
+\widetilde{y}_{it} = \bbeta' \widetilde{\bx}_{it} + \widetilde{u}_{it}.
 \tag{16.3}\]</span></span></p>
-<p>where <span class="math inline">\(\tilde{y}_{it} = y_{it} - y_{i\cdot}\)</span> is the deviations from the group means, and similarly for <span class="math inline">\(\tilde{\bx}_{it}\)</span> and <span class="math inline">\(\tilde{u}_{it}.\)</span></p>
+<p>where <span class="math inline">\(\widetilde{y}_{it} = y_{it} - \overline{y}_{i}\)</span> is the deviations from the group means, and similarly for <span class="math inline">\(\widetilde{\bx}_{it}\)</span> and <span class="math inline">\(\widetilde{u}_{it}.\)</span></p>
 <p>Under <a href="#eq-within-lecture-random-intercept" class="quarto-xref">Equation&nbsp;<span>16.1</span></a>, <span style="color:#008B45">the within transformation eliminates the individual random intercepts <span class="math inline">\(\alpha_i\)</span></span>. All average differences in <span class="math inline">\(y\)</span>’s or <span class="math inline">\(\bx\)</span>’s between individuals have been wiped out. <a href="#eq-within_transformed" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> now looks like a regular homogeneous regression.</p>
 </section>
 <section id="step-2-ols-on-the-within-transformed-equation" class="level3" data-number="16.1.2">
@@ -836,11 +836,19 @@ y_{it} - y_{i\cdot} = (\alpha_i - \alpha_i) + \bbeta'(\bx_{it} - \bx_{i\cdot}) +
 <section id="between-groups-estimator" class="level2" data-number="16.2">
 <h2 data-number="16.2" class="anchored" data-anchor-id="between-groups-estimator"><span class="header-section-number">16.2</span> Between-groups Estimator</h2>
 <p>The Between-groups estimator (or between estimator) is obtained by regressing the time averaged variables on each other (<a href="#eq-within-lecture-avg" class="quarto-xref"><span>16.2</span></a>) (where we include an intercept, <span class="math inline">\(\beta_0\)</span>) using OLS regression. <span class="math display">\[
-y_{i\cdot} = \alpha_i + \bbeta' \bx_{i\cdot} + u_{i\cdot},
+\overline{y}_{i} =\bbeta' \overline{\bx}_{i} + (\alpha_i + \overline{u}_{i}) , \quad i=1,\ldots,N.
 \]</span> This is a cross-sectional regression, with a sample size being the number of entities.</p>
-<p>Note that the between estimator is <strong>biased</strong> when <span class="math inline">\(\alpha_i\)</span> is correlated with <span class="math inline">\(\bx_{i\cdot}.\)</span> If we think <span class="math inline">\(\alpha_i\)</span> is uncorrelated with <span class="math inline">\(\bx_{i\cdot},\)</span> it is better to use the random effects estimator.</p>
+<p>The Between Groups estimator is given by</p>
+<p><span class="math display">\[
+\hat{\bbeta}^{\text{B}} = \left( \sum_{i=1}^N \overline{\bx}_{i}\overline{\bx}_{i}'\right)^{-1} \left( \sum_{i=1}^N \overline{\bx}_{i}\overline{y}_{i}\right)
+\]</span></p>
+<p>Note that the between estimator is <strong>biased</strong> when <span class="math inline">\(\alpha_i\)</span> is correlated with <span class="math inline">\(\bx_{i\cdot}\)</span> (<span class="math inline">\(\bx_{i\cdot}\)</span> endogenous).</p>
 <p>It can be suitable for research questions that specifically address variation between different entities rather than changes within entities over time. One caveat is that the Between-groups estimator <em>overlooks important information about how variables change over time</em>.</p>
 <p>To obtain unbiased estimates, it is crucial to ensure the assumption of zero correlation between the error term and averaged independent variables.</p>
+<p><span class="math display">\[
+\E[\bx_{i\cdot} \alpha_i] = 0 .
+\]</span> Between Groups estimator is not efficient. In practice, it is only used to obtain an estimate of <span class="math inline">\(\sigma_{\alpha}^2\)</span> when implementing feasible GLS.</p>
+<p>If we think <span class="math inline">\(\alpha_i\)</span> is uncorrelated with <span class="math inline">\(\bx_{i\cdot},\)</span> it is better to use the random effects estimator.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) </span>
