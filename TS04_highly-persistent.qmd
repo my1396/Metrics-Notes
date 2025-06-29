@@ -82,11 +82,11 @@ Testing Procedure
 </caption>
 <tbody>
   <tr style="background-color: #f2e6cd; color: black;">
-    <th style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Significance level</th>
-    <th style="border: 1px solid #00a9e0; padding: 10px;">1%</th>
-    <th style="border: 1px solid #00a9e0; padding: 10px;">2.5%</th>
-    <th style="border: 1px solid #00a9e0; padding: 10px;">5%</th>
-    <th style="border: 1px solid #00a9e0; padding: 10px;">10%</th>
+    <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Significance level</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">1%</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">2.5%</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">5%</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">10%</td>
   </tr>
   <tr style="background-color: #eef7fc; color: black;">
     <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Critical value</td>
