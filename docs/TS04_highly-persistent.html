@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>12&nbsp; Highly Persistent TS – Metrics Notes</title>
+<title>14&nbsp; Highly Persistent TS – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS04_TimeSeries_regression.html" rel="next">
-<link href="./TS03_asymptotic-property.html" rel="prev">
+<link href="./PA01_Pooled_regression.html" rel="next">
+<link href="./TS04_Spurious_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -252,6 +272,35 @@ ul.task-list li input[type="checkbox"] {
   };
 </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -433,7 +482,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_highly-persistent.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_highly-persistent.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -544,20 +593,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS04_highly-persistent.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./TS04_TimeSeries_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS05_Spurious_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span></a>
+  <a href="./TS04_Spurious_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS04_highly-persistent.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
   </div>
 </li>
       </ul>
@@ -620,16 +669,28 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#testing-for-unit-roots" id="toc-testing-for-unit-roots" class="nav-link active" data-scroll-target="#testing-for-unit-roots"><span class="header-section-number">14.1</span> Testing for Unit Roots</a>
+  <ul class="collapse">
+  <li><a href="#dickey-fuller-df-test" id="toc-dickey-fuller-df-test" class="nav-link" data-scroll-target="#dickey-fuller-df-test"><span class="header-section-number">14.1.1</span> Dickey-Fuller (DF) Test</a></li>
+  <li><a href="#augmented-dickey-fuller-adf-test" id="toc-augmented-dickey-fuller-adf-test" class="nav-link" data-scroll-target="#augmented-dickey-fuller-adf-test"><span class="header-section-number">14.1.2</span> Augmented Dickey-Fuller (ADF) Test</a></li>
+  <li><a href="#deterministic-trend" id="toc-deterministic-trend" class="nav-link" data-scroll-target="#deterministic-trend"><span class="header-section-number">14.1.3</span> Deterministic Trend</a></li>
+  </ul></li>
+  <li><a href="#cointegration" id="toc-cointegration" class="nav-link" data-scroll-target="#cointegration"><span class="header-section-number">14.2</span> Cointegration</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_highly-persistent.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_highly-persistent.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></h1>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></h1>
 </div>
 
 
@@ -649,8 +710,191 @@ ul.task-list li input[type="checkbox"] {
 <p>Provided the time series we use are weakly dependent, usual OLS inference procedures are valid under assumptions weaker than the classical linear model assumptions. Unfortunately, many economic time series cannot be characterized by weak dependence.</p>
 <p>Using time series with strong dependence in regression analysis poses no problem, if the CLM assumptions in finite samples hold. But the usual inference procedures are very susceptible to violation of these assumptions when the data are not weakly dependent, because then we cannot appeal to the law of large numbers and the central limit theorem. In this section, we provide some examples of highly persistent (or strongly dependent) time series and show how they can be transformed for use in regression analysis.</p>
 <p>When the time series are highly persistent (they have unit roots), we must exercise extreme caution in using them directly in regression models. An alternative to using the levels is to use the first differences of the variables. For most highly persistent economic time series, the first difference is weakly dependent. Using first differences changes the nature of the model, but this method is often as informative as a model in levels. When data are highly persistent, we usually have more faith in first-difference results.</p>
+<section id="testing-for-unit-roots" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="testing-for-unit-roots"><span class="header-section-number">14.1</span> Testing for Unit Roots</h2>
+<p>We begin with an AR(1) model:</p>
+<p><span id="eq-I1_model"><span class="math display">\[
+u_t = \alpha + \rho u_{t-1} + \varepsilon_t, \; t = 2,3,\ldots,
+\tag{14.1}\]</span></span> where <span class="math inline">\(\{\varepsilon_t\}\)</span> has zero mean, given past observed <span class="math inline">\(u\)</span>:</p>
+<p><span id="eq-assumption"><span class="math display">\[
+\E[\varepsilon_t\mid u_{t-1}, u_{t-2}, \ldots] = 0,
+\tag{14.2}\]</span></span> that is, <span class="math inline">\(\{\varepsilon_t\}\)</span> is said to be a martingale difference sequence w.r.t. <span class="math inline">\(\{u_{t-1}, u_{t-2}, \ldots\}\)</span>. If <span class="math inline">\(\{\varepsilon_t\}\)</span> is said to be i.i.d. with zero mean, then it also satisfies the assumption (<a href="#eq-assumption" class="quarto-xref"><span>14.2</span></a>).</p>
+<ul>
+<li>When <span class="math inline">\(\alpha=0\)</span> and <span class="math inline">\(\rho=1\)</span>, then <span class="math inline">\(\{u_t\}\)</span> follows a random walk without drift.</li>
+<li>When <span class="math inline">\(\alpha\ne 0\)</span> and <span class="math inline">\(\rho=1\)</span>, then <span class="math inline">\(\{u_t\}\)</span> follows a random walk with drift. We say that the model allows for a <em>deterministic drift</em>.</li>
+</ul>
+<p>Therefore, the null hypothesis is that <span class="math inline">\(\{u_t\}\)</span> has a unit root:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm H_0:  \rho=1 \\
+\mathrm H_1:  \rho&lt;1 \\
+\end{split}
+\]</span> Note that <span class="math inline">\(\mathrm H_1\)</span> is a one-sided alternative. We do not consider that <span class="math inline">\(\rho&gt;1\)</span> as it implies that <span class="math inline">\(u_t\)</span> is explosive.</p>
+<p>When <span class="math inline">\(\abs{\rho}&lt;1,\)</span> <span class="math inline">\(\{u_t\}\)</span> is a stable AR(1) process, which means it is weakly dependent or asymptotically uncorrelated.</p>
+<section id="dickey-fuller-df-test" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="dickey-fuller-df-test"><span class="header-section-number">14.1.1</span> Dickey-Fuller (DF) Test</h3>
+<p>To test for a unit root, we reparameterize the AR(1) model.</p>
+<p>Subtract <span class="math inline">\(u_{t-1}\)</span> from both sides of (<a href="#eq-I1_model" class="quarto-xref"><span>14.1</span></a>) and define <span class="math inline">\(\theta=(\rho-1)\)</span>:</p>
+<p><span class="math display">\[
+\begin{split}
+u_t - u_{t-1} &amp;= \alpha + \rho u_{t-1} - u_{t-1} + \varepsilon_t \\
+\Rightarrow \Delta u_t &amp;= \alpha + (\rho - 1)u_{t-1} + \varepsilon_t
+\end{split}
+\]</span> Define <span class="math inline">\(\theta = \rho - 1\)</span>:</p>
+<p><span class="math display">\[
+\Delta u_t = \alpha + \theta u_{t-1} + \varepsilon_t
+\]</span> Testing Hypotheses</p>
+<ul>
+<li><span class="math inline">\(\mathrm H_0: \theta = 0\)</span> (i.e., <span class="math inline">\(\rho = 1\)</span>, unit root)</li>
+<li><span class="math inline">\(\mathrm H_1: \theta &lt; 0\)</span> (i.e., <span class="math inline">\(\rho &lt; 1\)</span>, stationary)</li>
+</ul>
+<p>Testing Procedure</p>
+<ol type="1">
+<li><p>Estimate:</p>
+<p><span class="math display">\[
+\Delta u_t = \alpha + \theta u_{t-1} + \varepsilon_t
+\]</span></p></li>
+<li><p>Compute the <strong>t-statistic</strong> for <span class="math inline">\(\hat{\theta}\)</span>.</p></li>
+<li><p>Compare it to the <strong>Dickey-Fuller critical values</strong> for the case <strong>with intercept (no trend)</strong>.</p></li>
+</ol>
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+<caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+Asymptotic Critical Values for Unit Root <em>t</em> Test: No Time Trend
+</caption>
+<tbody>
+<tr style="background-color: #f2e6cd; color: black;">
+<th style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Significance level
+</th>
+<th style="border: 1px solid #00a9e0; padding: 10px;">
+1%
+</th>
+<th style="border: 1px solid #00a9e0; padding: 10px;">
+2.5%
+</th>
+<th style="border: 1px solid #00a9e0; padding: 10px;">
+5%
+</th>
+<th style="border: 1px solid #00a9e0; padding: 10px;">
+10%
+</th>
+</tr>
+<tr style="background-color: #eef7fc; color: black;">
+<td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Critical value
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.43
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.12
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−2.86
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−2.57
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="augmented-dickey-fuller-adf-test" class="level3" data-number="14.1.2">
+<h3 data-number="14.1.2" class="anchored" data-anchor-id="augmented-dickey-fuller-adf-test"><span class="header-section-number">14.1.2</span> Augmented Dickey-Fuller (ADF) Test</h3>
+<p>To account for serial correlation in the error term <span class="math inline">\(\varepsilon_t\)</span>, we augment the regression with lagged differences:</p>
+<p><span id="eq-ADF"><span class="math display">\[
+\Delta u_t = \alpha + \theta u_{t-1} + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t .
+\tag{14.3}\]</span></span></p>
+<p>Using <span class="math inline">\(p=1\)</span> as an example:</p>
+<p><span class="math display">\[
+\Delta u_t = \alpha + \theta u_{t-1} + \gamma_1 \Delta u_{t-1} + \varepsilon_t .
+\]</span> where <span class="math inline">\(\abs{\gamma_1}&lt;1\)</span>. This ensures that, under <span class="math inline">\(\mathrm H_0: \theta=0,\)</span> <span class="math inline">\(\{\Delta u_{t}\}\)</span> follows a stable AR(1) model. Under the alternative <span class="math inline">\(\mathrm H_1: \theta&lt;0,\)</span> <span class="math inline">\(\{u_t\}\)</span> follows a stable AR(2) model.</p>
+<p>This extended version of the Dickey-Fuller test is usually called the augmented Dickey-Fuller test because the regression has been augmented with the lagged changes, <span class="math inline">\(\Delta u_{t-j}.\)</span> The critical values and rejection rule are the same as before. The inclusion of the lagged changes in (<a href="#eq-ADF" class="quarto-xref"><span>14.3</span></a>) is intended to clean up any serial correlation in <span class="math inline">\(\Delta u_{t}.\)</span></p>
+<p>Often, the lag length is dictated by the frequency of the data (as well as the sample size). For annual data, one or two lags usually suffice. For monthly data, we might include 12 lags. But there are no hard rules to follow in any case.</p>
+</section>
+<section id="deterministic-trend" class="level3" data-number="14.1.3">
+<h3 data-number="14.1.3" class="anchored" data-anchor-id="deterministic-trend"><span class="header-section-number">14.1.3</span> Deterministic Trend</h3>
+<p>For series that have clear time trends, we need to modify the test for unit roots. A trend-stationary process, which has a linear trend in its mean but is <span class="math inline">\(\mathrm I(0)\)</span> about its trend, can be mistaken for a unit root process if we do not control for a time trend in the Dickey-Fuller regression. In other words, if we carry out the usual DF or augmented DF test on a trending but <span class="math inline">\(\mathrm I(0)\)</span> series, we will probably have little power for rejecting a unit root.</p>
+<p>If a deterministic trend is expected in the data, the corresponding model in levels (before differencing) is:</p>
+<p><span class="math display">\[
+u_t = \alpha + \beta t + \rho u_{t-1} + \varepsilon_t, \quad t = 2,3,\ldots
+\]</span></p>
+<p>This allows the test to account for both a <strong>deterministic linear trend</strong> and a possible <strong>unit root</strong>.</p>
+<p>We change the ADF regression to:</p>
+<p><span class="math display">\[
+\Delta u_t = \alpha + \delta t + \theta u_{t-1} + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t
+\]</span> where again the testing Hypotheses are</p>
+<ul>
+<li><p><span class="math inline">\(\mathrm H_0: \theta = 0\)</span></p>
+<p>If <span class="math inline">\(\{u_t\}\)</span> has a unit root, then <span class="math display">\[
+  \Delta u_t = \alpha + \delta t + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t ,
+  \]</span> so the change in <span class="math inline">\(u_t\)</span> has a mean linear in <span class="math inline">\(t\)</span> unless <span class="math inline">\(\delta=0.\)</span></p>
+<p>It is unusal for the first difference of an economic series to have a linear trend, so a more appropriate null hypothesis is probably</p>
+<p><span class="math display">\[
+  \mathrm H_0: \theta = 0, \delta = 0
+  \]</span></p></li>
+<li><p><span class="math inline">\(\mathrm H_1: \theta &lt; 0\)</span> (trend-stationary process)</p></li>
+</ul>
+<p>When we include a time trend in the regression, the critical values of the test change. Intuitively, this occurs because detrending a unit root process tends to make it look more like an <span class="math inline">\(\mathrm I(0)\)</span>process. Therefore, we require a larger magnitude for the <span class="math inline">\(t\)</span> statistic in order to reject <span class="math inline">\(\mathrm H_0.\)</span> The Dickey-Fuller critical values for the <span class="math inline">\(t\)</span> test that includes a time trend are given in following table.</p>
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+<caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+Asymptotic Critical Values for Unit Root <em>t</em> Test: Linear Time Trend
+</caption>
+<tbody>
+<tr style="background-color: #f2e6cd; color: black;">
+<td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Significance level
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+1%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+2.5%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+5%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+10%
+</td>
+</tr>
+<tr style="background-color: #eef7fc; color: black;">
+<td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Critical value
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.96
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.66
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.41
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.12
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="cointegration" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="cointegration"><span class="header-section-number">14.2</span> Cointegration</h2>
+<p>The notion of cointegration, which was given a formal treatment in <span class="citation" data-cites="Engle1987">Engle and Granger (<a href="#ref-Engle1987" role="doc-biblioref">1987</a>)</span>, makes regressions involving <span class="math inline">\(\mathrm I(1)\)</span> variables potentially meaningful.</p>
+<p>If <span class="math inline">\(\{y_t: t=0,1,\ldots\}\)</span> and <span class="math inline">\(\{x_t: t=0,1,\ldots\}\)</span> are two <span class="math inline">\(\mathrm I(1)\)</span> processes, then, in general,</p>
+<p><span class="math display">\[
+y_t - \beta x_t
+\]</span> is an <span class="math inline">\(\mathrm I(1)\)</span> process for any number <span class="math inline">\(\beta.\)</span> Nevertheless, it is <em>possible</em> that for some <span class="math inline">\(\beta \ne 0,\)</span> <span class="math inline">\(y_t - \beta x_t\)</span> is an <span class="math inline">\(\mathrm I(0)\)</span> process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.</p>
+<p>If such a <span class="math inline">\(\beta\)</span> exists, we say that <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are cointegrated, and we call <span class="math inline">\(beta\)</span> the cointegration parameter.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Engle1987" class="csl-entry" role="listitem">
+Engle, Robert F, and C W J Granger. 1987. <span>“Co-Integration and Error Correction: Representation, Estimation, and Testing.”</span> <em>Econometrica</em> 55: 251–76. <a href="http://www.jstor.org/stable/1913236">http://www.jstor.org/stable/1913236</a>.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1067,13 +1311,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./TS03_asymptotic-property.html" class="pagination-link" aria-label="OLS Asymptotic Assumptions and Properties">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">OLS Asymptotic Assumptions and Properties</span></span>
+      <a href="./TS04_Spurious_regression.html" class="pagination-link" aria-label="Spurious Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS04_TimeSeries_regression.html" class="pagination-link" aria-label="Time Series Regression">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./PA01_Pooled_regression.html" class="pagination-link" aria-label="Pooled Regression">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

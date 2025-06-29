@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>14&nbsp; Spurious Regression – Metrics Notes</title>
+<title>13&nbsp; Spurious Regression – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./PA01_Pooled_regression.html" rel="next">
+<link href="./TS04_highly-persistent.html" rel="next">
 <link href="./TS04_TimeSeries_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -462,7 +462,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS05_Spurious_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_Spurious_regression.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spurious Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -573,20 +573,20 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS04_highly-persistent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./TS04_TimeSeries_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS05_Spurious_regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span></a>
+  <a href="./TS04_Spurious_regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./TS04_highly-persistent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span></a>
   </div>
 </li>
       </ul>
@@ -654,12 +654,14 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#trending-time-series" id="toc-trending-time-series" class="nav-link active" data-scroll-target="#trending-time-series"><span class="header-section-number">14.1</span> Trending Time Series</a>
+  <li><a href="#trending-time-series" id="toc-trending-time-series" class="nav-link active" data-scroll-target="#trending-time-series"><span class="header-section-number">13.1</span> Trending Time Series</a>
   <ul class="collapse">
-  <li><a href="#linear-time-trend" id="toc-linear-time-trend" class="nav-link" data-scroll-target="#linear-time-trend"><span class="header-section-number">14.1.1</span> Linear time trend</a></li>
-  <li><a href="#exponential-trend" id="toc-exponential-trend" class="nav-link" data-scroll-target="#exponential-trend"><span class="header-section-number">14.1.2</span> Exponential trend</a></li>
+  <li><a href="#linear-time-trend" id="toc-linear-time-trend" class="nav-link" data-scroll-target="#linear-time-trend"><span class="header-section-number">13.1.1</span> Linear time trend</a></li>
+  <li><a href="#exponential-trend" id="toc-exponential-trend" class="nav-link" data-scroll-target="#exponential-trend"><span class="header-section-number">13.1.2</span> Exponential trend</a></li>
   </ul></li>
-  <li><a href="#using-trendin-variables-in-regression-analysis" id="toc-using-trendin-variables-in-regression-analysis" class="nav-link" data-scroll-target="#using-trendin-variables-in-regression-analysis"><span class="header-section-number">14.2</span> Using Trendin Variables in Regression Analysis</a></li>
+  <li><a href="#using-trending-variables-in-regression-analysis" id="toc-using-trending-variables-in-regression-analysis" class="nav-link" data-scroll-target="#using-trending-variables-in-regression-analysis"><span class="header-section-number">13.2</span> Using Trending Variables in Regression Analysis</a></li>
+  <li><a href="#computing-r-squared-when-the-dependent-variable-is-trending" id="toc-computing-r-squared-when-the-dependent-variable-is-trending" class="nav-link" data-scroll-target="#computing-r-squared-when-the-dependent-variable-is-trending"><span class="header-section-number">13.3</span> Computing R-Squared when the Dependent Variable Is Trending</a></li>
+  <li><a href="#i1-process" id="toc-i1-process" class="nav-link" data-scroll-target="#i1-process"><span class="header-section-number">13.4</span> I(1) process</a></li>
   </ul>
 </nav>
     </div>
@@ -667,9 +669,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS05_Spurious_regression.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_Spurious_regression.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spurious Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Spurious Regression</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spurious Regression</span></h1>
 </div>
 
 
@@ -689,81 +691,82 @@ window.Quarto = {
 <!-- Chunk option settings -->
 <!-- Define chunk option `max.lines` -->
 <!-- controls max lines printed -->
-<section id="trending-time-series" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="trending-time-series"><span class="header-section-number">14.1</span> Trending Time Series</h2>
+<section id="trending-time-series" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="trending-time-series"><span class="header-section-number">13.1</span> Trending Time Series</h2>
 <p>It is important to characterize if some series contain a time trend in order to draw causual inference using time series data. Ignoring the fact that two sequences are trending in the same or opposite directions can lead us to falsely conclude that changes in one variable are actually caused by changes in another variable. In many cases, two time series processes appear to be correlated only because they are both trending over time for reasons related to other unobserved factors.</p>
 <p>The phenomenon of finding a relationship between two or more trending variables simply because each is growing over time is an example of a <strong>spurious regression problem</strong>. We can add a time trend to account for the trend in explained or explanatory variables.</p>
-<section id="linear-time-trend" class="level3" data-number="14.1.1">
-<h3 data-number="14.1.1" class="anchored" data-anchor-id="linear-time-trend"><span class="header-section-number">14.1.1</span> Linear time trend</h3>
+<section id="linear-time-trend" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="linear-time-trend"><span class="header-section-number">13.1.1</span> Linear time trend</h3>
 <p>If <span class="math inline">\(\{y_t\}\)</span> has a linear time trend, then we can formulate the series as</p>
 <p><span class="math display">\[
 y_t = \alpha_0 + \alpha_1 t + e_t, \; t=1, 2, \ldots,
 \]</span> where <span class="math inline">\(e_t\sim iid (0, \sigma^2_e)\)</span> or a more realistic characterization allows <span class="math inline">\(\{e_t\}\)</span> to be correlated over time.</p>
-<p><a href="#fig-linear_trend" class="quarto-xref">Figure&nbsp;<span>14.1</span></a> shows a simulated series with a linear time trend. The values of <span class="math inline">\(y_t\)</span> do not fall exactly on the line in due to randomness, but the expected values are on the line:</p>
+<p><a href="#fig-linear_trend" class="quarto-xref">Figure&nbsp;<span>13.1</span></a> shows a simulated series with a linear time trend. The values of <span class="math inline">\(y_t\)</span> do not fall exactly on the line in due to randomness, but the expected values are on the line:</p>
 <p><span class="math display">\[
 \E(y_t) = \alpha_0 + \alpha_1 t .
 \]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-linear_trend" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="672" data-fig-pos="H">
+<div id="fig-linear_trend" class="quarto-float quarto-figure quarto-figure-center anchored" width="672" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-linear_trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="TS05_Spurious_regression_files/figure-html/fig-linear_trend-1.png" id="fig-linear_trend" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-fig-pos="H" width="672">
+<img src="TS04_Spurious_regression_files/figure-html/fig-linear_trend-1.png" id="fig-linear_trend" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-fig-pos="H" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-linear_trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14.1
+Figure&nbsp;13.1
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="exponential-trend" class="level3" data-number="14.1.2">
-<h3 data-number="14.1.2" class="anchored" data-anchor-id="exponential-trend"><span class="header-section-number">14.1.2</span> Exponential trend</h3>
+<section id="exponential-trend" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="exponential-trend"><span class="header-section-number">13.1.2</span> Exponential trend</h3>
 <p>When a series has the same average growth rate from period to period, we say that the time series has an exponential trend.</p>
 <p>I practice, an exponential trend in a time series is captured by modelling the natural logarithm of the series as linear trend (assuming that <span class="math inline">\(y_t&gt;0\)</span>):</p>
 <p><span id="eq-log_rate"><span class="math display">\[
 \log (y_t) = \beta_0 + \beta_1 t + e_t, \; t=1, 2, \ldots.
-\tag{14.1}\]</span></span></p>
+\tag{13.1}\]</span></span></p>
 <p>Recall that, for small changes, <span class="math inline">\(\Delta \log(y_t) = \log(y_t) - \log(y_{t-1})\)</span> is approximately the proportionate change in <span class="math inline">\(y_t:\)</span></p>
 <p><span class="math display">\[
 \beta_1 = \Delta \log(y_t) \approx \frac{y_t-y_{t-1}}{y_{t-1}}
 \]</span></p>
 <p><span class="math inline">\(\beta_1\)</span> is interpreted as the growth rate in <span class="math inline">\(y\)</span> from period <span class="math inline">\(t-1\)</span> to period <span class="math inline">\(t\)</span>. In other words, <span class="math inline">\(\beta_1\)</span> is approximately the average per period growth rate in <span class="math inline">\(y_t.\)</span></p>
 <p>For example, if <span class="math inline">\(t\)</span> denotes year and <span class="math inline">\(\beta_1 = .027,\)</span> then <span class="math inline">\(y_t\)</span> grows about 2.7% per year on average.</p>
-<p>Exponentiating (<a href="#eq-log_rate" class="quarto-xref"><span>14.1</span></a>) shows that <span class="math inline">\(y_t\)</span> itself has an exponential trend:</p>
+<p>Exponentiating (<a href="#eq-log_rate" class="quarto-xref"><span>13.1</span></a>) shows that <span class="math inline">\(y_t\)</span> itself has an exponential trend:</p>
 <p><span class="math display">\[
 y_t = \exp (\beta_0 + \beta_1 t + e_t) .
 \]</span></p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-exp_growth" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="672" data-fig-pos="H">
+<div id="fig-exp_growth" class="quarto-float quarto-figure quarto-figure-center anchored" width="672" data-fig-pos="H" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-exp_growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="TS05_Spurious_regression_files/figure-html/fig-exp_growth-1.png" id="fig-exp_growth" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-fig-pos="H" width="672">
+<img src="TS04_Spurious_regression_files/figure-html/fig-exp_growth-1.png" id="fig-exp_growth" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-fig-pos="H" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-exp_growth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14.2
+Figure&nbsp;13.2
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-exp_growth" class="quarto-xref">Figure&nbsp;<span>14.2</span></a> show a simulated time series with an exponential trend. In the early years, we see that the change in <span class="math inline">\(y_t\)</span> over each year is relatively small, whereas the change increases as time passes. This is consistent with a <em>constant average growth rate</em>: the percentage change is roughly the same in each period.</p>
+<p><a href="#fig-exp_growth" class="quarto-xref">Figure&nbsp;<span>13.2</span></a> show a simulated time series with an exponential trend. In the early years, we see that the change in <span class="math inline">\(y_t\)</span> over each year is relatively small, whereas the change increases as time passes. This is consistent with a <em>constant average growth rate</em>: the percentage change is roughly the same in each period.</p>
 </section>
 </section>
-<section id="using-trendin-variables-in-regression-analysis" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="using-trendin-variables-in-regression-analysis"><span class="header-section-number">14.2</span> Using Trendin Variables in Regression Analysis</h2>
+<section id="using-trending-variables-in-regression-analysis" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="using-trending-variables-in-regression-analysis"><span class="header-section-number">13.2</span> Using Trending Variables in Regression Analysis</h2>
 <p>For concreteness, consider a model where two observed factors, <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}\)</span>, affect <span class="math inline">\(y_t\)</span>. In addition, there are unobserved factors that are systematically growing or shrinking over time. A model that captures this is</p>
 <p><span id="eq-regression_time_trend"><span class="math display">\[
 y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3t + u_t  .
-\tag{14.2}\]</span></span> This fits into the multiple linear regression framework with <span class="math inline">\(x_{t3}=t.\)</span></p>
+\tag{13.2}\]</span></span> This fits into the multiple linear regression framework with <span class="math inline">\(x_{t3}=t.\)</span></p>
 <p>Allowing for the trend <span class="math inline">\(t\)</span> in this equation explicitly recognizes that <span class="math inline">\(y_t\)</span> may be growing (<span class="math inline">\(\beta_3&gt;0\)</span>) or shrinking (<span class="math inline">\(\beta_3&lt;0\)</span>) over time for reasons essentially unrelated to <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}.\)</span> Omiiting <span class="math inline">\(t\)</span> from the regression and regressing <span class="math inline">\(y_t\)</span> on <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}\)</span> will generally yield biased estimators of <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2.\)</span> This is especially true if <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}\)</span> are themselves trending, because they can then be highly correlated with <span class="math inline">\(t.\)</span></p>
 <p><strong>Frisch–Waugh–Lovell theorem Interpretation</strong></p>
-<p>Based on the Frisch–Waugh–Lovell theorem, <a href="#eq-regression_time_trend" class="quarto-xref">Equation&nbsp;<span>14.2</span></a> can have an alternative interpretation in terms of detrending the original data series before using them in regression analysis.</p>
-<p><span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span> can be obtained as follows.</p>
+<p>Based on the Frisch–Waugh–Lovell theorem, <a href="#eq-regression_time_trend" class="quarto-xref">Equation&nbsp;<span>13.2</span></a> can have an alternative interpretation in terms of detrending the original data series before using them in regression analysis.</p>
+<p><span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span> can be obtained in a two-step procedure as follows.</p>
 <ol type="i">
-<li><p>Regress each of <span class="math inline">\(y_t\)</span>, <span class="math inline">\(x_{1t}\)</span>, and <span class="math inline">\(x_{2t}\)</span> on a constant and the time trend <span class="math inline">\(t\)</span> and save the residuals, say, <span class="math inline">\(\ddot{y}_t\)</span>, <span class="math inline">\(\ddot{x}_{1t}\)</span>, <span class="math inline">\(\ddot{x}_{2t}\)</span>, <span class="math inline">\(t = 1, 2, \ldots, T\)</span>. For example,</p>
+<li><p>Regress <strong>each</strong> of <span class="math inline">\(y_t\)</span>, <span class="math inline">\(x_{1t}\)</span>, and <span class="math inline">\(x_{2t}\)</span> on a constant and the time trend <span class="math inline">\(t\)</span> and save the residuals, say, <span class="math inline">\(\ddot{y}_t\)</span>, <span class="math inline">\(\ddot{x}_{1t}\)</span>, <span class="math inline">\(\ddot{x}_{2t}\)</span>, <span class="math inline">\(t = 1, 2, \ldots, T\)</span>.</p>
+<p>For example,</p>
 <p><span class="math display">\[
 \ddot{y}_t = y_t - \hat{\alpha}_0 - \hat{\alpha}_1 t.
 \]</span></p>
@@ -771,17 +774,81 @@ y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3t + u_t  .
 <p><span class="math display">\[
 y_t = \alpha_0 + \alpha_1 t + e_t
 \]</span></p>
-<p>by OLS; the residuals from this regression, <span class="math inline">\(\hat{e}_t = \ddot{y}_t\)</span>, have the time trend removed (at least in the sample). A similar interpretation holds for <span class="math inline">\(\ddot{x}_{1t}\)</span> and <span class="math inline">\(\ddot{x}_{2t}\)</span>.</p></li>
-<li><p>Run the regression of</p></li>
+<p>by OLS; the residuals from this regression, <span class="math inline">\(\hat{e}_t = \ddot{y}_t\)</span>, have the time trend removed (at least in the sample). A similar interpretation holds for <span class="math inline">\(\ddot{x}_{1t}\)</span> and <span class="math inline">\(\ddot{x}_{2t}\)</span>.</p>
+<p>Any potential trends in the dependent and independent variables were removed by now.</p></li>
+<li><p>Run the regression of <span class="math display">\[
+    \ddot{y}_t \text{ on } \ddot{x}_{1t}, \ddot{x}_{2t}.
+    \]</span> (No intercept is necessary, but including an intercept affects nothing: the intercept will be estimated to be zero.) This regression exactly yields <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span> from (<a href="#eq-regression_time_trend" class="quarto-xref"><span>13.2</span></a>).</p></li>
 </ol>
-<pre><code>$$
-\ddot{y}_t \text{ on } \ddot{x}_{1t}, \ddot{x}_{2t}.
-$$
-
-(No intercept is necessary, but including an intercept affects nothing: the intercept will be estimated to be zero.) This regression exactly yields $\hat{\beta}_1$ and $\hat{\beta}_2$ from (-@eq-regression_time_trend).</code></pre>
 <p>This means that the estimates of primary interest, <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span>, can be interpreted as coming from a regression <em>without</em> a time trend, but where we first detrend the dependent variable and other independent variables. The same conclusion holds with any number of independent variables and if the trend is quadratic or of some other polynomial degree.</p>
-<p>If <span class="math inline">\(t\)</span> is omitted from (<a href="#eq-regression_time_trend" class="quarto-xref"><span>14.2</span></a>), then no detrending occurs, and <span class="math inline">\(y_t\)</span> might seem to be related to one or more of the <span class="math inline">\(x_{jt}\)</span> simply because each contains a trend. If the time trend is statistically significant, and the results change in important ways when a time trend is added to a regression, then the initial results without a trend should be treated with suspicion.</p>
+<p>If <span class="math inline">\(t\)</span> is omitted from (<a href="#eq-regression_time_trend" class="quarto-xref"><span>13.2</span></a>), then no detrending occurs, and <span class="math inline">\(y_t\)</span> might seem to be related to one or more of the <span class="math inline">\(x_{jt}\)</span> simply because each contains a trend. If the time trend is statistically significant, and the results change in important ways when a time trend is added to a regression, then the initial results without a trend should be treated with suspicion.</p>
 <p>The interpretation of <span class="math inline">\(\hat{\beta}_1\)</span> and <span class="math inline">\(\hat{\beta}_2\)</span> shows that it is a good idea to include a trend in the regression if any independent variable is trending, even if <span class="math inline">\(y_t\)</span> is not. If <span class="math inline">\(y_t\)</span> has no noticeable trend, but, say, <span class="math inline">\(x_{1t}\)</span> is growing over time, then excluding a trend from the regression may make it look as if <span class="math inline">\(x_{1t}\)</span> has no effect on <span class="math inline">\(y_t\)</span>, even though movements of <span class="math inline">\(x_{1t}\)</span> about its trend may affect <span class="math inline">\(y_t\)</span>. This will be captured if <span class="math inline">\(t\)</span> is included in the regression.</p>
+<p>Time series exhibiting a time trend can have seasonal patterns as well, in which case we should estimate a regression model with a time trend and seasonal dummy variables. The seasonal dummies should be one less than the distinct seasonal patterns. For example, if we observe quarterly differences, we may introduce three seasonal dummies, the one left out would be the base level, represented by the intercept. The regressions can then be interpreted as regressions using both detrended and deseasonalized series.</p>
+</section>
+<section id="computing-r-squared-when-the-dependent-variable-is-trending" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="computing-r-squared-when-the-dependent-variable-is-trending"><span class="header-section-number">13.3</span> Computing R-Squared when the Dependent Variable Is Trending</h2>
+<p><em>R-squareds in time series regressions are often very high, especially compared with typical R-squareds for cross-sectional data.</em> Does this mean that we learn more about factors affecting <span class="math inline">\(y\)</span> from time series data? Not necessarily. On one hand, time series data often come in aggregate form (such as average hourly wages in the U.S. economy), and aggregates are often easier to explain than outcomes on individuals, families, or firms, which is often the nature of cross-sectional data. But the usual and adjusted <span class="math inline">\(R\)</span>-squareds for time series regressions can be artificially high when the dependent variable is trending.</p>
+<p>Remember that <span class="math inline">\(R^2\)</span> is a measure of how large the error variance is relative to the variance of <span class="math inline">\(y\)</span>. The formula for the adjusted <span class="math inline">\(R\)</span>-squared shows this directly:</p>
+<p><span class="math display">\[
+\bar{R}^2 = 1 - (\hat{\sigma}_u^2 / \hat{\sigma}_y^2),
+\]</span></p>
+<p>where <span class="math inline">\(\hat{\sigma}_u^2\)</span> is the unbiased estimator of the error variance, <span class="math inline">\(\hat{\sigma}_y^2 = \text{SST}/(n - 1)\)</span>, and <span class="math inline">\(\text{SST} = \sum_{t=1}^n (y_t - \bar{y})^2\)</span>. Now, estimating the error variance when <span class="math inline">\(y_t\)</span> is trending is no problem, provided a time trend is included in the regression. However, when <span class="math inline">\(E(y_t)\)</span> follows, say, a linear time trend, <span class="math inline">\(\text{SST}/(n - 1)\)</span> is no longer an unbiased or consistent estimator of <span class="math inline">\(\text{Var}(y_t)\)</span>. In fact, <span class="math inline">\(\text{SST}/(n - 1)\)</span> can substantially overestimate the variance in <span class="math inline">\(y_t\)</span>, because it does not account for the trend in <span class="math inline">\(y_t\)</span>.</p>
+<p>When the dependent variable satisfies linear, quadratic, or any other polynomial trends, it is easy to compute a goodness-of-fit measure that first nets out the effect of any time trend on <span class="math inline">\(y_t\)</span>. The simplest method is to compute the usual <span class="math inline">\(R\)</span>-squared in a regression where the dependent variable has already been detrended. For example, if the model is <span class="math display">\[
+y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3t + u_t  ,
+\]</span> then we first detrend <span class="math inline">\(y_t\)</span> by regressing <span class="math inline">\(y_t\)</span> on <span class="math inline">\(t\)</span>:</p>
+<p><span id="eq-detrend_y"><span class="math display">\[
+y_t = \alpha_0 + \alpha_1 t + e_t
+\tag{13.3}\]</span></span> and obtain the residuals <span class="math inline">\(\hat{e}_t = \ddot{y}_t\)</span>. Then, we regress <span class="math inline">\(\ddot{y}_t\)</span> on <span class="math inline">\(x_{t1},\)</span> <span class="math inline">\(x_{t2},\)</span> and <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+\ddot{y}_t = \beta_0 + \beta_1 x_{t1} + \beta_2 x_{t2} + \beta_3 t + u_t .
+\]</span></p>
+<p>The <span class="math inline">\(R\)</span>-squared from this regression is</p>
+<p><span id="eq-R2_time"><span class="math display">\[
+R^2 = 1 - \frac{\text{SSR}}{\sum_{t=1}^n \ddot{y}_t^2},
+\tag{13.4}\]</span></span></p>
+<p>where SSR is identical to the sum of squared residuals from <span id="eq-original_model"><span class="math display">\[
+\hat{y}_t = \hat{\beta}_0 + \hat{\beta}_1x_{t1} + \hat{\beta}_2x_{t2} + \hat{\beta}_3t .
+\tag{13.5}\]</span></span></p>
+<p>Since <span class="math inline">\(\sum_{t=1}^n \ddot{y}_t^2 \leq \sum_{t=1}^n (y_t - \bar{y})^2\)</span> (and usually the inequality is strict), the <span class="math inline">\(R\)</span>-squared from (<a href="#eq-R2_time" class="quarto-xref"><span>13.4</span></a>) is no greater than, and usually less than, the <span class="math inline">\(R\)</span>-squared from (<a href="#eq-original_model" class="quarto-xref"><span>13.5</span></a>). (The sum of squared residuals is identical in both regressions.) When <span class="math inline">\(y_t\)</span> contains a strong linear time trend, (<a href="#eq-R2_time" class="quarto-xref"><span>13.4</span></a>) can be much less than the usual <span class="math inline">\(R\)</span>-squared.</p>
+<p>The R-squared in (<a href="#eq-R2_time" class="quarto-xref"><span>13.4</span></a>) better reflects how well <span class="math inline">\(x_{t1}\)</span> and <span class="math inline">\(x_{t2}\)</span> explain <span class="math inline">\(y_t\)</span> because it nets out the effect of the time trend.</p>
+<p>An <strong>adjusted R-squared</strong> can also be computed based on (<a href="#eq-R2_time" class="quarto-xref"><span>13.4</span></a>).</p>
+<p><span class="math display">\[
+\overline{R}^2 = 1 - \frac{\text{SSR}/(n-K)}{\sum_{t=1}^n \ddot{y}_t^2 / (n-p)},
+\]</span> where <span class="math inline">\(K\)</span> is the <span class="math inline">\(df\)</span> in the usual regression (<a href="#eq-original_model" class="quarto-xref"><span>13.5</span></a>) (that includes any time trends), and <span class="math inline">\(p\)</span> is the number of trend parameters estimated in detrending <span class="math inline">\(y_t.\)</span></p>
+<p>In our example model (<a href="#eq-regression_time_trend" class="quarto-xref"><span>13.2</span></a>), we divide <span class="math inline">\(SSR\)</span> by <span class="math inline">\((n-4)\)</span> and divide <span class="math inline">\(\sum_{t=1}^n \ddot{y}_t^2\)</span> by <span class="math inline">\((n-2),\)</span> as there are two trend parameters estimated in detrending <span class="math inline">\(y_t\)</span> (<a href="#eq-detrend_y" class="quarto-xref"><span>13.3</span></a>).</p>
+</section>
+<section id="i1-process" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="i1-process"><span class="header-section-number">13.4</span> I(1) process</h2>
+<p>When we are dealing with integrated processes of order one, there is an additional complication. Even if the two series have means that are not trending, a simple regression involving two independent <span class="math inline">\(\mathrm I(1)\)</span> series will often result in a significant <span class="math inline">\(t\)</span> statistic. To be more precise, let <span class="math inline">\(\{x_t\}\)</span> and <span class="math inline">\(\{y_t\}\)</span> be random walks generated by</p>
+<p><span class="math display">\[
+x_t = x_{t-1} + a_t, \; t=2,3,\ldots,
+\]</span> and <span class="math display">\[
+y_t = y_{t-1} + e_t, \; t=2,3,\ldots,
+\]</span> where <span class="math inline">\(\{a_t\}\)</span> and <span class="math inline">\(\{e_t\}\)</span> are iid innovations, with mean zero and variances <span class="math inline">\(\sigma^2_a\)</span> and <span class="math inline">\(\sigma^2_e,\)</span> respectively.</p>
+<p>Assume further that <span class="math inline">\(\{a_t\}\)</span> and <span class="math inline">\(\{e_t\}\)</span> are independent processes. This implies that <span class="math inline">\(\{x_t\}\)</span> and <span class="math inline">\(\{y_t\}\)</span> are also independent. But if we run the simple regression</p>
+<p><span class="math display">\[
+y_t = \beta_0 + \beta_1 x_t + u_t
+\]</span> and obtain the usual <span class="math inline">\(t\)</span> statistic for <span class="math inline">\(\hat{\beta}_1\)</span> and the usual R-squared, the results cannot be interpreted as if the variables are stationary (<span class="math inline">\(\mathrm I(1)\)</span>).</p>
+<ul>
+<li><p>The <span class="math inline">\(t\)</span> statistic will be significant a large percentage of the time, much larger than the nominal significance level. <span class="math inline">\(\rightarrow\)</span> This is called the spurious regression problem, where <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are independent, but an OLS regression indicates a significant <span class="math inline">\(t\)</span> statistic.</p>
+<p>For the <span class="math inline">\(t\)</span> statistic of <span class="math inline">\(\hat{\beta}_1\)</span> to have an approximate standard normal distribution in large samples, at a minimum, <span class="math inline">\(\{u_t\}\)</span> should be a mean zero, serially uncorrelated process. But under <span class="math display">\[
+  \mathrm H_0: \beta_1=0, y_t = \beta_0 + u_t
+  \]</span> the assumption was violated.</p>
+<p>To see this, we assume the initial value <span class="math inline">\(y_1=0\)</span>, then under <span class="math inline">\(\mathrm H_0\)</span> we have <span class="math inline">\(\beta_0=0,\)</span> and <span class="math display">\[
+  u_t = y_t = \sum_{j=1}^t e_j.
+  \]</span> In other words, <span class="math inline">\(\{u_t\}\)</span> is a random walk under <span class="math inline">\(\mathrm H_0\)</span> which clearly violate even the asymptotic version of the Gauss-Markov assumptions.</p></li>
+<li><p>Including a time trend does NOT change the conclusion. If <span class="math inline">\(y_t\)</span> or <span class="math inline">\(x_t\)</span> is a random walk with drift and a time trend is NOT included, then spurious regression problem is even worse.</p></li>
+<li><p>The behavior of R-squared is nonstandard.</p>
+<p>In regressions with <span class="math inline">\(\mathrm I(0)\)</span> time series variables, the R-squared converges in probability to the population R-squared: <span class="math inline">\(1-\sigma^2_u/\sigma^2_y.\)</span></p>
+<p>But in regressions with <span class="math inline">\(\mathrm I(1)\)</span> processes, rather than the R-squared having a well-defined plim, it actually converges to a <em>random variable</em>. Formalizing this notion is well beyond the scope of this text.</p>
+<p>The implication is that the R-squared is large with high probability, even though <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are independent time series processes.</p></li>
+</ul>
+<p>The same considerations arise with multiple independent variables, each of which may be <span class="math inline">\(\mathrm I(1)\)</span> or some of which may be <span class="math inline">\(\mathrm I(0)\)</span>. If <span class="math inline">\(y_t\)</span> is <span class="math inline">\(\mathrm I(1)\)</span> and at least some of the explanatory variables are <span class="math inline">\(\mathrm I(1)\)</span>, the regression results may be spurious.</p>
+<p>This does not mean that regressions involving any <span class="math inline">\(\mathrm I(1)\)</span> process are problematic. There are remedies for using the <span class="math inline">\(\mathrm I(1)\)</span> processes:</p>
+<ul>
+<li><p>The first difference of an <span class="math inline">\(\mathrm I(1)\)</span> process can be used to transform it to be weakly dependent (and often stationary).</p></li>
+<li><p>Regressing an <span class="math inline">\(\mathrm I(1)\)</span> dependent variable on an <span class="math inline">\(\mathrm I(1)\)</span> independent variable can be informative, but only if these variables are related in a precise sense – Cointegration.</p></li>
+</ul>
 
 
 </section>
@@ -1202,12 +1269,12 @@ $$
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./TS04_TimeSeries_regression.html" class="pagination-link" aria-label="Time Series Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./PA01_Pooled_regression.html" class="pagination-link" aria-label="Pooled Regression">
-        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Pooled Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS04_highly-persistent.html" class="pagination-link" aria-label="Highly Persistent TS">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Highly Persistent TS</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

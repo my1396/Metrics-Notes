@@ -146,7 +146,8 @@ ggplot(data, aes(x = Time, y = value, color = key)) +
 @fig-exp_growth show a simulated time series with an exponential trend. In the early years, we see that the change in $y_t$ over each year is relatively small, whereas the change increases as time passes. This is consistent with a *constant average growth rate*: the percentage change is roughly the same in each period.
 
 
-## Using Trendin Variables in Regression Analysis
+
+## Using Trending Variables in Regression Analysis
 
 
 For concreteness, consider a model where two observed factors, $x_{t1}$ and $x_{t2}$, affect $y_t$. In addition, there are unobserved factors that are systematically growing or shrinking over time. A model that captures this is
@@ -165,9 +166,11 @@ This is especially true if $x_{t1}$ and $x_{t2}$ are themselves trending, becaus
 
 Based on the Frisch–Waugh–Lovell theorem, @eq-regression_time_trend can have an alternative interpretation in terms of detrending the original data series before using them in regression analysis.
 
-$\hat{\beta}_1$ and $\hat{\beta}_2$ can be obtained as follows.
+$\hat{\beta}_1$ and $\hat{\beta}_2$ can be obtained in a two-step procedure as follows.
 
-(i) Regress each of $y_t$, $x_{1t}$, and $x_{2t}$ on a constant and the time trend $t$ and save the residuals, say, $\ddot{y}_t$, $\ddot{x}_{1t}$, $\ddot{x}_{2t}$, $t = 1, 2, \ldots, T$. For example,
+(i) Regress **each** of $y_t$, $x_{1t}$, and $x_{2t}$ on a constant and the time trend $t$ and save the residuals, say, $\ddot{y}_t$, $\ddot{x}_{1t}$, $\ddot{x}_{2t}$, $t = 1, 2, \ldots, T$. 
+    
+    For example,
 
     $$
     \ddot{y}_t = y_t - \hat{\alpha}_0 - \hat{\alpha}_1 t.
@@ -180,13 +183,13 @@ $\hat{\beta}_1$ and $\hat{\beta}_2$ can be obtained as follows.
     $$
     
     by OLS; the residuals from this regression, $\hat{e}_t = \ddot{y}_t$, have the time trend removed (at least in the sample). A similar interpretation holds for $\ddot{x}_{1t}$ and $\ddot{x}_{2t}$.
+    
+    Any potential trends in the dependent and independent variables were removed by now.
 
 (ii) Run the regression of
-
     $$
     \ddot{y}_t \text{ on } \ddot{x}_{1t}, \ddot{x}_{2t}.
     $$
-    
     (No intercept is necessary, but including an intercept affects nothing: the intercept will be estimated to be zero.) This regression exactly yields $\hat{\beta}_1$ and $\hat{\beta}_2$ from (-@eq-regression_time_trend).
 
 This means that the estimates of primary interest, $\hat{\beta}_1$ and $\hat{\beta}_2$, can be interpreted as coming from a regression *without* a time trend, but where we first detrend the dependent variable and other independent variables. The same conclusion holds with any number of independent variables and if the trend is quadratic or of some other polynomial degree.
@@ -194,6 +197,130 @@ This means that the estimates of primary interest, $\hat{\beta}_1$ and $\hat{\be
 If $t$ is omitted from (-@eq-regression_time_trend), then no detrending occurs, and $y_t$ might seem to be related to one or more of the $x_{jt}$ simply because each contains a trend. If the time trend is statistically significant, and the results change in important ways when a time trend is added to a regression, then the initial results without a trend should be treated with suspicion.
 
 The interpretation of $\hat{\beta}_1$ and $\hat{\beta}_2$ shows that it is a good idea to include a trend in the regression if any independent variable is trending, even if $y_t$ is not. If $y_t$ has no noticeable trend, but, say, $x_{1t}$ is growing over time, then excluding a trend from the regression may make it look as if $x_{1t}$ has no effect on $y_t$, even though movements of $x_{1t}$ about its trend may affect $y_t$. This will be captured if $t$ is included in the regression.
+
+Time series exhibiting a time trend can have seasonal patterns as well, in which case we should estimate a regression model with a time trend and seasonal dummy variables. The seasonal dummies should be one less than the distinct seasonal patterns. For example, if we observe quarterly differences, we may introduce three seasonal dummies, the one left out would be the base level, represented by the intercept.
+The regressions can then be interpreted as regressions using both detrended and deseasonalized series.
+
+
+## Computing R-Squared when the Dependent Variable Is Trending
+
+
+*R-squareds in time series regressions are often very high, especially compared with typical R-squareds for cross-sectional data.* Does this mean that we learn more about factors affecting $y$ from time series data? Not necessarily. On one hand, time series data often come in aggregate form (such as average hourly wages in the U.S. economy), and aggregates are often easier to explain than outcomes on individuals, families, or firms, which is often the nature of cross-sectional data. But the usual and adjusted $R$-squareds for time series regressions can be artificially high when the dependent variable is trending.
+
+Remember that $R^2$ is a measure of how large the error variance is relative to the variance of $y$. The formula for the adjusted $R$-squared shows this directly:
+
+$$
+\bar{R}^2 = 1 - (\hat{\sigma}_u^2 / \hat{\sigma}_y^2),
+$$
+
+where $\hat{\sigma}_u^2$ is the unbiased estimator of the error variance, $\hat{\sigma}_y^2 = \text{SST}/(n - 1)$, and $\text{SST} = \sum_{t=1}^n (y_t - \bar{y})^2$. Now, estimating the error variance when $y_t$ is trending is no problem, provided a time trend is included in the regression. However, when $E(y_t)$ follows, say, a linear time trend, $\text{SST}/(n - 1)$ is no longer an unbiased or consistent estimator of $\text{Var}(y_t)$. In fact, $\text{SST}/(n - 1)$ can substantially overestimate the variance in $y_t$, because it does not account for the trend in $y_t$.
+
+When the dependent variable satisfies linear, quadratic, or any other polynomial trends, it is easy to compute a goodness-of-fit measure that first nets out the effect of any time trend on $y_t$. The simplest method is to compute the usual $R$-squared in a regression where the dependent variable has already been detrended. 
+For example, if the model is 
+$$
+y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3t + u_t  ,
+$$ 
+then we first detrend $y_t$ by regressing $y_t$ on $t$:
+
+$$
+y_t = \alpha_0 + \alpha_1 t + e_t
+$${#eq-detrend_y}
+and obtain the residuals $\hat{e}_t = \ddot{y}_t$. 
+Then, we regress $\ddot{y}_t$ on $x_{t1},$  $x_{t2},$ and $t$:
+
+$$
+\ddot{y}_t = \beta_0 + \beta_1 x_{t1} + \beta_2 x_{t2} + \beta_3 t + u_t .
+$$
+
+The $R$-squared from this regression is
+
+$$
+R^2 = 1 - \frac{\text{SSR}}{\sum_{t=1}^n \ddot{y}_t^2},
+$${#eq-R2_time}
+
+where SSR is identical to the sum of squared residuals from 
+$$
+\hat{y}_t = \hat{\beta}_0 + \hat{\beta}_1x_{t1} + \hat{\beta}_2x_{t2} + \hat{\beta}_3t .
+$$ {#eq-original_model}
+
+Since $\sum_{t=1}^n \ddot{y}_t^2 \leq \sum_{t=1}^n (y_t - \bar{y})^2$ (and usually the inequality is strict), the $R$-squared from (-@eq-R2_time) is no greater than, and usually less than, the $R$-squared from (-@eq-original_model). (The sum of squared residuals is identical in both regressions.) When $y_t$ contains a strong linear time trend, (-@eq-R2_time) can be much less than the usual $R$-squared.
+
+The R-squared in (-@eq-R2_time) better reflects how well $x_{t1}$ and $x_{t2}$ explain $y_t$ because it nets out the effect of the time trend.
+
+An **adjusted R-squared** can also be computed based on (-@eq-R2_time). 
+
+$$
+\overline{R}^2 = 1 - \frac{\text{SSR}/(n-K)}{\sum_{t=1}^n \ddot{y}_t^2 / (n-p)},
+$$
+where $K$ is the $df$ in the usual regression (-@eq-original_model) (that includes any time trends), and $p$ is the number of trend parameters estimated in detrending $y_t.$
+
+In our example model (-@eq-regression_time_trend), we divide $SSR$ by $(n-4)$ and divide $\sum_{t=1}^n \ddot{y}_t^2$ by $(n-2),$ as there are two trend parameters estimated in detrending $y_t$ (-@eq-detrend_y). 
+
+
+## I(1) process
+
+
+When we are dealing with integrated processes of order one, there is an additional complication.
+Even if the two series have means that are not trending, a simple regression involving two independent $\mathrm I(1)$ series will often result in a significant $t$ statistic. To be more precise, let $\{x_t\}$ and $\{y_t\}$ be random walks generated by
+
+$$
+x_t = x_{t-1} + a_t, \; t=2,3,\ldots,
+$$
+and
+$$
+y_t = y_{t-1} + e_t, \; t=2,3,\ldots,
+$$
+where $\{a_t\}$ and $\{e_t\}$ are iid innovations, with mean zero and variances $\sigma^2_a$ and $\sigma^2_e,$ respectively.
+
+
+Assume further that  $\{a_t\}$ and $\{e_t\}$ are independent processes. This implies that $\{x_t\}$ and $\{y_t\}$ are also independent. But if we run the simple regression
+
+$$
+y_t = \beta_0 + \beta_1 x_t + u_t
+$$
+and obtain the usual $t$ statistic for $\hat{\beta}_1$ and the usual R-squared, the results cannot be interpreted as if the variables are stationary ($\mathrm I(1)$).
+
+- The $t$ statistic will be significant a large percentage of the time, much larger than the nominal significance level. $\rightarrow$ This is called the spurious regression problem, where $y_t$ and $x_t$ are independent, but an OLS regression indicates a significant $t$ statistic.
+
+    For the $t$ statistic of $\hat{\beta}_1$ to have an approximate standard normal distribution in large samples, at a minimum, $\{u_t\}$ should be a mean zero, serially uncorrelated process. But under 
+    $$
+    \mathrm H_0: \beta_1=0, y_t = \beta_0 + u_t
+    $$
+    the assumption was violated.
+    
+    To see this, we assume the initial value $y_1=0$, then under $\mathrm H_0$ we have $\beta_0=0,$ and 
+    $$
+    u_t = y_t = \sum_{j=1}^t e_j.
+    $$
+    In other words, $\{u_t\}$ is a random walk under $\mathrm H_0$ which clearly violate even the asymptotic version of the Gauss-Markov assumptions.
+
+
+- Including a time trend does NOT change the conclusion. If $y_t$ or $x_t$ is a random walk with drift and a time trend is NOT included, then spurious regression problem is even worse.
+
+- The behavior of R-squared is nonstandard.
+
+    In regressions with $\mathrm I(0)$ time series variables, the R-squared converges in probability to the population R-squared: $1-\sigma^2_u/\sigma^2_y.$
+    
+    But in regressions with $\mathrm I(1)$ processes, rather than the R-squared having a well-defined plim, it actually converges to a *random variable*. Formalizing this notion is well beyond the scope of this text.
+    
+    The implication is that the R-squared is large with high probability, even though $y_t$ and $x_t$ are independent time series processes.
+    
+    
+The same considerations arise with multiple independent variables, each of which may be $\mathrm I(1)$ or some of which may be $\mathrm I(0)$. If $y_t$ is $\mathrm I(1)$ and at least some of the explanatory variables are $\mathrm I(1)$, the regression results may be spurious.
+    
+This does not mean that regressions involving any $\mathrm I(1)$ process are problematic. There are remedies for using the $\mathrm I(1)$ processes:
+
+- The first difference of an $\mathrm I(1)$ process can be used to transform it to be weakly dependent (and often stationary).
+
+- Regressing an $\mathrm I(1)$ dependent variable on an $\mathrm I(1)$ independent variable can be informative, but only if these variables are related in a precise sense -- Cointegration.
+
+
+
+
+
+
+
+
 
 
 

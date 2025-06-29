@@ -5,8 +5,211 @@ format: html
 
 Provided the time series we use are weakly dependent, usual OLS inference procedures are valid under assumptions weaker than the classical linear model assumptions. Unfortunately, many economic time series cannot be characterized by weak dependence.
 
-Using time series with strong dependence in regression analysis poses no problem, if the CLM assumptions in finite samples hold. But the usual inference procedures are very susceptible to violation of these assumptions when the data are not weakly dependent, because then we cannot appeal to the law of large numbers and the central limit theorem. In this section, we provide some examples of highly persistent (or strongly dependent) time series and show how they can be transformed for use in regression
-analysis.
+Using time series with strong dependence in regression analysis poses no problem, if the CLM assumptions in finite samples hold. But the usual inference procedures are very susceptible to violation of these assumptions when the data are not weakly dependent, because then we cannot appeal to the law of large numbers and the central limit theorem. In this section, we provide some examples of highly persistent (or strongly dependent) time series and show how they can be transformed for use in regression analysis.
 
-When the time series are highly persistent (they have unit roots), we must exercise extreme caution in using them directly in regression models. An alternative to using the levels is to use the first differences of
-the variables. For most highly persistent economic time series, the first difference is weakly dependent. Using first differences changes the nature of the model, but this method is often as informative as a model in levels. When data are highly persistent, we usually have more faith in first-difference results. 
+When the time series are highly persistent (they have unit roots), we must exercise extreme caution in using them directly in regression models. An alternative to using the levels is to use the first differences of the variables. For most highly persistent economic time series, the first difference is weakly dependent. Using first differences changes the nature of the model, but this method is often as informative as a model in levels. When data are highly persistent, we usually have more faith in first-difference results. 
+
+
+## Testing for Unit Roots
+
+We begin with an AR(1) model:
+
+$$
+u_t = \alpha + \rho u_{t-1} + \varepsilon_t, \; t = 2,3,\ldots,
+$${#eq-I1_model}
+where $\{\varepsilon_t\}$ has zero mean, given past observed $u$:
+
+$$
+\E[\varepsilon_t\mid u_{t-1}, u_{t-2}, \ldots] = 0,
+$${#eq-assumption}
+that is, $\{\varepsilon_t\}$ is said to be a martingale difference sequence w.r.t. $\{u_{t-1}, u_{t-2}, \ldots\}$. If  $\{\varepsilon_t\}$ is said to be i.i.d. with zero mean, then it also satisfies the assumption (-@eq-assumption).
+
+- When $\alpha=0$ and $\rho=1$, then $\{u_t\}$ follows a random walk without drift.
+- When $\alpha\ne 0$ and $\rho=1$, then $\{u_t\}$ follows a random walk with drift. We say that the model allows for a *deterministic drift*. 
+
+Therefore, the null hypothesis is that $\{u_t\}$ has a unit root:
+
+$$
+\begin{split}
+\mathrm H_0:  \rho=1 \\
+\mathrm H_1:  \rho<1 \\
+\end{split}
+$$
+Note that $\mathrm H_1$ is a one-sided alternative. We do not consider that $\rho>1$ as it implies that $u_t$ is explosive. 
+
+When $\abs{\rho}<1,$ $\{u_t\}$ is a stable AR(1) process, which means it is weakly dependent or asymptotically uncorrelated. 
+
+
+
+### Dickey-Fuller (DF) Test
+
+To test for a unit root, we reparameterize the AR(1) model.
+
+Subtract $u_{t-1}$ from both sides of (-@eq-I1_model) and define $\theta=(\rho-1)$:
+
+$$
+\begin{split}
+u_t - u_{t-1} &= \alpha + \rho u_{t-1} - u_{t-1} + \varepsilon_t \\
+\Rightarrow \Delta u_t &= \alpha + (\rho - 1)u_{t-1} + \varepsilon_t
+\end{split}
+$$
+Define $\theta = \rho - 1$:
+
+$$
+\Delta u_t = \alpha + \theta u_{t-1} + \varepsilon_t
+$$
+Testing Hypotheses
+
+- $\mathrm H_0: \theta = 0$ (i.e., $\rho = 1$, unit root)
+- $\mathrm H_1: \theta < 0$ (i.e., $\rho < 1$, stationary)
+
+
+Testing Procedure
+
+1. Estimate:
+
+   $$
+   \Delta u_t = \alpha + \theta u_{t-1} + \varepsilon_t
+   $$
+
+2. Compute the **t-statistic** for $\hat{\theta}$.
+
+3. Compare it to the **Dickey-Fuller critical values** for the case **with intercept (no trend)**.
+
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+<caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+ Asymptotic Critical Values for Unit Root <em>t</em> Test: No Time Trend
+</caption>
+<tbody>
+  <tr style="background-color: #f2e6cd; color: black;">
+    <th style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Significance level</th>
+    <th style="border: 1px solid #00a9e0; padding: 10px;">1%</th>
+    <th style="border: 1px solid #00a9e0; padding: 10px;">2.5%</th>
+    <th style="border: 1px solid #00a9e0; padding: 10px;">5%</th>
+    <th style="border: 1px solid #00a9e0; padding: 10px;">10%</th>
+  </tr>
+  <tr style="background-color: #eef7fc; color: black;">
+    <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Critical value</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.43</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.12</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;2.86</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;2.57</td>
+  </tr>
+</tbody>
+</table>
+
+
+
+### Augmented Dickey-Fuller (ADF) Test
+
+To account for serial correlation in the error term $\varepsilon_t$, we augment the regression with lagged differences:
+
+$$
+\Delta u_t = \alpha + \theta u_{t-1} + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t .
+$$ {#eq-ADF}
+
+Using $p=1$ as an example:
+
+$$
+\Delta u_t = \alpha + \theta u_{t-1} + \gamma_1 \Delta u_{t-1} + \varepsilon_t .
+$$
+where $\abs{\gamma_1}<1$. This ensures that, under $\mathrm H_0: \theta=0,$ $\{\Delta u_{t}\}$ follows a stable AR(1) model. Under the alternative $\mathrm H_1: \theta<0,$ $\{u_t\}$ follows a stable AR(2) model.
+
+This extended version of the Dickey-Fuller test is usually called the augmented Dickey-Fuller test because the regression has been augmented with the lagged changes, $\Delta u_{t-j}.$ The critical values and rejection rule are the same as before. The inclusion of the lagged changes in (-@eq-ADF) is intended to clean up any serial correlation in $\Delta u_{t}.$
+
+Often, the lag length is dictated by the frequency of the data (as well as the sample size). For annual data, one or two lags usually suffice. For monthly
+data, we might include 12 lags. But there are no hard rules to follow in any case.
+
+### Deterministic Trend
+
+For series that have clear time trends, we need to modify the test for unit roots. A trend-stationary process, which has a linear trend in its mean but is $\mathrm I(0)$ about its trend, can be mistaken for a unit root process if we do not control for a time trend in the Dickey-Fuller regression. In other words, if we carry out the usual DF or augmented DF test on a trending but $\mathrm I(0)$ series, we will probably have little power for rejecting a unit root.
+
+If a deterministic trend is expected in the data, the corresponding model in levels (before differencing) is:
+
+$$
+u_t = \alpha + \beta t + \rho u_{t-1} + \varepsilon_t, \quad t = 2,3,\ldots
+$$
+
+This allows the test to account for both a **deterministic linear trend** and a possible **unit root**.
+
+We change the ADF regression to:
+
+$$
+\Delta u_t = \alpha + \delta t + \theta u_{t-1} + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t
+$$
+where again the testing Hypotheses are
+
+- $\mathrm H_0: \theta = 0$ 
+
+    If $\{u_t\}$ has a unit root, then 
+    $$
+    \Delta u_t = \alpha + \delta t + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t ,
+    $$
+    so the change in $u_t$ has a mean linear in $t$ unless $\delta=0.$
+    
+    It is unusal for the first difference of an economic series to have a linear trend, so a more appropriate null hypothesis is probably 
+    
+    $$
+    \mathrm H_0: \theta = 0, \delta = 0
+    $$
+    
+- $\mathrm H_1: \theta < 0$ (trend-stationary process)
+
+When we include a time trend in the regression, the critical values of the test change. Intuitively, this occurs because detrending a unit root process tends to make it look more like an $\mathrm I(0)$process. Therefore, we require a larger magnitude for the $t$ statistic in order to reject $\mathrm H_0.$ The Dickey-Fuller critical values for the $t$ test that includes a time trend are given in following table.
+
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+<caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+ Asymptotic Critical Values for Unit Root <em>t</em> Test: Linear Time Trend
+</caption>
+<tbody>
+<tr style="background-color: #f2e6cd; color: black;">
+    <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Significance level</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">1%</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">2.5%</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">5%</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">10%</td>
+</tr>
+<tr style="background-color: #eef7fc; color: black;">
+    <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Critical value</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.96</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.66</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.41</td>
+    <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.12</td>
+</tr>
+</tbody>
+</table>
+
+## Cointegration
+
+The notion of cointegration, which was given a formal treatment in @Engle1987, makes regressions involving $\mathrm I(1)$ variables potentially meaningful.
+
+
+If $\{y_t: t=0,1,\ldots\}$ and $\{x_t: t=0,1,\ldots\}$ are two $\mathrm I(1)$ processes, then, in general, 
+
+$$
+y_t - \beta x_t
+$$
+is an $\mathrm I(1)$ process for any number $\beta.$ Nevertheless, it is *possible* that for some $\beta \ne 0,$ $y_t - \beta x_t$ is an $\mathrm I(0)$ process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.
+
+If such a $\beta$ exists, we say that $y$ and $x$ are cointegrated, and we call $beta$ the cointegration parameter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
