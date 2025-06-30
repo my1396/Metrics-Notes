@@ -23,6 +23,8 @@ $$
 $${#eq-exo-contemp}
 :::
 
+Note that we have **weakened** the sense in which the explanatory variables must be **exogenous**, but weak dependence is required in the underlying time series.
+
 @eq-exo-contemp implies
 
 $$

@@ -680,7 +680,16 @@ window.Quarto = {
   <li><a href="#augmented-dickey-fuller-adf-test" id="toc-augmented-dickey-fuller-adf-test" class="nav-link" data-scroll-target="#augmented-dickey-fuller-adf-test"><span class="header-section-number">14.1.2</span> Augmented Dickey-Fuller (ADF) Test</a></li>
   <li><a href="#deterministic-trend" id="toc-deterministic-trend" class="nav-link" data-scroll-target="#deterministic-trend"><span class="header-section-number">14.1.3</span> Deterministic Trend</a></li>
   </ul></li>
-  <li><a href="#cointegration" id="toc-cointegration" class="nav-link" data-scroll-target="#cointegration"><span class="header-section-number">14.2</span> Cointegration</a></li>
+  <li><a href="#cointegration" id="toc-cointegration" class="nav-link" data-scroll-target="#cointegration"><span class="header-section-number">14.2</span> Cointegration</a>
+  <ul class="collapse">
+  <li><a href="#engle-granger-test" id="toc-engle-granger-test" class="nav-link" data-scroll-target="#engle-granger-test"><span class="header-section-number">14.2.1</span> Engle-Granger Test</a></li>
+  </ul></li>
+  <li><a href="#cointegrated-series" id="toc-cointegrated-series" class="nav-link" data-scroll-target="#cointegrated-series"><span class="header-section-number">14.3</span> Cointegrated Series</a>
+  <ul class="collapse">
+  <li><a href="#leads-and-lags-estimator" id="toc-leads-and-lags-estimator" class="nav-link" data-scroll-target="#leads-and-lags-estimator"><span class="header-section-number">14.3.1</span> Leads and Lags Estimator</a></li>
+  </ul></li>
+  <li><a href="#error-correction-models" id="toc-error-correction-models" class="nav-link" data-scroll-target="#error-correction-models"><span class="header-section-number">14.4</span> Error Correction Models</a></li>
+  <li><a href="#noncointegrated-series" id="toc-noncointegrated-series" class="nav-link" data-scroll-target="#noncointegrated-series"><span class="header-section-number">14.5</span> Noncointegrated Series</a></li>
   </ul>
 </nav>
     </div>
@@ -823,7 +832,7 @@ u_t = \alpha + \beta t + \rho u_{t-1} + \varepsilon_t, \quad t = 2,3,\ldots
 <p>We change the ADF regression to:</p>
 <p><span class="math display">\[
 \Delta u_t = \alpha + \delta t + \theta u_{t-1} + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t
-\]</span> where again the testing Hypotheses are</p>
+\]</span> where again the testing hypotheses are</p>
 <ul>
 <li><p><span class="math inline">\(\mathrm H_0: \theta = 0\)</span></p>
 <p>If <span class="math inline">\(\{u_t\}\)</span> has a unit root, then <span class="math display">\[
@@ -885,8 +894,189 @@ Critical value
 <p>If <span class="math inline">\(\{y_t: t=0,1,\ldots\}\)</span> and <span class="math inline">\(\{x_t: t=0,1,\ldots\}\)</span> are two <span class="math inline">\(\mathrm I(1)\)</span> processes, then, in general,</p>
 <p><span class="math display">\[
 y_t - \beta x_t
-\]</span> is an <span class="math inline">\(\mathrm I(1)\)</span> process for any number <span class="math inline">\(\beta.\)</span> Nevertheless, it is <em>possible</em> that for some <span class="math inline">\(\beta \ne 0,\)</span> <span class="math inline">\(y_t - \beta x_t\)</span> is an <span class="math inline">\(\mathrm I(0)\)</span> process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.</p>
-<p>If such a <span class="math inline">\(\beta\)</span> exists, we say that <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are cointegrated, and we call <span class="math inline">\(beta\)</span> the cointegration parameter.</p>
+\]</span></p>
+<p>is an <span class="math inline">\(\mathrm I(1)\)</span> process for any number <span class="math inline">\(\beta.\)</span> Nevertheless, it is <em>possible</em> that for some <span class="math inline">\(\beta \ne 0,\)</span> <span class="math inline">\(y_t - \beta x_t\)</span> is an <span class="math inline">\(\mathrm I(0)\)</span> process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.</p>
+<p>If such a <span class="math inline">\(\beta\)</span> exists, we say that <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are cointegrated, and we call <span class="math inline">\(\beta\)</span> the cointegration parameter.</p>
+<section id="engle-granger-test" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="engle-granger-test"><span class="header-section-number">14.2.1</span> Engle-Granger Test</h3>
+<p>The Engle-Granger test is used for testing the <strong>existence of a long-run equilibrium relationship (cointegration)</strong> between two or more non-stationary time series.</p>
+<p>It is a two-step procedure:</p>
+<ol type="1">
+<li><p>Estimate the Cointegrating Regression</p>
+<p>Suppose <span class="math inline">\(Y_t\)</span> and <span class="math inline">\(X_t\)</span> are non-stationary (typically <span class="math inline">\(I(1)\)</span>) series that neither has a drift. Regress: <span class="math display">\[
+y_t = \alpha + \beta x_t + u_t
+\]</span><br>
+using OLS, and save the residuals <span class="math inline">\(\hat{u}_t\)</span>.</p></li>
+<li><p>Test the Residuals for Stationarity</p>
+<p>Apply the Dickey-Fuller (DF) test or Augmented Dickey-Fuller (ADF) test to the residuals:<br>
+<span class="math display">\[
+\Delta \hat{u}_t = \alpha + \theta \hat{u}_{t-1} + \sum_{i=1}^p \gamma_i \Delta \hat{u}_{t-i} + \varepsilon_t
+\]</span><br>
+If the residuals are stationary (i.e., reject the null of a unit root), the variables are <strong>cointegrated</strong>.</p>
+<p>We compare the <span class="math inline">\(t\)</span> statistic of <span class="math inline">\(\hat{\theta}\)</span> to the critical value in the following table. If the <span class="math inline">\(t\)</span> statistic is below the critical value, we have evidence that <span class="math inline">\(y_t - \beta x_t\)</span> is <span class="math inline">\(\mathrm I(0)\)</span> for some <span class="math inline">\(\beta;\)</span> that is, <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are cointegrated.</p></li>
+</ol>
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+<caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+Asymptotic Critical Values for Cointegration <em>t</em> Test: No Time Trend
+</caption>
+<tbody>
+<tr style="background-color: #f2e6cd; color: black;">
+<td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Significance level
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+1%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+2.5%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+5%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+10%
+</td>
+</tr>
+<tr style="background-color: #eef7fc; color: black; text-align: center;">
+<td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Critical value
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.90
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.59
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.34
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.04
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that we must get a <span class="math inline">\(t\)</span> statistic much larger in magnitude to find cointegration than if we used the usual DF critical values. This happens because OLS, which minimizes the sum of squared residuals, tends to produce residuals that look like an <span class="math inline">\(\mathrm I(0)\)</span> sequence even if <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are not cointegrated.</p>
+<p>If <span class="math inline">\(y_t\)</span> and/or <span class="math inline">\(x_t\)</span> contain a drift term, we change the regression to</p>
+<p><span class="math display">\[
+y_t = \alpha + \delta t + \beta x_t + u_t ,
+\]</span> and apply the usual DF or ADF test to the residuals <span class="math inline">\(\hat{u}_t.\)</span> The asymptotic critical values are given as follows.</p>
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+<caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+Asymptotic Critical Values for Cointegration <em>t</em> Test: Linear Time Trend
+</caption>
+<tbody>
+<tr style="background-color: #f2e6cd; color: black;">
+<td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Significance level
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+1%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+2.5%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+5%
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+10%
+</td>
+</tr>
+<tr style="background-color: #eef7fc; color: black; text-align: center;">
+<td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">
+Critical value
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−4.32
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−4.03
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.78
+</td>
+<td style="border: 1px solid #00a9e0; padding: 10px;">
+−3.50
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="cointegrated-series" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="cointegrated-series"><span class="header-section-number">14.3</span> Cointegrated Series</h2>
+<section id="leads-and-lags-estimator" class="level3" data-number="14.3.1">
+<h3 data-number="14.3.1" class="anchored" data-anchor-id="leads-and-lags-estimator"><span class="header-section-number">14.3.1</span> Leads and Lags Estimator</h3>
+<p>When <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are <span class="math inline">\(\mathrm I(1)\)</span> and cointegrated, we can write</p>
+<p><span class="math display">\[
+y_t = \alpha + \beta x_t + u_t ,
+\]</span> where <span class="math inline">\(\{u_t\}\)</span> is a zero mean, <span class="math inline">\(\mathrm I(0)\)</span> process.</p>
+<p>We want to test hypotheses about the cointegrating parameter <span class="math inline">\(\beta.\)</span></p>
+<p>Generally, <span class="math inline">\(\{u_t\}\)</span> contains serial correlation, but this does NOT affect consistency of OLS. That is, OLS yields consistent estimates for <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\alpha.\)</span></p>
+<p>The issue is: because <span class="math inline">\(x_t\)</span> is <span class="math inline">\(\mathrm I(1),\)</span> the usual inference procedures do NOT necessarily apply. OLS is not asymptotically normally distributed, and the t statistic for <span class="math inline">\(\hat{\beta}\)</span> does not necessarily have an approximate <span class="math inline">\(t\)</span> distribution.</p>
+<p>If <span class="math inline">\(\{x_t\}\)</span> is strictly exogenous, and the errors are homoskedastic, serially uncorrelated, and normally distributed, the OLS estimator is also normally distributed (conditional on the explanatory variables) and the <span class="math inline">\(t\)</span> statistic has an exact <span class="math inline">\(t\)</span> distribution.</p>
+<p>Unfortunately, these assumptions are too strong to apply to most situations. The notion of cointegration implies nothing about the relationship between <span class="math inline">\(\{x_t\}\)</span> and <span class="math inline">\(\{u_t\}\)</span>—indeed, they can be arbitrarily correlated.</p>
+<p>The lack of strict exogeneity of <span class="math inline">\(\{x_t\}\)</span> can be fixed by writing <span class="math inline">\(u_t\)</span> as a function of the <span class="math inline">\(\Delta x_s\)</span> for all <span class="math inline">\(s\)</span> close to <span class="math inline">\(t.\)</span></p>
+<p>For example,</p>
+<p><span class="math display">\[
+u_t = \eta + \phi_0 \Delta x_t + \phi_1 \Delta x_{t-1} + \phi_2 \Delta x_{t-2} + \gamma_1 \Delta x_{t+1} + \gamma_2 \Delta x_{t+2} + e_t ,
+\]</span></p>
+<p>where, by construction, <span class="math inline">\(e_t\)</span> is uncorrelated with each of <span class="math inline">\(\Delta x_s\)</span> appearing in the equation.</p>
+<p>Plugging in <span class="math inline">\(u_t\)</span> into the original regression, we get</p>
+<p><span id="eq-cointegrating-par"><span class="math display">\[
+\begin{split}
+y_t &amp;= \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + \phi_1 \Delta x_{t-1} + \phi_2 \Delta x_{t-2} \\
+&amp;\phantom{=} \;+ \gamma_1 \Delta x_{t+1} + \gamma_2 \Delta x_{t+2} + e_t .
+\end{split}
+\tag{14.4}\]</span></span></p>
+<p>The OLS estimator of <span class="math inline">\(\beta\)</span> from (<a href="#eq-cointegrating-par" class="quarto-xref"><span>14.4</span></a>) is called the <strong>leads and lags estimator</strong> because it employs <span class="math inline">\(\Delta x.\)</span></p>
+<p>This equation looks a bit strange because future <span class="math inline">\(\Delta x_{s}\)</span> appear with both current and lagged <span class="math inline">\(\Delta x_{t}.\)</span> The key is that the coefficient on <span class="math inline">\(x_t\)</span> is still <span class="math inline">\(\beta\)</span>, and, by construction, <span class="math inline">\(x_t\)</span> is now strictly exogenous in this equation.</p>
+<p>The strict exogeneity assumption is the important condition needed to obtain an approximately normal <span class="math inline">\(t\)</span> statistic for <span class="math inline">\(\hat\beta\)</span>. If <span class="math inline">\(u_t\)</span> is uncorrelated with all <span class="math inline">\(\Delta x_{s},\)</span> <span class="math inline">\(x\ne t\)</span>, then we can drop the leads and lags of the changes and simply include the contemporaneous change,<span class="math inline">\(\Delta x_{t}.\)</span> Then, the equation we estimate looks more standard but still includes the first difference of <span class="math inline">\(x_t\)</span> along with its level: <span class="math display">\[
+y_t = \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + e_t .
+\]</span> In effect, adding <span class="math inline">\(\Delta x_{t}\)</span> solves any contemporaneous endogeneity between <span class="math inline">\(x_t\)</span> and <span class="math inline">\(u_t\)</span>.</p>
+<p>The only issue we must worry about in (<a href="#eq-cointegrating-par" class="quarto-xref"><span>14.4</span></a>) is the possibility of serial correlation in <span class="math inline">\(\{e_t\}.\)</span> This can be dealt with by</p>
+<ul>
+<li>using a serial correlation-robust standard error for <span class="math inline">\(\hat\beta;\)</span> or</li>
+<li>using a standard AR(1) correction, e.g., Cochrane-Orcutt (CO) estimation and Prais-Winston (PW) estimation. (See chap 12.3, Wooldridge, Introductory Econometrics)</li>
+</ul>
+</section>
+</section>
+<section id="error-correction-models" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="error-correction-models"><span class="header-section-number">14.4</span> Error Correction Models</h2>
+<p>Consider the model</p>
+<p><span class="math display">\[
+\Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
+\]</span></p>
+<p>where <span class="math inline">\(u_t\)</span> has zero mean given <span class="math inline">\(\Delta y_{t-1},\)</span> <span class="math inline">\(\Delta x_t,\)</span> <span class="math inline">\(\Delta x_{t-1},\)</span> and further lags.</p>
+<p>If <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are cointegrated with parameter <span class="math inline">\(\beta,\)</span> then we can include lags of</p>
+<p><span class="math display">\[
+s_t = y_t - \beta x_t
+\]</span> in the equation.</p>
+<p>In the simplest case, we include one lag of <span class="math inline">\(s_t:\)</span></p>
+<p><span id="eq-error_correction_model"><span class="math display">\[
+\Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + \delta s_{t-1} + u_t,  
+\tag{14.5}\]</span></span> where <span class="math inline">\(\E[u_t\mid \Ical_{t-1}] =0,\)</span> and <span class="math inline">\(\Ical_{t-1}\)</span> contains information on all past values of <span class="math inline">\(x\)</span> and <span class="math inline">\(y.\)</span></p>
+<p>The terms <span class="math inline">\(\delta s_{t-1} = \delta (y_{t-1} - \beta x_{t-1})\)</span> is called the error correction term and the model (<a href="#eq-error_correction_model" class="quarto-xref"><span>14.5</span></a>) is called the error correction model.</p>
+<p>For simplicity, consider the model without lags of <span class="math inline">\(\Delta y_t\)</span> and <span class="math inline">\(\Delta x_t:\)</span></p>
+<p><span class="math display">\[
+\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t +  \delta (y_{t-1} - \beta x_{t-1}) + u_t,  
+\]</span> where <span class="math inline">\(\delta&lt;0.\)</span></p>
+<ul>
+<li>If <span class="math inline">\(y_{t-1} &gt; \beta x_{t-1},\)</span> then <span class="math inline">\(y\)</span> in the previous period has overshot the equilibrium; because <span class="math inline">\(\delta&lt;0,\)</span> the error correction term works to push <span class="math inline">\(y\)</span> back toward the equilibrium.</li>
+<li>If <span class="math inline">\(y_{t-1} &lt; \beta x_{t-1},\)</span> the error correction term works includes a positive change in <span class="math inline">\(y\)</span> back toward the equilibrium.</li>
+</ul>
+<p>The cointegrating parameter <span class="math inline">\(\beta\)</span> can be estimated using the OLS estimator or the leads and lags estimator. <span class="citation" data-cites="Engle1987">Engle and Granger (<a href="#ref-Engle1987" role="doc-biblioref">1987</a>)</span> shows that the asymptotic efficiency of the estimators of the parameters in the error correction model is unaffected by the preliminary estimation of <span class="math inline">\(\beta.\)</span></p>
+<p>The choice of <span class="math inline">\(\hat\beta\)</span> will generally have an effect on the estimated error correction parameters in any particular sample, but we have no systematic way of deciding which preliminary estimator of <span class="math inline">\(\beta\)</span> to use. The procedure of replacing <span class="math inline">\(\beta\)</span> with <span class="math inline">\(\hat\beta\)</span> is called the <strong>Engle-Granger two-step procedure</strong>.</p>
+</section>
+<section id="noncointegrated-series" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="noncointegrated-series"><span class="header-section-number">14.5</span> Noncointegrated Series</h2>
+<p>If <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are <span class="math inline">\(\mathrm I(1)\)</span> and are NOT cointegrated, we can estimate a dynamic model in first differences.</p>
+<p>As an example,</p>
+<p><span class="math display">\[
+\Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
+\]</span></p>
+<p>where <span class="math inline">\(u_t\)</span> has zero mean given <span class="math inline">\(\Delta y_{t-1},\)</span> <span class="math inline">\(\Delta x_t,\)</span> <span class="math inline">\(\Delta x_{t-1},\)</span> and further lags.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">

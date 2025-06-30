@@ -137,7 +137,7 @@ We change the ADF regression to:
 $$
 \Delta u_t = \alpha + \delta t + \theta u_{t-1} + \sum_{j=1}^{p} \gamma_j \Delta u_{t-j} + \varepsilon_t
 $$
-where again the testing Hypotheses are
+where again the testing hypotheses are
 
 - $\mathrm H_0: \theta = 0$ 
 
@@ -189,20 +189,204 @@ If $\{y_t: t=0,1,\ldots\}$ and $\{x_t: t=0,1,\ldots\}$ are two $\mathrm I(1)$ pr
 $$
 y_t - \beta x_t
 $$
+
 is an $\mathrm I(1)$ process for any number $\beta.$ Nevertheless, it is *possible* that for some $\beta \ne 0,$ $y_t - \beta x_t$ is an $\mathrm I(0)$ process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.
 
-If such a $\beta$ exists, we say that $y$ and $x$ are cointegrated, and we call $beta$ the cointegration parameter.
+If such a $\beta$ exists, we say that $y$ and $x$ are cointegrated, and we call $\beta$ the cointegration parameter.
+
+### Engle-Granger Test
+
+The Engle-Granger test is used for testing the **existence of a long-run equilibrium relationship (cointegration)** between two or more non-stationary time series.
+
+It is a two-step procedure:
+
+1. Estimate the Cointegrating Regression
+
+    Suppose $Y_t$ and $X_t$ are non-stationary (typically $I(1)$) series that neither has a drift. Regress:
+    $$
+    y_t = \alpha + \beta x_t + u_t
+    $$  
+    using OLS, and save the residuals $\hat{u}_t$.
+
+2. Test the Residuals for Stationarity
+    
+    Apply the Dickey-Fuller (DF) test or Augmented Dickey-Fuller (ADF) test to the residuals:  
+    $$
+    \Delta \hat{u}_t = \alpha + \theta \hat{u}_{t-1} + \sum_{i=1}^p \gamma_i \Delta \hat{u}_{t-i} + \varepsilon_t
+    $$  
+    If the residuals are stationary (i.e., reject the null of a unit root), the variables are **cointegrated**.
+    
+    We compare the $t$ statistic of $\hat{\theta}$ to the critical value in the following table.
+    If the $t$ statistic is below the critical value, we have evidence that $y_t - \beta x_t$ is $\mathrm I(0)$ for some $\beta;$ that is, $y_t$ and $x_t$ are cointegrated.
+    
+    
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+    <caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+     Asymptotic Critical Values for Cointegration <em>t</em> Test: No Time Trend
+    </caption>
+    <tbody>
+    <tr style="background-color: #f2e6cd; color: black;">
+        <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Significance level</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">1%</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">2.5%</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">5%</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">10%</td>
+    </tr>
+    <tr style="background-color: #eef7fc; color: black; text-align: center;">
+        <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Critical value</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.90</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.59</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.34</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.04</td>
+    </tr>
+    </tbody>
+</table>
+
+Note that we must get a $t$ statistic much larger in magnitude to find cointegration than if we used the usual DF critical values. This happens because OLS, which minimizes the sum of squared residuals, tends to produce residuals that look like an $\mathrm I(0)$ sequence even if $y_t$ and $x_t$ are not cointegrated.
+
+
+If $y_t$ and/or $x_t$ contain a drift term, we change the regression to
+
+$$
+y_t = \alpha + \delta t + \beta x_t + u_t ,
+$$
+and apply the usual DF or ADF test to the residuals $\hat{u}_t.$ The asymptotic critical values are given as follows.
+
+
+<table style="border-collapse: collapse; margin: 20px auto; text-align: center; font-family: Arial, sans-serif; width: 80%;">
+    <caption style="caption-side: top; background-color: #00a9e0; color: white; font-weight: bold; padding: 10px; text-align: left;">
+     Asymptotic Critical Values for Cointegration <em>t</em> Test: Linear Time Trend
+    </caption>
+    <tbody>
+    <tr style="background-color: #f2e6cd; color: black;">
+        <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Significance level</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">1%</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">2.5%</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">5%</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">10%</td>
+    </tr>
+    <tr style="background-color: #eef7fc; color: black; text-align: center;">
+        <td style="border: 1px solid #00a9e0; padding: 10px; text-align: left;">Critical value</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;4.32</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;4.03</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.78</td>
+        <td style="border: 1px solid #00a9e0; padding: 10px;">&minus;3.50</td>
+    </tr>
+    </tbody>
+</table>
 
 
 
+## Cointegrated Series
+
+### Leads and Lags Estimator
+
+When $y_t$ and $x_t$ are $\mathrm I(1)$ and cointegrated, we can write
+
+$$
+y_t = \alpha + \beta x_t + u_t ,
+$$
+where $\{u_t\}$ is a zero mean, $\mathrm I(0)$ process.
+
+We want to test hypotheses about the cointegrating parameter $\beta.$
+
+Generally, $\{u_t\}$ contains serial correlation, but this does NOT affect consistency of OLS. That is, OLS yields consistent estimates for $\beta$ and $\alpha.$
+
+The issue is: because $x_t$ is $\mathrm I(1),$ the usual inference procedures do NOT necessarily apply. OLS is not asymptotically normally distributed, and the t statistic for $\hat{\beta}$ does not necessarily have an approximate $t$ distribution.
+
+If $\{x_t\}$ is strictly exogenous, and the errors are homoskedastic, serially uncorrelated, and normally distributed, the OLS estimator is also normally distributed (conditional on the explanatory variables) and the $t$ statistic has an exact $t$ distribution.
+
+Unfortunately, these assumptions are too strong to apply to most situations. The notion of cointegration implies nothing about the relationship between $\{x_t\}$ and $\{u_t\}$—indeed, they can be arbitrarily correlated.
+
+The **lack of strict exogeneity** of $\{x_t\}$ can be fixed by writing $u_t$ as a function of the $\Delta x_s$ for all $s$ close to $t.$
+
+For example, 
+
+$$
+u_t = \eta + \phi_0 \Delta x_t + \phi_1 \Delta x_{t-1} + \phi_2 \Delta x_{t-2} + \gamma_1 \Delta x_{t+1} + \gamma_2 \Delta x_{t+2} + e_t ,
+$$
+
+where, by construction, $e_t$ is uncorrelated with each of $\Delta x_s$ appearing in the equation.
+
+Plugging in $u_t$ into the original regression, we get
+
+$$
+\begin{split}
+y_t &= \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + \phi_1 \Delta x_{t-1} + \phi_2 \Delta x_{t-2} \\
+&\phantom{=} \;+ \gamma_1 \Delta x_{t+1} + \gamma_2 \Delta x_{t+2} + e_t .
+\end{split}
+$$ {#eq-cointegrating-par}
+
+The OLS estimator of $\beta$ from (-@eq-cointegrating-par) is called the **leads and lags estimator** because it employs $\Delta x.$
+
+This equation looks a bit strange because future $\Delta x_{s}$ appear with both current and lagged $\Delta x_{t}.$ The key is that the coefficient on $x_t$ is still $\beta$, and, by construction, $x_t$ is now strictly exogenous in this equation. 
+
+The strict exogeneity assumption is the important condition needed to obtain an approximately normal $t$ statistic for $\hat\beta$. If $u_t$ is uncorrelated with all $\Delta x_{s},$ $x\ne t$, then we can drop the leads and lags of the changes and simply include the contemporaneous change,$\Delta x_{t}.$ Then, the equation we estimate looks more standard but still includes the first difference of $x_t$ along with its level: 
+$$
+y_t = \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + e_t .
+$$
+In effect, adding $\Delta x_{t}$ solves any contemporaneous endogeneity between $x_t$ and $u_t$.
+
+The only issue we must worry about in (-@eq-cointegrating-par) is the possibility of serial correlation in $\{e_t\}.$ This can be dealt with by 
+
+- using a serial correlation-robust standard error for $\hat\beta;$ or
+- using a standard AR(1) correction, e.g., Cochrane-Orcutt (CO) estimation and Prais-Winston (PW) estimation. (See chap 12.3, Wooldridge, Introductory Econometrics)
 
 
+## Error Correction Models
+
+Consider the model
+
+$$
+\Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
+$$
+
+where $u_t$ has zero mean given $\Delta y_{t-1},$ $\Delta x_t,$ $\Delta x_{t-1},$ and further lags.
+
+If $y_t$ and $x_t$ are cointegrated with parameter $\beta,$ then we can include lags of
+
+$$
+s_t = y_t - \beta x_t
+$$
+in the equation.
+
+In the simplest case, we include one lag of $s_t:$
+
+$$
+\Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + \delta s_{t-1} + u_t,  
+$$ {#eq-error_correction_model}
+where $\E[u_t\mid \Ical_{t-1}] =0,$ and $\Ical_{t-1}$ contains information on all past values of $x$ and $y.$
+
+The terms $\delta s_{t-1} = \delta (y_{t-1} - \beta x_{t-1})$ is called the error correction term and the model (-@eq-error_correction_model) is called the error correction model.
+
+For simplicity, consider the model without lags of $\Delta y_t$ and $\Delta x_t:$
+
+$$
+\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t +  \delta (y_{t-1} - \beta x_{t-1}) + u_t,  
+$$
+where $\delta<0.$
+
+- If $y_{t-1} > \beta x_{t-1},$ then $y$ in the previous period has overshot the equilibrium; because $\delta<0,$ the error correction term works to push $y$ back toward the equilibrium.
+-  If $y_{t-1} < \beta x_{t-1},$ the error correction term works includes a positive change in $y$ back toward the equilibrium.
+
+The cointegrating parameter $\beta$ can be estimated using the OLS estimator or the leads and lags estimator. @Engle1987 shows that the asymptotic efficiency of the estimators of the parameters in the error correction model is unaffected by the preliminary estimation of $\beta.$
 
 
+The choice of $\hat\beta$ will generally have an effect on the estimated error correction parameters in any particular sample, but we have no systematic way of
+deciding which preliminary estimator of $\beta$ to use. The procedure of replacing $\beta$ with $\hat\beta$ is called the **Engle-Granger two-step procedure**.
 
 
+## Noncointegrated Series
 
+If $y_t$ and $x_t$ are $\mathrm I(1)$ and are NOT cointegrated, we can estimate a dynamic model in **first differences**.
 
+As an example,
+
+$$
+\Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
+$$
+
+where $u_t$ has zero mean given $\Delta y_{t-1},$ $\Delta x_t,$ $\Delta x_{t-1},$ and further lags.
 
 
 
