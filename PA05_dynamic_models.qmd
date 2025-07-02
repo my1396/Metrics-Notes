@@ -500,6 +500,7 @@ the System GMM estimator involves a set of additional restrictions on the initia
 
 - Chapter 12, "Serial Correlation and Heteroskedasticity in Time Series Regressions." *Introductory Econometrics: A Modern Approach*, 7e by Jeffrey M. Wooldridge
 - Vladislav Morozov, "Interlude: Standard Dynamic Panel Estimators." Econometrics with Unobserved Heterogeneity, Course material, <https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-dynamic-panel-iv.html#extra-endogeneity-and-the-within-estimator>
+- Dynamic panel in Stata: <https://janditzen.github.io/xtdcce2/>
 
 
 

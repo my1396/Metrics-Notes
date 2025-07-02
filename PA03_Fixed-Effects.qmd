@@ -128,7 +128,7 @@ Under @eq-within-lecture-random-intercept, <span style='color:#008B45'>the withi
 The within (fixed effects) estimator is obtained by simply pooling the data across $i$ and $t$ in @eq-within_transformed and applying OLS to it. Specifically, the estimator is given by
 
 $$
-\hat{\bbeta}^W = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i \tilde{\mathbf{y}}_i.
+\hat{\bbeta}^W = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i'\, \tilde{\mathbf{y}}_i.
 $${#eq-within_representation_random_intercept}
 
 
@@ -136,7 +136,7 @@ $${#eq-within_representation_random_intercept}
 
 The within estimator enjoys several desirable properties if the random intercept model reflects the underlying causal model. Most of these properties can be derived from its sampling error representation
 $$
-\hat{\bbeta}^W = \bbeta + \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i \tilde{\bu}_i.
+\hat{\bbeta}^W = \bbeta + \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bu}_i.
 $${#eq-within-sampling-error-homogeneous}
 
 - $\hat{\bbeta}^W$ is unbiased for $\bbeta$. To show this, it is sufficient to notice that strict exogeneity of $\bu_i$ with respect to $\bX_i$ implies strict exogeneity of $\tilde{\bu}_i$ with respect to $\tilde{\bX}_i$:
@@ -149,13 +149,71 @@ It follows that the mean of the second term in @eq-within-sampling-error-homogen
 \E[\hat{\bbeta}^W] = \bbeta.
  $$
 
+
+- The variance of $\hat{\bbeta}^W$ is
+
+    $$
+    \bV_{\hat{\bbeta}^W} = \var(\hat{\bbeta}^W\mid \bX) = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \left( \sum_{i=1}^{N} \tilde{\bX}_i'\, \E[\tilde{\bu}_i \tilde{\bu}_i'\mid \bX_i] \,\tilde{\bX}_i \right) \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} .
+    $$
+    Let 
+    $$
+    \bSigma_i = \E[\tilde{\bu}_i \tilde{\bu}_i'\mid \bX_i] 
+    $$
+    be the $T\times T$ conditional matrix of the idiosyncratic errors. We can rewrite $\bV_{\hat{\bbeta}^W}$ as
+    
+    $$
+    \bV_{\hat{\bbeta}^W} = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \left( \sum_{i=1}^{N} \tilde{\bX}_i'\, \bSigma_i \,\tilde{\bX}_i \right) \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} .
+    $$
+    
+    If we assume the idiosyncratic errors are homoskedastic and serially uncorrelated:
+    
+    $$
+    \begin{aligned}
+    \E(u_{it}^2 \mid \bX_i) &= \sigma^2_u \\
+    \E(u_{is}u_{it} \mid \bX_i) &= 0 \quad (x\ne t)
+    \end{aligned}
+    $$
+    
+    In this case, 
+    
+    $$
+    \bSigma_i = \mathbf I_i \sigma^2_u .
+    $$
+    
+    $\bV_{\hat{\bbeta}^W}$ simplifies to
+    
+    $$
+    \bV_{\hat{\bbeta}^W}^0 = \sigma^2_u \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} .
+    $$
+
 - $\hat{\bbeta}^W$ is consistent for $\bbeta$ and asymptotically normal, provided a standard rank condition holds for $\tilde{\bX}_i$:
 $$
-\hat{\bbeta}^W \xrightarrow{p} \bbeta, \quad \sqrt{N}(\hat{\bbeta}^W - \bbeta) \Rightarrow N(0, \Sigma).  
+\hat{\bbeta}^W \xrightarrow{p} \bbeta, \quad \sqrt{N}(\hat{\bbeta}^W - \bbeta) \Rightarrow N(0, \bV_{\hat{\bbeta}^W}).  
 $${#eq-within_asymptotic}
 
 
 Since $\bbeta$ is the average coefficient vector in this homogeneous model, we conclude that the within estimator consistently estimates average coefficients under the random intercept model ([-@eq-within-lecture-random-intercept]).
+
+
+- Covariance matrix estimation
+
+    An estimator for $\bV_{\hat{\bbeta}^W}^0$ is
+    
+    $$
+    \widehat{\bV}_{\hat{\bbeta}^W}^0 = \hat{\sigma}^2_u \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1}
+    $$
+    where $\hat{\sigma}^2_u$ is an unbiased estimator of $\sigma^2_u$ given by:
+    
+    $$
+    \hat{\sigma}^2_u = \frac{\sum_{i=1}^{N}\sum_{t=1}^{T}\widehat{\widetilde{u}}_{it}^2}{NT-N-K} .
+    $$
+
+
+- A covariance matrix estimator which allows $u_{it}$ to be heteroskedastic and serially correlated across $t$ is the cluster-robust covariance matrix estimator, clustered by individual
+
+$$
+\widehat{\bV}_{\hat{\bbeta}^W}^{\text{cluster}} = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \left( \sum_{i=1}^{N} \tilde{\bX}_i'\, \widehat{\widetilde{\bu}}_{i}\widehat{\widetilde{\bu}}_{i}' \,\tilde{\bX}_i \right) \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} 
+$$
 
 ## Between-groups Estimator
 

@@ -1017,7 +1017,7 @@ y_t = \alpha + \beta x_t + u_t ,
 <p>The issue is: because <span class="math inline">\(x_t\)</span> is <span class="math inline">\(\mathrm I(1),\)</span> the usual inference procedures do NOT necessarily apply. OLS is not asymptotically normally distributed, and the t statistic for <span class="math inline">\(\hat{\beta}\)</span> does not necessarily have an approximate <span class="math inline">\(t\)</span> distribution.</p>
 <p>If <span class="math inline">\(\{x_t\}\)</span> is strictly exogenous, and the errors are homoskedastic, serially uncorrelated, and normally distributed, the OLS estimator is also normally distributed (conditional on the explanatory variables) and the <span class="math inline">\(t\)</span> statistic has an exact <span class="math inline">\(t\)</span> distribution.</p>
 <p>Unfortunately, these assumptions are too strong to apply to most situations. The notion of cointegration implies nothing about the relationship between <span class="math inline">\(\{x_t\}\)</span> and <span class="math inline">\(\{u_t\}\)</span>—indeed, they can be arbitrarily correlated.</p>
-<p>The lack of strict exogeneity of <span class="math inline">\(\{x_t\}\)</span> can be fixed by writing <span class="math inline">\(u_t\)</span> as a function of the <span class="math inline">\(\Delta x_s\)</span> for all <span class="math inline">\(s\)</span> close to <span class="math inline">\(t.\)</span></p>
+<p>The <strong>lack of strict exogeneity</strong> of <span class="math inline">\(\{x_t\}\)</span> can be fixed by writing <span class="math inline">\(u_t\)</span> as a function of the <span class="math inline">\(\Delta x_s\)</span> for all <span class="math inline">\(s\)</span> close to <span class="math inline">\(t.\)</span></p>
 <p>For example,</p>
 <p><span class="math display">\[
 u_t = \eta + \phi_0 \Delta x_t + \phi_1 \Delta x_{t-1} + \phi_2 \Delta x_{t-2} + \gamma_1 \Delta x_{t+1} + \gamma_2 \Delta x_{t+2} + e_t ,
@@ -1071,7 +1071,7 @@ s_t = y_t - \beta x_t
 </section>
 <section id="noncointegrated-series" class="level2" data-number="14.5">
 <h2 data-number="14.5" class="anchored" data-anchor-id="noncointegrated-series"><span class="header-section-number">14.5</span> Noncointegrated Series</h2>
-<p>If <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are <span class="math inline">\(\mathrm I(1)\)</span> and are NOT cointegrated, we can estimate a dynamic model in first differences.</p>
+<p>If <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are <span class="math inline">\(\mathrm I(1)\)</span> and are NOT cointegrated, we can estimate a dynamic model in <strong>first differences</strong>.</p>
 <p>As an example,</p>
 <p><span class="math display">\[
 \Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
