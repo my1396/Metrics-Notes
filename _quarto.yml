@@ -24,6 +24,7 @@ book:
         - TS04_TimeSeries_regression.qmd
         - TS04_Spurious_regression.qmd
         - TS04_highly-persistent.qmd
+        - TS05_Forecast.qmd
     - part: "Panel Data"
       chapters:
         - PA01_Pooled_regression.qmd

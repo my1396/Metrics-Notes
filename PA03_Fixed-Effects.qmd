@@ -28,7 +28,7 @@ Throughout, we will assume that the number $N$ of cross-sectional units is poten
 
 **Alternative notations**:
 
-At the level of the individual, the model is written as:
+Stacking the $T$ equations at the level of the individual, the model is written as:
 
 $$
 \by_i = \bX_i \bbeta + \bold{1} \alpha_i + \bu_i  ,
@@ -128,9 +128,13 @@ Under @eq-within-lecture-random-intercept, <span style='color:#008B45'>the withi
 The within (fixed effects) estimator is obtained by simply pooling the data across $i$ and $t$ in @eq-within_transformed and applying OLS to it. Specifically, the estimator is given by
 
 $$
-\hat{\bbeta}^W = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i'\, \tilde{\mathbf{y}}_i.
-$${#eq-within_representation_random_intercept}
+\begin{aligned}
+\hat{\bbeta}^W &= \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N}  \left( \tilde{\bX}_i'\, \tilde{\mathbf{y}}_i \right) \\
+&= \left(\sum_{i=1}^{N} \sum_{=1}^{T} \tilde{\bx}_{it} \tilde{\bx}_{it}'  \right)^{-1} \left(\sum_{i=1}^{N}\sum_{=1}^{T} \tilde{\bx}_{it}\, \tilde{\mathbf{y}}_{it} \right) .
+\end{aligned}
+$$ {#eq-within_representation_random_intercept}
 
+It is called the within estimator because it uses the time variation within each individual.
 
 ### Properties
 
@@ -217,7 +221,7 @@ $$
 
 ## Between-groups Estimator
 
-The Between-groups estimator (or between estimator) is obtained by regressing the time averaged variables on each other (-@eq-within-lecture-avg) (where we include an intercept, $\beta_0$) using OLS regression. 
+The Between-groups estimator (or between estimator) is obtained by regressing the **time averaged** variables on each other (-@eq-within-lecture-avg) (where we include an intercept, $\beta_0$) using OLS regression. 
 $$
 \overline{y}_{i} =\bbeta' \overline{\bx}_{i} + (\alpha_i + \overline{u}_{i}) , \quad i=1,\ldots,N.
 $$

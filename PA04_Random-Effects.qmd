@@ -19,7 +19,9 @@ $$
 \cov(x_{itj}, a_i) = 0, \quad t=1,2,\ldots,T;\, j=1,2,\ldots,K.
 $$
 
-In this case, the fixed effects or first differencing model which eliminates $\alpha_i$ results in inefficient estimators.
+In this case, the fixed effects or first differencing model which eliminates $\alpha_i$ results in **inefficient** estimators.
+
+The Random Effects (RE) approach estimate $\bbeta$ effectively by putting $a_i$ into the error term under the assumption that $a_i$ is orthogonal to $\bx_{it},$ and then accounts for the implied serial correlation in the composite error $v_{it} = a_i + u_{it}$ using a GLS analysis.
 
 If we define the <span style='color:#008B45'>composite error term $v_{it}$</span> as 
 
