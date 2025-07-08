@@ -736,7 +736,9 @@ emp_{i,t}
 &amp;\phantom{=}\quad + \beta_6 output_{i,t} + \beta_7 output_{i,t-1} + \beta_8 output_{i,t-2}  \\
 &amp;\phantom{=}\quad + \gamma_3 d_3 + \dots + \gamma_T d_T + \eta_i + \varepsilon_{i,t},
 \end{split}
-\]</span></p>
+\]</span> Variables <span class="math inline">\(d_3,\ldots,d_T\)</span> are time dummies with corresponding coefficients <span class="math inline">\(\gamma_3,\ldots,\gamma_T.\)</span></p>
+<p><span class="math inline">\(\eta_i\)</span> is the unobserved individual-specific effects.</p>
+<p><span class="math inline">\(\varepsilon_{i,t}\)</span> is an idiosyncratic remainder component.</p>
 <section id="no-time-dummies" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="no-time-dummies"><span class="header-section-number">21.1</span> No time dummies</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdynmc)</span>
@@ -1016,10 +1018,12 @@ emp_{i,t}
 <li><p>Maria R. Koldasheva and Nikolai A. Popov, Dynamic Models, <a href="https://rpubs.com/Nick_Popov/thesis_dynamic_models" class="uri">https://rpubs.com/Nick_Popov/thesis_dynamic_models</a></p></li>
 <li><p>Package <code>pdynmc</code> resources:</p>
 <ul>
+<li>Methodology: <a href="https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1090&amp;context=r-journal" class="uri">https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1090&amp;context=r-journal</a></li>
 <li>Vignettes: <a href="https://cran.r-project.org/web/packages/pdynmc/vignettes/pdynmc-introLong.pdf" class="uri">https://cran.r-project.org/web/packages/pdynmc/vignettes/pdynmc-introLong.pdf</a></li>
 <li>Reference: <a href="https://cran.r-project.org/web/packages/pdynmc/pdynmc.pdf" class="uri">https://cran.r-project.org/web/packages/pdynmc/pdynmc.pdf</a></li>
-<li>GitHub repo: <a href="https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R" class="uri">https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R</a></li>
+<li>GitHub repo: <a href="https://github.com/markusfritsch/pdynmc" class="uri">https://github.com/markusfritsch/pdynmc</a></li>
 </ul></li>
+<li><p>Package <code>modelsummary</code>: <a href="https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R" class="uri">https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R</a></p></li>
 </ul>
 
 

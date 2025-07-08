@@ -885,7 +885,7 @@
     "href": "PA06_dynamic_models_with_pdynmc.html",
     "title": "21  Dynamic Model Applications with pdynmc",
     "section": "",
-    "text": "21.1 No time dummies\nModel Setup\n\\[\n\\begin{split}\nemp_{i,t}\n&= \\alpha_1 emp_{i,t-1} + \\alpha_2 emp_{i,t-2} + \\bbeta'(L) \\bx_{it} + \\lambda_t + \\eta_i + \\varepsilon_{i,t} \\\\\n&= \\alpha_1 emp_{i,t-1} + \\alpha_2 emp_{i,t-2}  \\\\\n&\\phantom{=}\\quad  + \\beta_1 wage_{i,t} + \\beta_2 wage_{i,t-1} \\\\\n&\\phantom{=}\\quad  + \\beta_3 capital_{i,t} + \\beta_4 capital_{i,t-1} + \\beta_5 capital_{i,t-2} \\\\\n&\\phantom{=}\\quad + \\beta_6 output_{i,t} + \\beta_7 output_{i,t-1} + \\beta_8 output_{i,t-2}  \\\\\n&\\phantom{=}\\quad + \\gamma_3 d_3 + \\dots + \\gamma_T d_T + \\eta_i + \\varepsilon_{i,t},\n\\end{split}\n\\]",
+    "text": "21.1 No time dummies\nModel Setup\n\\[\n\\begin{split}\nemp_{i,t}\n&= \\alpha_1 emp_{i,t-1} + \\alpha_2 emp_{i,t-2} + \\bbeta'(L) \\bx_{it} + \\lambda_t + \\eta_i + \\varepsilon_{i,t} \\\\\n&= \\alpha_1 emp_{i,t-1} + \\alpha_2 emp_{i,t-2}  \\\\\n&\\phantom{=}\\quad  + \\beta_1 wage_{i,t} + \\beta_2 wage_{i,t-1} \\\\\n&\\phantom{=}\\quad  + \\beta_3 capital_{i,t} + \\beta_4 capital_{i,t-1} + \\beta_5 capital_{i,t-2} \\\\\n&\\phantom{=}\\quad + \\beta_6 output_{i,t} + \\beta_7 output_{i,t-1} + \\beta_8 output_{i,t-2}  \\\\\n&\\phantom{=}\\quad + \\gamma_3 d_3 + \\dots + \\gamma_T d_T + \\eta_i + \\varepsilon_{i,t},\n\\end{split}\n\\] Variables \\(d_3,\\ldots,d_T\\) are time dummies with corresponding coefficients \\(\\gamma_3,\\ldots,\\gamma_T.\\)\n\\(\\eta_i\\) is the unobserved individual-specific effects.\n\\(\\varepsilon_{i,t}\\) is an idiosyncratic remainder component.",
     "crumbs": [
       "Panel Data",
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Dynamic Model Applications with `pdynmc`</span>"
@@ -918,7 +918,7 @@
     "href": "PA06_dynamic_models_with_pdynmc.html#references",
     "title": "21  Dynamic Model Applications with pdynmc",
     "section": "References",
-    "text": "References\n\nGuillermo Corredor, Dynamic AR(1) Panel Estimation in R, https://bookdown.org/gcorredor/dynamic_ar1_panel/dynamic_ar1_panel.html\nMaria R. Koldasheva and Nikolai A. Popov, Dynamic Models, https://rpubs.com/Nick_Popov/thesis_dynamic_models\nPackage pdynmc resources:\n\nVignettes: https://cran.r-project.org/web/packages/pdynmc/vignettes/pdynmc-introLong.pdf\nReference: https://cran.r-project.org/web/packages/pdynmc/pdynmc.pdf\nGitHub repo: https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R",
+    "text": "References\n\nGuillermo Corredor, Dynamic AR(1) Panel Estimation in R, https://bookdown.org/gcorredor/dynamic_ar1_panel/dynamic_ar1_panel.html\nMaria R. Koldasheva and Nikolai A. Popov, Dynamic Models, https://rpubs.com/Nick_Popov/thesis_dynamic_models\nPackage pdynmc resources:\n\nMethodology: https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1090&context=r-journal\nVignettes: https://cran.r-project.org/web/packages/pdynmc/vignettes/pdynmc-introLong.pdf\nReference: https://cran.r-project.org/web/packages/pdynmc/pdynmc.pdf\nGitHub repo: https://github.com/markusfritsch/pdynmc\n\nPackage modelsummary: https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R",
     "crumbs": [
       "Panel Data",
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Dynamic Model Applications with `pdynmc`</span>"

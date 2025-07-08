@@ -16,7 +16,11 @@ emp_{i,t}
 &\phantom{=}\quad + \gamma_3 d_3 + \dots + \gamma_T d_T + \eta_i + \varepsilon_{i,t},
 \end{split}
 $$ 
+Variables $d_3,\ldots,d_T$ are time dummies with corresponding coefficients $\gamma_3,\ldots,\gamma_T.$
 
+$\eta_i$ is the unobserved individual-specific effects.
+
+$\varepsilon_{i,t}$ is an idiosyncratic remainder component.
 
 
 ## No time dummies
@@ -335,10 +339,12 @@ F-Statistic (time dummies):  1183.36 with 6 DF, pvalue: <0.001
 - Maria R. Koldasheva and Nikolai A. Popov, Dynamic Models, <https://rpubs.com/Nick_Popov/thesis_dynamic_models>
 
 - Package `pdynmc` resources:
+    - Methodology: <https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1090&context=r-journal>
     - Vignettes: <https://cran.r-project.org/web/packages/pdynmc/vignettes/pdynmc-introLong.pdf>
     - Reference: <https://cran.r-project.org/web/packages/pdynmc/pdynmc.pdf>
-    - GitHub repo: <https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R>
+    - GitHub repo: <https://github.com/markusfritsch/pdynmc>
 
+- Package `modelsummary`: <https://github.com/vincentarelbundock/modelsummary/blob/main/R/modelsummary.R>
 
 
 
