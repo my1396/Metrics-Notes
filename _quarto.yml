@@ -16,6 +16,7 @@ book:
         - TS01_AR1.qmd
         - TS01_AR_example.qmd
         - TS01_phillips-curve.qmd
+        - TS01_Correct_AR1Errors.qmd
         - TS01_examples.qmd
         - TS02_lag_poly.qmd
         - TS02_AR-MA-representation.qmd

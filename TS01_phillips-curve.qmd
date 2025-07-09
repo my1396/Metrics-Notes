@@ -170,6 +170,9 @@ There is strong evidence of serial correlation in the residuals.
 
 Static model indicates positive autocorrelation.
 
+
+OLS estimation
+
 ```{r}
 res <- tibble(
     res_t = lm_phillips_stat$residuals,
@@ -178,12 +181,17 @@ lm_res <- lm(res_t ~ res_t1, data = res)
 summary(lm_res)
 ```
 
+Prais-Winsten estimation
 
 ```{r}
 library(prais) # install.packages("prais")
 data <- data %>% 
     mutate(yrQ = as.yearqtr(paste(Year, qtr, sep="-")))
-pw_est_stat <- prais_winsten(lm_phillips_stat, data = data %>% tail(-2), index = "yrQ" )
+pw_est_stat <- prais_winsten(
+    lm_phillips_stat, 
+    data = data %>% tail(-2), 
+    index = "yrQ" 
+    )
 summary(pw_est_stat)
 ```
 
@@ -194,7 +202,11 @@ summary(pw_est_stat)
 Expectations augmented model indicates negative autocorrelation.
 
 ```{r}
-pw_est_aug <- prais_winsten(lm_phillips_aug, data = data %>% tail(-2), index = "yrQ" )
+pw_est_aug <- prais_winsten(
+    lm_phillips_aug, 
+    data = data %>% tail(-2), 
+    index = "yrQ" 
+    )
 summary(pw_est_aug)
 ```
 

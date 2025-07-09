@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>19&nbsp; Fixed Effects Model – Metrics Notes</title>
+<title>7&nbsp; Correcting for Serial Corealtion with Strictly Exogenous Regressors – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./PA04_Random-Effects.html" rel="next">
-<link href="./PA02_Panel_regression.html" rel="prev">
+<link href="./TS01_examples.html" rel="next">
+<link href="./TS01_phillips-curve.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -497,7 +462,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Pooled_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_Fixed-Effects.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_Correct_AR1Errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -578,7 +543,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS01_Correct_AR1Errors.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS01_Correct_AR1Errors.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></span></a>
   </div>
 </li>
@@ -661,7 +626,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./PA03_Fixed-Effects.html" class="sidebar-item-text sidebar-link active">
+  <a href="./PA03_Fixed-Effects.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></span></a>
   </div>
 </li>
@@ -696,28 +661,16 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#within-estimator" id="toc-within-estimator" class="nav-link active" data-scroll-target="#within-estimator"><span class="header-section-number">19.1</span> Within Estimator</a>
-  <ul class="collapse">
-  <li><a href="#step-1-within-transformation" id="toc-step-1-within-transformation" class="nav-link" data-scroll-target="#step-1-within-transformation"><span class="header-section-number">19.1.1</span> Step 1: Within Transformation</a></li>
-  <li><a href="#step-2-ols-on-the-within-transformed-equation" id="toc-step-2-ols-on-the-within-transformed-equation" class="nav-link" data-scroll-target="#step-2-ols-on-the-within-transformed-equation"><span class="header-section-number">19.1.2</span> Step 2: OLS on the Within-Transformed Equation</a></li>
-  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties"><span class="header-section-number">19.1.3</span> Properties</a></li>
-  </ul></li>
-  <li><a href="#between-groups-estimator" id="toc-between-groups-estimator" class="nav-link" data-scroll-target="#between-groups-estimator"><span class="header-section-number">19.2</span> Between-groups Estimator</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./PA01_Pooled_regression.html">Panel Data</a></li><li class="breadcrumb-item"><a href="./PA03_Fixed-Effects.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_Correct_AR1Errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Fixed Effects Model</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></h1>
 </div>
 
 
@@ -734,410 +687,76 @@ window.Quarto = {
 </header>
 
 
-<!-- Chunk option settings -->
-<!-- Define chunk option `max.lines` -->
-<!-- controls max lines printed -->
-<p>Consider the following individual fixed effects model (at the level of the observation):</p>
-<p><span id="eq-within-lecture-random-intercept"><span class="math display">\[
-\begin{aligned}
-y_{it} &amp;= \alpha_i + \bbeta'\bx_{it} + u_{it}, \quad t=1,2,\ldots,T, \\
-\text{or}\quad y_{it} &amp;= \alpha_i + \beta_1 x_{it1} + \beta_2 x_{it2} + \cdots + \beta_K x_{itK} + u_{it}.
-\end{aligned}
-\tag{19.1}\]</span></span> There are <span class="math inline">\(K\)</span> regressors in <span class="math inline">\(\bx_{it},\)</span> <strong>NOT</strong> including an intercept.</p>
-<p>We assume strict exogeneity:</p>
+<p>Note that the corrections mentioned below should not be used when the explanatory variables include lagged dependent variables.</p>
+<p>The idea is to apply the generalized least-squares (GLS) method to estimate the parameters in a linear regression model in which the errors are serially correlated. Specifically, the errors are assumed to follow a first-order autoregressive process.</p>
+<p>Assumes</p>
+<p><span id="eq-model-setup"><span class="math display">\[
+y_t = \beta_1x_{t1} + \beta_2x_{t2} + \cdots + \beta_Kx_{tK} + u_t ,
+\tag{7.1}\]</span></span></p>
+<p>where the errors follow the AR(1) model</p>
+<p><span id="eq-error"><span class="math display">\[
+u_t = \rho u_{t-1} + e_t .
+\tag{7.2}\]</span></span></p>
+<p>Because the problem in (<a href="#eq-model-setup" class="quarto-xref"><span>7.1</span></a>) is serial correlation in <span class="math inline">\(u_t,\)</span> it makes sense to transform the equation to eliminate the serial correlation.</p>
+<p>For <span class="math inline">\(t\ge 2\)</span></p>
+<p><span id="eq-modelt-1"><span class="math display">\[
+y_{t-1} = \beta_1x_{t-1,1} + \beta_2x_{t-1,2} + \cdots + \beta_Kx_{t-1,K} + u_{t-1} ,
+\tag{7.3}\]</span></span></p>
+<p>Multiply (<a href="#eq-modelt-1" class="quarto-xref"><span>7.3</span></a>) by <span class="math inline">\(\rho\)</span> and subtract it from (<a href="#eq-model-setup" class="quarto-xref"><span>7.1</span></a>), we get</p>
 <p><span class="math display">\[
-\E[\bu_i|\bX_i]=0.
-\]</span></p>
-<p>Throughout, we will assume that the number <span class="math inline">\(N\)</span> of cross-sectional units is potentially large, while the number <span class="math inline">\(T\)</span> of data points per unit is fixed. This setup is more reflective of typical micropanels.</p>
-<p><strong>Alternative notations</strong>:</p>
-<p>Stacking the <span class="math inline">\(T\)</span> equations at the level of the individual, the model is written as:</p>
+y_t - \rho y_{t-1} = \beta_1(x_{t1} - \rho\, x_{t-1,1}) + \beta_2(x_{t2} - \rho\, x_{t-1,2}) + \cdots + \beta_K(x_{tK} - \rho\, x_{t-1,K}) + e_t ,
+\]</span> where <span class="math inline">\(e_t = u_t - \rho u_{t-1}.\)</span> Hence, we have removed the serial correaltion in the error.</p>
+<p>We rewrite the transformed equation as</p>
+<p><span id="eq-tranformed-model"><span class="math display">\[
+\tilde{y_t} = \beta_1\tilde{x_{t1}} + \beta_2\tilde{x_{t2}} + \cdots + \beta_K\tilde{x_{tK}} + e_t,\; t\ge 2,
+\tag{7.4}\]</span></span> where <span class="math display">\[
+\begin{split}
+\tilde{y_t} &amp;= y_t - \rho y_{t-1} \\
+\tilde{x_{tj}} &amp;= x_{tj} - \rho x_{t-1,j},\; j=1,\ldots,K. \\
+\end{split}
+\]</span> Applying OLS to (<a href="#eq-tranformed-model" class="quarto-xref"><span>7.4</span></a>), the estimator is BLUE. Since the errors in the transformed equation are serially uncorrelated, we can apply the usual <span class="math inline">\(t\)</span> statistics and <span class="math inline">\(F\)</span> statistics for hypothesis testing.</p>
+<p>In practice, since we don’t know <span class="math inline">\(\rho,\)</span> we need to get a consistent estimator – this is done by feasible GLS (FGLS).</p>
+<p>Steps:</p>
+<ol type="1">
+<li><p>Run OLS on the original equation</p>
 <p><span class="math display">\[
-\by_i = \bX_i \bbeta + \bold{1} \alpha_i + \bu_i  ,
-\]</span> where <span class="math inline">\(\bold{1}\)</span> is a <span class="math inline">\(T\times 1\)</span> column of ones.</p>
-<p>Equation for the full sample:</p>
+\text{Regress } y_t \text{ on } x_{t1},x_{t2},\ldots,x_{tK} \text{ and obtain } \hat{u}_t ,
+\]</span> for <span class="math inline">\(t=1,2,\ldots,n.\)</span></p></li>
+<li><p>Run the regression of</p>
 <p><span class="math display">\[
-\begin{bmatrix}
-\by_{1}  \\
-\by_{2}  \\
-\vdots \\
-\by_{N}  
-\end{bmatrix}  =
-\begin{bmatrix}
-\bX_{1}  \\
-\bX_{2}  \\
-\vdots \\
-\bX_{N}  
-\end{bmatrix} \bbeta + \begin{bmatrix}
-\bold{1} &amp; 0  &amp; \cdots &amp; 0 \\
-0 &amp; \bold{1} &amp; \cdots &amp; 0 \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-0 &amp; 0  &amp; \cdots &amp; \bold{1} \\
-\end{bmatrix}
-\begin{bmatrix}
-\alpha_{1}  \\
-\alpha_{2}  \\
-\vdots \\
-\alpha_{N}
-\end{bmatrix}
-+ \begin{bmatrix}
-\bu_{1}  \\
-\bu_{2}  \\
-\vdots \\
-\bu_{N}  
-\end{bmatrix}
-\]</span> or</p>
+\hat{u}_t \text{ on } \hat{u}_{t-1} \text{ and obtain } \hat{\rho}
+\]</span> for <span class="math inline">\(t=2,\ldots,n\)</span></p></li>
+<li><p>Apply the transformation as in (<a href="#eq-tranformed-model" class="quarto-xref"><span>7.4</span></a>), where</p>
 <p><span class="math display">\[
 \begin{split}
-\by &amp;= \begin{bmatrix} \bX &amp; \bd_1 &amp; \bd_2 &amp; \cdots &amp; \bd_n \end{bmatrix}
-\begin{bmatrix}
-\bbeta \\
-\balpha
-\end{bmatrix} + \bu \\
-&amp;= \bX\bbeta + \bD\balpha + \bu  ,
+\tilde{y_t} &amp;= y_t - \hat\rho y_{t-1}, \; t\ge 2 \\
+\tilde{x_{tj}} &amp;= x_{tj} - \hat\rho x_{t-1,j},\; j=1,\ldots,K. \\
 \end{split}
-\]</span> where <span class="math inline">\(\bd_i\)</span> is a dummy variable indicating the <span class="math inline">\(i\)</span>-th unit, and</p>
-<p><span class="math display">\[
-\underset{(NT\times N)}{\bD} = \begin{bmatrix}\bd_1 &amp; \bd_2 &amp; \cdots &amp; \bd_n \end{bmatrix} .
-\]</span></p>
-<section id="within-estimator" class="level2" data-number="19.1">
-<h2 data-number="19.1" class="anchored" data-anchor-id="within-estimator"><span class="header-section-number">19.1</span> Within Estimator</h2>
-<p>Within (or “fixed effects”) estimation of the random intercept model has two steps:</p>
-<ol type="1">
-<li>Apply the within transformation to each unit.</li>
-<li>Apply OLS to the resulting pooled data.</li>
-</ol>
-<section id="step-1-within-transformation" class="level3" data-number="19.1.1">
-<h3 data-number="19.1.1" class="anchored" data-anchor-id="step-1-within-transformation"><span class="header-section-number">19.1.1</span> Step 1: Within Transformation</h3>
-<p>To perform the within transformation, we first average the equations for unit <span class="math inline">\(i\)</span> across <span class="math inline">\(t\)</span>. Label the average of <span class="math inline">\(y_{it}\)</span> across <span class="math inline">\(t\)</span> for unit <span class="math inline">\(i\)</span> as</p>
-<p><span class="math display">\[
-\overline{y}_{i} = \frac{1}{T} \sum_{t=1}^{T} y_{it}.
-\]</span></p>
-<p>The averaged outcome <span class="math inline">\(\overline{y}_{i}\)</span> satisfies the averaged (or “cross-sectional”) equation</p>
-<p><span id="eq-within-lecture-avg"><span class="math display">\[
-\overline{y}_{i} = \alpha_i + \bbeta' \overline{\bx}_{i} + \overline{u}_{i},
-\tag{19.2}\]</span></span> where <span class="math inline">\(\overline{\bx}_{i}\)</span> and <span class="math inline">\(\overline{u}_{i}\)</span> are defined analogously to <span class="math inline">\(\overline{y}_{i}\)</span>.</p>
-<p>Define the within-transformed equation by subtracting this averaged equation (<a href="#eq-within-lecture-avg" class="quarto-xref"><span>19.2</span></a>) from the original equation (<a href="#eq-within-lecture-random-intercept" class="quarto-xref"><span>19.1</span></a>) for each <span class="math inline">\(t\)</span>:</p>
-<p><span class="math display">\[
-y_{it} - \overline{y}_{i} = (\alpha_i - \alpha_i) + \bbeta'(\bx_{it} - \overline{\bx}_{i}) + (u_{it} - \overline{u}_{i})
-\]</span> or <span id="eq-within_transformed"><span class="math display">\[
-\widetilde{y}_{it} = \bbeta' \widetilde{\bx}_{it} + \widetilde{u}_{it}.
-\tag{19.3}\]</span></span></p>
-<p>where <span class="math inline">\(\widetilde{y}_{it} = y_{it} - \overline{y}_{i}\)</span> is the deviations from the group means, and similarly for <span class="math inline">\(\widetilde{\bx}_{it}\)</span> and <span class="math inline">\(\widetilde{u}_{it}.\)</span></p>
-<p>Under <a href="#eq-within-lecture-random-intercept" class="quarto-xref">Equation&nbsp;<span>19.1</span></a>, <span style="color:#008B45">the within transformation eliminates the individual random intercepts <span class="math inline">\(\alpha_i\)</span></span>. All average differences in <span class="math inline">\(y\)</span>’s or <span class="math inline">\(\bx\)</span>’s between individuals have been wiped out. <a href="#eq-within_transformed" class="quarto-xref">Equation&nbsp;<span>19.3</span></a> now looks like a regular homogeneous regression.</p>
-</section>
-<section id="step-2-ols-on-the-within-transformed-equation" class="level3" data-number="19.1.2">
-<h3 data-number="19.1.2" class="anchored" data-anchor-id="step-2-ols-on-the-within-transformed-equation"><span class="header-section-number">19.1.2</span> Step 2: OLS on the Within-Transformed Equation</h3>
-<p>The within (fixed effects) estimator is obtained by simply pooling the data across <span class="math inline">\(i\)</span> and <span class="math inline">\(t\)</span> in <a href="#eq-within_transformed" class="quarto-xref">Equation&nbsp;<span>19.3</span></a> and applying OLS to it. Specifically, the estimator is given by</p>
-<p><span id="eq-within_representation_random_intercept"><span class="math display">\[
-\begin{aligned}
-\hat{\bbeta}^W &amp;= \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N}  \left( \tilde{\bX}_i'\, \tilde{\mathbf{y}}_i \right) \\
-&amp;= \left(\sum_{i=1}^{N} \sum_{=1}^{T} \tilde{\bx}_{it} \tilde{\bx}_{it}'  \right)^{-1} \left(\sum_{i=1}^{N}\sum_{=1}^{T} \tilde{\bx}_{it}\, \tilde{\mathbf{y}}_{it} \right) .
-\end{aligned}
-\tag{19.4}\]</span></span></p>
-<p>It is called the within estimator because it uses the time variation within each individual.</p>
-</section>
-<section id="properties" class="level3" data-number="19.1.3">
-<h3 data-number="19.1.3" class="anchored" data-anchor-id="properties"><span class="header-section-number">19.1.3</span> Properties</h3>
-<p>The within estimator enjoys several desirable properties if the random intercept model reflects the underlying causal model. Most of these properties can be derived from its sampling error representation <span id="eq-within-sampling-error-homogeneous"><span class="math display">\[
-\hat{\bbeta}^W = \bbeta + \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bu}_i.
-\tag{19.5}\]</span></span></p>
-<ul>
-<li><p><span class="math inline">\(\hat{\bbeta}^W\)</span> is unbiased for <span class="math inline">\(\bbeta\)</span>. To show this, it is sufficient to notice that strict exogeneity of <span class="math inline">\(\bu_i\)</span> with respect to <span class="math inline">\(\bX_i\)</span> implies strict exogeneity of <span class="math inline">\(\tilde{\bu}_i\)</span> with respect to <span class="math inline">\(\tilde{\bX}_i\)</span>: <span class="math display">\[
-\E[\tilde{\bu}_i|\tilde{\bX}_i] =
-\E[\E[\tilde{\bu}_i|\bX_i]|\tilde{\bX}_i] = 0.
-\]</span> It follows that the mean of the second term in <a href="#eq-within-sampling-error-homogeneous" class="quarto-xref">Equation&nbsp;<span>19.5</span></a> is 0, and so <span class="math display">\[
-\E[\hat{\bbeta}^W] = \bbeta.
 \]</span></p></li>
-<li><p>The variance of <span class="math inline">\(\hat{\bbeta}^W\)</span> is</p>
+<li><p>Apply OLS to the transformed equation</p>
 <p><span class="math display">\[
-  \bV_{\hat{\bbeta}^W} = \var(\hat{\bbeta}^W\mid \bX) = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \left( \sum_{i=1}^{N} \tilde{\bX}_i'\, \E[\tilde{\bu}_i \tilde{\bu}_i'\mid \bX_i] \,\tilde{\bX}_i \right) \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} .
-  \]</span> Let <span class="math display">\[
-  \bSigma_i = \E[\tilde{\bu}_i \tilde{\bu}_i'\mid \bX_i]
-  \]</span> be the <span class="math inline">\(T\times T\)</span> conditional matrix of the idiosyncratic errors. We can rewrite <span class="math inline">\(\bV_{\hat{\bbeta}^W}\)</span> as</p>
+\text{Regress } \tilde{y}_t \text{ on } \tilde{x}_{t1}, \tilde{x}_{t2}, \ldots, \tilde{x}_{tK} ,
+\]</span> and obtain new estimates of <span class="math inline">\(\beta_1,\)</span> <span class="math inline">\(\ldots,\)</span> <span class="math inline">\(\beta_K.\)</span> The usual standard errors, <span class="math inline">\(t\)</span> statistics, and <span class="math inline">\(F\)</span> statistics are asymptotically valid.</p></li>
+</ol>
+<p>This procedure is called the Cochrane-Orcutt (CO) Estimation, which has one less observation after the transformation.</p>
+<p>Prais-Winsten (PW) Estimation use a specific transformation at <span class="math inline">\(t=1:\)</span></p>
 <p><span class="math display">\[
-  \bV_{\hat{\bbeta}^W} = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \left( \sum_{i=1}^{N} \tilde{\bX}_i'\, \bSigma_i \,\tilde{\bX}_i \right) \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} .
-  \]</span></p>
-<p>If we assume the idiosyncratic errors are homoskedastic and serially uncorrelated:</p>
+\sqrt{1-\rho^2} y_1  = \beta_1(\sqrt{1-\rho^2} x_{11}) + \beta_2(\sqrt{1-\rho^2} x_{12}) + \cdots + \beta_K(\sqrt{1-\rho^2} x_{1K}) + \sqrt{1-\rho^2}u_1 .
+\]</span> Therefore the PW estimation has one more observation than the CO estimation.</p>
+<hr>
+<p>In practice, both the Cochrane-Orcutt and Prais-Winsten methods are used in an <strong>iterative scheme</strong>.</p>
+<p>After we obtained the new estimates of <span class="math inline">\(\beta_1,\)</span> <span class="math inline">\(\ldots,\)</span> <span class="math inline">\(\beta_K,\)</span> after step 4, we can produce the fitted values</p>
 <p><span class="math display">\[
-  \begin{aligned}
-  \E(u_{it}^2 \mid \bX_i) &amp;= \sigma^2_u \\
-  \E(u_{is}u_{it} \mid \bX_i) &amp;= 0 \quad (x\ne t)
-  \end{aligned}
-  \]</span></p>
-<p>In this case,</p>
-<p><span class="math display">\[
-  \bSigma_i = \mathbf I_i \sigma^2_u .
-  \]</span></p>
-<p><span class="math inline">\(\bV_{\hat{\bbeta}^W}\)</span> simplifies to</p>
-<p><span class="math display">\[
-  \bV_{\hat{\bbeta}^W}^0 = \sigma^2_u \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} .
-  \]</span></p></li>
-<li><p><span class="math inline">\(\hat{\bbeta}^W\)</span> is consistent for <span class="math inline">\(\bbeta\)</span> and asymptotically normal, provided a standard rank condition holds for <span class="math inline">\(\tilde{\bX}_i\)</span>: <span id="eq-within_asymptotic"><span class="math display">\[
-\hat{\bbeta}^W \xrightarrow{p} \bbeta, \quad \sqrt{N}(\hat{\bbeta}^W - \bbeta) \Rightarrow N(0, \bV_{\hat{\bbeta}^W}).  
-\tag{19.6}\]</span></span></p></li>
-</ul>
-<p>Since <span class="math inline">\(\bbeta\)</span> is the average coefficient vector in this homogeneous model, we conclude that the within estimator consistently estimates average coefficients under the random intercept model (<a href="#eq-within-lecture-random-intercept" class="quarto-xref"><span>19.1</span></a>).</p>
-<ul>
-<li><p>Covariance matrix estimation</p>
-<p>An estimator for <span class="math inline">\(\bV_{\hat{\bbeta}^W}^0\)</span> is</p>
-<p><span class="math display">\[
-  \widehat{\bV}_{\hat{\bbeta}^W}^0 = \hat{\sigma}^2_u \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1}
-  \]</span> where <span class="math inline">\(\hat{\sigma}^2_u\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2_u\)</span> given by:</p>
-<p><span class="math display">\[
-  \hat{\sigma}^2_u = \frac{\sum_{i=1}^{N}\sum_{t=1}^{T}\widehat{\widetilde{u}}_{it}^2}{NT-N-K} .
-  \]</span></p></li>
-<li><p>A covariance matrix estimator which allows <span class="math inline">\(u_{it}\)</span> to be heteroskedastic and serially correlated across <span class="math inline">\(t\)</span> is the cluster-robust covariance matrix estimator, clustered by individual</p></li>
-</ul>
-<p><span class="math display">\[
-\widehat{\bV}_{\hat{\bbeta}^W}^{\text{cluster}} = \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1} \left( \sum_{i=1}^{N} \tilde{\bX}_i'\, \widehat{\widetilde{\bu}}_{i}\widehat{\widetilde{\bu}}_{i}' \,\tilde{\bX}_i \right) \left(\sum_{i=1}^{N} \tilde{\bX}_i' \tilde{\bX}_i \right)^{-1}
+\hat{y}_t = \hat\beta_1x_{t1} + \hat\beta_2x_{t2} + \cdots + \hat\beta_Kx_{tK} ,
 \]</span></p>
-</section>
-</section>
-<section id="between-groups-estimator" class="level2" data-number="19.2">
-<h2 data-number="19.2" class="anchored" data-anchor-id="between-groups-estimator"><span class="header-section-number">19.2</span> Between-groups Estimator</h2>
-<p>The Between-groups estimator (or between estimator) is obtained by regressing the <strong>time averaged</strong> variables on each other (<a href="#eq-within-lecture-avg" class="quarto-xref"><span>19.2</span></a>) (where we include an intercept, <span class="math inline">\(\beta_0\)</span>) using OLS regression. <span class="math display">\[
-\overline{y}_{i} =\bbeta' \overline{\bx}_{i} + (\alpha_i + \overline{u}_{i}) , \quad i=1,\ldots,N.
-\]</span> This is a cross-sectional regression, with a sample size being the number of entities.</p>
-<p>The Between Groups estimator is given by</p>
+<p>and then <span class="math inline">\(\rho\)</span> is reestimated using a new set of residuals based on the following regression:</p>
 <p><span class="math display">\[
-\hat{\bbeta}^{\text{B}} = \left( \sum_{i=1}^N \overline{\bx}_{i}\overline{\bx}_{i}'\right)^{-1} \left( \sum_{i=1}^N \overline{\bx}_{i}\overline{y}_{i}\right)
+y_t - \hat y_t = \rho(y_{t-1}-\hat y_{t-1}) + v_t .
 \]</span></p>
-<p>Note that the between estimator is <strong>biased</strong> when <span class="math inline">\(\alpha_i\)</span> is correlated with <span class="math inline">\(\bx_{i\cdot}\)</span> (<span class="math inline">\(\bx_{i\cdot}\)</span> endogenous).</p>
-<p>It can be suitable for research questions that specifically address variation between different entities rather than changes within entities over time. One caveat is that the Between-groups estimator <em>overlooks important information about how variables change over time</em>.</p>
-<p>To obtain unbiased estimates, it is crucial to ensure the assumption of zero correlation between the error term and averaged independent variables.</p>
-<p><span class="math display">\[
-\E[\bx_{i\cdot} \alpha_i] = 0 .
-\]</span> Between Groups estimator is not efficient. In practice, it is only used to obtain an estimate of <span class="math inline">\(\sigma_{\alpha}^2\)</span> when implementing feasible GLS.</p>
-<p>If we think <span class="math inline">\(\alpha_i\)</span> is uncorrelated with <span class="math inline">\(\bx_{i\cdot},\)</span> it is better to use the random effects estimator.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER) </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Grunfeld) </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate Between model</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>model_between <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> Grunfeld,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>),</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">model =</span> <span class="st">"between"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate Within model</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>model_within <span class="ot">&lt;-</span> <span class="fu">plm</span>(invest <span class="sc">~</span> value <span class="sc">+</span> capital, </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> Grunfeld,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>),</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                      <span class="at">model =</span> <span class="st">"within"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model_between, model_within, </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Between"</span>, <span class="st">"Within"</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">type=</span><span class="st">"html"</span>, <span class="at">digits=</span><span class="dv">2</span>, </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes =</span> <span class="st">"&lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01 &lt;br&gt; Standard errors in parentheses."</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">notes.append =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<table style="text-align:center">
-<tbody><tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-invest
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-Between
-</td>
-<td>
-Within
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1)
-</td>
-<td>
-(2)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-value
-</td>
-<td>
-0.13<sup>***</sup>
-</td>
-<td>
-0.11<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.03)
-</td>
-<td>
-(0.01)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-capital
-</td>
-<td>
-0.03
-</td>
-<td>
-0.31<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(0.17)
-</td>
-<td>
-(0.02)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
--7.38
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(40.44)
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-11
-</td>
-<td>
-220
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.86
-</td>
-<td>
-0.77
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.83
-</td>
-<td>
-0.75
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-25.50<sup>***</sup> (df = 2; 8)
-</td>
-<td>
-340.08<sup>***</sup> (df = 2; 207)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="2" style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
-</td>
-</tr>
-</tbody></table>
-</div>
-</section>
-<section id="references" class="level2 unlisted unnumbered">
-<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
-<ul>
-<li>Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <a href="https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-within-estimator.html#recall-within-estimator-in-the-random-intercept-model" class="uri">https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-within-estimator.html#recall-within-estimator-in-the-random-intercept-model</a></li>
-<li>Vladislav Morozov, GitHub course repository, <a href="https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/main/src/linear/linear-within-estimator.qmd" class="uri">https://github.com/vladislav-morozov/econometrics-heterogeneity/blob/main/src/linear/linear-within-estimator.qmd</a></li>
-</ul>
+<p>Then transform the data using the newly obtained estimate of <span class="math inline">\(\rho\)</span> and estimate the transformed equation by OLS.</p>
+<p>We can repeat the whole process many times, until the estimate of <span class="math inline">\(\rho\)</span> changes by very little from the previous iteration.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1554,13 +1173,13 @@ F Statistic
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./PA02_Panel_regression.html" class="pagination-link" aria-label="Panel Regressions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Panel Regressions</span></span>
+      <a href="./TS01_phillips-curve.html" class="pagination-link" aria-label="Phillips Curve">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Phillips Curve</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./PA04_Random-Effects.html" class="pagination-link" aria-label="Random Effects Model">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Random Effects Model</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS01_examples.html" class="pagination-link" aria-label="TS Examples">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">TS Examples</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

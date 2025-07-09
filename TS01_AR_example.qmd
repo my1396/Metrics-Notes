@@ -170,7 +170,7 @@ One **consequence** of the serial correlated errors is that the standard error a
     
     FGLS (Feasible Genralized Least Squares), transform the original equation using, e.g., Cochrane-Orcutt or Prais-Winsten transformation.
     
-    This approach assumes strictly exogeneous regressors, that is, no lagged $y$ in the RHS of the equation. See Chapter 12.3 in Wooldridge (2013), Introductory Econometrics: A Modern Approach.
+    This approach assumes **strictly exogeneous regressors**, that is, NO lagged $y$ is allowed in the RHS of the equation. See Chapter 12.3 in Wooldridge (2013), Introductory Econometrics: A Modern Approach.
     
 - Use serial correlation-robust standard errors
 
