@@ -1,5 +1,5 @@
 ---
-title: "Correcting for Serial Corealtion with Strictly Exogenous Regressors"
+title: "Correcting for Serial Correaltion with Strictly Exogenous Regressors"
 format: html
 ---
 

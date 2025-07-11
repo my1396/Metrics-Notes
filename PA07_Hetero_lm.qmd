@@ -47,6 +47,12 @@ Such models are worth studying, as they naturally arise in a variety of contexts
 - **Log-linearized models:** Nonlinear models may be approximated by linear models around a steady-state. For example,  @Heckman1998 demonstrate how the nonlinear @Card2001 education model simplifies to a heterogeneous linear specification after linearization.
 
 
+
+## Mean Group Estimator
+
+@Pesaran1995 show that simple averages of the estimated coefficients (known as mean group, MG, estimates) result in consistent estimates of the underlying population means of the parameters when the time-series dimension of the data is sufficiently large. Whilst it is not possible to be sure about when $T$ is sufficiently large, Monte Carlo evidence suggests that reliable estimates can be obtained with $T\ge 30$ and $N\ge 20,$ when output growth is not very persistent.
+
+
 ## References {.unlisted .unnumbered}
 
 - Vladislav Morozov, Econometrics with Unobserved Heterogeneity, Course material, <https://vladislav-morozov.github.io/econometrics-heterogeneity/linear/linear-introduction.html>
