@@ -563,7 +563,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS01_Correct_AR1Errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Correaltion with Strictly Exogenous Regressors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -690,6 +690,7 @@ window.Quarto = {
   <li><a href="#models-with-homogeneous-slopes" id="toc-models-with-homogeneous-slopes" class="nav-link" data-scroll-target="#models-with-homogeneous-slopes"><span class="header-section-number">23.1.1</span> Models with Homogeneous Slopes</a></li>
   <li><a href="#heterogeneity-in-slopes." id="toc-heterogeneity-in-slopes." class="nav-link" data-scroll-target="#heterogeneity-in-slopes."><span class="header-section-number">23.1.2</span> Heterogeneity in Slopes.</a></li>
   </ul></li>
+  <li><a href="#mean-group-estimator" id="toc-mean-group-estimator" class="nav-link" data-scroll-target="#mean-group-estimator"><span class="header-section-number">23.2</span> Mean Group Estimator</a></li>
   </ul>
 </nav>
     </div>
@@ -750,6 +751,10 @@ y_{it}  = \bbeta_{it}'\bx_{it} + u_{it}.
 </ul>
 </section>
 </section>
+<section id="mean-group-estimator" class="level2" data-number="23.2">
+<h2 data-number="23.2" class="anchored" data-anchor-id="mean-group-estimator"><span class="header-section-number">23.2</span> Mean Group Estimator</h2>
+<p><span class="citation" data-cites="Pesaran1995">Pesaran and Smith (<a href="#ref-Pesaran1995" role="doc-biblioref">1995</a>)</span> show that simple averages of the estimated coefficients (known as mean group, MG, estimates) result in consistent estimates of the underlying population means of the parameters when the time-series dimension of the data is sufficiently large. Whilst it is not possible to be sure about when <span class="math inline">\(T\)</span> is sufficiently large, Monte Carlo evidence suggests that reliable estimates can be obtained with <span class="math inline">\(T\ge 30\)</span> and <span class="math inline">\(N\ge 20,\)</span> when output growth is not very persistent.</p>
+</section>
 <section id="references" class="level2 unlisted unnumbered">
 <h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
 <ul>
@@ -770,6 +775,9 @@ Hansen, Bruce. 2022. <em>Econometrics</em>. Princeton University Press.
 </div>
 <div id="ref-Heckman1998" class="csl-entry" role="listitem">
 Heckman, James, and Edward Vytlacil. 1998. <span>“<span class="nocase">Instrumental variables methods for the correlated random coefficient model</span>.”</span> <em>Journal of Human Resources</em> 33 (4): 974–87.
+</div>
+<div id="ref-Pesaran1995" class="csl-entry" role="listitem">
+Pesaran, M. Hashem, and Ron P. Smith. 1995. <span>“<span class="nocase">Estimating long-run relationships from dynamic heterogeneous panels</span>.”</span> <em>Journal of Econometrics</em> 6061: 473–77.
 </div>
 <div id="ref-Sury2011" class="csl-entry" role="listitem">
 Sury, Tavneet. 2011. <span>“<span class="nocase">Selection and Comparative Advantage in Technology Adoption</span>.”</span> <em>Econometrica</em> 79 (1): 159–209. <a href="https://doi.org/10.3982/ecta7749">https://doi.org/10.3982/ecta7749</a>.

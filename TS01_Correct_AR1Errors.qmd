@@ -37,13 +37,13 @@ where $e_t = u_t - \rho u_{t-1}.$ Hence, we have removed the serial correaltion 
 We rewrite the transformed equation as
 
 $$
-\tilde{y_t} = \beta_1\tilde{x_{t1}} + \beta_2\tilde{x_{t2}} + \cdots + \beta_K\tilde{x_{tK}} + e_t,\; t\ge 2,
+\tilde{y_t} = \beta_1\tilde{x}_{t1} + \beta_2\tilde{x}_{t2} + \cdots + \beta_K\tilde{x}_{tK} + e_t,\; t\ge 2,
 $${#eq-tranformed-model}
 where
 $$
 \begin{split}
-\tilde{y_t} &= y_t - \rho y_{t-1} \\
-\tilde{x_{tj}} &= x_{tj} - \rho x_{t-1,j},\; j=1,\ldots,K. \\
+\tilde{y}_t &= y_t - \rho y_{t-1} \\
+\tilde{x}_{tj} &= x_{tj} - \rho x_{t-1,j},\; j=1,\ldots,K. \\
 \end{split}
 $$
 Applying OLS to (-@eq-tranformed-model), the estimator is BLUE. Since the errors in the transformed equation are serially uncorrelated, we can apply the usual $t$ statistics and $F$ statistics for hypothesis testing.
@@ -71,8 +71,8 @@ Steps:
 
     $$
     \begin{split}
-    \tilde{y_t} &= y_t - \hat\rho y_{t-1}, \; t\ge 2 \\
-    \tilde{x_{tj}} &= x_{tj} - \hat\rho x_{t-1,j},\; j=1,\ldots,K. \\
+    \tilde{y}_t &= y_t - \hat\rho y_{t-1}, \; t\ge 2 \\
+    \tilde{x}_{tj} &= x_{tj} - \hat\rho x_{t-1,j},\; j=1,\ldots,K. \\
     \end{split}
     $$
 

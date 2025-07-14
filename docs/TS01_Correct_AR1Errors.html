@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Correcting for Serial Corealtion with Strictly Exogenous Regressors – Metrics Notes</title>
+<title>7&nbsp; Correcting for Serial Correaltion with Strictly Exogenous Regressors – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -462,7 +462,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_Correct_AR1Errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_Correct_AR1Errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Correaltion with Strictly Exogenous Regressors</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -544,7 +544,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./TS01_Correct_AR1Errors.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Correaltion with Strictly Exogenous Regressors</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -668,9 +668,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_Correct_AR1Errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_Correct_AR1Errors.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Correaltion with Strictly Exogenous Regressors</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Corealtion with Strictly Exogenous Regressors</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Correcting for Serial Correaltion with Strictly Exogenous Regressors</span></h1>
 </div>
 
 
@@ -708,11 +708,11 @@ y_t - \rho y_{t-1} = \beta_1(x_{t1} - \rho\, x_{t-1,1}) + \beta_2(x_{t2} - \rho\
 \]</span> where <span class="math inline">\(e_t = u_t - \rho u_{t-1}.\)</span> Hence, we have removed the serial correaltion in the error.</p>
 <p>We rewrite the transformed equation as</p>
 <p><span id="eq-tranformed-model"><span class="math display">\[
-\tilde{y_t} = \beta_1\tilde{x_{t1}} + \beta_2\tilde{x_{t2}} + \cdots + \beta_K\tilde{x_{tK}} + e_t,\; t\ge 2,
+\tilde{y_t} = \beta_1\tilde{x}_{t1} + \beta_2\tilde{x}_{t2} + \cdots + \beta_K\tilde{x}_{tK} + e_t,\; t\ge 2,
 \tag{7.4}\]</span></span> where <span class="math display">\[
 \begin{split}
-\tilde{y_t} &amp;= y_t - \rho y_{t-1} \\
-\tilde{x_{tj}} &amp;= x_{tj} - \rho x_{t-1,j},\; j=1,\ldots,K. \\
+\tilde{y}_t &amp;= y_t - \rho y_{t-1} \\
+\tilde{x}_{tj} &amp;= x_{tj} - \rho x_{t-1,j},\; j=1,\ldots,K. \\
 \end{split}
 \]</span> Applying OLS to (<a href="#eq-tranformed-model" class="quarto-xref"><span>7.4</span></a>), the estimator is BLUE. Since the errors in the transformed equation are serially uncorrelated, we can apply the usual <span class="math inline">\(t\)</span> statistics and <span class="math inline">\(F\)</span> statistics for hypothesis testing.</p>
 <p>In practice, since we don’t know <span class="math inline">\(\rho,\)</span> we need to get a consistent estimator – this is done by feasible GLS (FGLS).</p>
@@ -729,8 +729,8 @@ y_t - \rho y_{t-1} = \beta_1(x_{t1} - \rho\, x_{t-1,1}) + \beta_2(x_{t2} - \rho\
 <li><p>Apply the transformation as in (<a href="#eq-tranformed-model" class="quarto-xref"><span>7.4</span></a>), where</p>
 <p><span class="math display">\[
 \begin{split}
-\tilde{y_t} &amp;= y_t - \hat\rho y_{t-1}, \; t\ge 2 \\
-\tilde{x_{tj}} &amp;= x_{tj} - \hat\rho x_{t-1,j},\; j=1,\ldots,K. \\
+\tilde{y}_t &amp;= y_t - \hat\rho y_{t-1}, \; t\ge 2 \\
+\tilde{x}_{tj} &amp;= x_{tj} - \hat\rho x_{t-1,j},\; j=1,\ldots,K. \\
 \end{split}
 \]</span></p></li>
 <li><p>Apply OLS to the transformed equation</p>
