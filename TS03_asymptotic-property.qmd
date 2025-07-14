@@ -107,11 +107,17 @@ Because $\bx_t$ contains only $y_{t-1},$ @eq-AR_err implies that contemporaneous
 By contrast, the strict exogeneity assumption is needed for unbiasedness.
 Since $u_t$ is always correlated with $y_t$ ($\cov(u_t, y_t)=\var(u_t)>0$), strict exogeneity assumption cannot be true.
 
-Therefore, **a model with a lagged dependent variable cannot satisfy the strict exogeneity assumption**.
+Therefore, **a model with a lagged dependent variable can <span style='color:red'>NOT</span> satisfy the strict exogeneity assumption**.
 
-For the weak dependence of $y_t$ to hold, we must assume that $\abs{\beta_1}<1.$ If this condition holds, then Assumptions [-@cnj-12] through [-@cnj-32] implies that the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces consistent estimators of $\beta_0$ and $\beta_1.$ 
+For the weak dependence of $y_t$ to hold, we must assume that $\abs{\beta_1}<1.$ If this condition holds, then Assumptions [-@cnj-12] through [-@cnj-32] implies that the OLS estimator from the regression of $y_t$ on $y_{t-1}$ produces <span style='color:#008B45'>**consistent**</span> estimators of $\beta_0$ and $\beta_1.$ 
 
-Unfortunately, $\hat{\beta}_1$ s biased, and this bias can be large if the sample size is small or if $\beta_1$ is near 1. For $\beta_1$ near 1, $\hat{\beta}_1$ can have a severe downward bias. In moderate to large samples, $\hat{\beta}_1$ should be a good estimator of $\beta_1.$
+Unfortunately, $\hat{\beta}_1$ is <span style='color:red'>**biased**</span>, and 
+
+- this bias can be large if the sample size is small or if $\beta_1$ is near 1. 
+
+- For $\beta_1$ near 1, $\hat{\beta}_1$ can have a severe downward bias. 
+
+- In moderate to large samples, $\hat{\beta}_1$ should be a good estimator of $\beta_1.$
 :::
 
 --------------------------------------------------------------------------------
@@ -124,7 +130,7 @@ To show that the errors  $\{u_t\}$ are serially uncorrelated, we must show that 
 $$
 \E(u_tu_s\mid y_{t-1}, y_{s-1})=0
 $$
-Assume $s<t,$ rewrite $u_s = y_s-beta_0-beta_1y_{s-1},$ that is, $u_s$ is a function of $y$ dated before time $t.$
+Assume $s<t,$ rewrite $u_s = y_s-\beta_0-\beta_1y_{s-1},$ that is, $u_s$ is a function of $y$ dated before time $t.$
 
 By @eq-AR_err, we have
 
@@ -151,6 +157,8 @@ Conclusion: as long as only one lag of $y$ appears in $\E(y_t\mid y_{t-1}, y_{t-
 :::
 <div style='margin-top:-1em; margin-bottom:3em'><span style='float:right; margin-right:10px; '>&#9633;</span></div>
 
+
+--------------------------------------------------------------------------------
 
 :::{#exm-homoske}
 In a static model $y_t = \beta_0+\beta_1z_t+u_t,$ the *homoskedasticity* assumption requires that 

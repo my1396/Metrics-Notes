@@ -87,7 +87,7 @@ L^{p+1}: &\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \psi_
 $$
 
 ::: {#exm-inverse}
-Consider a 1st degree lag polynomial $\phi(L)=1-\phi L$, its inverse $\psi(L)$ can be calculated as 
+Consider a <span style='color:#008B45'>**1st degree lag polynomial** $\phi(L)=1-\phi L$</span>, its inverse $\psi(L)$ can be calculated as 
 
 $$
 \begin{aligned}
@@ -102,9 +102,9 @@ Hence
 
 $$
 \begin{aligned}
-\psi(L) &= (1-\phi L)^{-1} \\
+\color{#008B45} \psi(L) &\color{#008B45}= (1-\phi L)^{-1} \\
 &=1 + \phi L + \phi^2 L^2 + \phi^3 L^3 + \cdots \\
-&= \sum_{j=0}^\infty \phi^jL^j.
+&\color{#008B45}= \sum_{j=0}^\infty \phi^jL^j.
 \end{aligned}
 $$
 :::

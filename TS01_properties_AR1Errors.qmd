@@ -1,0 +1,167 @@
+---
+title: "Properties of OLS with Serially Correlated Errors"
+format: html
+---
+
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+When disturbances are serially correlated, main consequences for OLS are
+
+- unbiasedness remains
+- OLS is inefficient, while GLS is efficient.
+- usual $t$ and $F$ statistics are invalid.
+
+:::
+
+
+## Model Setup
+
+Using simple regression as an example
+
+$$
+y_t = \beta_0 + \beta_1 x_t + u_t
+$$
+with AR(1) errors
+
+$$
+\begin{aligned}
+& u_t = \rho u_{t-1} + e_t,\quad t = 1, 2, \dots, n \\
+& |\rho| < 1 \text{ and } e_t \sim WN(0, \sigma^2_e).
+\end{aligned}
+$$
+
+Assume that the sample average of $x_t$ is zero ($\bar{x} = 0$). Then, the OLS estimator $\hat{\beta}_1$ of $\beta_1$ can be written as
+
+$$
+\hat{\beta}_1 = \beta_1 + (SST_x)^{-1} \sum_{t=1}^{n} x_t u_t 
+$$
+
+where
+
+$$
+SST_x = \sum_{t=1}^{n} x_t^2 .
+$$
+
+## Unbiasedness and Consistency
+
+As long as the explanatory variables are strictly exogenous, 
+
+$$
+\E[u_t\bx_s] = \bold{0} \text{ for } \forall s,t
+$$
+
+the $\hat{\beta}_j$ are unbiased, regardless of the degree of serial correlation in the errors. This is analogous to the observation that heteroskedasticity in the errors does NOT cause bias in the $\hat{\beta}_j$.
+
+We can relax the strict exogeneity assumption to contemporaneous exogeneity 
+$$E(u_t x_t) = 0.$$ 
+When the data are weakly dependent ($\frac{1}{n}\sum_{t=1}^{n} x_t^2 \to Q_{XX} = \E(x_t^2)$), the $\hat{b}_j$ are still consistent (although not necessarily unbiased). This result did NOT hinge on any assumption about serial correlation in the errors.
+
+
+
+## Efficiency and Inference
+
+Because the Gauss-Markov Theorem requires both homoskedasticity and serially uncorrelated errors, OLS is no longer BLUE in the presence of serial correlation. 
+
+GLS is efficient. How much information is lost by OLS instead of GLS depends on the data. OLS fares better in data which have long periods and little cyclical variation. The greater is autocorrealtion in $u$, the greater will be the benefit to using GLS.
+
+Even more importantly, the usual OLS standard errors and test statistics are NOT valid, even asymptotically. Even if $u$ is normally distributed, the usual $t$ and $F$ statistics do NOT have those distributions.
+
+
+We can see this by computing the variance of the OLS estimator under the first four Gauss-Markov assumptions and the AR(1) serial correlation model for the error terms.
+
+Now, computing the variance of $\hat{\beta}_1$ (conditional on X), we must account for the serial correlation in the $u_t$:
+
+$$
+\begin{aligned}
+\text{Var}(\hat{\beta}_1) &= \frac{1}{SST_x^2} \text{Var} \left( \sum_{t=1}^{n} x_t u_t \right) \\
+&= \frac{1}{SST_x^2} \left( \sum_{t=1}^{n} x_t^2 \text{Var}(u_t) + 2 \sum_{t=1}^{n-1} \sum_{j=1}^{n-t} x_t x_{t+j} \text{E}(u_t u_{t+j}) \right) \\
+&= \frac{\sigma^2}{SST_x} + \frac{2 \sigma^2}{SST_x^2} \sum_{t=1}^{n-1} \sum_{j=1}^{n-t} \rho^j x_t x_{t+j}
+\end{aligned}
+$$
+
+Here, $\sigma^2 = \text{Var}(u_t)$ and $\text{E}(u_t u_{t+j}) = \text{Cov}(u_t, u_{t+j}) = \rho^j \sigma^2$.
+
+The first term $\frac{\sigma^2}{SST_x}$ is the usual OLS variance under Gauss-Markov assumptions ($\rho = 0$). Ignoring serial correlation when $\rho \neq 0$ leads to a biased variance estimator, since the second term is omitted.
+
+
+**Effect of Positive and Negative Serial Correlation**
+
+- If $\rho > 0$ (common case), then $\rho^j > 0$ and $x_t x_{t+j} > 0$ for most $t, j$.
+    
+    So, the second term is usually **positive**, and OLS **understates** the true variance.
+- If $\rho < 0$, the sign of the second term is ambiguous, but OLS variance may **overstate** the true variance.
+
+Therefore, the standard error of $\hat{\beta}_1$ is biased in presence of serial correlation, making OLS **t-statistics and F-statistics invalid** for inference.
+
+
+
+## Goodness-of-Fit
+
+Contrary to some claims, serial correlation **does not invalidate** the usual R-squared and adjusted R-squared measures, **provided** the data are **stationary and weakly dependent**.
+
+Recall:
+
+$$
+R^2 = 1 - \frac{\sigma_u^2}{\sigma_y^2}
+$$
+
+This definition is still valid in time series context with stationary data. Hence, $R^2$ and $\bar{R}^2$ are still consistent estimators of the population R-squared.
+
+However, for nonstationary processes (e.g., $I(1)$), variance grows over time, and $R^2$ is not meaningful. If trends or seasonality are present, they should be accounted for in the model.
+
+
+## In the Presence of Lagged Dependent Variables
+
+$$
+\begin{aligned}
+y_t &= \beta_0 + \beta_1 y_{t-1} + u_t , \\
+u_t &= \rho u_{t-1} + \varepsilon_t ,  \\
+\varepsilon_t &\sim WN(0, \sigma^2_\varepsilon) 
+\end{aligned}
+$$ {#eq-model}
+
+$$
+\E[y_{t-1}u_t] = \E\left[y_{t-1}(\rho u_{t-1} + \varepsilon_t)\right] = \rho \E[y_{t-1}u_{t-1}]
+$$
+
+Since $y_{t-1}$ includes $u_{t-1}$, $\E[y_{t-1}u_{t-1}]\ne 0.$ Hence
+
+$$
+\E[y_{t-1}u_t] \ne 0
+$$ {#eq-exo}
+unless $\rho=0.$
+
+Ea (-@eq-exo) indicates violation of contemporaneous exogeneity, which causes the OLS estimators of $\beta_0$ and $\beta_1$ to be inconsistent.
+
+
+Often, serial correlation in the errors of a dynamic model indicates that the dynamic regression function has not been completely specified. To see this, plug $u_t = \rho u_{t-1}+\varepsilon_t$ into Eq (-@eq-model), we get
+
+$$
+y_t = \beta_0 + \beta_1 y_{t-1} + \rho u_{t-1}+\varepsilon_t .
+$$
+Plug in $u_{t-1}=y_{t-1}-\beta_0 - \beta_1 y_{t-2}$ and collect terms, we have
+
+$$
+\begin{aligned}
+y_t &= (1-\rho)\beta_0 + (\beta_1+\rho) y_{t-1} - \rho\beta_1 y_{t-2} + \varepsilon_t \\
+&= \alpha_0 + \alpha_1y_{t-1}  + \alpha_2y_{t-2} + \varepsilon_t  .
+\end{aligned}
+$$
+where
+$$
+\begin{aligned}
+\alpha_0 &= (1-\rho)\beta_0 , \\
+\alpha_1 &= (\beta_1+\rho) , \\
+\alpha_2 &= -\rho\beta_1.
+\end{aligned}
+$$
+In other words, $y_t$ actually follows a second order autoregressive model, or AR(2) model.
+
+
+
+
+
+
+

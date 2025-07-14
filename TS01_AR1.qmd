@@ -318,14 +318,22 @@ Note that
 The autocovariance matrix is
 
 $$
-\bOmega = \frac{\sigma_w^2}{1-\rho^2}
+\begin{aligned}
+\bOmega &= \frac{\sigma_w^2}{1-\rho^2}
 \begin{bmatrix}
 1 & \rho & \cdots & \rho^{n-1} \\
 \rho & 1 & \cdots & \rho^{n-2} \\
 \vdots & \vdots & \ddots & \vdots \\
 \rho^{n-1} & \rho^{n-2} & \cdots & 1 \\
-\end{bmatrix} = \bOmega (\rho)
+\end{bmatrix} \\
+&= \gamma(0)\mathbf{R}  \\
+&= \bOmega (\rho)
+\end{aligned}
 $$
+
+The covariance matrix ($\bOmega$) equals the variance ($\gamma(0)$) times the autocorrelation matrix ($\mathbf{R}$).
+
+Note that $\gamma(h)$ is never zero, but it does become negligible if $\abs{\rho}<1.$ That is, the influence of a given disturbance fades as it recedes into the more distant past but vanishes only asymptotically.
 
 ___
 

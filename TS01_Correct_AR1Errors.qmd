@@ -3,9 +3,12 @@ title: "Correcting for Serial Correaltion with Strictly Exogenous Regressors"
 format: html
 ---
 
-Note that the corrections mentioned below should not be used when the explanatory variables include lagged dependent variables.
+Note that the corrections mentioned below should NOT be used when the explanatory variables include lagged dependent variables.
 
 The idea is to apply the generalized least-squares (GLS) method to estimate the parameters in a linear regression model in which the errors are serially correlated. Specifically, the errors are assumed to follow a first-order autoregressive process.
+
+
+## GLS
 
 Assumes 
 
@@ -48,6 +51,7 @@ $$
 $$
 Applying OLS to (-@eq-tranformed-model), the estimator is BLUE. Since the errors in the transformed equation are serially uncorrelated, we can apply the usual $t$ statistics and $F$ statistics for hypothesis testing.
 
+## FGLS
 
 In practice, since we don't know $\rho,$ we need to get a consistent estimator -- this is done by feasible GLS (FGLS).
 
@@ -84,10 +88,10 @@ Steps:
     and obtain new estimates of $\beta_1,$ $\ldots,$ $\beta_K.$ The usual standard errors, $t$ statistics, and $F$ statistics are asymptotically valid.
 
 
-This procedure is called the Cochrane-Orcutt (CO) Estimation, which has one less observation after the transformation.
+This procedure is called the **Cochrane-Orcutt (CO) Estimation**, which has one less observation after the transformation.
 
 
-Prais-Winsten (PW) Estimation use a specific transformation at $t=1:$
+**Prais-Winsten (PW) Estimation** uses a specific transformation at $t=1:$
 
 $$
 \sqrt{1-\rho^2} y_1  = \beta_1(\sqrt{1-\rho^2} x_{11}) + \beta_2(\sqrt{1-\rho^2} x_{12}) + \cdots + \beta_K(\sqrt{1-\rho^2} x_{1K}) + \sqrt{1-\rho^2}u_1 .
@@ -114,9 +118,12 @@ Then transform the data using the newly obtained estimate of $\rho$ and estimate
 
 We can repeat the whole process many times, until the estimate of $\rho$ changes by very little from the previous iteration.
 
+For estimation in the presence of both autocorrelation and lagged $y$, refer to chap 12.9.4, Econometric Analysis, 5e by Greene, pp. 277.
 
+References:
 
-
+- Chap 12.8, 12.9, Econometric Analysis, 5e by Greene, pp. 271–276
+- Chap 12.3, Introductory Econometrics: A Modern Approach, 7e by Jeffrey M. Wooldridge
 
 
 
