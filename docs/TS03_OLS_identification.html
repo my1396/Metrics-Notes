@@ -719,12 +719,12 @@ y_t = \bx_t^\prime \balpha + e_t
 <p>where <span class="math inline">\(\bx_t = (1, y_{t-1}, ..., y_{t-p})^\prime\)</span>. The coefficient <span class="math inline">\(\balpha\)</span> is defined by projection <span class="math display">\[\balpha = \left(\E(\bx_t\bx_t')\right)^{-1}\left(\E(\bx_t\by_t)\right)\]</span> The error has mean zero and variance <span class="math inline">\(\sigma^2 = \mathbb{E}[e_t^2]\)</span>. This allows <span class="math inline">\(y_t\)</span> to follow a true AR(p) process, but it is not necessary.</p>
 <p>The least squares estimator of the AR(p) model is</p>
 <p><span class="math display">\[
-\hat{\balpha} = \left( \frac{1}{T} \sum_{t=1}^T x_t x_t^\prime \right)^{-1} \left( \frac{1}{T} \sum_{t=1}^T x_t y_t \right).
+\widehat{\balpha} = \left( \frac{1}{T} \sum_{t=1}^T x_t x_t^\prime \right)^{-1} \left( \frac{1}{T} \sum_{t=1}^T x_t y_t \right).
 \]</span></p>
 <p>This notation presumes that there are <span class="math inline">\(T + p\)</span> observations on <span class="math inline">\(y_t\)</span>, from which the first <span class="math inline">\(p\)</span> are used as initial conditions so that <span class="math inline">\(x_1 = (1, y_0, y_{-1}, ..., y_{-p+1})\)</span> is defined.</p>
 <p>The least squares residuals are</p>
 <p><span class="math display">\[
-\hat{e}_t = y_t - \bx_t^\prime \hat{\balpha}.
+\hat{e}_t = y_t - \bx_t^\prime \widehat{\balpha}.
 \]</span></p>
 <p>The error variance can be estimated by</p>
 <p><span class="math display">\[
