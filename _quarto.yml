@@ -22,6 +22,7 @@ book:
         - TS02_lag_poly.qmd
         - TS02_AR-MA-representation.qmd
         - TS03_finite-property.qmd
+        - TS03_OLS_identification.qmd
         - TS03_asymptotic-property.qmd
         - TS04_TimeSeries_regression.qmd
         - TS04_Spurious_regression.qmd

@@ -1,0 +1,273 @@
+---
+title: "Estimation of Autoregressive Models"
+format: 
+    html:
+        include-in-header: themes/mathjax.html
+        respect-user-color-scheme: true
+        theme:
+            dark: [cosmo, themes/cosmo-dark.scss]
+            light: [cosmo, themes/cosmo-light.scss]
+---
+
+We consider estimation of an AR(p) model for stationary, ergodic, and non-deterministic $y_t$. The model is
+
+$$
+y_t = \bx_t^\prime \balpha + e_t 
+$$
+
+where $\bx_t = (1, y_{t-1}, ..., y_{t-p})^\prime$. The coefficient $\balpha$ is defined by projection 
+$$\balpha = \left(\E(\bx_t\bx_t')\right)^{-1}\left(\E(\bx_t\by_t)\right)$$ 
+The error has mean zero and variance $\sigma^2 = \mathbb{E}[e_t^2]$. This allows $y_t$ to follow a true AR(p) process, but it is not necessary.
+
+The least squares estimator of the AR(p) model is
+
+$$
+\hat{\balpha} = \left( \frac{1}{T} \sum_{t=1}^T x_t x_t^\prime \right)^{-1} \left( \frac{1}{T} \sum_{t=1}^T x_t y_t \right).
+$$
+
+This notation presumes that there are $T + p$ observations on $y_t$, from which the first $p$ are used as initial conditions so that $x_1 = (1, y_0, y_{-1}, ..., y_{-p+1})$ is defined.
+
+The least squares residuals are
+
+$$
+\hat{e}_t = y_t - \bx_t^\prime \hat{\balpha}.
+$$
+
+The error variance can be estimated by
+
+$$
+\hat{\sigma}^2 = \frac{1}{T} \sum_{t=1}^T \hat{e}_t^2
+$$
+or 
+
+$$
+s^2 = \frac{1}{T - p - 1} \sum_{t=1}^T \hat{e}_t^2.
+$$
+
+If $y_t$ is strictly stationary and ergodic, then so are $\bx_t \bx_t^\prime$ and $\bx_t y_t$. They have finite means if $\mathbb{E}[y_t^2] < \infty$. Under these assumptions the Ergodic Theorem implies that
+
+$$
+\frac{1}{T} \sum_{t=1}^T x_t y_t \overset{p}{\to} \mathbb{E}[x_t y_t]
+$$
+and
+
+$$
+\frac{1}{T} \sum_{t=1}^T x_t x_t^\prime \overset{p}{\to} \mathbb{E}[x_t x_t^\prime] = Q.
+$$
+According to the continuous mapping theorem:
+
+$$
+\widehat{\balpha} = \left( \frac{1}{T} \sum_{t=1}^T \bx_t \bx_t^\prime \right)^{-1} \left( \frac{1}{T} \sum_{t=1}^T \bx_t y_t \right) \overset{p}{\to} Q^{-1} \mathbb{E}[\bx_t y_t] = \balpha.
+$$
+
+This shows that the least squares estimator is consistent, $\widehat{\balpha} \overset{p}{\to} \balpha.$
+
+It is straightforward to show that $\hat{\sigma}^2$ is consistent as well.
+
+
+::: {#thm-consistency}
+If $y_t$ is strictly stationary, ergodic, not purely deterministic, and $\mathbb{E}[y_t^2] < \infty$, then for any $p$:
+
+$$
+\hat{\alpha} \overset{p}{\to} \alpha \quad \text{and} \quad \hat{\sigma}^2 \overset{p}{\to} \sigma^2 \quad \text{as } n \to \infty.
+$$
+
+:::
+
+This shows that under very mild conditions, the coefficients of an AR(p) model can be consistently estimated by least squares. Once again, this does not require that the series $y_t$ is actually an AR(p) process. It holds for any stationary process with the coefficient defined by projection.
+
+
+
+
+
+
+## Asymptotic Distribution of Least Squares Estimator
+
+
+Assume the error $e_t$ is a Martingale Difference Sequence (MDS). Since $\bx_t = (1, y_{t-1}, ..., y_{t-p})^\prime$ is part of the information set $\mathcal{F}_{t-1}$, by the conditioning theorem:
+
+$$
+\mathbb{E}[\bx_t e_t | \mathcal{F}_{t-1}] = \bx_t \mathbb{E}[e_t | \mathcal{F}_{t-1}] = 0.
+$$
+
+So $\bx_t e_t$ is a MDS. If $x_t$ and $e_t$ have finite fourth moments, which holds if $y_t$ does, then by the Martingale Difference CLT:
+
+$$
+\frac{1}{\sqrt{T}} \sum_{t=1}^T \bx_t e_t \overset{d}{\to} N(0, \bSigma)
+$$
+
+where
+
+$$
+\bSigma = \mathbb{E}[\bx_t \bx_t^\prime e_t^2].
+$$
+
+::: {#thm-asymp-distribution}
+If $y_t$ follows the AR(p) model with $\mathbb{E}[e_t | \mathcal{F}_{t-1}] = 0$, $\mathbb{E}[y_t^4] < \infty$, and $\sigma^2 > 0$, then as $n \to \infty$:
+
+$$
+\sqrt{n} (\hat{\balpha} - \balpha) \overset{d}{\to} N(\bold{0}, \bV)
+$$
+where
+$$
+V = \bQ^{-1} \bSigma \bQ^{-1}.
+$$
+:::
+
+
+
+### Distribution Under Non-Autocorrelation
+
+Assume that the error is a homoskedastic MDS, we have
+
+$$
+\bSigma = \mathbb{E}[\bx_t \bx_t^\prime \E(e_t^2\mid \Fcal_{t-1})] = \bQ \sigma^2
+$$
+The asymptotic distribution simplifies:
+
+$$
+V^0 = \sigma^2 Q^{-1}.
+$$
+
+**Estimation of covariance matrix**
+
+- Under homoskedasticity:
+
+    $$
+    \begin{aligned}
+    \widehat{\bV}^0 &= \hat{\sigma}^2 \widehat{\bQ}^{-1},  \\
+    \widehat{\bQ} &= \frac{1}{T} \sum_{t=1}^T \bx_t \bx_t^\prime
+    \end{aligned}
+    $$
+    
+    The estimator $s^2$ may be used instead of $\hat{\sigma}^2.$
+
+- Under heteroskedasticity:
+
+$$
+\begin{aligned}
+\widehat{V} &= \widehat{Q}^{-1} \widehat{\bSigma} \widehat{Q}^{-1}, \\
+\quad \text{where} \quad
+\widehat{\bSigma} &= \frac{1}{n} \sum_{t=1}^n \bx_t \bx_t^\prime \widehat{e}_t^2
+\end{aligned}
+$$
+
+
+### Distribution Under General Dependence
+
+
+In case of serial correlated $e_t,$ the autocovariance matrix becomes
+
+$$
+\bSigma = \sum_{\ell = -\infty}^{\infty} \mathbb{E}[\bx_{t - \ell} \bx_t^\prime e_t e_{t - \ell}].
+$$
+To consistently estimate the covariance matrix, we need **Heteroskedasticity and Autocorrelation Consistent** (HAC) covariance matrix estimators.
+
+
+Define the vector series 
+$$
+\bu_t = \bx_t e_t,
+$$ 
+and define autocovariance matrices:
+
+$$
+\bGamma(\ell) = \mathbb{E}[\bu_{t - \ell} \bu_t^\prime]
+$$
+
+Then:
+
+$$
+\bSigma = \sum_{\ell = -\infty}^{\infty} \Gamma(\ell)
+$$
+
+Estimate using:
+
+$$
+\begin{aligned}
+\hat{\Gamma}(\ell) &= \frac{1}{T} \sum_{t = \ell+1}^T \hat{u}_{t - \ell} \hat{u}_t^\prime \\
+\hat{u}_t &= x_t \hat{e}_t
+\end{aligned}
+$$
+
+Then:
+
+$$
+\widehat{\bSigma}_M = \sum_{\ell = -M}^{M} \widehat{\bGamma}(\ell)
+$$
+where $M$ is called the **lag truncation** number or the **bandwidth**.
+
+
+$\hat{\bSigma}_M$ has two potential deficiencies:
+
+- $\hat{\bSigma}_M$ changes non-smoothky with $M$, making estimation sensitive to the choice of $M$
+- $\hat{\bSigma}_M$ may not be positive semi-definite and is therefore not a valid variance matrix estimator. For example, when $M=1,$ 
+
+$$
+\widehat{\bSigma}_1 = \hat{\gamma}(0)\left(1 + 2\hat{\rho}(1)\right)
+$$
+which is negative when $\hat{\rho}(1)<-1/2.$ Thus if the data are strongly negatively autocorrelated the variance estimator can be negative. A negative variance estimator means that standard errors are ill-defined.
+
+The two deficiencies can be resolved by using a weighted sum of autocovariances.
+
+Newey-West (1987) proposes:
+
+$$
+\hat{\bSigma}_{NW} = \sum_{\ell = -M}^{M} \left(1 - \frac{|\ell|}{M + 1} \right) \hat{\bGamma}(\ell) 
+$$
+
+
+It can be shown that
+$$
+\hat{\bSigma}_{NW} \overset{p}{\to} \bSigma.
+$$
+
+A rule of thumb of selecting $M=0.75T^{1/3}.$
+
+
+## Model Selection
+
+What is the appropriate choice of autoregressive order $p$ in practice? This is the problem of model selection. A good choice is to minimize the Akaike information criterion (AIC)
+
+$$
+\text{AIC}(p) = T\log\widehat{\sigma}^2(p) + 2p
+$$
+where $\widehat{\sigma}^2(p)$ is the estimated residual variance from an AR(p). The AIC is a penalized version of the Gaussian log-likelihood function for the estimated regression model. It is an estimate of the divergence between the fitted model and the true conditional density. By selecting the model with the **smallest** value of the AIC, you select the model with the smallest estimated divergence – the highest estimated fit
+between the estimated and true densities.
+
+
+The AIC is also a monotonic transformation of an estimator of the one-step-ahead forecast mean squared error. Thus selecting the model with the smallest value of the AIC you are selecting the model with the smallest estimated forecast error.
+
+
+## ARDL model
+
+An ARDL(p,q) model is given by
+
+$$
+\begin{aligned}
+y_t &= \mu + \sum_{i=1}^p\alpha_iy_{t-i} + \sum_{i=0}^q\bbeta_i'\bz_{t-i} \\
+&=\mu + \alpha_1y_{t-1} + \alpha_2y_{t-2} + \cdots + \alpha_py_{t-p} \\
+&\phantom{=}\quad + \bbeta_0'\bz_{t} + \bbeta_1'\bz_{t-1} + \bbeta_2'\bz_{t-2} + \cdots + \bbeta_q'\bz_{t-q}+ \varepsilon_t .
+\end{aligned}
+$$
+It nests both the autoregressive and distributed lag models, thereby combining serial correlation and dynamic impact.
+
+Here the regressor is
+
+$$
+\bx_t = \begin{pmatrix}
+1 & y_{t-1} & y_{t-2} & \cdots & y_{t-p} & \bz_{t}' & \bz_{t-1}'  & \cdots & \bz_{t-q}'
+\end{pmatrix}'.
+$$
+
+- $\bbeta_1$ represents the initial impact of $\bz_t$ on $y_t,$
+- $\bbeta_2$ represents the impact in the second period
+- The long-run multiplier is
+
+    $$
+    LR = \frac{\bbeta_1+\cdots+\bbeta_q}{1-\alpha_1-\cdots-\alpha_p}
+    $$
+
+References:
+
+- Chapter 14 Time Series, Econometrics, by Bruce Hansen.
+

@@ -118,9 +118,11 @@ Then transform the data using the newly obtained estimate of $\rho$ and estimate
 
 We can repeat the whole process many times, until the estimate of $\rho$ changes by very little from the previous iteration.
 
-For estimation in the presence of both autocorrelation and lagged $y$, refer to chap 12.9.4, Econometric Analysis, 5e by Greene, pp. 277.
+For estimation in the presence of **both autocorrelation and lagged** $y$, refer to Chap 12.9.4, Econometric Analysis, 5e by Greene, pp. 277.
 
-References:
+--------------------------------------------------------------------------------
+
+**References**:
 
 - Chap 12.8, 12.9, Econometric Analysis, 5e by Greene, pp. 271–276
 - Chap 12.3, Introductory Econometrics: A Modern Approach, 7e by Jeffrey M. Wooldridge

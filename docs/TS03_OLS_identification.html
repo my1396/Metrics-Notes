@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>15&nbsp; Time Series Regression – Metrics Notes</title>
+<title>13&nbsp; Estimation of Autoregressive Models – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS04_Spurious_regression.html" rel="next">
-<link href="./TS03_asymptotic-property.html" rel="prev">
+<link href="./TS03_asymptotic-property.html" rel="next">
+<link href="./TS03_finite-property.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -498,7 +463,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_TimeSeries_regression.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS03_OLS_identification.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation of Autoregressive Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -615,7 +580,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS03_OLS_identification.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS03_OLS_identification.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation of Autoregressive Models</span></span></a>
   </div>
 </li>
@@ -627,7 +592,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS04_TimeSeries_regression.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS04_TimeSeries_regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span></a>
   </div>
 </li>
@@ -714,13 +679,13 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#finite-distributed-lags" id="toc-finite-distributed-lags" class="nav-link active" data-scroll-target="#finite-distributed-lags"><span class="header-section-number">15.1</span> Finite Distributed Lags</a></li>
-  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">15.2</span> Assumptions</a></li>
-  <li><a href="#application-okuns-law" id="toc-application-okuns-law" class="nav-link" data-scroll-target="#application-okuns-law"><span class="header-section-number">15.3</span> Application: Okun’s Law</a>
+  <li><a href="#asymptotic-distribution-of-least-squares-estimator" id="toc-asymptotic-distribution-of-least-squares-estimator" class="nav-link active" data-scroll-target="#asymptotic-distribution-of-least-squares-estimator"><span class="header-section-number">13.1</span> Asymptotic Distribution of Least Squares Estimator</a>
   <ul class="collapse">
-  <li><a href="#empirical-result" id="toc-empirical-result" class="nav-link" data-scroll-target="#empirical-result"><span class="header-section-number">15.3.1</span> Empirical Result</a></li>
-  <li><a href="#ardl" id="toc-ardl" class="nav-link" data-scroll-target="#ardl"><span class="header-section-number">15.3.2</span> ARDL</a></li>
+  <li><a href="#distribution-under-non-autocorrelation" id="toc-distribution-under-non-autocorrelation" class="nav-link" data-scroll-target="#distribution-under-non-autocorrelation"><span class="header-section-number">13.1.1</span> Distribution Under Non-Autocorrelation</a></li>
+  <li><a href="#distribution-under-general-dependence" id="toc-distribution-under-general-dependence" class="nav-link" data-scroll-target="#distribution-under-general-dependence"><span class="header-section-number">13.1.2</span> Distribution Under General Dependence</a></li>
   </ul></li>
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection"><span class="header-section-number">13.2</span> Model Selection</a></li>
+  <li><a href="#ardl-model" id="toc-ardl-model" class="nav-link" data-scroll-target="#ardl-model"><span class="header-section-number">13.3</span> ARDL model</a></li>
   </ul>
 </nav>
     </div>
@@ -728,9 +693,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_TimeSeries_regression.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Time Series Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS03_OLS_identification.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation of Autoregressive Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Time Series Regression</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Estimation of Autoregressive Models</span></h1>
 </div>
 
 
@@ -747,312 +712,178 @@ window.Quarto = {
 </header>
 
 
-<!-- Chunk option settings -->
-<!-- Define chunk option `max.lines` -->
-<!-- controls max lines printed -->
-<p>Given the dynamic relationship of time series data, there are three different ways of modeling these relationships.</p>
-<ol type="1">
-<li><p>The dependent variable <span class="math inline">\(y\)</span> is a function of current and past values of an explanatory variable <span class="math inline">\(x\)</span>. That is,</p>
+<p>We consider estimation of an AR(p) model for stationary, ergodic, and non-deterministic <span class="math inline">\(y_t\)</span>. The model is</p>
 <p><span class="math display">\[
-y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots)
+y_t = \bx_t^\prime \balpha + e_t
 \]</span></p>
-<p>We can think of <span class="math inline">\((y_t, x_t)\)</span> as denoting the values of <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> in the current period; <span class="math inline">\(x_{t-1}\)</span> denotes the value of <span class="math inline">\(x\)</span> in the previous period, <span class="math inline">\(x_{t-2}\)</span> denotes the value of <span class="math inline">\(x\)</span> two periods ago, and so on. Because of the lagged effects, the above equation is called a <strong>distributed lag (DL) model</strong>.</p></li>
-<li><p>Specify a model with a <strong>lagged dependent variable</strong> as one of the explanatory variables.</p>
+<p>where <span class="math inline">\(\bx_t = (1, y_{t-1}, ..., y_{t-p})^\prime\)</span>. The coefficient <span class="math inline">\(\balpha\)</span> is defined by projection <span class="math display">\[\balpha = \left(\E(\bx_t\bx_t')\right)^{-1}\left(\E(\bx_t\by_t)\right)\]</span> The error has mean zero and variance <span class="math inline">\(\sigma^2 = \mathbb{E}[e_t^2]\)</span>. This allows <span class="math inline">\(y_t\)</span> to follow a true AR(p) process, but it is not necessary.</p>
+<p>The least squares estimator of the AR(p) model is</p>
 <p><span class="math display">\[
-y_t = y(y_{t-1}, x_t)
+\hat{\balpha} = \left( \frac{1}{T} \sum_{t=1}^T x_t x_t^\prime \right)^{-1} \left( \frac{1}{T} \sum_{t=1}^T x_t y_t \right).
 \]</span></p>
-<p>We can also combine the first two features of the above and previous equation so that we have a dynamic model with lagged values of both the <em>dependent</em> and <em>independent</em> variables, such as</p>
+<p>This notation presumes that there are <span class="math inline">\(T + p\)</span> observations on <span class="math inline">\(y_t\)</span>, from which the first <span class="math inline">\(p\)</span> are used as initial conditions so that <span class="math inline">\(x_1 = (1, y_0, y_{-1}, ..., y_{-p+1})\)</span> is defined.</p>
+<p>The least squares residuals are</p>
 <p><span class="math display">\[
-y_t = f(y_{t-1}, x_t, x_{t-1}, x_{t-2}, \ldots)
+\hat{e}_t = y_t - \bx_t^\prime \hat{\balpha}.
 \]</span></p>
-<p>Such models are called <strong>autoregressive distributed lag models (ARDL)</strong>. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.</p></li>
-<li><p>A third way of modeling the continuing change over several periods is via an error term. For example, using <span class="math inline">\(f(\cdot)\)</span> and <span class="math inline">\(g(\cdot)\)</span>, both of which are replaced later with linear functions, we can write</p>
+<p>The error variance can be estimated by</p>
 <p><span class="math display">\[
-y_t = f(x_t) + e_t \quad \text{and} \quad e_t = g(e_{t-1})
+\hat{\sigma}^2 = \frac{1}{T} \sum_{t=1}^T \hat{e}_t^2
+\]</span> or</p>
+<p><span class="math display">\[
+s^2 = \frac{1}{T - p - 1} \sum_{t=1}^T \hat{e}_t^2.
 \]</span></p>
-<p>where the function <span class="math inline">\(e_t = g(e_{t-1})\)</span> is used to denote the dependence of the error term on its value in the previous period. In this case, <span class="math inline">\(e_t\)</span> is correlated with <span class="math inline">\(e_{t-1}\)</span>, and in such a scenario, we say the errors are <strong>serially correlated or autocorrelated</strong>.</p></li>
-</ol>
-<p><strong>Stationarity</strong></p>
-<p>An assumption that we will maintain throughout this exercise is that <em>variables in our equation are stationary</em>, which means that a variable is one that is not explosive, nor trending, and nor wandering aimlessly without returning to its mean. A stationary variable simply means a variable whose mean, variance and other statistical properties remain constant over time.</p>
-<section id="finite-distributed-lags" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="finite-distributed-lags"><span class="header-section-number">15.1</span> Finite Distributed Lags</h2>
-<p>The first dynamic relationship we consider is the first model that we introduced, which took the form of <span class="math display">\[
-y_t = f(x_t, x_{t-1}, x_{t-2}, \ldots),
-\]</span> with the additional assumption that the relationship is <strong>linear</strong>, and after <span class="math inline">\(q\)</span> time periods, changes in <span class="math inline">\(x\)</span> no longer have an impact on <span class="math inline">\(y\)</span>. Under these conditions, we have the multiple regression model:</p>
-<p><span id="eq-FDL"><span class="math display">\[
-y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t
-\tag{15.1}\]</span></span></p>
-<p>The above model can be treated in the same way as a multiple regression model. Instead of having a number of different explanatory variables, we have a number of different <strong>lags of the same explanatory variable</strong>. This equation can be very useful in two ways:</p>
-<ol type="1">
-<li><p><strong>Forecasting future values of <span class="math inline">\(y\)</span>.</strong></p>
-<p>To introduce notation for future values, suppose our sample period is <span class="math inline">\(t = 1, 2, \ldots, T\)</span>. We use <span class="math inline">\(t\)</span> for the index and <span class="math inline">\(T\)</span> for the sample size to emphasize the time series nature of the data. Given the last observation in our sample is at <span class="math inline">\(t = T\)</span>, the first post-sample observation that we wish to forecast is at <span class="math inline">\(t = T + 1\)</span>. The equation for this observation can be given by:</p>
+<p>If <span class="math inline">\(y_t\)</span> is strictly stationary and ergodic, then so are <span class="math inline">\(\bx_t \bx_t^\prime\)</span> and <span class="math inline">\(\bx_t y_t\)</span>. They have finite means if <span class="math inline">\(\mathbb{E}[y_t^2] &lt; \infty\)</span>. Under these assumptions the Ergodic Theorem implies that</p>
 <p><span class="math display">\[
-y_{T+1} = \alpha + \beta_0 x_{T+1} + \beta_1 x_T + \beta_2 x_{T-1} + \ldots + \beta_q x_{T-q+1} + e_{T+1}
-\]</span></p></li>
-<li><p><strong>Strategic Analysis.</strong></p>
-<p>For example, to use an economic example, understanding the effects of the change in interest rate on unemployment and inflation, or the effect of advertising on sales on a firm’s products. The coefficient <span class="math inline">\(\beta_s\)</span> gives the change in <span class="math inline">\(E(y_t)\)</span> when <span class="math inline">\(x_{t-s}\)</span> changes by one unit, but <span class="math inline">\(x\)</span> is held constant in other periods. Alternatively, if we look forward rather than backward, <span class="math inline">\(\beta_s\)</span> gives the changes in <span class="math inline">\(E(y_{t+s})\)</span> when <span class="math inline">\(x_t\)</span> changes by one unit, but <span class="math inline">\(x\)</span> in other periods is held constant. In terms of derivatives:</p>
+\frac{1}{T} \sum_{t=1}^T x_t y_t \overset{p}{\to} \mathbb{E}[x_t y_t]
+\]</span> and</p>
 <p><span class="math display">\[
-\frac{\partial E(y_t)}{\partial x_{t-s}} = \frac{\partial E(y_{t+s})}{\partial x_t} = \beta_s
-\]</span></p></li>
-</ol>
-<p>The effect of a one-unit change in <span class="math inline">\(x_t\)</span> is <strong>distributed</strong> over the current and next <span class="math inline">\(q\)</span> periods. It is called a <strong>finite distributed lag model of order <span class="math inline">\(q\)</span></strong> because it is assumed that after a finite number of periods <span class="math inline">\(q\)</span>, changes in <span class="math inline">\(x\)</span> no longer have an impact on <span class="math inline">\(y\)</span>.</p>
-<p>To interpret the coefficients:</p>
+\frac{1}{T} \sum_{t=1}^T x_t x_t^\prime \overset{p}{\to} \mathbb{E}[x_t x_t^\prime] = Q.
+\]</span> According to the continuous mapping theorem:</p>
+<p><span class="math display">\[
+\widehat{\balpha} = \left( \frac{1}{T} \sum_{t=1}^T \bx_t \bx_t^\prime \right)^{-1} \left( \frac{1}{T} \sum_{t=1}^T \bx_t y_t \right) \overset{p}{\to} Q^{-1} \mathbb{E}[\bx_t y_t] = \balpha.
+\]</span></p>
+<p>This shows that the least squares estimator is consistent, <span class="math inline">\(\widehat{\balpha} \overset{p}{\to} \balpha.\)</span></p>
+<p>It is straightforward to show that <span class="math inline">\(\hat{\sigma}^2\)</span> is consistent as well.</p>
+<div id="thm-consistency" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 13.1</strong></span> If <span class="math inline">\(y_t\)</span> is strictly stationary, ergodic, not purely deterministic, and <span class="math inline">\(\mathbb{E}[y_t^2] &lt; \infty\)</span>, then for any <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\hat{\alpha} \overset{p}{\to} \alpha \quad \text{and} \quad \hat{\sigma}^2 \overset{p}{\to} \sigma^2 \quad \text{as } n \to \infty.
+\]</span></p>
+</div>
+<p>This shows that under very mild conditions, the coefficients of an AR(p) model can be consistently estimated by least squares. Once again, this does not require that the series <span class="math inline">\(y_t\)</span> is actually an AR(p) process. It holds for any stationary process with the coefficient defined by projection.</p>
+<section id="asymptotic-distribution-of-least-squares-estimator" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="asymptotic-distribution-of-least-squares-estimator"><span class="header-section-number">13.1</span> Asymptotic Distribution of Least Squares Estimator</h2>
+<p>Assume the error <span class="math inline">\(e_t\)</span> is a Martingale Difference Sequence (MDS). Since <span class="math inline">\(\bx_t = (1, y_{t-1}, ..., y_{t-p})^\prime\)</span> is part of the information set <span class="math inline">\(\mathcal{F}_{t-1}\)</span>, by the conditioning theorem:</p>
+<p><span class="math display">\[
+\mathbb{E}[\bx_t e_t | \mathcal{F}_{t-1}] = \bx_t \mathbb{E}[e_t | \mathcal{F}_{t-1}] = 0.
+\]</span></p>
+<p>So <span class="math inline">\(\bx_t e_t\)</span> is a MDS. If <span class="math inline">\(x_t\)</span> and <span class="math inline">\(e_t\)</span> have finite fourth moments, which holds if <span class="math inline">\(y_t\)</span> does, then by the Martingale Difference CLT:</p>
+<p><span class="math display">\[
+\frac{1}{\sqrt{T}} \sum_{t=1}^T \bx_t e_t \overset{d}{\to} N(0, \bSigma)
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\bSigma = \mathbb{E}[\bx_t \bx_t^\prime e_t^2].
+\]</span></p>
+<div id="thm-asymp-distribution" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 13.2</strong></span> If <span class="math inline">\(y_t\)</span> follows the AR(p) model with <span class="math inline">\(\mathbb{E}[e_t | \mathcal{F}_{t-1}] = 0\)</span>, <span class="math inline">\(\mathbb{E}[y_t^4] &lt; \infty\)</span>, and <span class="math inline">\(\sigma^2 &gt; 0\)</span>, then as <span class="math inline">\(n \to \infty\)</span>:</p>
+<p><span class="math display">\[
+\sqrt{n} (\hat{\balpha} - \balpha) \overset{d}{\to} N(\bold{0}, \bV)
+\]</span> where <span class="math display">\[
+V = \bQ^{-1} \bSigma \bQ^{-1}.
+\]</span></p>
+</div>
+<section id="distribution-under-non-autocorrelation" class="level3" data-number="13.1.1">
+<h3 data-number="13.1.1" class="anchored" data-anchor-id="distribution-under-non-autocorrelation"><span class="header-section-number">13.1.1</span> Distribution Under Non-Autocorrelation</h3>
+<p>Assume that the error is a homoskedastic MDS, we have</p>
+<p><span class="math display">\[
+\bSigma = \mathbb{E}[\bx_t \bx_t^\prime \E(e_t^2\mid \Fcal_{t-1})] = \bQ \sigma^2
+\]</span> The asymptotic distribution simplifies:</p>
+<p><span class="math display">\[
+V^0 = \sigma^2 Q^{-1}.
+\]</span></p>
+<p><strong>Estimation of covariance matrix</strong></p>
 <ul>
-<li><p>The coefficient <span class="math inline">\(\beta_0 = y_t - y_{t-1}\)</span> is called the <strong>impact multiplier</strong> or <strong>impact propensity</strong>, which shows that the immediate change in <span class="math inline">\(y\)</span> due to one-unit increase in <span class="math inline">\(x\)</span> at time <span class="math inline">\(t.\)</span></p></li>
-<li><p>The coefficient <span class="math inline">\(\beta_s\)</span> is called a <strong>distributed-lag weight</strong> or an <strong><span class="math inline">\(s\)</span>-period delayed multiplier</strong>.</p>
-<p><span class="math inline">\(\beta_1 = y_{t+1} - y_{t-1}\)</span> is the change in <span class="math inline">\(y\)</span> one period after the temporary change in <span class="math inline">\(x\)</span> at time <span class="math inline">\(t\)</span>; <span class="math inline">\(\beta_2 = y_{t+2} - y_{t-1}\)</span> is the change in <span class="math inline">\(y\)</span> two periods after the change; at time <span class="math inline">\(t+q+1,\)</span> <span class="math inline">\(y\)</span> has reverted back to its initial level: <span class="math inline">\(y_{t+q+1} = y_{t-1}\)</span> because we have assumed that only <span class="math inline">\(q\)</span> lags of <span class="math inline">\(x\)</span> appear in (<a href="#eq-FDL" class="quarto-xref"><span>15.1</span></a>).</p></li>
-<li><p>Adding up a portion of the coefficients gives you the <strong>interim multipliers</strong>. For example, the interim multiplier for two periods would be <span class="math inline">\((\beta_0 + \beta_1 + \beta_2)\)</span>.</p></li>
-<li><p>The <strong>long-run propensity</strong> (LRP), also called the long-run multiplier or total multiplier, is the final effect on <span class="math inline">\(y\)</span> on the sustained increase after <span class="math inline">\(q\)</span> or more periods have elapsed and is given by the equation:</p></li>
+<li><p>Under homoskedasticity:</p>
+<p><span class="math display">\[
+  \begin{aligned}
+  \widehat{\bV}^0 &amp;= \hat{\sigma}^2 \widehat{\bQ}^{-1},  \\
+  \widehat{\bQ} &amp;= \frac{1}{T} \sum_{t=1}^T \bx_t \bx_t^\prime
+  \end{aligned}
+  \]</span></p>
+<p>The estimator <span class="math inline">\(s^2\)</span> may be used instead of <span class="math inline">\(\hat{\sigma}^2.\)</span></p></li>
+<li><p>Under heteroskedasticity:</p></li>
 </ul>
-<p><span class="math display">\[
-\text{LRP} = \sum_{s=0}^q \beta_s
-\]</span></p>
-<p><span class="math inline">\(\mathrm{LRP}\)</span> measures the the long-run change in <span class="math inline">\(y\)</span> given a permanent increase in <span class="math inline">\(x\)</span> at time <span class="math inline">\(t.\)</span> For example, assume <span class="math inline">\(x\)</span> equals a constant <span class="math inline">\(c\)</span> before time <span class="math inline">\(t.\)</span> At time <span class="math inline">\(t\)</span>, <span class="math inline">\(x\)</span> increases permanently to <span class="math inline">\(c+1.\)</span></p>
-<p>Mathematically,</p>
-<p><span class="math display">\[
-x_s = \begin{cases}
-c &amp; s&lt;t \\
-c+1 &amp; x\ge t
-\end{cases}
-\]</span> Two graphs that are related to the multipliers:</p>
-<ul>
-<li>Lag distribution, which graphs the <span class="math inline">\(\beta_s\)</span> as a function of <span class="math inline">\(s\)</span>, summarizing the dynamic effect that a temporary increase in <span class="math inline">\(x\)</span> has on <span class="math inline">\(y\)</span></li>
-<li>Cumulative effects as <span class="math inline">\(\beta_0 + \beta_1 + \cdots + \beta_h\)</span> for any horizon <span class="math inline">\(h\)</span></li>
-</ul>
-</section>
-<section id="assumptions" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">15.2</span> Assumptions</h2>
-<p>In distributed lag models, both <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are typically random. That is, we do not know their values prior to sampling. We do not “set” output growth, for example, and then observe the resulting level of unemployment. To accommodate for this stochastic process, we assume that the <span class="math inline">\(x\)</span>’s are random and that the error term <span class="math inline">\(e_t\)</span> is <strong>independent of all <span class="math inline">\(x\)</span>’s in the sample – past, current, and future</strong>. This assumption, in conjunction with the other multiple regression assumptions, is sufficient for the least squares estimator to be unbiased and to be BLUE, conditional on the <span class="math inline">\(x\)</span>’s in the sample.</p>
-<p>The assumptions of the distributed lag model are:</p>
-<ol type="1">
-<li><span class="math inline">\(y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \beta_2 x_{t-2} + \ldots + \beta_q x_{t-q} + e_t\)</span></li>
-<li><span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are stationary random variables, and <span class="math inline">\(e_t\)</span> is independent of current, past, and future values of <span class="math inline">\(x\)</span></li>
-<li><span class="math inline">\(E(e_t) = 0\)</span></li>
-<li><span class="math inline">\(\var(e_t) = \sigma^2\)</span></li>
-<li><span class="math inline">\(\cov(e_t, e_s) = 0 \quad t \ne s\)</span></li>
-<li><span class="math inline">\(e_t \sim N(0, \sigma^2)\)</span></li>
-</ol>
-</section>
-<section id="application-okuns-law" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="application-okuns-law"><span class="header-section-number">15.3</span> Application: Okun’s Law</h2>
-<p>We will apply the finite distributed lag model to Okun’s Law. Arther Melvin Okun was an economist who posited that higher output growth reduces unemployment. Mathematically, Okun’s Law can be expressed as</p>
-<p><span class="math display">\[
-U_{t}-U_{t-1}=-\gamma(G_{t}-G_{N})
-\]</span> where</p>
-<ul>
-<li><span class="math inline">\(U_{t}\)</span> is the unemployment rate in period <span class="math inline">\(t\)</span>,</li>
-<li><span class="math inline">\(G_{t}\)</span> is the growth rate of output in period <span class="math inline">\(t\)</span>, and</li>
-<li><span class="math inline">\(G_{N}\)</span> is the “normal” growth rate, which we assume constant over time.</li>
-</ul>
-<p>We can rewrite the above equation in more familiar notation of the multiple regression model by denoting the <em>change in unemployment</em> as</p>
-<p><span class="math display">\[
-DU_{t} = \Delta U_{t} = U_{t}-U_{t-1}.
-\]</span> We then set <span class="math inline">\(\gamma = \beta_{0}\)</span> and <span class="math inline">\(G_{N} = \alpha.\)</span> Including an error term to our equation yields</p>
-<p><span class="math display">\[
-DU_{t}=\alpha + \beta_{0}G_{t} + \varepsilon_{t}.
-\]</span></p>
-<p>Acknowledging the changes in output are likely to have a distributed-lag effect on unemployment – not all of the effect will take place instantaneously. We can then further expand our equation to</p>
-<p><span class="math display">\[
-DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \ldots + \beta_{q}G_{t-q} + \varepsilon_{t}
-\]</span></p>
-<section id="empirical-result" class="level3" data-number="15.3.1">
-<h3 data-number="15.3.1" class="anchored" data-anchor-id="empirical-result"><span class="header-section-number">15.3.1</span> Empirical Result</h3>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>f_name <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/okun.csv"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>okun2 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_name)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>okun2 <span class="ot">&lt;-</span> okun2 <span class="sc">%&gt;%</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">dunemp =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="fu">diff</span>(unemp))</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           )</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># convert data to a time series object</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>okun2.zoo <span class="ot">&lt;-</span> okun2 <span class="sc">%&gt;%</span> </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xts</span>(<span class="at">x =</span> .[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">order.by =</span> <span class="fu">as.yearqtr</span>(.[[<span class="dv">1</span>]])) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.zoo</span>()</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>okun2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 310 × 5
-   date       unemp      GDP       gGDP     dunemp
-   &lt;date&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
- 1 1948-01-01   3.3 2239.682  1.506038  NA        
- 2 1948-04-01   3.3 2276.69   1.652377   0        
- 3 1948-07-01   3.3 2289.77   0.5745183  0        
- 4 1948-10-01   3.5 2292.364  0.1132865  0.2000000
- 5 1949-01-01   4.1 2260.807 -1.376614   0.6000000
- 6 1949-04-01   5.3 2253.128 -0.3396575  1.2      
- 7 1949-07-01   6.1 2276.424  1.033940   0.8      
- 8 1949-10-01   6.4 2257.352 -0.8378053  0.3000000
- 9 1950-01-01   5.8 2346.104  3.931686  -0.6000000
-10 1950-04-01   5.1 2417.682  3.050930  -0.7      
-# ℹ 300 more rows</code></pre>
-</div>
-</div>
-<p>Before we proceed, let’s take a preliminary look at growth and unemployment during this time period.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(okun2 <span class="sc">%&gt;%</span> <span class="fu">gather</span>(<span class="st">"key"</span>, <span class="st">"value"</span>, gGDP, dunemp),</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value, <span class="at">color =</span> key)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"%"</span>) <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">values =</span> <span class="fu">c</span>(<span class="at">gGDP =</span> <span class="st">"blue"</span>, <span class="at">dunemp =</span> <span class="st">"red"</span>),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">c</span>(<span class="at">gGDP =</span> <span class="st">"Growth in Real GDP"</span>, <span class="at">dunemp =</span> <span class="st">"∆ Unemployment Rate"</span>) ) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">2</span>, .<span class="dv">9</span>),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="TS04_TimeSeries_regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Change in unemployment (red) and growth rate of GDP (blue).</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Implement Finite Distributed Lag models (<a href="#eq-FDL" class="quarto-xref"><span>15.1</span></a>) for <span class="math inline">\(q=1\)</span> and <span class="math inline">\(2\)</span>.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>okun.lag1 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">data =</span> okun2.zoo)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>okun.lag2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">data =</span> okun2.zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Model estimates for lag length at <span class="math inline">\(q=2\)</span></p>
-<p><span id="eq-FDL2"><span class="math display">\[
-DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \beta_{2}G_{t-2} + \varepsilon_{t}.
-\tag{15.2}\]</span></span></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Time series regression with "zoo" data:
-Start = 1948 Q3, End = 2025 Q1
-
-Call:
-dynlm(formula = d(unemp, 1) ~ L(gGDP, 0:2), data = okun2.zoo)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--1.6733 -0.2155 -0.0214  0.1718  4.9551 
-
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    0.40698    0.03699  11.003  &lt; 2e-16 ***
-L(gGDP, 0:2)1 -0.44244    0.02286 -19.351  &lt; 2e-16 ***
-L(gGDP, 0:2)2 -0.09429    0.02291  -4.116 4.97e-05 ***
-L(gGDP, 0:2)3  0.01078    0.02285   0.472    0.637    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.4422 on 303 degrees of freedom
-  (0 observations deleted due to missingness)
-Multiple R-squared:  0.5816,    Adjusted R-squared:  0.5774 
-F-statistic: 140.4 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
-<p><span id="eq-FDL1"><span class="math display">\[
-DU_{t} = \alpha + \beta_{0}G_{t} + \beta_{1}G_{t-1} + \varepsilon_{t}.
-\tag{15.3}\]</span></span></p>
-<p>Model estimates for lag length at <span class="math inline">\(q=1\)</span></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.lag1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Time series regression with "zoo" data:
-Start = 1948 Q2, End = 2025 Q1
-
-Call:
-dynlm(formula = d(unemp, 1) ~ L(gGDP, 0:1), data = okun2.zoo)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--1.6950 -0.2147 -0.0223  0.1782  4.9746 
-
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    0.41373    0.03423  12.088  &lt; 2e-16 ***
-L(gGDP, 0:1)1 -0.44041    0.02270 -19.398  &lt; 2e-16 ***
-L(gGDP, 0:1)2 -0.09228    0.02271  -4.063 6.16e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.4416 on 305 degrees of freedom
-  (0 observations deleted due to missingness)
-Multiple R-squared:  0.5798,    Adjusted R-squared:  0.577 
-F-statistic: 210.4 on 2 and 305 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
 <p><span class="math display">\[
 \begin{aligned}
-\widehat{DU}_{t}
-&amp;= 0.414 - 0.440\,G_{t} - 0.092\,G_{t-1} \\
-&amp;\phantom{=}\;\; (.034)\quad (.023) \quad\quad (.023) \\
-n &amp;= 308, R^2=.580, \bar{R^2} = .577.
+\widehat{V} &amp;= \widehat{Q}^{-1} \widehat{\bSigma} \widehat{Q}^{-1}, \\
+\quad \text{where} \quad
+\widehat{\bSigma} &amp;= \frac{1}{n} \sum_{t=1}^n \bx_t \bx_t^\prime \widehat{e}_t^2
 \end{aligned}
 \]</span></p>
-<p>A 1 percentage point increase in the growth rate of GDP leads to a fall in the change of unemployment rate by 0.44 percentage points in the current quarter, a fall of 0.09 percentage points in the next quarter. The delayed effects stop beyond the first lag.</p>
 </section>
-<section id="ardl" class="level3" data-number="15.3.2">
-<h3 data-number="15.3.2" class="anchored" data-anchor-id="ardl"><span class="header-section-number">15.3.2</span> ARDL</h3>
-<p>A more general model is</p>
+<section id="distribution-under-general-dependence" class="level3" data-number="13.1.2">
+<h3 data-number="13.1.2" class="anchored" data-anchor-id="distribution-under-general-dependence"><span class="header-section-number">13.1.2</span> Distribution Under General Dependence</h3>
+<p>In case of serial correlated <span class="math inline">\(e_t,\)</span> the autocovariance matrix becomes</p>
 <p><span class="math display">\[
-y_{t} = \alpha + \rho\, y_{t-1} + \gamma_{0}z_{t} + \gamma_{1}z_{t-1} + v_{t},
+\bSigma = \sum_{\ell = -\infty}^{\infty} \mathbb{E}[\bx_{t - \ell} \bx_t^\prime e_t e_{t - \ell}].
+\]</span> To consistently estimate the covariance matrix, we need <strong>Heteroskedasticity and Autocorrelation Consistent</strong> (HAC) covariance matrix estimators.</p>
+<p>Define the vector series <span class="math display">\[
+\bu_t = \bx_t e_t,
+\]</span> and define autocovariance matrices:</p>
+<p><span class="math display">\[
+\bGamma(\ell) = \mathbb{E}[\bu_{t - \ell} \bu_t^\prime]
 \]</span></p>
-<p>which is an <strong>autoregressive distributed lag model</strong> (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).</p>
-<p>This equation can be estimated by linear least squares providing that the <span class="math inline">\(v_t\)</span> satisfy the usual assumptions required for least squares estimation, namely that they have zero mean and constant variance, and are not autocorrelated.</p>
-<p>The presence of the lagged dependent variable <span class="math inline">\(y_{t−1}\)</span> means that a large sample is required for the desirable properties of the least squares estimator to hold, but the least squares procedure is still valid providing that <span class="math inline">\(v_t\)</span> is uncorrelated with <em>current</em> and <em>past</em> values of the right-hand side variables.</p>
-<p>It is crucial that <span class="math inline">\(v_t\)</span> be <strong>serial uncorrelated</strong>. If they are serial correlated, e.g., <span class="math inline">\(v_t=u_t-\rho u_t\)</span>, the least square estimator will be biased, even in large sample sizes!</p>
-<p>Implement an ARDL model.</p>
-<p><span id="eq-ardl"><span class="math display">\[
-DU_{t} = \alpha + \rho\, DU_{t-1} + \gamma_{0}G_{t} + \gamma_{1}G_{t-1} + v_{t}.
-\tag{15.4}\]</span></span></p>
-<p>The ARDL model (<a href="#eq-ardl" class="quarto-xref"><span>15.4</span></a>) assumes the effects of growth in output persists, while FDL(<span class="math inline">\(q=1\)</span>) model (<a href="#eq-FDL1" class="quarto-xref"><span>15.3</span></a>) assumes the change in employment responds to changes in output growth only over two periods (current and the last periods).</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>okun.ardl <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>) <span class="sc">~</span> <span class="fu">L</span>(<span class="fu">d</span>(unemp, <span class="dv">1</span>), <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">L</span>(gGDP, <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="at">data =</span> okun2.zoo)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(okun.ardl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Time series regression with "zoo" data:
-Start = 1948 Q3, End = 2025 Q1
-
-Call:
-dynlm(formula = d(unemp, 1) ~ L(d(unemp, 1), 1) + L(gGDP, 0:1), 
-    data = okun2.zoo)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--1.4662 -0.2198 -0.0218  0.1686  4.9875 
-
-Coefficients:
-                  Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)        0.42871    0.03769  11.374  &lt; 2e-16 ***
-L(d(unemp, 1), 1) -0.05640    0.05874  -0.960 0.337736    
-L(gGDP, 0:1)1     -0.43423    0.02390 -18.165  &lt; 2e-16 ***
-L(gGDP, 0:1)2     -0.11951    0.03575  -3.343 0.000932 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.4416 on 303 degrees of freedom
-  (0 observations deleted due to missingness)
-Multiple R-squared:  0.5825,    Adjusted R-squared:  0.5784 
-F-statistic: 140.9 on 3 and 303 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
+<p>Then:</p>
+<p><span class="math display">\[
+\bSigma = \sum_{\ell = -\infty}^{\infty} \Gamma(\ell)
+\]</span></p>
+<p>Estimate using:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\widehat{DU}_{t}
-&amp;= 0.429 - 0.056 \, DU_{t-1} - 0.434\,G_{t} - 0.120\,G_{t-1} \\
-&amp;\phantom{=}\;\; (.038)\quad (.059) \qquad\quad\quad (.024) \quad\quad\; (.036)\\
-n &amp;= 307, R^2=.583, \bar{R^2} = .579.
+\hat{\Gamma}(\ell) &amp;= \frac{1}{T} \sum_{t = \ell+1}^T \hat{u}_{t - \ell} \hat{u}_t^\prime \\
+\hat{u}_t &amp;= x_t \hat{e}_t
 \end{aligned}
 \]</span></p>
-<p>A 1% increase in the change of unemployment rate from the previous quarter leads to a 0.056% decrease in the change of unemployment rate in the current quarter. This suggests a <strong>mild mean-reverting behavior</strong>: unemployment shocks tend to partially reverse in the following quarter, but the effect is small and statistically insignificant.</p>
-<p>A 1% increase in the growth rate of GDP leads to a fall in the change of unemployment rate of 0.43% in the current quarter, a fall of 0.12% in the next quarter.</p>
-<hr>
-</section>
-</section>
-<section id="references" class="level2 unlisted unnumbered">
-<h2 class="unlisted unnumbered anchored" data-anchor-id="references">References</h2>
+<p>Then:</p>
+<p><span class="math display">\[
+\widehat{\bSigma}_M = \sum_{\ell = -M}^{M} \widehat{\bGamma}(\ell)
+\]</span> where <span class="math inline">\(M\)</span> is called the <strong>lag truncation</strong> number or the <strong>bandwidth</strong>.</p>
+<p><span class="math inline">\(\hat{\bSigma}_M\)</span> has two potential deficiencies:</p>
 <ul>
-<li>Czar Yobero, Time Series Regression with Stationary Variables: An Introduction to the ARDL Model, <a href="https://rpubs.com/cyobero/ardl" class="uri">https://rpubs.com/cyobero/ardl</a></li>
-<li>Okun’s Law data source: FRED database, <a href="https://fred.stlouisfed.org/series/GDPC1" class="uri">https://fred.stlouisfed.org/series/GDPC1</a></li>
+<li><span class="math inline">\(\hat{\bSigma}_M\)</span> changes non-smoothky with <span class="math inline">\(M\)</span>, making estimation sensitive to the choice of <span class="math inline">\(M\)</span></li>
+<li><span class="math inline">\(\hat{\bSigma}_M\)</span> may not be positive semi-definite and is therefore not a valid variance matrix estimator. For example, when <span class="math inline">\(M=1,\)</span></li>
+</ul>
+<p><span class="math display">\[
+\widehat{\bSigma}_1 = \hat{\gamma}(0)\left(1 + 2\hat{\rho}(1)\right)
+\]</span> which is negative when <span class="math inline">\(\hat{\rho}(1)&lt;-1/2.\)</span> Thus if the data are strongly negatively autocorrelated the variance estimator can be negative. A negative variance estimator means that standard errors are ill-defined.</p>
+<p>The two deficiencies can be resolved by using a weighted sum of autocovariances.</p>
+<p>Newey-West (1987) proposes:</p>
+<p><span class="math display">\[
+\hat{\bSigma}_{NW} = \sum_{\ell = -M}^{M} \left(1 - \frac{|\ell|}{M + 1} \right) \hat{\bGamma}(\ell)
+\]</span></p>
+<p>It can be shown that <span class="math display">\[
+\hat{\bSigma}_{NW} \overset{p}{\to} \bSigma.
+\]</span></p>
+<p>A rule of thumb of selecting <span class="math inline">\(M=0.75T^{1/3}.\)</span></p>
+</section>
+</section>
+<section id="model-selection" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="model-selection"><span class="header-section-number">13.2</span> Model Selection</h2>
+<p>What is the appropriate choice of autoregressive order <span class="math inline">\(p\)</span> in practice? This is the problem of model selection. A good choice is to minimize the Akaike information criterion (AIC)</p>
+<p><span class="math display">\[
+\text{AIC}(p) = T\log\widehat{\sigma}^2(p) + 2p
+\]</span> where <span class="math inline">\(\widehat{\sigma}^2(p)\)</span> is the estimated residual variance from an AR(p). The AIC is a penalized version of the Gaussian log-likelihood function for the estimated regression model. It is an estimate of the divergence between the fitted model and the true conditional density. By selecting the model with the <strong>smallest</strong> value of the AIC, you select the model with the smallest estimated divergence – the highest estimated fit between the estimated and true densities.</p>
+<p>The AIC is also a monotonic transformation of an estimator of the one-step-ahead forecast mean squared error. Thus selecting the model with the smallest value of the AIC you are selecting the model with the smallest estimated forecast error.</p>
+</section>
+<section id="ardl-model" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="ardl-model"><span class="header-section-number">13.3</span> ARDL model</h2>
+<p>An ARDL(p,q) model is given by</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_t &amp;= \mu + \sum_{i=1}^p\alpha_iy_{t-i} + \sum_{i=0}^q\bbeta_i'\bz_{t-i} \\
+&amp;=\mu + \alpha_1y_{t-1} + \alpha_2y_{t-2} + \cdots + \alpha_py_{t-p} \\
+&amp;\phantom{=}\quad + \bbeta_0'\bz_{t} + \bbeta_1'\bz_{t-1} + \bbeta_2'\bz_{t-2} + \cdots + \bbeta_q'\bz_{t-q}+ \varepsilon_t .
+\end{aligned}
+\]</span> It nests both the autoregressive and distributed lag models, thereby combining serial correlation and dynamic impact.</p>
+<p>Here the regressor is</p>
+<p><span class="math display">\[
+\bx_t = \begin{pmatrix}
+1 &amp; y_{t-1} &amp; y_{t-2} &amp; \cdots &amp; y_{t-p} &amp; \bz_{t}' &amp; \bz_{t-1}'  &amp; \cdots &amp; \bz_{t-q}'
+\end{pmatrix}'.
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\bbeta_1\)</span> represents the initial impact of <span class="math inline">\(\bz_t\)</span> on <span class="math inline">\(y_t,\)</span></p></li>
+<li><p><span class="math inline">\(\bbeta_2\)</span> represents the impact in the second period</p></li>
+<li><p>The long-run multiplier is</p>
+<p><span class="math display">\[
+  LR = \frac{\bbeta_1+\cdots+\bbeta_q}{1-\alpha_1-\cdots-\alpha_p}
+  \]</span></p></li>
+</ul>
+<p>References:</p>
+<ul>
+<li>Chapter 14 Time Series, Econometrics, by Bruce Hansen.</li>
 </ul>
 
 
@@ -1473,13 +1304,13 @@ n &amp;= 307, R^2=.583, \bar{R^2} = .579.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./TS03_asymptotic-property.html" class="pagination-link" aria-label="OLS Asymptotic Assumptions and Properties">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">OLS Asymptotic Assumptions and Properties</span></span>
+      <a href="./TS03_finite-property.html" class="pagination-link" aria-label="OLS Finite Sample Assumptions and Properties">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">OLS Finite Sample Assumptions and Properties</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS04_Spurious_regression.html" class="pagination-link" aria-label="Spurious Regression">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS03_asymptotic-property.html" class="pagination-link" aria-label="OLS Asymptotic Assumptions and Properties">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">OLS Asymptotic Assumptions and Properties</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
