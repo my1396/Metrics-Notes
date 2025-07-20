@@ -90,7 +90,31 @@ $$
 \end{bmatrix} 
 $$
 
-The least-squares estimator of $\beta$ is given by:
+The pooled regression model is appropriate when the errors $u_{it}$ satisfy strict mean independence:
+
+$$
+\mathbb{E}[u_{it} \mid \bX_i] = 0
+$${#eq-zero_mean}
+
+
+This occurs when the errors $u_{it}$ are mean independent of all regressors $\bx_{ij}$ for all time periods $j=1,\ldots,T.$
+
+This **strict mean independence** implies that neither lagged nor future values of $\bx_{it}$ help predict $u_{it}$. It excludes lagged dependent variables (such as $y_{it-1}$) from $\bx_{it}$, otherwise $u_{it}$ would be predictable given $\bx_{it}.$
+
+Strict mean independence is stronger than pairwise mean independence 
+
+$$
+\mathbb{E}[u_{it} \mid \bx_{ij}] = 0
+$$
+
+as well as the projection assumption
+
+$$
+\mathbb{E}[u_{it} \bx_{ij}] = \bold{0}
+$$
+
+
+The standard estimator of $\beta$ in the pooled regression model is least-squares, given by:
 
 $$
 \begin{split}
@@ -103,19 +127,12 @@ $$
 
 $\hat{\beta}_{\text{pool}}$ is called the **pooled regression estimator**.
 
-The residuals for individual $i$:
+The vector of least-squares residuals for the $i$th individual is:
 
 $$
 \widehat{\bu}_i = \by_i - \bX_i \hat{\bbeta}_{\text{pool}}
 $$
 
-The pooled regression model is appropriate when:
-
-$$
-\mathbb{E}[u_{it} \mid \bX_i] = 0
-$${#eq-zero_mean}
-
-This **strict mean independence** implies that neither lagged nor future values of $\bx_{it}$ help predict $u_{it}$. It excludes lagged dependent variables (such as $y_{it-1}$) from $\bx_{it}$, otherwise $u_{it}$ would be predictable given $\bx_{it}.$
 
 
 
@@ -147,8 +164,7 @@ $$
 \widehat{\bV}_{\text{pool}} = \left( \frac{n - 1}{n - k} \right) \left( \frac{N}{N - 1} \right)  (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bu}_i \widehat{\bu}_i' \bX_i \right) (\bX' \bX)^{-1}
 $$
 
-When strict mean independence (-@eq-zero_mean) fails, however, the pooled least-squares estimator $\hat{\bbeta}_{\text{pool}}$ is not necessarily consistent for $\bbeta$. Since strict mean independence is a strong and typically undesirable
-restriction, it is typically preferred to adopt one of the alternative estimation approaches such as Fixed Effects or Random Effects models.
+When strict mean independence (-@eq-zero_mean) fails, however, the pooled least-squares estimator $\hat{\bbeta}_{\text{pool}}$ is not necessarily consistent for $\bbeta$. Since strict mean independence is a strong and typically undesirable restriction, it is typically preferred to adopt one of the alternative estimation approaches such as Fixed Effects or Random Effects models.
 
 
 

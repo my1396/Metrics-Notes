@@ -780,7 +780,12 @@ u_{iT}  \\
 \bX_{N}  
 \end{bmatrix}
 \]</span></p>
-<p>The least-squares estimator of <span class="math inline">\(\beta\)</span> is given by:</p>
+<p>The pooled regression model is appropriate when the errors <span class="math inline">\(u_{it}\)</span> satisfy strict mean independence:</p>
+<p><span id="eq-zero_mean"><span class="math display">\[
+\mathbb{E}[u_{it} \mid \bX_i] = 0
+\tag{19.1}\]</span></span></p>
+<p>This <strong>strict mean independence</strong> implies that neither lagged nor future values of <span class="math inline">\(\bx_{it}\)</span> help predict <span class="math inline">\(u_{it}\)</span>. It excludes lagged dependent variables (such as <span class="math inline">\(y_{it-1}\)</span>) from <span class="math inline">\(\bx_{it}\)</span>, otherwise <span class="math inline">\(u_{it}\)</span> would be predictable given <span class="math inline">\(\bx_{it}.\)</span></p>
+<p>The standard estimator of <span class="math inline">\(\beta\)</span> in the pooled regression model is least-squares, given by:</p>
 <p><span class="math display">\[
 \begin{split}
 \hat{\beta}_{\text{pool}}
@@ -790,15 +795,10 @@ u_{iT}  \\
 \end{split}
 \]</span></p>
 <p><span class="math inline">\(\hat{\beta}_{\text{pool}}\)</span> is called the <strong>pooled regression estimator</strong>.</p>
-<p>The residuals for individual <span class="math inline">\(i\)</span>:</p>
+<p>The vector of least-squares residuals for the <span class="math inline">\(i\)</span>th individual is:</p>
 <p><span class="math display">\[
 \widehat{\bu}_i = \by_i - \bX_i \hat{\bbeta}_{\text{pool}}
 \]</span></p>
-<p>The pooled regression model is appropriate when:</p>
-<p><span id="eq-zero_mean"><span class="math display">\[
-\mathbb{E}[u_{it} \mid \bX_i] = 0
-\tag{19.1}\]</span></span></p>
-<p>This <strong>strict mean independence</strong> implies that neither lagged nor future values of <span class="math inline">\(\bx_{it}\)</span> help predict <span class="math inline">\(u_{it}\)</span>. It excludes lagged dependent variables (such as <span class="math inline">\(y_{it-1}\)</span>) from <span class="math inline">\(\bx_{it}\)</span>, otherwise <span class="math inline">\(u_{it}\)</span> would be predictable given <span class="math inline">\(\bx_{it}.\)</span></p>
 </section>
 <section id="statistical-properties" class="level2" data-number="19.3">
 <h2 data-number="19.3" class="anchored" data-anchor-id="statistical-properties"><span class="header-section-number">19.3</span> Statistical Properties</h2>

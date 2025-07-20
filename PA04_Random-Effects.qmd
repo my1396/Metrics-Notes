@@ -13,7 +13,7 @@ y_{it} &= a_i + \bbeta'\bx_{it} + u_{it}, \\
 $$
 for $t = 1,2,\ldots,T, $ and $i = 1,2,\ldots,N.$
 
-Here the random effects model assumes $\alpha_i$ is uncorrelated with each explanatory variable in all time periods.
+Here the random effects model assumes <span style="color: #008B45;">$\alpha_i$ is uncorrelated with each explanatory variable in all time periods</span>.
 
 $$
 \cov(x_{itj}, a_i) = 0, \quad t=1,2,\ldots,T;\, j=1,2,\ldots,K.
