@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; TS Examples – Metrics Notes</title>
+<title>16&nbsp; Vector Autoregressions – Metrics Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./TS02_lag_poly.html" rel="next">
-<link href="./TS01_Correct_AR1Errors.html" rel="prev">
+<link href="./TS04_Spurious_regression.html" rel="next">
+<link href="./TS04_TimeSeries_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -498,7 +463,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_examples.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TS Examples</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_VAR.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Vector Autoregressions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -591,7 +556,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS01_examples.html" class="sidebar-item-text sidebar-link active">
+  <a href="./TS01_examples.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TS Examples</span></span></a>
   </div>
 </li>
@@ -633,7 +598,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./TS04_VAR.html" class="sidebar-item-text sidebar-link">
+  <a href="./TS04_VAR.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Vector Autoregressions</span></span></a>
   </div>
 </li>
@@ -720,11 +685,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#example-11.6-fertility-and-personal-exemption" id="toc-example-11.6-fertility-and-personal-exemption" class="nav-link active" data-scroll-target="#example-11.6-fertility-and-personal-exemption"><span class="header-section-number">9.1</span> <code>Example 11.6:</code> Fertility and Personal Exemption</a>
+  <li><a href="#multiple-equation-time-series-models" id="toc-multiple-equation-time-series-models" class="nav-link active" data-scroll-target="#multiple-equation-time-series-models"><span class="header-section-number">16.1</span> Multiple Equation Time Series Models</a></li>
+  <li><a href="#regression-notation" id="toc-regression-notation" class="nav-link" data-scroll-target="#regression-notation"><span class="header-section-number">16.2</span> Regression Notation</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">16.3</span> Estimation</a>
   <ul class="collapse">
-  <li><a href="#example-11.8" id="toc-example-11.8" class="nav-link" data-scroll-target="#example-11.8"><span class="header-section-number">9.1.1</span> <code>Example 11.8</code></a></li>
+  <li><a href="#statistical-properties" id="toc-statistical-properties" class="nav-link" data-scroll-target="#statistical-properties"><span class="header-section-number">16.3.1</span> Statistical Properties</a></li>
   </ul></li>
-  <li><a href="#example-11.7-wages-and-productivity" id="toc-example-11.7-wages-and-productivity" class="nav-link" data-scroll-target="#example-11.7-wages-and-productivity"><span class="header-section-number">9.2</span> <code>Example 11.7:</code> Wages and Productivity</a></li>
+  <li><a href="#asymptotic-distribution" id="toc-asymptotic-distribution" class="nav-link" data-scroll-target="#asymptotic-distribution"><span class="header-section-number">16.4</span> Asymptotic Distribution</a>
+  <ul class="collapse">
+  <li><a href="#conditional-homoskedasticity" id="toc-conditional-homoskedasticity" class="nav-link" data-scroll-target="#conditional-homoskedasticity"><span class="header-section-number">16.4.1</span> Conditional Homoskedasticity</a></li>
+  </ul></li>
+  <li><a href="#covariance-matrix-estimation" id="toc-covariance-matrix-estimation" class="nav-link" data-scroll-target="#covariance-matrix-estimation"><span class="header-section-number">16.5</span> Covariance Matrix Estimation</a></li>
   </ul>
 </nav>
     </div>
@@ -732,9 +703,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS01_examples.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TS Examples</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./TS01_AR1.html">Time Series</a></li><li class="breadcrumb-item"><a href="./TS04_VAR.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Vector Autoregressions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">TS Examples</span></h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Vector Autoregressions</span></h1>
 </div>
 
 
@@ -751,457 +722,287 @@ window.Quarto = {
 </header>
 
 
-<!-- Chunk option settings -->
-<!-- Define chunk option `max.lines` -->
-<!-- controls max lines printed -->
-<p>Textbook: Chapter 11, <strong>Introductory Econometrics: A Modern Approach</strong>, 7e by Jeffrey M. Wooldridge</p>
-<p>Summary notes by Marius v. Oordt: <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3401712" class="uri">https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3401712</a></p>
-<section id="example-11.6-fertility-and-personal-exemption" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="example-11.6-fertility-and-personal-exemption"><span class="header-section-number">9.1</span> <code>Example 11.6:</code> Fertility and Personal Exemption</h2>
-<p><code>gfr</code>: general fertility rate</p>
-<p><code>pe</code>: personal exemption</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">'fertil3'</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>fertility_diff <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">diff</span>(pe), <span class="at">data =</span> fertil3)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>fertility_lag <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">diff</span>(pe) <span class="sc">+</span> <span class="fu">diff</span>(pe_1) <span class="sc">+</span> <span class="fu">diff</span>(pe_2), <span class="at">data =</span> fertil3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="cell" data-layout-align="center">
-<table style="text-align:center">
-<tbody><tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-diff(gfr)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1)
-</td>
-<td>
-(2)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-diff(pe)
-</td>
-<td>
--0.04268 (0.02837)
-</td>
-<td>
--0.03620 (0.02677)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-diff(pe_1)
-</td>
-<td>
-</td>
-<td>
--0.01397 (0.02755)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-diff(pe_2)
-</td>
-<td>
-</td>
-<td>
-0.10999<sup>***</sup> (0.02688)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
--0.78478 (0.50204)
-</td>
-<td>
--0.96368<sup>**</sup> (0.46776)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-71
-</td>
-<td>
-69
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.03176
-</td>
-<td>
-0.23248
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.01773
-</td>
-<td>
-0.19705
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Residual Std. Error
-</td>
-<td>
-4.22082 (df = 69)
-</td>
-<td>
-3.85945 (df = 65)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-2.26343 (df = 1; 69)
-</td>
-<td>
-6.56266<sup>***</sup> (df = 3; 65)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="2" style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
-</td>
-</tr>
-</tbody></table>
+<div class="callout-title-container flex-fill">
+Main Takeaway
 </div>
-<p>The first regression uses first differences:</p>
-<p><span id="eq-gfr_static"><span class="math display">\[
-\begin{aligned}
-\Delta\widehat{gfr} &amp;= -.785 - .043\, \Delta pe \\
-&amp;\phantom{=}\;\; (.502)\;\; (.028) \\
-n &amp;= 71, R^2=.032, \bar{R^2} = .018.
-\end{aligned}
-\tag{9.1}\]</span></span></p>
-<p>The estimates indicate an increase in <span class="math inline">\(pe\)</span> lowers <span class="math inline">\(gfr\)</span> contemporaneously, although the estimate is not statistically different from zero at the 5% level.</p>
-<p>If we add two lags of <span class="math inline">\(\Delta pe,\)</span> things improve:</p>
-<p><span id="eq-gfr_lag"><span class="math display">\[
-\begin{aligned}
-\Delta\widehat{gfr} &amp;= -.964 - .036\, \Delta pe - .014\, \Delta pe_{-1} + .110\, \Delta pe_{-2} \\
-&amp;\phantom{=}\;\; (.468)\quad (.027) \qquad\; (.028) \qquad\quad\; (.027)\\
-n &amp;= 69, R^2=.232, \bar{R^2} = .197.
-\end{aligned}
-\tag{9.2}\]</span></span></p>
-<p>We call model (<a href="#eq-gfr_lag" class="quarto-xref"><span>9.2</span></a>) an <strong>finite distributed lag</strong> (FDL) model of order two. A more general specification is</p>
+</div>
+<div class="callout-body-container callout-body">
+<p>For Vector Autoregression (VAR) models:</p>
+<ul>
+<li><strong>Model structure</strong>: Each variable depends on its own lags and lags of all other variables in the system</li>
+<li><strong>Stationarity</strong>: All roots of <span class="math inline">\(\det(\bA(L)=0)\)</span> must satisfy <span class="math inline">\(|\lambda|&gt;1\)</span> for strict stationarity</li>
+<li><strong>Estimation</strong>: Use multivariate least squares; <span class="math inline">\(\hat{\bA} \xrightarrow{p} \bA\)</span> under stationarity</li>
+<li><strong>Asymptotic distribution</strong>: <span class="math inline">\(\sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)\)</span> when errors are MDS</li>
+<li><strong>Covariance estimation</strong>: Classical (<span class="math inline">\(\hat{\bSigma} \otimes (\bX'\bX)^{-1}\)</span>), robust, or Newey-West for serial correlation</li>
+</ul>
+</div>
+</div>
+<section id="multiple-equation-time-series-models" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="multiple-equation-time-series-models"><span class="header-section-number">16.1</span> Multiple Equation Time Series Models</h2>
+<p>To motivate vector autoregressions, consider the autoregressive distributed lag (AR-DL) model for two series <span class="math inline">\(\by_t = (y_{1t}, y_{2t})'\)</span> with one lag.</p>
+<p>An AR-DL model for <span class="math inline">\(y_{1t}\)</span>:</p>
 <p><span class="math display">\[
-y_t = \alpha_0 + \delta_0 z_t + \delta_1 z_{t-1} + \delta_2 z_{t-2} + u_t .
+y_{1t} = \mu_1 + \alpha_1 y_{1,t-1} + \alpha_2 y_{2,t-1} + \varepsilon_{1t}
 \]</span></p>
-<p>Even though <span class="math inline">\(\Delta pe\)</span> and <span class="math inline">\(\Delta pe_{-1}\)</span> have negative coefficients, their coefficients are small and jointly insignificant (<span class="math inline">\(p\text{-value}=.28,\)</span> see Anova test below).</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the restricted with the full model</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fertility_lag2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">diff</span>(pe_2), <span class="at">data =</span> fertil3)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fertility_lag2, fertility_lag)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Analysis of Variance Table
-
-Model 1: diff(gfr) ~ diff(pe_2)
-Model 2: diff(gfr) ~ diff(pe) + diff(pe_1) + diff(pe_2)
-  Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
-1     67 1006.6                           
-2     65  968.2  2    38.413 1.2894 0.2824</code></pre>
-</div>
-</div>
-<p>The second lag (<span class="math inline">\(\Delta pe_{-2}\)</span>) is very significant and indicates a positive relationship between changes in <span class="math inline">\(pe\)</span> and subsequent changes in <span class="math inline">\(gfr\)</span> two years hence. This makes more sense than having a contemporaneous effect.</p>
-<section id="example-11.8" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="example-11.8"><span class="header-section-number">9.1.1</span> <code>Example 11.8</code></h3>
-<p>In this example, we want to test whether the <strong>Finite Distributed Lag model</strong> (<a href="#eq-gfr_lag" class="quarto-xref"><span>9.2</span></a>) for <span class="math inline">\(\Delta\widehat{gfr}\)</span> and <span class="math inline">\(\Delta pe\)</span> is <strong>dynamically complete</strong>.</p>
-<p>Being dynamically complete indicates that neither lags of <span class="math inline">\(\Delta\widehat{gfr}\)</span> nor further lags of <span class="math inline">\(\Delta pe\)</span> should appear in the equation. Mathematically, given the following finite distributed lag model:</p>
+<p>An AR-DL model for <span class="math inline">\(y_{2t}\)</span>:</p>
 <p><span class="math display">\[
-\Delta gfr_t = \beta_0 + \beta_1\Delta pe_t + \beta_2\Delta pe_{t-1} + \beta_3 \Delta pe_{t-2} + u_t .
-\]</span> Rewrite it as</p>
+y_{2t} = \mu_0 + \beta_1 y_{2,t-1} + \beta_2 y_{1,t-1} + \varepsilon_{2t}
+\]</span></p>
+<p>Each variable is a linear function of its own lag and the lag of the other variable. The two equations can be stacked together:</p>
 <p><span class="math display">\[
-\begin{aligned}
-\Delta gfr_t &amp;= \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3 x_{t3} + u_t \\
-y_t &amp;= \bx_t'\bbeta + u_t
-\end{aligned}
-\]</span> where the explanatory variables <span class="math inline">\(\bx_t=(x_{t1}, x_{t2}, x_{t3})' = (\Delta pe_t, \Delta pe_{t-2}, \Delta pe_{t-3})'\)</span> and the dependent variable <span class="math inline">\(y_t=\Delta gfr_t.\)</span></p>
-<p>A dynamically complete model requires the following condition:</p>
-<p><span id="eq-dc1"><span class="math display">\[
-\E(u_t\mid \bx_t, y_{t-1}, \bx_{t-1}, \ldots) = 0.
-\tag{9.3}\]</span></span> Written in terms of <span class="math inline">\(y_t,\)</span></p>
-<p><span id="eq-dc2"><span class="math display">\[
-\E(y_t\mid \bx_t, y_{t-1}, \bx_{t-1}, \ldots) = \E(y_t\mid \bx_t).
-\tag{9.4}\]</span></span></p>
-<p>We can test for dynamic completeness by adding <span class="math inline">\(\Delta gfr_{t-1}.\)</span></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fertility_lag_dep <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(gfr) <span class="sc">~</span> <span class="fu">lag</span>(<span class="fu">diff</span>(gfr)) <span class="sc">+</span> <span class="fu">diff</span>(pe) <span class="sc">+</span> <span class="fu">diff</span>(pe_1) <span class="sc">+</span> <span class="fu">diff</span>(pe_2), <span class="at">data =</span> fertil3)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fertility_lag_dep) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">term</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-0.702</td>
-<td style="text-align: right;">0.454</td>
-<td style="text-align: right;">-1.547</td>
-<td style="text-align: right;">0.127</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">lag(diff(gfr))</td>
-<td style="text-align: right;">0.300</td>
-<td style="text-align: right;">0.106</td>
-<td style="text-align: right;">2.835</td>
-<td style="text-align: right;">0.006</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">diff(pe)</td>
-<td style="text-align: right;">-0.045</td>
-<td style="text-align: right;">0.026</td>
-<td style="text-align: right;">-1.773</td>
-<td style="text-align: right;">0.081</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">diff(pe_1)</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">0.027</td>
-<td style="text-align: right;">0.077</td>
-<td style="text-align: right;">0.939</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">diff(pe_2)</td>
-<td style="text-align: right;">0.105</td>
-<td style="text-align: right;">0.026</td>
-<td style="text-align: right;">4.108</td>
-<td style="text-align: right;">0.000</td>
-</tr>
-</tbody>
-</table>
+\begin{equation}
+\by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t
+\end{equation}
+\]</span></p>
+<p>Where: - <span class="math inline">\(\bmu_0\)</span> is <span class="math inline">\(2 \times 1\)</span> - <span class="math inline">\(\bA_1\)</span> is <span class="math inline">\(2 \times 2\)</span> - <span class="math inline">\(\bvarepsilon_t = (\varepsilon_{1t}, \varepsilon_{2t})'\)</span></p>
+<p>This is a <strong>bivariate VAR</strong> model for <span class="math inline">\(\by_t.\)</span></p>
+<p>For <span class="math inline">\(p\)</span> lags, the VAR(<span class="math inline">\(p\)</span>) model is:</p>
+<p><span class="math display">\[
+\begin{equation}\label{eq-var-p}
+\by_t = \bmu_0 + \bA_1 \by_{t-1} + \bA_2 \by_{t-2} + \cdots + \bA_p \by_{t-p} + \bvarepsilon_t .
+\end{equation}
+\]</span></p>
+<p>This model extends naturally to more than two variables. For general dimension <span class="math inline">\(m\)</span>: - <span class="math inline">\(\by_t\)</span> is <span class="math inline">\(m \times 1\)</span> - <span class="math inline">\(\bA_\ell\)</span> are <span class="math inline">\(m \times m\)</span>, for <span class="math inline">\(\ell = 1, \ldots, p\)</span> - <span class="math inline">\(\bvarepsilon_t\)</span> is <span class="math inline">\(m \times 1\)</span></p>
+<p>Matrix notation for <span class="math inline">\(A_j\)</span>:</p>
+<p><span class="math display">\[
+A_\ell =
+\begin{bmatrix}
+a_{11,\ell} &amp; a_{12,\ell} &amp; \cdots &amp; a_{1m,\ell} \\
+a_{21,\ell} &amp; a_{22,\ell} &amp; \cdots &amp; a_{2m,\ell} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{m1,\ell} &amp; a_{m2,\ell} &amp; \cdots &amp; a_{mm,\ell}
+\end{bmatrix}
+\]</span></p>
+<p>The error term <span class="math inline">\(\bvarepsilon_t = (\varepsilon_{1t}, ..., \varepsilon_{mt})'\)</span> is unforecastable at time <span class="math inline">\(t-1\)</span> (i.e., no serial correlation), but the components may be <strong>contemporaneously correlated</strong>.</p>
+<p>The <strong>contemporaneous covariance matrix</strong></p>
+<p><span class="math display">\[
+\bSigma = \mathbb{E}[\bvarepsilon_t \bvarepsilon_t']
+\]</span></p>
+<p>is non-diagonal.</p>
+<p>We can write the VAR(<span class="math inline">\(p\)</span>) model <span class="math inline">\(\eqref{eq-var-p}\)</span> using the lag operator notation as</p>
+<p><span class="math display">\[
+\bA(L) \by_t = \bmu_0 + \bvarepsilon_t
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\bA(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
+\]</span></p>
+<p>The condition for stationary of the system can be expressed as a restriction on the roots of the characteristic polynomial.</p>
+<div id="thm-var-stationary" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16.1 (VAR stationarity)</strong></span> If all roots <span class="math inline">\(\lambda\)</span> of <span class="math inline">\(\text{det}(\bA(L)=0)\)</span> satisfy <span class="math inline">\(\abs{\lambda}&gt;1,\)</span> then the VAR(<span class="math inline">\(p\)</span>) process <span class="math inline">\(\by_t\)</span> is strictly stationary and ergodic.</p>
 </div>
-</div>
-<p>The coefficient estimate is .300 and its <span class="math inline">\(t\)</span> statistic is 2.84. Thus, the model is NOT dynamically complete in the sense of (<a href="#eq-dc2" class="quarto-xref"><span>9.4</span></a>).</p>
-<p>The fact that (<a href="#eq-gfr_lag" class="quarto-xref"><span>9.2</span></a>) is not dynamically complete suggests that there may be serial correlation in the errors. We will need to test and correct for this.</p>
+</section>
+<section id="regression-notation" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="regression-notation"><span class="header-section-number">16.2</span> Regression Notation</h2>
+<p>The VAR(<span class="math inline">\(p\)</span>) system of equations can be written as</p>
+<p><span class="math display">\[
+\by_t = \bA'\bx_{t} + \bvarepsilon_t ,
+\]</span></p>
+<p>where <span class="math inline">\(\bx_t\)</span> is the <span class="math inline">\(\left(mp+1\right)\times 1\)</span> vector of regressors:</p>
+<p><span class="math display">\[
+\underbrace{\bx_t}_{\left(mp+1\right)\times 1} = \begin{pmatrix}
+1 \\
+\by_{t-1} \\
+\by_{t-2} \\
+\vdots \\
+\by_{t-p}
+\end{pmatrix}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\begin{split}
+\underbrace{\bA'}_{m \times (mp+1)} &amp;= \left(\begin{array}{c|cccc|cccc|c|cccc}
+\mu_0 &amp; a_{11,1} &amp; a_{12,1} &amp; \cdots &amp; a_{1m,1} &amp; a_{11,2} &amp; a_{12,2} &amp; \cdots &amp; a_{1m,2} &amp; \cdots &amp; a_{11,p} &amp; a_{12,p} &amp; \cdots &amp; a_{1m,p} \\
+\mu_0 &amp; a_{21,1} &amp; a_{22,1} &amp; \cdots &amp; a_{2m,1} &amp; a_{21,2} &amp; a_{22,2} &amp; \cdots &amp; a_{2m,2} &amp; \cdots &amp; a_{21,p} &amp; a_{22,p} &amp; \cdots &amp; a_{2m,p} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\mu_0 &amp; a_{m1,1} &amp; a_{m2,1} &amp; \cdots &amp; a_{mm,1} &amp; a_{m1,2} &amp; a_{m2,2} &amp; \cdots &amp; a_{mm,2} &amp; \cdots &amp; a_{m1,p} &amp; a_{m2,p} &amp; \cdots &amp; a_{mm,p}
+\end{array}\right) \\
+&amp;= \begin{pmatrix}
+\bmu_0 &amp; \bA_1' &amp; \bA_2' &amp; \cdots &amp; \bA_p'
+\end{pmatrix}
+\end{split}
+\]</span></p>
+<p>The error has the covariance matrix</p>
+<p><span class="math display">\[
+\bSigma = \mathbb{E}[\bvarepsilon_t \bvarepsilon_t']
+\]</span></p>
+<hr>
+<p>We can also write the coefficient matrix as</p>
+<p><span class="math display">\[
+\bA = (\balpha_1,\balpha_2,\dots,\balpha_m)
+\]</span></p>
+<p>where <span class="math inline">\(\balpha_j\)</span> is the <span class="math inline">\(j\)</span>th column of <span class="math inline">\(\bA\)</span>: the vector of coefficients for the <span class="math inline">\(j\)</span>th variable in the VAR(<span class="math inline">\(p\)</span>) model.</p>
+<p>Thus</p>
+<p><span class="math display">\[
+\balpha_j = \begin{pmatrix}
+\mu_j \\
+a_{j1,1} \\
+a_{j2,1} \\
+\vdots \\
+a_{jm,1} \\
+a_{j1,2} \\
+a_{j2,2} \\
+\vdots \\
+a_{jm,2} \\
+\vdots \\
+a_{j1,p} \\
+a_{j2,p} \\
+\vdots \\
+a_{jm,p}
+\end{pmatrix}, \quad j=1,\ldots,m
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
+\]</span></p>
+</section>
+<section id="estimation" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="estimation"><span class="header-section-number">16.3</span> Estimation</h2>
+<p>The systems estimator of a multivariate regression is least squares:</p>
+<p><span class="math display">\[
+\hat{\bA} = \left(\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \bx_t \by_t\right)
+\]</span></p>
+<p>Alternatively, the coefficient estimator for the <span class="math inline">\(j\)</span>th equation is</p>
+<p><span class="math display">\[
+\hat{\balpha}_j = \left(\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \bx_t y_{jt}\right)
+\]</span></p>
+<p>The least squares residual vector is</p>
+<p><span class="math display">\[
+\hat{\bvarepsilon}_t = \by_t - \hat{\bA}' \bx_t
+\]</span></p>
+<p>The covariance matrix of the residuals is estimated as</p>
+<p><span class="math display">\[
+\hat{\bSigma} = \frac{1}{n-mp-1} \sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t'
+\]</span></p>
+<section id="statistical-properties" class="level3" data-number="16.3.1">
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="statistical-properties"><span class="header-section-number">16.3.1</span> Statistical Properties</h3>
+<p>If <span class="math inline">\(\by_t\)</span> is strictly stationary and ergodic with finite variances then we can apply the Ergodic Theorem to deduce that</p>
+<p><span class="math display">\[
+\frac{1}{n} \sum_{t=1}^n \bx_t \bx_t' \xrightarrow{p} \E\left(\bx_t\bx_t'\right) = \bQ
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\frac{1}{n} \sum_{t=1}^n \bx_t \by_t \xrightarrow{p} \E\left(\bx_t \by_t\right) .
+\]</span></p>
+<p>Hence, we conclude that <span class="math inline">\(\hat{\bA}\)</span> is consistent for <span class="math inline">\(\bA\)</span>:</p>
+<p><span class="math display">\[
+\hat{\bA} \xrightarrow{p} \bA \quad \text{as } n\to\infty.
+\]</span></p>
+<p><span class="math inline">\(\hat{\bSigma}\)</span> is consistent for <span class="math inline">\(\bSigma\)</span>:</p>
+<p><span class="math display">\[
+\hat{\bSigma} \xrightarrow{p} \bSigma  \quad \text{as } n\to\infty.
+\]</span></p>
+<p>VAR models can be estimated in Stata using the <code>var</code> command.</p>
 </section>
 </section>
-<section id="example-11.7-wages-and-productivity" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="example-11.7-wages-and-productivity"><span class="header-section-number">9.2</span> <code>Example 11.7:</code> Wages and Productivity</h2>
-<p><span class="math display">\[\log(hrwage_t) = \beta_0 + \beta_1\log(outphr_t) + \beta_2t + u_t\]</span> Data from the <em>Economic Report of the President, 1989</em>, Table B-47. The data are for the non-farm business sector.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"earns"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>wage_time <span class="ot">&lt;-</span> <span class="fu">lm</span>(lhrwage <span class="sc">~</span> loutphr <span class="sc">+</span> t, <span class="at">data =</span> earns)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>wage_diff <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">diff</span>(lhrwage) <span class="sc">~</span> <span class="fu">diff</span>(loutphr), <span class="at">data =</span> earns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="asymptotic-distribution" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="asymptotic-distribution"><span class="header-section-number">16.4</span> Asymptotic Distribution</h2>
+<p>Set</p>
+<p><span class="math display">\[
+\balpha = \text{vec}\bA) = \begin{pmatrix}
+\alpha_1 \\
+\alpha_2 \\
+\vdots \\
+\alpha_m
+\end{pmatrix}, \quad
+\hat{\balpha} = \text{vec}(\hat{\bA}) = \begin{pmatrix}
+\hat{\alpha}_1 \\
+\hat{\alpha}_2 \\
+\vdots \\
+\hat{\alpha}_m
+\end{pmatrix}
+\]</span></p>
+<div id="thm-var-asymptotic" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16.2 (VAR asymptotic distribution)</strong></span> If <span class="math inline">\(\by_t\)</span> follows the VAR(<span class="math inline">\(p\)</span>) model with <span class="math inline">\(\E(\bvarepsilon_t\mid \Fcal_{t-1})=0,\)</span> then as <span class="math inline">\(n\to\infty,\)</span></p>
+<p><span class="math display">\[
+\sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{split}
+\bV &amp;= \overline{\bQ}^{-1} \bOmega\, \overline{\bQ}^{-1} \\
+\overline{\bQ} &amp;= \bI_m \otimes \bQ \\
+\bQ &amp;= \E\left(\bx_t \bx_t'\right) \\
+\bOmega &amp;= \E \left(\bvarepsilon_t\bvarepsilon_t' \otimes \bx_t \bx_t' \right)
+\end{split}
+\]</span></p>
 </div>
-<div class="cell" data-layout-align="center">
-<table style="text-align:center">
-<tbody><tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td colspan="2">
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-lhrwage
-</td>
-<td>
-diff(lhrwage)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-(1)
-</td>
-<td>
-(2)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-loutphr
-</td>
-<td>
-1.63964<sup>***</sup> (0.09335)
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-t
-</td>
-<td>
--0.01823<sup>***</sup> (0.00175)
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-diff(loutphr)
-</td>
-<td>
-</td>
-<td>
-0.80932<sup>***</sup> (0.17345)
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Constant
-</td>
-<td>
--5.32845<sup>***</sup> (0.37445)
-</td>
-<td>
--0.00366 (0.00422)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Observations
-</td>
-<td>
-41
-</td>
-<td>
-40
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-R<sup>2</sup>
-</td>
-<td>
-0.97122
-</td>
-<td>
-0.36424
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Adjusted R<sup>2</sup>
-</td>
-<td>
-0.96971
-</td>
-<td>
-0.34750
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Residual Std. Error (df = 38)
-</td>
-<td>
-0.02854
-</td>
-<td>
-0.01695
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-F Statistic
-</td>
-<td>
-641.22430<sup>***</sup> (df = 2; 38)
-</td>
-<td>
-21.77054<sup>***</sup> (df = 1; 38)
-</td>
-</tr>
-<tr>
-<td colspan="3" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-<em>Note:</em>
-</td>
-<td colspan="2" style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
-</td>
-</tr>
-</tbody></table>
+<p><span class="math inline">\(\E(\bvarepsilon_t\mid \Fcal_{t-1})=0\)</span> means that the innovation is a martingale difference sequence, i.e., the error term is unforecastable at time <span class="math inline">\(t-1\)</span>.</p>
+<p>This means that this distributional result assumes that the VAR(<span class="math inline">\(p\)</span>) model is the correct conditional mean for each variable. In words, these are the correct lags and there is no omitted nonlinearity.</p>
+<section id="conditional-homoskedasticity" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="conditional-homoskedasticity"><span class="header-section-number">16.4.1</span> Conditional Homoskedasticity</h3>
+<p>If we further strengthen the MDS assumption and assume that <span class="math inline">\(\bvarepsilon_t\)</span> is conditionally homoskedastic, i.e.,</p>
+<p><span class="math display">\[
+\E(\bvarepsilon_t \bvarepsilon_t' \mid \Fcal_{t-1}) = \bSigma ,
+\]</span></p>
+<p>then the asymptotic variance simplifies to</p>
+<p><span class="math display">\[
+\begin{split}
+\bOmega &amp;= \bSigma \otimes \bQ \\
+\bV &amp;= \bSigma \otimes \bQ^{-1}
+\end{split}
+\]</span></p>
+<div id="thm-var-asymptotic-homoskedastic" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16.3 (VAR asymptotic distribution homoskedastic)</strong></span> If <span class="math inline">\(\by_t\)</span> is strictly stationary and ergodic, and <span class="math inline">\(\E(\bvarepsilon_t\bvarepsilon_t'\mid \Fcal_{t-1})=\bSigma,\)</span> then as <span class="math inline">\(n\to\infty,\)</span></p>
+<p><span class="math display">\[
+\sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{split}
+\bV &amp;= \overline{\bQ}^{-1} \bOmega\, \overline{\bQ}^{-1} \\
+\overline{\bQ} &amp;= \bI_m \otimes \bQ \\
+\bQ &amp;= \E\left(\bx_t \bx_t'\right) \\
+\bOmega &amp;= \sum_{\ell=-\infty}^\infty \left(\bvarepsilon_{t-\ell}\bvarepsilon_t' \otimes \bx_{t-\ell} \bx_t' \right)
+\end{split}
+\]</span></p>
 </div>
+</section>
+</section>
+<section id="covariance-matrix-estimation" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="covariance-matrix-estimation"><span class="header-section-number">16.5</span> Covariance Matrix Estimation</h2>
+<p>The classical homoskedastic estimator of the covariance matrix for <span class="math inline">\(\hat{\balpha}\)</span> equals</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\bV}^0_{\hat{\balpha}} &amp;= \hat{\bSigma} \otimes \left(\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \\
+&amp;= \hat{\bSigma} \otimes (\bX'\bX)^{-1} .
+\end{split}
+\]</span></p>
+<p>The heteroskedasticity-robust covariance matrix estimator is given by</p>
+<p><span class="math display">\[
+\begin{split}  
+\hat{\bV}_{\hat{\balpha}} &amp;= \left(\bI_n \otimes\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t' \otimes \bx_t \bx_t' \right) \left(\bI_n \otimes\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \\
+&amp;= (\bI_n \otimes \bX'\bX)^{-1} \left(\sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t' \otimes \bx_t \bx_t' \right) (\bI_n \otimes \bX'\bX)^{-1}
+\end{split}
+\]</span></p>
+<p>The Newey-West covariance matrix estimator is given by</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\bV}_{\hat{\balpha}}
+&amp;= (\bI_n \otimes \bX'\bX)^{-1} \hat{\bOmega}_M (\bI_n \otimes \bX'\bX)^{-1}
+\end{split}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\bOmega}_M &amp;= \sum_{\ell=-M}^M w_\ell \left(\sum_{t=1+\ell}^n \bx_{t-\ell}\hat{\varepsilon}_{t-\ell}\bx_t'\hat{\varepsilon}_t \right) \\
+w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
+\end{split}
+\]</span></p>
+<p>The number <span class="math inline">\(M\)</span> is called the lag truncation number. An unweighted estimator is obtained by setting <span class="math inline">\(w_\ell = 1\)</span> for all <span class="math inline">\(\ell.\)</span> The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the VAR(<span class="math inline">\(p\)</span>) is correctly specified.</p>
+<p>Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. Therefore bootstrap methods are popular. The most common bootstrap methods are, for example: <strong>Recursive Residuals</strong>, <strong>Moving Block</strong>, and <strong>Stationary Bootstrap</strong>. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in <strong>Econometrics</strong> by Bruce Hansen for more details.</p>
+<hr>
+<p><strong>References</strong></p>
+<ul>
+<li>Chapter 19 Models with Lagged Variables. <strong>Econometric Analysis</strong> , pp.686. 5th Edition, by William H. Greene, Prentice Hall, 2003.</li>
+<li>Chapter 6.3 Serial Correlation: Estimating Autoregressions, pp.&nbsp;387 (414). Fumio Hayashi, Econometrics, Princeton University Press, 2000.</li>
+<li>Chapter 15 Multivariate Regression. <strong>Econometrics</strong>. by Bruce Hansen, 2022.</li>
+</ul>
 
 
 </section>
@@ -1621,13 +1422,13 @@ F Statistic
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./TS01_Correct_AR1Errors.html" class="pagination-link" aria-label="Correcting for Serial Correaltion with Strictly Exogenous Regressors">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Correcting for Serial Correaltion with Strictly Exogenous Regressors</span></span>
+      <a href="./TS04_TimeSeries_regression.html" class="pagination-link" aria-label="Time Series Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Time Series Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./TS02_lag_poly.html" class="pagination-link" aria-label="Lag polynomials">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Lag polynomials</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./TS04_Spurious_regression.html" class="pagination-link" aria-label="Spurious Regression">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Spurious Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

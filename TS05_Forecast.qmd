@@ -9,6 +9,20 @@ format:
             light: [cosmo, themes/cosmo-light.scss]
 ---
 
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+For time series forecasting:
+
+- **Optimal forecast**: Under MSE loss, optimal point forecast is the conditional mean $f_t = \E(y_{t+1}|\mathcal{I}_t)$
+- **One-step-ahead**: Forecast error variance = $\sigma^2 + \text{Var}(\hat{f}_T)$ (regression uncertainty + parameter uncertainty)
+- **Multi-step-ahead**: For AR(1), $h$-step forecast is $\E[y_T(h)|\mathcal{I}_T] = \alpha\frac{1-\rho^h}{1-\rho} + \rho^h y_T$
+- **Forecast uncertainty**: Error variance increases with horizon $h$; converges to unconditional variance when $|\rho|<1$
+- **Random walk**: Forecast variance grows linearly with horizon ($\sigma^2 h$), making long-term forecasting very imprecise
+
+:::
+
 Two types of forecasts:
 
 - In sample (prediction): The expected value of the random variable (in-sample), given the estimates of the parameters.

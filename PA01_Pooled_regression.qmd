@@ -3,6 +3,19 @@ title: "Pooled Regression"
 format: html
 ---
 
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+For pooled regression with panel data:
+
+- **Model structure**: $y_{it} = \bx_{it}' \bbeta + u_{it}$ treats all observations as independent cross-sections
+- **Key assumption**: Strict mean independence $\mathbb{E}[u_{it} | \bX_i] = 0$ (errors independent of all regressors across time)
+- **Estimation**: Standard OLS $\hat{\bbeta}_{\text{pool}} = (\bX' \bX)^{-1} \bX' \by$ 
+- **Inference**: Use cluster-robust standard errors to account for serial correlation within individuals
+- **Limitation**: Strict mean independence often violated; excludes lagged dependent variables and unobserved heterogeneity
+
+:::
 
 ## Notation
 

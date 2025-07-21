@@ -25,6 +25,7 @@ book:
         - TS03_OLS_identification.qmd
         - TS03_asymptotic-property.qmd
         - TS04_TimeSeries_regression.qmd
+        - TS04_VAR.qmd
         - TS04_Spurious_regression.qmd
         - TS04_highly-persistent.qmd
         - TS05_Forecast.qmd

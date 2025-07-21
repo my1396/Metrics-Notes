@@ -3,6 +3,21 @@ title: "Time Series Regression"
 format: html
 ---
 
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+For time series regression models:
+
+- **Three modeling approaches**: Distributed lag (DL), autoregressive (AR), and autoregressive distributed lag (ARDL)
+- **Finite distributed lag**: $y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \cdots + \beta_q x_{t-q} + e_t$
+- **Key multipliers**: Impact ($\beta_0$), delayed ($\beta_s$), and long-run ($\sum_{s=0}^q \beta_s$)
+- **ARDL model**: Combines lagged dependent variable with distributed lags of explanatory variables
+- **Critical assumption**: Error term must be independent of all $x$'s (past, current, future) and serially uncorrelated
+- **Application**: Okun's Law shows GDP growth reduces unemployment with distributed effects
+
+:::
+
 
 ```{r}
 #| label: load-packages

@@ -3,6 +3,21 @@ title: "Fixed Effects Model"
 format: html
 ---
 
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+For fixed effects panel data models:
+
+- **Model**: $y_{it} = \alpha_i + \bbeta'\bx_{it} + u_{it}$ controls for unobserved individual heterogeneity $\alpha_i$
+- **Within transformation**: Eliminates $\alpha_i$ by subtracting individual means: $\widetilde{y}_{it} = \bbeta'\widetilde{\bx}_{it} + \widetilde{u}_{it}$
+- **Key assumption**: Strict exogeneity $\mathbb{E}[\bu_i|\bX_i] = 0$ (no correlation required between $\alpha_i$ and $\bx_{it}$)
+- **Estimation**: Apply OLS to within-transformed data; unbiased and consistent for $\bbeta$
+- **Between estimator**: Uses cross-sectional variation; biased when $\alpha_i$ correlated with $\bx_{it}$
+- **Inference**: Use cluster-robust standard errors to handle heteroskedasticity and serial correlation
+
+:::
+
 ```{r}
 #| child: "_chunk-opt.qmd"
 #| include: false

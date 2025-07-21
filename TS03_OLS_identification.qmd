@@ -9,7 +9,28 @@ format:
             light: [cosmo, themes/cosmo-light.scss]
 ---
 
-We consider estimation of an AR(p) model for stationary, ergodic, and non-deterministic $y_t$. The model is
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+For AR(p) model estimation with stationary, ergodic time series:
+
+- **Consistency**: OLS estimator $\hat{\alpha} \overset{p}{\to} \alpha$ under mild conditions
+- **Asymptotic normality**: $\sqrt{n}(\hat{\alpha} - \alpha) \overset{d}{\to} N(0, V)$ when errors are MDS
+- **Covariance estimation**: Use $\hat{V} = \hat{\sigma}^2 \hat{Q}^{-1}$ (homoskedastic) or HAC estimators (heteroskedastic/autocorrelated)
+- **Model selection**: Use AIC to choose optimal lag order $p$
+- **ARDL extension**: Combines autoregressive and distributed lag components
+
+:::
+
+This section discusses univariate autoregressive (AR) models, which are a special case of linear regression models. The AR model is a time series model that expresses the current value of a variable as a linear function of its past values and possibly other explanatory variables.
+
+Multivariate autoregressive models, such as vector autoregression (VAR), are discussed in the section on [Vector Autoregression](PA05_Vector_autoregression.qmd).
+
+
+
+
+We first consider estimation of an AR($p$) model for stationary, ergodic, and non-deterministic $y_t$. The model is
 
 $$
 y_t = \bx_t^\prime \balpha + e_t 

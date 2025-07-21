@@ -1,0 +1,387 @@
+---
+title: "Vector Autoregressions"
+format: html
+---
+
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+For Vector Autoregression (VAR) models:
+
+- **Model structure**: Each variable depends on its own lags and lags of all other variables in the system
+- **Stationarity**: All roots of $\det(\bA(L)=0)$ must satisfy $|\lambda|>1$ for strict stationarity
+- **Estimation**: Use multivariate least squares; $\hat{\bA} \xrightarrow{p} \bA$ under stationarity
+- **Asymptotic distribution**: $\sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)$ when errors are MDS
+- **Covariance estimation**: Classical ($\hat{\bSigma} \otimes (\bX'\bX)^{-1}$), robust, or Newey-West for serial correlation
+
+:::
+
+## Multiple Equation Time Series Models
+
+To motivate vector autoregressions, consider the autoregressive distributed lag (AR-DL) model for two series $\by_t = (y_{1t}, y_{2t})'$ with one lag.
+
+An AR-DL model for $y_{1t}$:
+
+$$
+y_{1t} = \mu_1 + \alpha_1 y_{1,t-1} + \alpha_2 y_{2,t-1} + \varepsilon_{1t}
+$$
+
+An AR-DL model for $y_{2t}$:
+
+$$
+y_{2t} = \mu_0 + \beta_1 y_{2,t-1} + \beta_2 y_{1,t-1} + \varepsilon_{2t}
+$$
+
+Each variable is a linear function of its own lag and the lag of the other variable. 
+The two equations can be stacked together:
+
+$$
+\begin{equation}
+\by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t
+\end{equation}
+$$
+
+Where:
+- $\bmu_0$ is $2 \times 1$
+- $\bA_1$ is $2 \times 2$
+- $\bvarepsilon_t = (\varepsilon_{1t}, \varepsilon_{2t})'$
+
+This is a **bivariate VAR** model for $\by_t.$
+
+For $p$ lags, the VAR($p$) model is:
+
+$$
+\begin{equation}\label{eq-var-p}
+\by_t = \bmu_0 + \bA_1 \by_{t-1} + \bA_2 \by_{t-2} + \cdots + \bA_p \by_{t-p} + \bvarepsilon_t .
+\end{equation}
+$$
+
+This model extends naturally to more than two variables. For general dimension $m$:
+- $\by_t$ is $m \times 1$
+- $\bA_\ell$ are $m \times m$, for $\ell = 1, \ldots, p$
+- $\bvarepsilon_t$ is $m \times 1$
+
+Matrix notation for $A_j$:
+
+$$
+A_\ell =
+\begin{bmatrix}
+a_{11,\ell} & a_{12,\ell} & \cdots & a_{1m,\ell} \\
+a_{21,\ell} & a_{22,\ell} & \cdots & a_{2m,\ell} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1,\ell} & a_{m2,\ell} & \cdots & a_{mm,\ell}
+\end{bmatrix}
+$$
+
+The error term $\bvarepsilon_t = (\varepsilon_{1t}, ..., \varepsilon_{mt})'$ is unforecastable at time $t-1$ (i.e., no serial correlation), but the components may be **contemporaneously correlated**. 
+
+The **contemporaneous covariance matrix** 
+
+$$
+\bSigma = \mathbb{E}[\bvarepsilon_t \bvarepsilon_t']
+$$
+
+is non-diagonal.
+
+
+We can write the VAR($p$) model \eqref{eq-var-p} using the lag operator notation as
+
+$$
+\bA(L) \by_t = \bmu_0 + \bvarepsilon_t
+$$
+
+where
+
+$$
+\bA(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
+$$
+
+The condition for stationary of the system can be expressed as a restriction on the roots of the characteristic polynomial.
+
+:::{#thm-var-stationary name="VAR stationarity"}
+If all roots $\lambda$ of $\text{det}(\bA(L)=0)$ satisfy $\abs{\lambda}>1,$ then the VAR($p$) process $\by_t$ is strictly stationary and ergodic.
+:::
+
+
+## Regression Notation
+
+
+The VAR($p$) system of equations can be written as
+
+$$
+\by_t = \bA'\bx_{t} + \bvarepsilon_t ,
+$$
+
+where $\bx_t$ is the $\left(mp+1\right)\times 1$ vector of regressors:
+
+$$
+\underbrace{\bx_t}_{\left(mp+1\right)\times 1} = \begin{pmatrix}
+1 \\
+\by_{t-1} \\
+\by_{t-2} \\
+\vdots \\
+\by_{t-p}
+\end{pmatrix}
+$$
+
+and 
+
+$$
+\begin{split}
+\underbrace{\bA'}_{m \times (mp+1)} &= \left(\begin{array}{c|cccc|cccc|c|cccc}
+\mu_0 & a_{11,1} & a_{12,1} & \cdots & a_{1m,1} & a_{11,2} & a_{12,2} & \cdots & a_{1m,2} & \cdots & a_{11,p} & a_{12,p} & \cdots & a_{1m,p} \\
+\mu_0 & a_{21,1} & a_{22,1} & \cdots & a_{2m,1} & a_{21,2} & a_{22,2} & \cdots & a_{2m,2} & \cdots & a_{21,p} & a_{22,p} & \cdots & a_{2m,p} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+\mu_0 & a_{m1,1} & a_{m2,1} & \cdots & a_{mm,1} & a_{m1,2} & a_{m2,2} & \cdots & a_{mm,2} & \cdots & a_{m1,p} & a_{m2,p} & \cdots & a_{mm,p}
+\end{array}\right) \\
+&= \begin{pmatrix}
+\bmu_0 & \bA_1' & \bA_2' & \cdots & \bA_p'
+\end{pmatrix}
+\end{split}
+$$
+
+The error has the covariance matrix
+
+$$
+\bSigma = \mathbb{E}[\bvarepsilon_t \bvarepsilon_t']
+$$
+
+
+
+--------------------------------------------------------------------------------
+
+
+We can also write the coefficient matrix as
+
+$$
+\bA = (\balpha_1,\balpha_2,\dots,\balpha_m)
+$$
+
+
+where $\balpha_j$ is the $j$th column of $\bA$: the vector of coefficients for the $j$th variable in the VAR($p$) model.
+
+Thus
+
+$$
+\balpha_j = \begin{pmatrix}
+\mu_j \\
+a_{j1,1} \\
+a_{j2,1} \\
+\vdots \\
+a_{jm,1} \\
+a_{j1,2} \\
+a_{j2,2} \\
+\vdots \\
+a_{jm,2} \\
+\vdots \\
+a_{j1,p} \\
+a_{j2,p} \\
+\vdots \\
+a_{jm,p}
+\end{pmatrix}, \quad j=1,\ldots,m
+$$
+
+and 
+
+$$
+y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
+$$
+
+
+
+## Estimation
+
+The systems estimator of a multivariate regression is least squares:
+
+$$
+\hat{\bA} = \left(\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \bx_t \by_t\right)
+$$
+
+Alternatively, the coefficient estimator for the $j$th equation is
+
+$$
+\hat{\balpha}_j = \left(\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \bx_t y_{jt}\right)
+$$
+
+
+The least squares residual vector is
+
+$$
+\hat{\bvarepsilon}_t = \by_t - \hat{\bA}' \bx_t
+$$
+
+The covariance matrix of the residuals is estimated as
+
+$$
+\hat{\bSigma} = \frac{1}{n-mp-1} \sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t'
+$$
+
+### Statistical Properties
+
+If $\by_t$ is strictly stationary and ergodic with finite variances then we can apply the Ergodic Theorem to deduce that 
+
+$$
+\frac{1}{n} \sum_{t=1}^n \bx_t \bx_t' \xrightarrow{p} \E\left(\bx_t\bx_t'\right) = \bQ
+$$
+
+and 
+
+$$
+\frac{1}{n} \sum_{t=1}^n \bx_t \by_t \xrightarrow{p} \E\left(\bx_t \by_t\right) .
+$$
+
+Hence, we conclude that $\hat{\bA}$ is consistent for $\bA$:
+
+$$
+\hat{\bA} \xrightarrow{p} \bA \quad \text{as } n\to\infty.
+$$
+
+
+$\hat{\bSigma}$ is consistent for $\bSigma$:
+
+$$
+\hat{\bSigma} \xrightarrow{p} \bSigma  \quad \text{as } n\to\infty.
+$$
+
+VAR models can be estimated in Stata using the `var` command.
+
+
+## Asymptotic Distribution
+
+Set
+
+$$
+\balpha = \text{vec}\bA) = \begin{pmatrix}
+\alpha_1 \\ 
+\alpha_2 \\
+\vdots \\
+\alpha_m
+\end{pmatrix}, \quad
+\hat{\balpha} = \text{vec}(\hat{\bA}) = \begin{pmatrix}
+\hat{\alpha}_1 \\ 
+\hat{\alpha}_2 \\
+\vdots \\
+\hat{\alpha}_m 
+\end{pmatrix}
+$$
+
+:::{#thm-var-asymptotic name="VAR asymptotic distribution"}
+If $\by_t$ follows the VAR($p$) model with $\E(\bvarepsilon_t\mid \Fcal_{t-1})=0,$ then as $n\to\infty,$
+
+$$
+\sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)
+$$
+
+where
+
+$$
+\begin{split}
+\bV &= \overline{\bQ}^{-1} \bOmega\, \overline{\bQ}^{-1} \\
+\overline{\bQ} &= \bI_m \otimes \bQ \\
+\bQ &= \E\left(\bx_t \bx_t'\right) \\
+\bOmega &= \E \left(\bvarepsilon_t\bvarepsilon_t' \otimes \bx_t \bx_t' \right)
+\end{split}
+$$
+:::
+
+
+$\E(\bvarepsilon_t\mid \Fcal_{t-1})=0$ means that the innovation is a martingale difference sequence, i.e., the error term is unforecastable at time $t-1$.
+
+This means that this distributional result assumes that the VAR($p$) model is the correct conditional mean for each variable. In words, these are the correct lags and there is no omitted nonlinearity.
+
+
+### Conditional Homoskedasticity
+
+If we further strengthen the MDS assumption and assume that $\bvarepsilon_t$ is conditionally homoskedastic, i.e., 
+
+$$
+\E(\bvarepsilon_t \bvarepsilon_t' \mid \Fcal_{t-1}) = \bSigma ,
+$$ 
+
+then the asymptotic variance simplifies to
+
+$$
+\begin{split}
+\bOmega &= \bSigma \otimes \bQ \\
+\bV &= \bSigma \otimes \bQ^{-1} 
+\end{split}
+$$
+
+
+:::{#thm-var-asymptotic-homoskedastic name="VAR asymptotic distribution homoskedastic"}
+If $\by_t$ is strictly stationary and ergodic, and $\E(\bvarepsilon_t\bvarepsilon_t'\mid \Fcal_{t-1})=\bSigma,$ then as $n\to\infty,$
+
+$$
+\sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)
+$$
+
+where   
+
+$$
+\begin{split}
+\bV &= \overline{\bQ}^{-1} \bOmega\, \overline{\bQ}^{-1} \\
+\overline{\bQ} &= \bI_m \otimes \bQ \\
+\bQ &= \E\left(\bx_t \bx_t'\right) \\
+\bOmega &= \sum_{\ell=-\infty}^\infty \left(\bvarepsilon_{t-\ell}\bvarepsilon_t' \otimes \bx_{t-\ell} \bx_t' \right)
+\end{split}
+$$
+
+:::
+
+
+## Covariance Matrix Estimation
+
+The classical homoskedastic estimator of the covariance matrix for $\hat{\balpha}$ equals
+
+$$
+\begin{split}
+\hat{\bV}^0_{\hat{\balpha}} &= \hat{\bSigma} \otimes \left(\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \\
+&= \hat{\bSigma} \otimes (\bX'\bX)^{-1} .
+\end{split}
+$$
+
+
+The heteroskedasticity-robust covariance matrix estimator is given by
+
+$$
+\begin{split}  
+\hat{\bV}_{\hat{\balpha}} &= \left(\bI_n \otimes\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t' \otimes \bx_t \bx_t' \right) \left(\bI_n \otimes\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \\
+&= (\bI_n \otimes \bX'\bX)^{-1} \left(\sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t' \otimes \bx_t \bx_t' \right) (\bI_n \otimes \bX'\bX)^{-1}
+\end{split}
+$$
+
+
+The Newey-West covariance matrix estimator is given by
+
+$$
+\begin{split}
+\hat{\bV}_{\hat{\balpha}} 
+&= (\bI_n \otimes \bX'\bX)^{-1} \hat{\bOmega}_M (\bI_n \otimes \bX'\bX)^{-1}
+\end{split}
+$$
+
+where
+
+$$
+\begin{split}
+\hat{\bOmega}_M &= \sum_{\ell=-M}^M w_\ell \left(\sum_{t=1+\ell}^n \bx_{t-\ell}\hat{\varepsilon}_{t-\ell}\bx_t'\hat{\varepsilon}_t \right) \\
+w_l &= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
+\end{split}
+$$
+
+
+The number $M$ is called the lag truncation number. An unweighted estimator is obtained by setting $w_\ell = 1$ for all $\ell.$ The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the VAR($p$) is correctly specified.
+
+
+Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. Therefore bootstrap methods are popular. The most common bootstrap methods are, for example: **Recursive Residuals**, **Moving Block**, and **Stationary Bootstrap**. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in **Econometrics** by Bruce Hansen for more details.
+
+
+--------------------------------------------------------------------------------
+
+
+**References**
+
+-  Chapter 19 Models with Lagged Variables. **Econometric Analysis** , pp.686.  5th Edition, by William H. Greene, Prentice Hall, 2003. 
+-  Chapter 6.3 Serial Correlation: Estimating Autoregressions, pp. 387 (414). Fumio Hayashi, Econometrics, Princeton University Press, 2000.
+-  Chapter 15 Multivariate Regression. **Econometrics**. by Bruce Hansen, 2022.

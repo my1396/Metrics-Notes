@@ -3,6 +3,21 @@ title: "Dynamic Models"
 format: html
 ---
 
+::: {.callout-note appearance="simple" icon=false}
+
+## Main Takeaway
+
+For dynamic panel data models with lagged dependent variables:
+
+- **Endogeneity problem**: Lagged dependent variables violate strict exogeneity; $\mathbb{E}[\Delta y_{it-1} \Delta u_{it}] \neq 0$
+- **Sequential exogeneity**: Weaker assumption allowing $\mathbb{E}[u_{it}|\bx_s] = 0$ for $s \leq t$ (predetermined regressors)
+- **Nickell bias**: Standard FE/RE estimators inconsistent, especially with small $T$ and large $N$
+- **Anderson-Hsiao estimator**: Uses $y_{it-2}$ as instrument for $\Delta y_{it-1}$; consistent but inefficient
+- **Arellano-Bond (difference GMM)**: Uses all available lagged levels as instruments; more efficient
+- **Diagnostics**: Test for AR(2) in residuals and overidentifying restrictions (Sargan-Hansen test)
+
+:::
+
 ## Exogeneity and Dynamic Models
 
 ### Introduction
