@@ -6,6 +6,11 @@ $link-color: #75AADB;
 
 // Code blocks
 $code-block-bg-alpha: -.9;
+// Inline code
+$code-bg: rgba(255, 255, 255, 0.1);
+code {
+  color: #e6db74 !important;
+}
 // code output
 pre code {
     color: #ccc !important;
