@@ -15,6 +15,15 @@ code {
 pre code {
     color: #ccc !important;
 }
+
+// Remove inner border from input code blocks
+.sourceCode {
+    border: none !important;
+}
+pre.sourceCode {
+    border: none !important;
+}
+
 /**
  * Tables
  */
