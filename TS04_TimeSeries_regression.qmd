@@ -1,6 +1,12 @@
 ---
 title: "Time Series Regression"
-format: html
+format: 
+    html:
+        include-in-header: themes/mathjax.html
+        respect-user-color-scheme: true
+        theme:
+            dark: [cosmo, themes/cosmo-dark.scss]
+            light: [cosmo, themes/cosmo-light.scss]
 ---
 
 ::: {.callout-note appearance="minimal"}
@@ -121,7 +127,7 @@ To interpret the coefficients:
 
 - Adding up a portion of the coefficients gives you the **interim multipliers**. For example, the interim multiplier for two periods would be $(\beta_0 + \beta_1 + \beta_2)$. 
 
-- The **long-run propensity** (LRP), also called the long-run multiplier or total multiplier, is the final effect on $y$ on the sustained increase after $q$ or more periods have elapsed and is given by the equation:
+- The <span style="color: #008B45;">**long-run propensity**</span> (LRP), also called the <span style="color: #008B45;">long-run multiplier</span> or <span style="color: #008B45;">total multiplier</span>, is the final effect on $y$ on the sustained increase after $q$ or more periods have elapsed and is given by the equation:
 
 $$
 \text{LRP} = \sum_{s=0}^q \beta_s
@@ -403,7 +409,7 @@ We want to understand how temperature shocks (e.g., a heatwave or cold year) aff
 
 --------------------------------------------------------------------------------
 
-ARDL(1,1)
+**ARDL(1,1)**: full dynamics
 
 $$
 y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
@@ -425,7 +431,7 @@ Meanwhile, GDP tends to persist over time due to investment cycles and habits.
 
 --------------------------------------------------------------------------------
 
-ARDL(1,0): No Delayed Temperature Effect
+**ARDL(1,0)**: No Delayed Temperature Effect
 
 $$
 y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + v_t
@@ -442,7 +448,9 @@ A heatwave disrupts economic activity **this year**, but all effects dissipate q
 
 GDP dynamics continue through $y_{t-1}$, but temperature doesn’t have long-term influence.
 
-ARDL(0,1): No GDP Persistence
+--------------------------------------------------------------------------------
+
+**ARDL(0,1)**: No GDP Persistence
 
 $$
 y_t = \alpha + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t

@@ -5,7 +5,7 @@ $body-color: #ccc;
 $link-color: #75AADB;
 
 // Code blocks
-$code-block-bg-alpha: -.9;
+$code-block-bg-alpha: -.95;
 // Inline code
 $code-bg: rgba(255, 255, 255, 0.1);
 
@@ -21,7 +21,6 @@ code {
 pre code {
     color: #ccc !important;
 }
-
 
 // Add box to theorem environments
 .theorem, .lemma, .proposition, .corollary, .definition, .example, .proof {

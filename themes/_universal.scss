@@ -6,6 +6,20 @@ pre.sourceCode {
     border: none !important;
 }
 
+// R code chunk outputs - remove background
+.cell-output,
+.cell-output pre,
+.cell-output code,
+.cell-output .sourceCode {
+  background-color: transparent !important;
+  background: none !important;
+}
+
+// Remove border from kableExtra scroll box div
+.cell-output-display div[style*="border"] {
+  border: none !important;
+}
+
 /**
  * Tables
  */

@@ -77,8 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f280b1f237e9ef109c35fae9ab7a52f4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b1a86cd3c4f6ec0f556a9d0458f1667d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-dfc7dbf8b9874d46221bfd163874e82c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-72ed3dd532822e1753a427d2f6cb4cee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -725,7 +725,14 @@ window.Quarto = {
   <li><a href="#application-okuns-law" id="toc-application-okuns-law" class="nav-link" data-scroll-target="#application-okuns-law"><span class="header-section-number">15.3</span> Application: Okun’s Law</a>
   <ul class="collapse">
   <li><a href="#empirical-result" id="toc-empirical-result" class="nav-link" data-scroll-target="#empirical-result"><span class="header-section-number">15.3.1</span> Empirical Result</a></li>
-  <li><a href="#ardl" id="toc-ardl" class="nav-link" data-scroll-target="#ardl"><span class="header-section-number">15.3.2</span> ARDL</a></li>
+  </ul></li>
+  <li><a href="#ardl" id="toc-ardl" class="nav-link" data-scroll-target="#ardl"><span class="header-section-number">15.4</span> ARDL</a>
+  <ul class="collapse">
+  <li><a href="#ardl11" id="toc-ardl11" class="nav-link" data-scroll-target="#ardl11"><span class="header-section-number">15.4.1</span> ARDL(1,1)</a></li>
+  <li><a href="#ardl10" id="toc-ardl10" class="nav-link" data-scroll-target="#ardl10"><span class="header-section-number">15.4.2</span> ARDL(1,0)</a></li>
+  <li><a href="#ardl01" id="toc-ardl01" class="nav-link" data-scroll-target="#ardl01"><span class="header-section-number">15.4.3</span> ARDL(0,1)</a></li>
+  <li><a href="#example-temperature-changes-affecting-gdp" id="toc-example-temperature-changes-affecting-gdp" class="nav-link" data-scroll-target="#example-temperature-changes-affecting-gdp"><span class="header-section-number">15.4.4</span> Example: temperature changes affecting GDP</a></li>
+  <li><a href="#implement-an-ardl-model" id="toc-implement-an-ardl-model" class="nav-link" data-scroll-target="#implement-an-ardl-model"><span class="header-section-number">15.4.5</span> Implement an ARDL model</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -765,7 +772,7 @@ Main Takeaway
 <div class="callout-body-container callout-body">
 <p>For time series regression models:</p>
 <ul>
-<li><strong>Three modeling approaches</strong>: Distributed lag (DL), autoregressive (AR), and autoregressive distributed lag (ARDL)</li>
+<li><strong>Three modeling approaches</strong>: Finite Distributed lag (FDL), autoregressive (AR), and autoregressive distributed lag (ARDL)</li>
 <li><strong>Finite distributed lag</strong>: <span class="math inline">\(y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \cdots + \beta_q x_{t-q} + e_t\)</span></li>
 <li><strong>Key multipliers</strong>: Impact (<span class="math inline">\(\beta_0\)</span>), delayed (<span class="math inline">\(\beta_s\)</span>), and long-run (<span class="math inline">\(\sum_{s=0}^q \beta_s\)</span>)</li>
 <li><strong>ARDL model</strong>: Combines lagged dependent variable with distributed lags of explanatory variables</li>
@@ -829,7 +836,7 @@ y_{T+1} = \alpha + \beta_0 x_{T+1} + \beta_1 x_T + \beta_2 x_{T-1} + \ldots + \b
 <li><p>The coefficient <span class="math inline">\(\beta_s\)</span> is called a <strong>distributed-lag weight</strong> or an <strong><span class="math inline">\(s\)</span>-period delayed multiplier</strong>.</p>
 <p><span class="math inline">\(\beta_1 = y_{t+1} - y_{t-1}\)</span> is the change in <span class="math inline">\(y\)</span> one period after the temporary change in <span class="math inline">\(x\)</span> at time <span class="math inline">\(t\)</span>; <span class="math inline">\(\beta_2 = y_{t+2} - y_{t-1}\)</span> is the change in <span class="math inline">\(y\)</span> two periods after the change; at time <span class="math inline">\(t+q+1,\)</span> <span class="math inline">\(y\)</span> has reverted back to its initial level: <span class="math inline">\(y_{t+q+1} = y_{t-1}\)</span> because we have assumed that only <span class="math inline">\(q\)</span> lags of <span class="math inline">\(x\)</span> appear in (<a href="#eq-FDL" class="quarto-xref"><span>15.1</span></a>).</p></li>
 <li><p>Adding up a portion of the coefficients gives you the <strong>interim multipliers</strong>. For example, the interim multiplier for two periods would be <span class="math inline">\((\beta_0 + \beta_1 + \beta_2)\)</span>.</p></li>
-<li><p>The <strong>long-run propensity</strong> (LRP), also called the long-run multiplier or total multiplier, is the final effect on <span class="math inline">\(y\)</span> on the sustained increase after <span class="math inline">\(q\)</span> or more periods have elapsed and is given by the equation:</p></li>
+<li><p>The <span style="color: #008B45;"><strong>long-run propensity</strong></span> (LRP), also called the <span style="color: #008B45;">long-run multiplier</span> or <span style="color: #008B45;">total multiplier</span>, is the final effect on <span class="math inline">\(y\)</span> on the sustained increase after <span class="math inline">\(q\)</span> or more periods have elapsed and is given by the equation:</p></li>
 </ul>
 <p><span class="math display">\[
 \text{LRP} = \sum_{s=0}^q \beta_s
@@ -1016,17 +1023,234 @@ n &amp;= 308, R^2=.580, \bar{R^2} = .577.
 \]</span></p>
 <p>A 1 percentage point increase in the growth rate of GDP leads to a fall in the change of unemployment rate by 0.44 percentage points in the current quarter, a fall of 0.09 percentage points in the next quarter. The delayed effects stop beyond the first lag.</p>
 </section>
-<section id="ardl" class="level3" data-number="15.3.2">
-<h3 data-number="15.3.2" class="anchored" data-anchor-id="ardl"><span class="header-section-number">15.3.2</span> ARDL</h3>
+</section>
+<section id="ardl" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="ardl"><span class="header-section-number">15.4</span> ARDL</h2>
 <p>A more general model is</p>
 <p><span class="math display">\[
 y_{t} = \alpha + \rho\, y_{t-1} + \gamma_{0}z_{t} + \gamma_{1}z_{t-1} + v_{t},
 \]</span></p>
-<p>which is an <strong>autoregressive distributed lag model</strong> (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).</p>
+<p>which is an <strong>autoregressive distributed lag model</strong> (ARDL(1,1)). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).</p>
+<p>ARDL(<span class="math inline">\(p, q\)</span>) is a model with</p>
+<ul>
+<li><span class="math inline">\(p\)</span> lags of the dependent variable (AR(<span class="math inline">\(p\)</span>)) and</li>
+<li><span class="math inline">\(q\)</span> lags of the independent variable (DL(<span class="math inline">\(q\)</span>)).</li>
+</ul>
 <p>This equation can be estimated by linear least squares providing that the <span class="math inline">\(v_t\)</span> satisfy the usual assumptions required for least squares estimation, namely that they have zero mean and constant variance, and are not autocorrelated.</p>
 <p>The presence of the lagged dependent variable <span class="math inline">\(y_{t−1}\)</span> means that a large sample is required for the desirable properties of the least squares estimator to hold, but the least squares procedure is still valid providing that <span class="math inline">\(v_t\)</span> is uncorrelated with <em>current</em> and <em>past</em> values of the right-hand side variables.</p>
 <p>It is crucial that <span class="math inline">\(v_t\)</span> be <strong>serial uncorrelated</strong>. If they are serial correlated, e.g., <span class="math inline">\(v_t=u_t-\rho u_t\)</span>, the least square estimator will be biased, even in large sample sizes!</p>
-<p>Implement an ARDL model.</p>
+<p>Models ARDL(1,1), ARDL(1,0) (autoregressive model), and ARDL(0,1) (distributed lag model) are of special interest to users because they provide information about the short-run and the long-run relationship between two variables <span class="math inline">\(z_t\)</span> and <span class="math inline">\(y_t,\)</span> assuming that variables <span class="math inline">\(z_t\)</span> is strictly exogenous, i.e., <span class="math inline">\(z_t\)</span> is uncorrelated with <span class="math inline">\(v_t\)</span> and <span class="math inline">\(y_{t-1}\)</span>.</p>
+<section id="ardl11" class="level3" data-number="15.4.1">
+<h3 data-number="15.4.1" class="anchored" data-anchor-id="ardl11"><span class="header-section-number">15.4.1</span> ARDL(1,1)</h3>
+<p>One lag of both <span class="math inline">\(y_t\)</span> and <span class="math inline">\(z_t\)</span></p>
+<p><span class="math display">\[
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+\]</span></p>
+<ul>
+<li><p>Full dynamics: Includes both short-run and long-run components.</p></li>
+<li><p>You can test for:</p>
+<ul>
+<li><p>Short-run effects: via <span class="math inline">\(\gamma_0\)</span></p></li>
+<li><p>Long-run relationship: via long-run multiplier:</p>
+<p><span class="math display">\[
+\text{LRP} = \frac{\gamma_0 + \gamma_1}{1 - \rho}
+\]</span></p></li>
+</ul></li>
+<li><p>Most general case with minimal lags → a baseline to test simplifications.</p></li>
+</ul>
+</section>
+<section id="ardl10" class="level3" data-number="15.4.2">
+<h3 data-number="15.4.2" class="anchored" data-anchor-id="ardl10"><span class="header-section-number">15.4.2</span> ARDL(1,0)</h3>
+<p>Technically a autoregressive model:</p>
+<p><span class="math display">\[
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + v_t
+\]</span></p>
+<ul>
+<li>Assumes current value of <span class="math inline">\(z_t\)</span> affects <span class="math inline">\(y_t\)</span>, but no lagged effect from <span class="math inline">\(z_{t-1}\)</span>.</li>
+<li>Still allows for persistence in <span class="math inline">\(y_t\)</span> through <span class="math inline">\(y_{t-1}\)</span>.</li>
+<li>Often used when theory or data suggest that <span class="math inline">\(z_t\)</span>’s impact is immediate, but <span class="math inline">\(y_t\)</span> evolves gradually.</li>
+</ul>
+<p>Long-run multiplier:</p>
+<p><span class="math display">\[
+\text{LRP} = \frac{\gamma_0}{1 - \rho}
+\]</span></p>
+</section>
+<section id="ardl01" class="level3" data-number="15.4.3">
+<h3 data-number="15.4.3" class="anchored" data-anchor-id="ardl01"><span class="header-section-number">15.4.3</span> ARDL(0,1)</h3>
+<p>Technically a Distributed Lag Model:</p>
+<p><span class="math display">\[
+y_t = \alpha + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+\]</span></p>
+<ul>
+<li>No dynamic feedback from <span class="math inline">\(y_{t-1}\)</span> — makes it easier to estimate (no autocorrelation structure to handle).</li>
+<li>Focuses on how past and current <span class="math inline">\(z_t\)</span> values explain <span class="math inline">\(y_t\)</span>.</li>
+<li>Useful when <span class="math inline">\(y_t\)</span> is not persistent or when <span class="math inline">\(y_{t-1}\)</span> is statistically insignificant.</li>
+</ul>
+<hr>
+<p>Summary Table:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 15%">
+<col style="width: 39%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 11%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Lags</th>
+<th>Focus / Use Case</th>
+<th>long-run effect</th>
+<th>Persistence</th>
+<th>Immediate effects</th>
+<th>Delayed efects</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ARDL(1,1)</td>
+<td><span class="math inline">\(y_{t-1}, z_t, z_{t-1}\)</span></td>
+<td>Full dynamics (short + long run)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr class="even">
+<td>ARDL(1,0)</td>
+<td><span class="math inline">\(y_{t-1}, z_t\)</span></td>
+<td>Current impact of <span class="math inline">\(z_t\)</span>, gradual <span class="math inline">\(y_t\)</span></td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr class="odd">
+<td>ARDL(0,1)</td>
+<td><span class="math inline">\(z_t, z_{t-1}\)</span></td>
+<td>Immediate + lagged impact of <span class="math inline">\(z_t\)</span>, no persistence in <span class="math inline">\(y_t\)</span></td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Immediate effects via <span class="math inline">\(z_t\)</span> vs Delayed effects via <span class="math inline">\(z_{t-1}\)</span></strong></p>
+<p>Does a shock to <span class="math inline">\(z_t\)</span> affect <span class="math inline">\(y_t\)</span> right away, or only after some time?</p></li>
+<li><p><strong>Short-run vs.&nbsp;Long-run Dynamics</strong></p>
+<p>This refers to distinguishing:</p>
+<ul>
+<li><strong>Short-run changes</strong>: immediate response of <span class="math inline">\(y_t\)</span> to changes in <span class="math inline">\(z_t\)</span></li>
+<li><strong>Long-run equilibrium</strong>: the total accumulated effect of a permanent change in <span class="math inline">\(z_t\)</span></li>
+</ul>
+<p>The <strong>long-run effect</strong> in models with <span class="math inline">\(y_{t-1}\)</span> (i.e., ARDL(1,1), ARDL(1,0)) is:</p>
+<p><span class="math display">\[
+\text{Long-run multiplier} = \frac{\text{Sum of } \gamma_i}{1 - \rho}
+\]</span></p>
+<p>So:</p>
+<ul>
+<li><strong>ARDL(1,1)</strong> and <strong>ARDL(1,0)</strong> allow estimation of both <strong>short-run and long-run effects</strong></li>
+<li><strong>ARDL(0,1)</strong> does <strong>not</strong> allow this, because there’s no lagged <span class="math inline">\(y_t\)</span> — no dynamic accumulation</li>
+</ul>
+<p>This helps answer:</p>
+<blockquote class="blockquote">
+<p>Are the effects of changes in <span class="math inline">\(z_t\)</span> temporary or permanent?</p>
+</blockquote></li>
+<li><p><strong>Persistence in the Dependent Variable</strong></p>
+<p>This refers to how much the <strong>past value of <span class="math inline">\(y_t\)</span></strong> influences its current value.</p>
+<p>When <span class="math inline">\(y_{t-1}\)</span> is included, it means that the current value of <span class="math inline">\(y_t\)</span> is influenced by its past value, which implies that shocks to <span class="math inline">\(y_t\)</span> will have a persistent effect over time.</p>
+<p>In absence of <span class="math inline">\(y_{t-1}\)</span>, the model focuses on the immediate relationship between <span class="math inline">\(z_t\)</span> and <span class="math inline">\(y_t\)</span> without considering past values of <span class="math inline">\(y_t\)</span>.</p></li>
+</ul>
+</section>
+<section id="example-temperature-changes-affecting-gdp" class="level3" data-number="15.4.4">
+<h3 data-number="15.4.4" class="anchored" data-anchor-id="example-temperature-changes-affecting-gdp"><span class="header-section-number">15.4.4</span> Example: temperature changes affecting GDP</h3>
+<p>Let:</p>
+<ul>
+<li><span class="math inline">\(y_t\)</span>: <strong>GDP growth rate</strong> at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(z_t\)</span>: <strong>temperature anomaly</strong> (e.g., deviation from normal)</li>
+</ul>
+<p>We want to understand how temperature shocks (e.g., a heatwave or cold year) affect economic performance — both now and in the future.</p>
+<hr>
+<p><strong>ARDL(1,1)</strong>: full dynamics</p>
+<p><span class="math display">\[
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+\]</span></p>
+<p><strong>Interpretation</strong>: GDP this year depends on:</p>
+<ul>
+<li>Last year’s GDP growth (<span class="math inline">\(y_{t-1}\)</span>) — <strong>persistence</strong></li>
+<li>This year’s temperature (<span class="math inline">\(z_t\)</span>) — <strong>immediate effect</strong></li>
+<li>Last year’s temperature (<span class="math inline">\(z_{t-1}\)</span>) — <strong>delayed effect</strong></li>
+</ul>
+<p>Real-World Example:</p>
+<p>A hot year reduces agricultural output <strong>this year</strong> (immediate effect), and possibly reduces capital investment or damages infrastructure, which lowers <strong>next year’s</strong> growth too (delayed effect).</p>
+<p>Meanwhile, GDP tends to persist over time due to investment cycles and habits.</p>
+<hr>
+<p><strong>ARDL(1,0)</strong>: No Delayed Temperature Effect</p>
+<p><span class="math display">\[
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + v_t
+\]</span></p>
+<p><strong>Interpretation</strong>:</p>
+<ul>
+<li>GDP growth is still persistent.</li>
+<li>Temperature has only an <strong>immediate effect</strong>.</li>
+</ul>
+<p>Real-World Example:</p>
+<p>A heatwave disrupts economic activity <strong>this year</strong>, but all effects dissipate quickly — no lasting damage.</p>
+<p>GDP dynamics continue through <span class="math inline">\(y_{t-1}\)</span>, but temperature doesn’t have long-term influence.</p>
+<hr>
+<p><strong>ARDL(0,1)</strong>: No GDP Persistence</p>
+<p><span class="math display">\[
+y_t = \alpha + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+\]</span></p>
+<p><strong>Interpretation</strong>:</p>
+<ul>
+<li>GDP responds to current and past temperature, but doesn’t depend on its own past values.</li>
+</ul>
+<p>Real-World Example:</p>
+<p>Economic output is fully driven by climate conditions, with no built-in momentum or persistence.</p>
+<p>No matter how well or poorly the economy performed last year, only temperature determines growth this year.</p>
+<p>This may be <strong>unrealistic</strong>, but useful as a simplifying model.</p>
+<hr>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 41%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>What it tells us</th>
+<th>Example insight</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ARDL(1,1)</strong></td>
+<td>Immediate + delayed temp effects + GDP persistence</td>
+<td>Temp shocks may cause <strong>prolonged GDP losses</strong></td>
+</tr>
+<tr class="even">
+<td><strong>ARDL(1,0)</strong></td>
+<td>Immediate temp effects + GDP persistence</td>
+<td>Temp only matters this year, but GDP adjusts gradually</td>
+</tr>
+<tr class="odd">
+<td><strong>ARDL(0,1)</strong></td>
+<td>Immediate + delayed temp effects only</td>
+<td>Temp affects GDP directly, but GDP has no memory</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="implement-an-ardl-model" class="level3" data-number="15.4.5">
+<h3 data-number="15.4.5" class="anchored" data-anchor-id="implement-an-ardl-model"><span class="header-section-number">15.4.5</span> Implement an ARDL model</h3>
 <p><span id="eq-ardl"><span class="math display">\[
 DU_{t} = \alpha + \rho\, DU_{t-1} + \gamma_{0}G_{t} + \gamma_{1}G_{t-1} + v_{t}.
 \tag{15.4}\]</span></span></p>
