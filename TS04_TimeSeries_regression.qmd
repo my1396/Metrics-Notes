@@ -3,13 +3,13 @@ title: "Time Series Regression"
 format: html
 ---
 
-::: {.callout-note appearance="simple" icon=false}
+::: {.callout-note appearance="minimal"}
 
 ## Main Takeaway
 
 For time series regression models:
 
-- **Three modeling approaches**: Distributed lag (DL), autoregressive (AR), and autoregressive distributed lag (ARDL)
+- **Three modeling approaches**: Finite Distributed lag (FDL), autoregressive (AR), and autoregressive distributed lag (ARDL)
 - **Finite distributed lag**: $y_t = \alpha + \beta_0 x_t + \beta_1 x_{t-1} + \cdots + \beta_q x_{t-q} + e_t$
 - **Key multipliers**: Impact ($\beta_0$), delayed ($\beta_s$), and long-run ($\sum_{s=0}^q \beta_s$)
 - **ARDL model**: Combines lagged dependent variable with distributed lags of explanatory variables
@@ -58,7 +58,7 @@ Given the dynamic relationship of time series data, there are three different wa
     $$
     y_t = f(y_{t-1}, x_t, x_{t-1}, x_{t-2}, \ldots)
     $$
-        
+    
     Such models are called **autoregressive distributed lag models (ARDL)**. As we have shown, the ARDL model is composed of an autoregressive component, which is the dependent variable regressed on one or more of its past values, and a distributed lag component, which is the independent variable and one or more of its lagged components.
 
 3. A third way of modeling the continuing change over several periods is via an error term. For example, using $f(\cdot)$ and $g(\cdot)$, both of which are replaced later with linear functions, we can write
@@ -177,7 +177,7 @@ We can rewrite the above equation in more familiar notation of the multiple regr
 
 $$
 DU_{t} = \Delta U_{t} = U_{t}-U_{t-1}.
-$$ 
+$$
 We then set $\gamma = \beta_{0}$ and $G_{N} = \alpha.$ Including an error term to our equation yields
 
 $$
@@ -266,15 +266,20 @@ $$
 A 1 percentage point increase in the growth rate of GDP leads to a fall in the change of unemployment rate by 0.44 percentage points in the current quarter, a fall of 0.09 percentage points in the next quarter. The delayed effects stop beyond the first lag.
 
 
-### ARDL
+## ARDL
 
 A more general model is 
 
 $$
 y_{t} = \alpha + \rho\, y_{t-1} + \gamma_{0}z_{t} + \gamma_{1}z_{t-1} + v_{t},
-$$ 
+$$
 
-which is an **autoregressive distributed lag model** (ARDL). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).
+which is an **autoregressive distributed lag model** (ARDL(1,1)). It is called an autoregressive distributed lag model because the dependent variable is regressed on its lagged value (the autoregressive component), and it also includes explanatory variables and their lagged values (the distributed lag component).
+
+ARDL($p, q$) is a model with 
+
+- $p$ lags of the dependent variable (AR($p$)) and 
+- $q$ lags of the independent variable (DL($q$)). 
 
 This equation can be estimated by linear least squares providing that the $v_t$ satisfy the usual assumptions required for least squares estimation, namely that they have zero mean and constant variance, and are not autocorrelated. 
 
@@ -282,7 +287,195 @@ The presence of the lagged dependent variable $y_{t−1}$ means that a large sam
 
 It is crucial that $v_t$ be **serial uncorrelated**. If they are serial correlated, e.g., $v_t=u_t-\rho u_t$, the least square estimator will be biased, even in large sample sizes!
 
-Implement an ARDL model.
+
+Models ARDL(1,1), ARDL(1,0) (autoregressive model), and ARDL(0,1) (distributed lag model) are of special interest to users because they provide information about the short-run and the long-run relationship between two variables $z_t$ and $y_t,$ assuming that variables $z_t$ is strictly exogenous, i.e., $z_t$ is uncorrelated with $v_t$ and $y_{t-1}$. 
+
+
+### ARDL(1,1)
+
+One lag of both $y_t$ and $z_t$
+
+$$
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+$$
+
+
+* Full dynamics: Includes both short-run and long-run components.
+* You can test for:
+
+  * Short-run effects: via $\gamma_0$
+  * Long-run relationship: via long-run multiplier:
+
+    $$
+    \text{LRP} = \frac{\gamma_0 + \gamma_1}{1 - \rho}
+    $$
+
+* Most general case with minimal lags → a baseline to test simplifications.
+
+
+### ARDL(1,0)
+
+Technically a autoregressive model:
+
+$$
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + v_t
+$$
+
+* Assumes current value of $z_t$ affects $y_t$, but no lagged effect from $z_{t-1}$.
+* Still allows for persistence in $y_t$ through $y_{t-1}$.
+* Often used when theory or data suggest that $z_t$'s impact is immediate, but $y_t$ evolves gradually.
+
+Long-run multiplier:
+
+$$
+\text{LRP} = \frac{\gamma_0}{1 - \rho}
+$$
+
+
+### ARDL(0,1)
+
+Technically a Distributed Lag Model:
+
+$$
+y_t = \alpha + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+$$
+
+* No dynamic feedback from $y_{t-1}$ — makes it easier to estimate (no autocorrelation structure to handle).
+* Focuses on how past and current $z_t$ values explain $y_t$.
+* Useful when $y_t$ is not persistent or when $y_{t-1}$ is statistically insignificant.
+
+
+--------------------------------------------------------------------------------
+
+
+Summary Table:
+
+| Model     | Lags                    | Focus / Use Case                                            | long-run effect | Persistence | Immediate effects | Delayed efects |
+| --------- | ----------------------- | ----------------------------------------------------------- | --------------- | ----------- | ----------------- | -------------- |
+| ARDL(1,1) | $y_{t-1}, z_t, z_{t-1}$ | Full dynamics (short + long run)                            | ✅               | ✅           | ✅                 | ✅              |
+| ARDL(1,0) | $y_{t-1}, z_t$          | Current impact of $z_t$, gradual $y_t$                      | ✅               | ✅           | ✅                 | ❌              |
+| ARDL(0,1) | $z_t, z_{t-1}$          | Immediate + lagged impact of $z_t$, no persistence in $y_t$ | ❌               | ❌           | ✅                 | ✅              |
+
+
+- **Immediate effects via $z_t$ vs Delayed effects via $z_{t-1}$**
+
+  Does a shock to $z_t$ affect $y_t$ right away, or only after some time?
+
+- **Short-run vs. Long-run Dynamics**
+
+  This refers to distinguishing:
+
+  * **Short-run changes**: immediate response of $y_t$ to changes in $z_t$
+  * **Long-run equilibrium**: the total accumulated effect of a permanent change in $z_t$
+
+  The **long-run effect** in models with $y_{t-1}$ (i.e., ARDL(1,1), ARDL(1,0)) is:
+
+  $$
+  \text{Long-run multiplier} = \frac{\text{Sum of } \gamma_i}{1 - \rho}
+  $$
+
+  So:
+
+  * **ARDL(1,1)** and **ARDL(1,0)** allow estimation of both **short-run and long-run effects**
+  * **ARDL(0,1)** does **not** allow this, because there's no lagged $y_t$ — no dynamic accumulation
+
+  This helps answer:
+
+  > Are the effects of changes in $z_t$ temporary or permanent?
+
+- **Persistence in the Dependent Variable**
+
+  This refers to how much the **past value of $y_t$** influences its current value. 
+
+  When $y_{t-1}$ is included, it means that the current value of $y_t$ is influenced by its past value, which implies that shocks to $y_t$ will have a persistent effect over time.
+
+  In absence of $y_{t-1}$, the model focuses on the immediate relationship between $z_t$ and $y_t$ without considering past values of $y_t$.
+
+
+### Example: temperature changes affecting GDP
+
+Let:
+
+* $y_t$: **GDP growth rate** at time $t$
+* $z_t$: **temperature anomaly** (e.g., deviation from normal)
+
+We want to understand how temperature shocks (e.g., a heatwave or cold year) affect economic performance — both now and in the future.
+
+--------------------------------------------------------------------------------
+
+ARDL(1,1)
+
+$$
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+$$
+
+**Interpretation**:
+GDP this year depends on:
+
+* Last year’s GDP growth ($y_{t-1}$) — **persistence**
+* This year’s temperature ($z_t$) — **immediate effect**
+* Last year’s temperature ($z_{t-1}$) — **delayed effect**
+
+Real-World Example:
+
+A hot year reduces agricultural output **this year** (immediate effect), and possibly reduces capital investment or damages infrastructure, which lowers **next year's** growth too (delayed effect).
+
+Meanwhile, GDP tends to persist over time due to investment cycles and habits.
+
+
+--------------------------------------------------------------------------------
+
+ARDL(1,0): No Delayed Temperature Effect
+
+$$
+y_t = \alpha + \rho y_{t-1} + \gamma_0 z_t + v_t
+$$
+
+**Interpretation**:
+
+* GDP growth is still persistent.
+* Temperature has only an **immediate effect**.
+
+Real-World Example:
+
+A heatwave disrupts economic activity **this year**, but all effects dissipate quickly — no lasting damage.
+
+GDP dynamics continue through $y_{t-1}$, but temperature doesn’t have long-term influence.
+
+ARDL(0,1): No GDP Persistence
+
+$$
+y_t = \alpha + \gamma_0 z_t + \gamma_1 z_{t-1} + v_t
+$$
+
+**Interpretation**:
+
+* GDP responds to current and past temperature, but doesn’t depend on its own past values.
+
+Real-World Example:
+
+Economic output is fully driven by climate conditions, with no built-in momentum or persistence.
+
+No matter how well or poorly the economy performed last year, only temperature determines growth this year.
+
+This may be **unrealistic**, but useful as a simplifying model.
+
+--------------------------------------------------------------------------------
+
+| Model         | What it tells us                                   | Example insight                                            |
+| ------------- | -------------------------------------------------- | ---------------------------------------------------------- |
+| **ARDL(1,1)** | Immediate + delayed temp effects + GDP persistence | Temp shocks may cause **prolonged GDP losses**             |
+| **ARDL(1,0)** | Immediate temp effects + GDP persistence           | Temp only matters this year, but GDP adjusts gradually |
+| **ARDL(0,1)** | Immediate + delayed temp effects only              | Temp affects GDP directly, but GDP has no memory       |
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+### Implement an ARDL model
 
 $$
 DU_{t} = \alpha + \rho\, DU_{t-1} + \gamma_{0}G_{t} + \gamma_{1}G_{t-1} + v_{t}.
@@ -317,5 +510,4 @@ A 1% increase in the growth rate of GDP leads to a fall in the change of unemplo
 
 - Czar Yobero, Time Series Regression with Stationary Variables: An Introduction to the ARDL Model, <https://rpubs.com/cyobero/ardl>
 - Okun's Law data source: FRED database, <https://fred.stlouisfed.org/series/GDPC1>
-
 

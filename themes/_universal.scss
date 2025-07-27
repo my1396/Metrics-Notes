@@ -1,0 +1,37 @@
+// Remove inner border from input code blocks
+.sourceCode {
+    border: none !important;
+}
+pre.sourceCode {
+    border: none !important;
+}
+
+/**
+ * Tables
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+th, td {
+  border-spacing: 0px;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3em;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+// Bullet lists
+p + ul {
+  margin-top: 0.5em;
+}
+
+p:has(+ ul) {
+  margin-bottom: 0.5em;
+}
+
+// Callouts
+// Add space between callout title and content
+.callout .callout-title-container {
+  margin-bottom: 0.5em;
+}

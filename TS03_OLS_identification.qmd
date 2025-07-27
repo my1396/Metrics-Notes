@@ -9,7 +9,7 @@ format:
             light: [cosmo, themes/cosmo-light.scss]
 ---
 
-::: {.callout-note appearance="simple" icon=false}
+::: {.callout-note appearance="minimal"}
 
 ## Main Takeaway
 

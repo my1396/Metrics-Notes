@@ -3,7 +3,7 @@ title: "Vector Autoregressions"
 format: html
 ---
 
-::: {.callout-note appearance="simple" icon=false}
+::: {.callout-note appearance="minimal"}
 
 ## Main Takeaway
 
@@ -43,6 +43,7 @@ $$
 $$
 
 Where:
+
 - $\bmu_0$ is $2 \times 1$
 - $\bA_1$ is $2 \times 2$
 - $\bvarepsilon_t = (\varepsilon_{1t}, \varepsilon_{2t})'$

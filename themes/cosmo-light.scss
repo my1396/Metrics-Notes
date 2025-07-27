@@ -1,35 +1,13 @@
 /*-- scss:defaults --*/
-p {
-    text-align: left;
-}
-/**
- * Tables
- */
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-th, td {
-  border-spacing: 0px;
-  padding-top: 0.3rem;
-  padding-bottom: 0.3em;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
+
+/*-- scss:rules --*/
+// Import universal styles
+@import "_universal";
 
 // Add box to theorem environments
-.theorem, .lemma, .proposition, .corollary, .definition, .example {
+.theorem, .lemma, .proposition, .corollary, .definition, .example, .proof{
   border: 1px solid #ddd;
   padding: 0.5rem;
   margin-bottom: 1rem;
   background-color: rgba(255, 255, 255, 0.05);
-}
-// Add box to proof environments
-.proof {
-  border: 1px solid #ddd;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  font-style: italic;
-  color: #333;
 }
