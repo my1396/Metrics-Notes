@@ -22,6 +22,16 @@ pre code {
     color: #ccc !important;
 }
 
+// Blockquotes - more visible for dark theme
+blockquote {
+  border-left: 4px solid #75AADB !important;
+  background-color: rgba(117, 170, 219, 0.1) !important;
+  color: #e0e0e0 !important;
+  padding: 0.5rem !important;
+  margin: 0.5rem 0 !important;
+  font-style: italic;
+}
+
 // Add box to theorem environments
 .theorem, .lemma, .proposition, .corollary, .definition, .example, .proof {
   border: 1px solid #444;

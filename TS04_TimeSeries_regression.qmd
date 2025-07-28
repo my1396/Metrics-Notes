@@ -468,19 +468,12 @@ No matter how well or poorly the economy performed last year, only temperature d
 
 This may be **unrealistic**, but useful as a simplifying model.
 
---------------------------------------------------------------------------------
 
 | Model         | What it tells us                                   | Example insight                                            |
 | ------------- | -------------------------------------------------- | ---------------------------------------------------------- |
 | **ARDL(1,1)** | Immediate + delayed temp effects + GDP persistence | Temp shocks may cause **prolonged GDP losses**             |
 | **ARDL(1,0)** | Immediate temp effects + GDP persistence           | Temp only matters this year, but GDP adjusts gradually |
 | **ARDL(0,1)** | Immediate + delayed temp effects only              | Temp affects GDP directly, but GDP has no memory       |
-
-
-
-
-
---------------------------------------------------------------------------------
 
 
 ### Implement an ARDL model
