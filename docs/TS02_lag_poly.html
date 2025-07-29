@@ -43,7 +43,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-dfc7dbf8b9874d46221bfd163874e82c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-72ed3dd532822e1753a427d2f6cb4cee.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-dark-8ebe7de62bb1b8bec8b361318e122c97.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -793,6 +793,51 @@ L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^3 \\
 &amp;\color{#008B45}= \sum_{j=0}^\infty \phi^jL^j.
 \end{aligned}
 \]</span></p>
+</div>
+<div id="exm-division" class="theorem example">
+<p><span class="theorem-title"><strong>Example 10.2</strong></span> Let <span class="math inline">\(\psi(L)=\psi_0+\psi_1L+\psi_2L+\cdots\)</span> and we have</p>
+<p><span class="math display">\[
+(1-\rho_1L)\psi(L) = \beta(L)
+\]</span></p>
+<p>where <span class="math inline">\(\beta(L)=\beta_0+\beta_1L\)</span> is a lag polynomial of degree <span class="math inline">\(1\)</span>.</p>
+<p>We can calculate the coefficients of <span class="math inline">\(\psi(L)\)</span> as follows.</p>
+<p>Plug in <span class="math inline">\(\psi(L)\)</span> into the equation:</p>
+<p><span class="math display">\[
+(1-\rho_1L)(\psi_0+\psi_1L+\psi_2L+\cdots) = \beta_0 + \beta_1L
+\]</span></p>
+<p>Expanding the left-hand side, we get:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\;\phantom{=} (\psi_0+\psi_1L+\psi_2L+\cdots) - \rho_1L\cdot(\psi_0+\psi_1L+\psi_2L+\cdots) \\
+&amp;= \psi_0 + (\psi_1 - \rho_1\psi_0)L + (\psi_2 - \rho_1\psi_1)L^2 + (\psi_3 - \rho_1\psi_2)L^3 + \cdots \\
+&amp;= \psi_0 + \sum_{j=1}^\infty (\psi_j - \rho_1\psi_{j-1})L^j \\
+&amp;= \beta_0 + \beta_1L
+\end{aligned}
+\]</span></p>
+<p>For the last equality to hold, we need the coefficients of <span class="math inline">\(L^j\)</span> on both sides to match:</p>
+<p><span class="math display">\[
+\begin{aligned}
+L^0&amp;: \psi_0 = \beta_0, \\
+L^1&amp;: \psi_1 - \rho_1\psi_0 = \beta_1.
+\end{aligned}
+\]</span></p>
+<p>For higher-order terms <span class="math inline">\((j \geq 2)\)</span>, all the coefficients are zero:</p>
+<p><span class="math display">\[
+\psi_j - \rho_1\psi_{j-1} = 0, \text{ for } j \geq 2.
+\]</span></p>
+<p>This gives us a recursive relation for <span class="math inline">\(\psi_j\)</span>:</p>
+<p><span class="math display">\[
+\psi_j = \rho_1\psi_{j-1} \text{ for } j \geq 2.
+\]</span></p>
+<p>In summary, we have:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\psi_0 &amp;= \beta_0, \\
+\psi_1 &amp;= \beta_1 + \rho_1\beta_0, \\
+\psi_j &amp;= \rho_1\psi_{j-1} \text{ for } j \geq 2.
+\end{aligned}
+\]</span> This means that <span class="math inline">\(\psi_j\)</span> is a geometric sequence starting from <span class="math inline">\(\psi_1\)</span> with common ratio <span class="math inline">\(\rho_1\)</span>.</p>
+<p>The convergence condition for <span class="math inline">\(\{\psi_j\}\)</span> is that <span class="math inline">\(|\rho_1| &lt; 1\)</span>, which ensures that the terms <span class="math inline">\(\psi_j\)</span> will eventually decline to zero as <span class="math inline">\(j\)</span> increases.</p>
 </div>
 </section>
 <section id="stability-condition" class="level2" data-number="10.3">

@@ -58,6 +58,7 @@ The inverse of $\alpha(L)$ is denoted as $\alpha(L)^{-1}$ or $1/\alpha(L)$:
 $$
 \alpha(L)\alpha(L)^{-1}=1
 $$
+
 Define a $p$-th degree lag polynomial $\phi(L)$
 
 $$
@@ -76,8 +77,8 @@ By the convolution formula ([-@eq-convolution]), we have
 
 $$
 \begin{aligned}
-\text{constant}:&\quad  \psi_0 =1 \\
-L: &\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
+\text{constant term, } L^0:&\quad  \psi_0 =1 \\
+L^1: &\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
 L^2: &\quad  \psi_2-\psi_1\phi_1-\psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \phi_1^2 + \phi_2 \\
 \vdots \\
 L^p: &\quad  \psi_p - \psi_{p-1}\phi_1 - \psi_{p-2}\phi_2 - \cdots - \psi_{1}\phi_{p-1} - \psi_{0}\phi_p = 0 \\
@@ -91,8 +92,8 @@ Consider a <span style='color:#008B45'>**1st degree lag polynomial** $\phi(L)=1-
 
 $$
 \begin{aligned}
-\text{constant}: &\quad \psi_0 =1  \\
-L: &\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
+L^0: &\quad \psi_0 =1  \\
+L^1: &\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
 L^2: &\quad \psi_2 - \psi_1\phi = 0 \Longrightarrow \psi_2 = \phi^2 \\
 L^3: &\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^3 \\
 \vdots 
@@ -110,8 +111,70 @@ $$
 :::
 
 
+::: {#exm-division}
+Let $\psi(L)=\psi_0+\psi_1L+\psi_2L+\cdots$ and we have
 
+$$
+(1-\rho_1L)\psi(L) = \beta(L)
+$$
 
+where $\beta(L)=\beta_0+\beta_1L$ is a lag polynomial of degree $1$.
+
+We can calculate the coefficients of $\psi(L)$ as follows.
+
+Plug in $\psi(L)$ into the equation:
+
+$$
+(1-\rho_1L)(\psi_0+\psi_1L+\psi_2L+\cdots) = \beta_0 + \beta_1L
+$$
+
+Expanding the left-hand side, we get:
+
+$$
+\begin{aligned}
+&\;\phantom{=} (\psi_0+\psi_1L+\psi_2L+\cdots) - \rho_1L\cdot(\psi_0+\psi_1L+\psi_2L+\cdots) \\
+&= \psi_0 + (\psi_1 - \rho_1\psi_0)L + (\psi_2 - \rho_1\psi_1)L^2 + (\psi_3 - \rho_1\psi_2)L^3 + \cdots \\
+&= \psi_0 + \sum_{j=1}^\infty (\psi_j - \rho_1\psi_{j-1})L^j \\
+&= \beta_0 + \beta_1L 
+\end{aligned}
+$$
+
+For the last equality to hold, we need the coefficients of $L^j$ on both sides to match:
+
+$$
+\begin{aligned}
+L^0&: \psi_0 = \beta_0, \\
+L^1&: \psi_1 - \rho_1\psi_0 = \beta_1.
+\end{aligned}
+$$
+
+For higher-order terms $(j \geq 2)$, all the coefficients are zero: 
+
+$$
+\psi_j - \rho_1\psi_{j-1} = 0, \text{ for } j \geq 2.
+$$
+
+This gives us a recursive relation for $\psi_j$:
+
+$$
+\psi_j = \rho_1\psi_{j-1} \text{ for } j \geq 2.
+$$
+
+In summary, we have:
+
+$$
+\begin{aligned}
+\psi_0 &= \beta_0, \\
+\psi_1 &= \beta_1 + \rho_1\beta_0, \\
+\psi_j &= \rho_1\psi_{j-1} \text{ for } j \geq 2.
+\end{aligned}
+$$
+
+This means that $\psi_j$ is a geometric sequence starting from $\psi_1$ with common ratio $\rho_1$.
+
+The convergence condition for $\{\psi_j\}$ is that $|\rho_1| < 1$, which ensures that the terms $\psi_j$ will eventually decline to zero as $j$ increases.
+
+:::
 
 ## Stability Condition
 
@@ -124,14 +187,15 @@ All the roots of the $p$-th degree polynomial equation in $z$
 $$
 \phi(z) = 0 \text{ where } \phi(z) \equiv 1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p
 $$
-are greater than 1 in absolute value (lie *outside* the unit circle).
 
+are greater than 1 in absolute value (lie *outside* the unit circle).
 
 Equivalently, we can consider the roots of the reciprocal polynomial defined as (basically this means inverting the order of the coefficients)
 
 $$
 \phi^*(z) = z^p\phi(z^{-1}) = z^p - \phi_1z^{p-1} - \dots - \phi_p.
 $$
+
 The stability condition can be stated as:
 
 All the roots of 
@@ -139,6 +203,7 @@ All the roots of
 $$
 \phi^*(z) \equiv z^p - \phi_1z^{p-1} - \dots - \phi_p =0
 $$
+
 are less than 1 in the absolute value (i.e., lie *inside* the unit circle).
 
 
