@@ -42,8 +42,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dfc7dbf8b9874d46221bfd163874e82c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-8ebe7de62bb1b8bec8b361318e122c97.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-ff1d6f8411e5abbaf83a6941de3a90b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-8c534306b5f8b652001e21364b1583ca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -754,7 +754,8 @@ window.Quarto = {
 <p>The inverse of <span class="math inline">\(\alpha(L)\)</span> is denoted as <span class="math inline">\(\alpha(L)^{-1}\)</span> or <span class="math inline">\(1/\alpha(L)\)</span>:</p>
 <p><span class="math display">\[
 \alpha(L)\alpha(L)^{-1}=1
-\]</span> Define a <span class="math inline">\(p\)</span>-th degree lag polynomial <span class="math inline">\(\phi(L)\)</span></p>
+\]</span></p>
+<p>Define a <span class="math inline">\(p\)</span>-th degree lag polynomial <span class="math inline">\(\phi(L)\)</span></p>
 <p><span id="eq-lag-ploy"><span class="math display">\[
 \phi(L) = 1-\phi_1L-\phi_2L^2-\cdots-\phi_pL^p.
 \tag{10.2}\]</span></span></p>
@@ -766,8 +767,8 @@ window.Quarto = {
 <p>By the convolution formula (<a href="#eq-convolution" class="quarto-xref"><span>10.1</span></a>), we have</p>
 <p><span class="math display">\[
 \begin{aligned}
-\text{constant}:&amp;\quad  \psi_0 =1 \\
-L: &amp;\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
+\text{constant term, } L^0:&amp;\quad  \psi_0 =1 \\
+L^1: &amp;\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
 L^2: &amp;\quad  \psi_2-\psi_1\phi_1-\psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \phi_1^2 + \phi_2 \\
 \vdots \\
 L^p: &amp;\quad  \psi_p - \psi_{p-1}\phi_1 - \psi_{p-2}\phi_2 - \cdots - \psi_{1}\phi_{p-1} - \psi_{0}\phi_p = 0 \\
@@ -779,8 +780,8 @@ L^{p+1}: &amp;\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \
 <p><span class="theorem-title"><strong>Example 10.1</strong></span> Consider a <span style="color:#008B45"><strong>1st degree lag polynomial</strong> <span class="math inline">\(\phi(L)=1-\phi L\)</span></span>, its inverse <span class="math inline">\(\psi(L)\)</span> can be calculated as</p>
 <p><span class="math display">\[
 \begin{aligned}
-\text{constant}: &amp;\quad \psi_0 =1  \\
-L: &amp;\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
+L^0: &amp;\quad \psi_0 =1  \\
+L^1: &amp;\quad \psi_1 - \psi_0\phi = 0 \Longrightarrow \psi_1 = \phi \\
 L^2: &amp;\quad \psi_2 - \psi_1\phi = 0 \Longrightarrow \psi_2 = \phi^2 \\
 L^3: &amp;\quad \psi_3 - \psi_2\phi = 0 \Longrightarrow \psi_3 = \phi^3 \\
 \vdots
@@ -836,7 +837,8 @@ L^1&amp;: \psi_1 - \rho_1\psi_0 = \beta_1.
 \psi_1 &amp;= \beta_1 + \rho_1\beta_0, \\
 \psi_j &amp;= \rho_1\psi_{j-1} \text{ for } j \geq 2.
 \end{aligned}
-\]</span> This means that <span class="math inline">\(\psi_j\)</span> is a geometric sequence starting from <span class="math inline">\(\psi_1\)</span> with common ratio <span class="math inline">\(\rho_1\)</span>.</p>
+\]</span></p>
+<p>This means that <span class="math inline">\(\psi_j\)</span> is a geometric sequence starting from <span class="math inline">\(\psi_1\)</span> with common ratio <span class="math inline">\(\rho_1\)</span>.</p>
 <p>The convergence condition for <span class="math inline">\(\{\psi_j\}\)</span> is that <span class="math inline">\(|\rho_1| &lt; 1\)</span>, which ensures that the terms <span class="math inline">\(\psi_j\)</span> will eventually decline to zero as <span class="math inline">\(j\)</span> increases.</p>
 </div>
 </section>
@@ -846,15 +848,18 @@ L^1&amp;: \psi_1 - \rho_1\psi_0 = \beta_1.
 <p>All the roots of the <span class="math inline">\(p\)</span>-th degree polynomial equation in <span class="math inline">\(z\)</span></p>
 <p><span class="math display">\[
 \phi(z) = 0 \text{ where } \phi(z) \equiv 1-\phi_1z-\phi_2z^2-\cdots-\phi_pz^p
-\]</span> are greater than 1 in absolute value (lie <em>outside</em> the unit circle).</p>
+\]</span></p>
+<p>are greater than 1 in absolute value (lie <em>outside</em> the unit circle).</p>
 <p>Equivalently, we can consider the roots of the reciprocal polynomial defined as (basically this means inverting the order of the coefficients)</p>
 <p><span class="math display">\[
 \phi^*(z) = z^p\phi(z^{-1}) = z^p - \phi_1z^{p-1} - \dots - \phi_p.
-\]</span> The stability condition can be stated as:</p>
+\]</span></p>
+<p>The stability condition can be stated as:</p>
 <p>All the roots of</p>
 <p><span class="math display">\[
 \phi^*(z) \equiv z^p - \phi_1z^{p-1} - \dots - \phi_p =0
-\]</span> are less than 1 in the absolute value (i.e., lie <em>inside</em> the unit circle).</p>
+\]</span></p>
+<p>are less than 1 in the absolute value (i.e., lie <em>inside</em> the unit circle).</p>
 
 
 </section>

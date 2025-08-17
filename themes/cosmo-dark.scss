@@ -40,4 +40,13 @@ blockquote {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
+/* Environment variable colors adaptive to light/dark mode */
+// dark mode green
+.env-green {
+  color: #C3E88D !important;
+}
+.env-green>code,
+.env-green code {
+  color: #C3E88D !important;
+}
 

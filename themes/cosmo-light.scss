@@ -11,3 +11,16 @@
   margin-bottom: 1rem;
   background-color: rgba(255, 255, 255, 0.05);
 }
+
+/* Environment variable colors adaptive to light/dark mode */
+// light mode green
+.env-green {
+  color: #008B45 !important;
+  /* Default green color */
+  /* Light mode */
+}
+.env-green>code,
+.env-green code {
+  // light mode
+  color: #008B45 !important;
+}
