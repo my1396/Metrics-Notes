@@ -114,10 +114,10 @@ This occurs when the errors $u_{it}$ are mean independent of all regressors $\bx
 
 This **strict mean independence** implies that neither lagged nor future values of $\bx_{it}$ help predict $u_{it}$. It excludes lagged dependent variables (such as $y_{it-1}$) from $\bx_{it}$, otherwise $u_{it}$ would be predictable given $\bx_{it}.$
 
-Strict mean independence is stronger than pairwise mean independence 
+Strict mean independence is stronger than **pairwise mean independence**, which only requires that $u_{it}$ is mean independent of $\bx_{it}$ for the same time period $t$: 
 
 $$
-\mathbb{E}[u_{it} \mid \bx_{ij}] = 0
+\mathbb{E}[u_{it} \mid \bx_{it}] = 0
 $$
 
 as well as the projection assumption
@@ -126,6 +126,33 @@ $$
 \mathbb{E}[u_{it} \bx_{ij}] = \bold{0}
 $$
 
+
+Q: When is strict mean independence, $\E[u_{it}\mid \bX_i]$, likely to hold?
+
+- Randomized controlled trials (RCTs) over time
+  
+  In a experiment where 500 patients are given either a real blood pressure drug or a placebo by a literal coin flip. The researchers track their blood pressure every week for 10 weeks.
+
+  Here our variable of interest is the drug $x_{it}$, and each patient has unobserved health characteristics $\alpha_i$ (genetics, diet, exercise) that affect their blood pressure $y_{it}$. 
+
+  Since the drug is randomly assigned, we can safely assume that 
+
+  $$
+  E[\alpha_{i}x_{it}] = 0
+  $$
+
+- Repeated cross-sections
+  
+  This happens in surveys where a new random sample of individuals is drawn each year. 
+  
+  Each person only appears once.
+
+- Highly homogeneous populations
+  
+  An engineer is testing how temperature affects the battery life of 100 identical smartphones coming off the exact same assembly line, tested over 5 different cycles.
+
+
+--------------------------------------------------------------------------------
 
 The standard estimator of $\beta$ in the pooled regression model is least-squares, given by:
 
@@ -164,8 +191,14 @@ $$
 Given (-@eq-zero_mean), $\hat{\bbeta}_{\text{pool}}$ is **unbiased**.
 
 - If $u_{it}$ is homoskedastic and serially uncorrelated: use classical variance estimator.
+  
+  Will treat all observations as independent cross-sections, ignoring the panel structure. → Wouldn't be appropriate as serial correlation is common within individuals over time. 
+  
+  Also ignoring the panel structure would lead to <span class="env-green">underestimating the standard errors, resulting in overconfident inference</span>.
+
 - If $u_{it}$ is heteroskedastic: use heteroskedasticity-robust estimator.
-- If $u_{it}$ is serially correlated: use **cluster-robust covariance matrix**:
+
+- If $u_{it}$ is <span class="env-green">**serially correlated**</span> (this is highly commonly): use **cluster-robust covariance matrix**:
 
 $$
 \widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bu}_i \widehat{\bu}_i' \bX_i \right) (\bX' \bX)^{-1}

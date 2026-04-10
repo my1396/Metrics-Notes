@@ -812,14 +812,30 @@ u_{iT}  \\
 \tag{20.1}\]</span></span></p>
 <p>This occurs when the errors <span class="math inline">\(u_{it}\)</span> are mean independent of all regressors <span class="math inline">\(\bx_{ij}\)</span> for all time periods <span class="math inline">\(j=1,\ldots,T.\)</span></p>
 <p>This <strong>strict mean independence</strong> implies that neither lagged nor future values of <span class="math inline">\(\bx_{it}\)</span> help predict <span class="math inline">\(u_{it}\)</span>. It excludes lagged dependent variables (such as <span class="math inline">\(y_{it-1}\)</span>) from <span class="math inline">\(\bx_{it}\)</span>, otherwise <span class="math inline">\(u_{it}\)</span> would be predictable given <span class="math inline">\(\bx_{it}.\)</span></p>
-<p>Strict mean independence is stronger than pairwise mean independence</p>
+<p>Strict mean independence is stronger than <strong>pairwise mean independence</strong>, which only requires that <span class="math inline">\(u_{it}\)</span> is mean independent of <span class="math inline">\(\bx_{it}\)</span> for the same time period <span class="math inline">\(t\)</span>:</p>
 <p><span class="math display">\[
-\mathbb{E}[u_{it} \mid \bx_{ij}] = 0
+\mathbb{E}[u_{it} \mid \bx_{it}] = 0
 \]</span></p>
 <p>as well as the projection assumption</p>
 <p><span class="math display">\[
 \mathbb{E}[u_{it} \bx_{ij}] = \bold{0}
 \]</span></p>
+<p>Q: When is strict mean independence, <span class="math inline">\(\E[u_{it}\mid \bX_i]\)</span>, likely to hold?</p>
+<ul>
+<li><p>Randomized controlled trials (RCTs) over time</p>
+<p>In a experiment where 500 patients are given either a real blood pressure drug or a placebo by a literal coin flip. The researchers track their blood pressure every week for 10 weeks.</p>
+<p>Here our variable of interest is the drug <span class="math inline">\(x_{it}\)</span>, and each patient has unobserved health characteristics <span class="math inline">\(\alpha_i\)</span> (genetics, diet, exercise) that affect their blood pressure <span class="math inline">\(y_{it}\)</span>.</p>
+<p>Since the drug is randomly assigned, we can safely assume that</p>
+<p><span class="math display">\[
+E[\alpha_{i}x_{it}] = 0
+\]</span></p></li>
+<li><p>Repeated cross-sections</p>
+<p>This happens in surveys where a new random sample of individuals is drawn each year.</p>
+<p>Each person only appears once.</p></li>
+<li><p>Highly homogeneous populations</p>
+<p>An engineer is testing how temperature affects the battery life of 100 identical smartphones coming off the exact same assembly line, tested over 5 different cycles.</p></li>
+</ul>
+<hr>
 <p>The standard estimator of <span class="math inline">\(\beta\)</span> in the pooled regression model is least-squares, given by:</p>
 <p><span class="math display">\[
 \begin{split}
@@ -847,9 +863,11 @@ u_{iT}  \\
 \]</span></p>
 <p>Given (<a href="PA05_dynamic_models.html#eq-zero_mean" class="quarto-xref"><span>24.4</span></a>), <span class="math inline">\(\hat{\bbeta}_{\text{pool}}\)</span> is <strong>unbiased</strong>.</p>
 <ul>
-<li>If <span class="math inline">\(u_{it}\)</span> is homoskedastic and serially uncorrelated: use classical variance estimator.</li>
-<li>If <span class="math inline">\(u_{it}\)</span> is heteroskedastic: use heteroskedasticity-robust estimator.</li>
-<li>If <span class="math inline">\(u_{it}\)</span> is serially correlated: use <strong>cluster-robust covariance matrix</strong>:</li>
+<li><p>If <span class="math inline">\(u_{it}\)</span> is homoskedastic and serially uncorrelated: use classical variance estimator.</p>
+<p>Will treat all observations as independent cross-sections, ignoring the panel structure. → Wouldn’t be appropriate as serial correlation is common within individuals over time.</p>
+<p>Also ignoring the panel structure would lead to <span class="env-green">underestimating the standard errors, resulting in overconfident inference</span>.</p></li>
+<li><p>If <span class="math inline">\(u_{it}\)</span> is heteroskedastic: use heteroskedasticity-robust estimator.</p></li>
+<li><p>If <span class="math inline">\(u_{it}\)</span> is <span class="env-green"><strong>serially correlated</strong></span> (this is highly commonly): use <strong>cluster-robust covariance matrix</strong>:</p></li>
 </ul>
 <p><span class="math display">\[
 \widehat{\bV}_{\text{pool}} = (\bX' \bX)^{-1} \left( \sum_{i=1}^N \bX_i' \widehat{\bu}_i \widehat{\bu}_i' \bX_i \right) (\bX' \bX)^{-1}

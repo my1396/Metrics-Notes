@@ -708,11 +708,13 @@ window.Quarto = {
   <li><a href="#exogeneity-and-dynamic-models" id="toc-exogeneity-and-dynamic-models" class="nav-link active" data-scroll-target="#exogeneity-and-dynamic-models"><span class="header-section-number">24.1</span> Exogeneity and Dynamic Models</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction"><span class="header-section-number">24.1.1</span> Introduction</a></li>
-  <li><a href="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" id="toc-no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="nav-link" data-scroll-target="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">24.1.2</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</a></li>
+  <li><a href="#real-world-example" id="toc-real-world-example" class="nav-link" data-scroll-target="#real-world-example"><span class="header-section-number">24.1.2</span> Real World Example</a></li>
+  <li><a href="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" id="toc-no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="nav-link" data-scroll-target="#no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">24.1.3</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</a></li>
   </ul></li>
   <li><a href="#dynamic-panel-representation" id="toc-dynamic-panel-representation" class="nav-link" data-scroll-target="#dynamic-panel-representation"><span class="header-section-number">24.2</span> Dynamic Panel Representation</a>
   <ul class="collapse">
   <li><a href="#iv-estimator-of-dynamic-panel-models" id="toc-iv-estimator-of-dynamic-panel-models" class="nav-link" data-scroll-target="#iv-estimator-of-dynamic-panel-models"><span class="header-section-number">24.2.1</span> IV Estimator of Dynamic Panel Models</a></li>
+  <li><a href="#foreign-aid-example-revisited" id="toc-foreign-aid-example-revisited" class="nav-link" data-scroll-target="#foreign-aid-example-revisited"><span class="header-section-number">24.2.2</span> Foreign Aid Example Revisited</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -769,7 +771,7 @@ Main Takeaway
 <p><span class="math display">\[
 y_{it} = \bx_{it}' \bbeta + u_{it} .
 \]</span> Throughout the previous section, we assumed that the idiosyncratic term <span class="math inline">\(u_{it}\)</span> satisfied <strong>strict exogeneity</strong> with respect to the data: <span class="math display">\[
-    \E[u_{it}|\bX_i] = 0.
+    \E[u_{it}\mid \bX_i] = 0.
 \]</span></p>
 <p>It implies that for all pairs of indices <span class="math inline">\(s\)</span> and <span class="math inline">\(t,\)</span> it holds that <span id="eq-dynamic-interlude-strict-orthogonality"><span class="math display">\[
     \E[u_{it}\bx_{is}] =0.
@@ -777,16 +779,32 @@ y_{it} = \bx_{it}' \bbeta + u_{it} .
 <ul>
 <li><p>However, strict exogeneity is not possible in the presence of lagged dependent variables.</p>
 <p>Therefore, <strong>sequential exogeneity</strong> requires only (<a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref"><span>24.1</span></a>) holds for <span class="math inline">\(t\ge s.\)</span> That is,</p>
+<p><span class="math display">\[
+  \E[u_{it}\bx_{i, t-1}] =0,
+  \]</span></p>
+<p>or more generally,</p>
 <p><span id="eq-dynamic-interlude-seq-orthogonality"><span class="math display">\[
   \E[u_{it}\bx_{is}] = 0 \text{ for } t\ge s.
    \tag{24.2}\]</span></span></p>
-<p>In plain language, the current and past values of <span class="math inline">\(\bx\)</span> are uncorrelated with the current error term, although its future values may not be.</p>
+<p>A <em>stronger</em> version of sequential exogeneity can be expressed as</p>
+<p><span class="math display">\[
+  \E[u_{it} \mid \bx_{i, t}, \bx_{i, t-1}, \ldots, \bx_{i,1}] = 0.
+  \]</span></p>
+<p>In plain language, the current and past values of <span class="math inline">\(\bx\)</span> are uncorrelated with the current error term (past and current values are safe), although its future values may not be.</p>
 <p>In this case, the regressor <span class="math inline">\(\bx\)</span> is called “<strong>predetermined</strong>” as its value is <em>determined prior to the current period</em>.</p>
+<p><span class="math display">\[
+  \E[u_{i,t-1}\bx_{it}] \neq 0 ,
+  \]</span></p>
+<p>or more generally,</p>
+<p><span class="math display">\[
+  \E[u_{it}\bx_{is}] \neq 0 \text{ for } t&lt;s.
+  \]</span></p>
+<p>This means past shocks can predict future values of <span class="math inline">\(\bx\)</span>.</p>
 <p>Examples of predetermined variables:</p>
 <ul>
-<li>Lagged dependent variables: Variables that represent past values of the dependent variable.</li>
-<li>Exogenous variables: Variables that are determined outside the model and are not influenced by the endogenous variables within the current period.</li>
-</ul></li>
+<li>Lagged dependent variables <span class="math inline">\(y_{t-1}\)</span> as covariate: Variables that represent past values of the dependent variable. Since <span class="math inline">\(y_{t-1} = \bx_{i,t-1}' \bbeta + u_{i,t-1}\)</span>, then <span class="math inline">\(\E[u_{i,t-1} \bx_{i,t}] \neq 0\)</span></li>
+</ul>
+<p>By contrast, <strong>exogenous variables</strong> are determined outside the model and are not influenced by the endogenous variables within the current period.</p></li>
 <li><p>For <span class="math inline">\(t&lt;s\)</span>, <a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref">Equation&nbsp;<span>24.1</span></a> means that <em>past</em> shocks are uncorrelated with <em>future</em> values of <span class="math inline">\(\bx\)</span>. In other words, one cannot predict <em>future</em> <span class="math inline">\(\bx\)</span>’s from <em>past</em> shocks.</p>
 <p>This requirement might <strong>fail</strong> if <span class="math inline">\(\bx\)</span> is dynamic, e.g., covaraites including lagged dependent variables, and its evolution is affected by <span class="math inline">\(u_{it}\)</span>. That is, <span class="math display">\[
   \E[u_{it}\bx_{is}] \ne 0 \text{ for } t&lt;s.
@@ -794,8 +812,35 @@ y_{it} = \bx_{it}' \bbeta + u_{it} .
 <p>In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data.</p></li>
 </ul>
 </section>
-<section id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="level3" data-number="24.1.2">
-<h3 data-number="24.1.2" class="anchored" data-anchor-id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">24.1.2</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</h3>
+<section id="real-world-example" class="level3" data-number="24.1.2">
+<h3 data-number="24.1.2" class="anchored" data-anchor-id="real-world-example"><span class="header-section-number">24.1.2</span> Real World Example</h3>
+<p>Consider a model where you want to investigate the effect of foreign aid on a country’s economic growth.</p>
+<p><span class="math display">\[
+\text{Growth}_{it} = \beta_1 \text{Aid}_{it} + \alpha_i + u_{it}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\alpha_i\)</span> captures unobserved country-specific factors that affect growth, such as geography, culture, or institutions.</p>
+<p>In our example, usually the poor countries which experience economic distress receive more aid. This means that <span class="math inline">\(\text{Aid}_{it}\)</span> is likely to be correlated with <span class="math inline">\(\alpha_i\)</span>. When omitting <span class="math inline">\(\alpha_i\)</span> (which pooled OLS does),</p>
+<p><span class="math display">\[
+\begin{aligned}
+\varepsilon_{it} &amp;= \alpha_i + u_{it} \quad \text{and} \\
+\E[\text{Aid}_{it} \varepsilon_{it}] &amp;\neq 0.
+\end{aligned}
+\]</span></p>
+<p>Hence endogeneity arises (due to omitted variables in this case) and the pooled OLS estimator is biased and inconsistent.</p></li>
+<li><p>Another challenge is <span class="math inline">\(\text{Aid}_{it}\)</span> is likely predetermined, i.e., correlated with past shocks to growth. For example, if a country experiences a negative shock to growth in period <span class="math inline">\(t-1\)</span> due to natural disaters, it is likely to receive more aid in period <span class="math inline">\(t.\)</span> This indicates a feedback loop.</p>
+<p>Mathematically,</p>
+<p><span class="math display">\[
+\E[u_{i,t-1} \text{Aid}_{it}] \neq 0.
+\]</span></p>
+<p>Causes: current foreign aid is tangled with past shocks, say an earthquake, to growth.</p>
+<p>Consequences: because the earthquake causes both the economy to crash and the foreign aid to increase, we cannot isolate the effect of aid on growth.</p>
+<p><strong>Remedy:</strong> Arellano-Bond GMM estimator uses lagged levels (<span class="math inline">\(t-2\)</span>, <span class="math inline">\(t-3\)</span>, etc) of aid as instruments.</p></li>
+<li><p>It is a standard practice to include lagged dependent variable as a regressor to as economic growth is persistent (dependent on its own past).</p></li>
+</ul>
+</section>
+<section id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="level3" data-number="24.1.3">
+<h3 data-number="24.1.3" class="anchored" data-anchor-id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">24.1.3</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</h3>
 <p>Consider the AR(1) model, <span id="eq-AR1"><span class="math display">\[
 y_t = \beta_0 + \beta_1 y_{t-1} + u_t,
 \tag{24.3}\]</span></span> where the error <span class="math inline">\(u_t\)</span> has a zero expected value, given all past values of <span class="math inline">\(y\)</span>: <span id="eq-zero_mean"><span class="math display">\[
@@ -854,7 +899,7 @@ y_{it} = \alpha_i + \sum_{k=1}^K \lambda_k y_{it-k} + \bbeta'\bx_{it} + u_{it}.
 \]</span></p>
 <p>Adding dynamics to a model makes major changes in the interpretation of the equation. The entire history of the LHS variable enters into the equation. Any measured influence is conditioned on this history. Any impact of <span class="math inline">\(\bx_{it}\)</span> represents the effects of <em>new</em> information.</p>
 <p>In <a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref">Equation&nbsp;<span>24.6</span></a>, a sequential exogeneity assumption takes form <span class="math display">\[
-     \E[u_{it}\mid \curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0.
+\E[u_{it}\mid \curl{y_{is-1}, \bx_{is}}_{s\leq t}] =0.
 \]</span></p>
 <p>For the sake of simplicity, we will discuss a simple version of model (<a href="#eq-dynamic-interlude-dynamic-panel" class="quarto-xref"><span>24.6</span></a>) without extra covariates <span class="math inline">\(\bx_{it}\)</span> and with only one lag of <span class="math inline">\(y_{it}\)</span>: <span id="eq-dynamic-interlude-dynamic-simple"><span class="math display">\[
 \color{#008B45} {y_{it} = \alpha_i + \lambda y_{it-1} + u_{it}, }
@@ -1111,12 +1156,70 @@ G_i &amp;= \widehat{\Delta u_i}\; \widehat{\Delta u_i}^{\prime}  .
 <li><p>The lagged levels are often rather poor instruments for first differenced variables, especially if the variables are close to a random walk, i.e., <span class="math inline">\(\lambda\)</span> is close to unity.</p></li>
 <li><p>For long panel (large <span class="math inline">\(T\)</span>) the number of instruments increases dramatically, i.e., <span class="math inline">\(\frac{(T-1)(T-2)}{2}.\)</span> This leads to potential loss of efficiency.</p>
 <p>By using the lag limits options, you may specify, for instance, that only lags 2–5 are to be used in constructing the GMM instruments.</p></li>
-<li><p>Consistency of the GMM estimator bases on the assumption that the trans- formed error term is not serially correlated for lags greater or equal to two, i.e., <span class="math inline">\(\E[\Delta u_{it} \Delta u_{it-k}] = 0\)</span> for <span class="math inline">\(k\ge 2.\)</span> It’s crucial to test whether the second-order autocorrelation is zero for all periods in the sample.</p>
-<p>If a significant AR(2) statistic is encountered, the second lags of endogenous variables will not be appropriate instruments for their current values.</p></li>
-<li><p>When <span class="math inline">\(T &gt; 3\)</span> and the model is over-identified, a <strong>Sargan–Hansen test</strong> can be used to test the overidentifying restrictions.</p></li>
 </ul>
-<p>Their modification of the estimator includes lagged levels as well as lagged differences. The expanded estimator is commonly termed <span class="env-green"><strong>System GMM</strong></span>. The cost of the System GMM estimator involves a set of additional restrictions on the initial conditions of the process generating <span class="math inline">\(y.\)</span></p>
+<p><strong>Diagnostic Tests for Dynamic Panel Models</strong></p>
+<ul>
+<li><p><strong>AR test for the error term</strong></p>
+<p>Consistency of the GMM estimator bases on the assumption that the transformed error term is not serially correlated for lags <span class="env-green">greater or equal to two</span> (AR1 is autocorrelated by construction), i.e., <span class="math inline">\(\E[\Delta u_{it} \Delta u_{it-k}] = 0\)</span> for <span class="math inline">\(k\ge 2.\)</span> It’s crucial to test whether the second-order autocorrelation is zero for all periods in the sample.</p>
+<p>If a significant AR(2) statistic is encountered, the second lags of endogenous variables will not be appropriate instruments for their current values.</p>
+<p><span class="math inline">\(H_0\)</span>: NO autocorrelation.</p>
+<p>Expected to reject AR(1) (<span class="math inline">\(P&lt;.05\)</span>) but NOT AR(2) and higher orders (<span class="math inline">\(P&gt;.05\)</span>).</p></li>
+<li><p><strong>Overidentification test (Over-restriction test, Sargan-Hansen test)</strong></p>
+<p>When <span class="math inline">\(T &gt; 3\)</span> and the model is over-identified, a <strong>Sargan–Hansen test</strong> can be used to test the overidentifying restrictions.</p>
+<p><span class="math inline">\(H_0\)</span>: The instruments used are valid or the moment conditions are valid.</p>
+<p><span class="math inline">\(H_0\)</span> is true if the error terms in the moment conditions are uncorrelated with the instruments:</p>
+<p><span class="math display">\[
+\E[Z_i'\Delta u_{i\cdot}] = \boldsymbol{0}
+\]</span></p></li>
+</ul>
+<p>Their modification of the estimator includes <u>lagged levels</u> as well as <u>lagged differences</u>. The expanded estimator is commonly termed <span class="env-green"><strong>System GMM</strong></span>. The cost of the System GMM estimator involves a set of additional restrictions on the initial conditions of the process generating <span class="math inline">\(y.\)</span></p>
 </section>
+</section>
+<section id="foreign-aid-example-revisited" class="level3" data-number="24.2.2">
+<h3 data-number="24.2.2" class="anchored" data-anchor-id="foreign-aid-example-revisited"><span class="header-section-number">24.2.2</span> Foreign Aid Example Revisited</h3>
+<p>Here we present the Arellano-Bond estimator GMM for the foreign aid example.</p>
+<p><strong>The Baseline “Level” Equation:</strong></p>
+<p><span class="math display">\[Growth_{it} = \gamma Growth_{i,t-1} + \beta Aid_{it} + \alpha_i + u_{it}\]</span></p>
+<ul>
+<li><strong><span class="math inline">\(Growth_{i,t-1}\)</span></strong>: Last year’s economic growth.</li>
+<li><strong><span class="math inline">\(\alpha_i\)</span></strong>: The fixed effect (time-invariant country traits like geography).</li>
+<li><strong><span class="math inline">\(u_{it}\)</span></strong>: The idiosyncratic error (yearly shocks, like an earthquake).</li>
+</ul>
+<p><strong>Step 1: The First-Differenced Equation</strong></p>
+<p>To mathematically delete the unobserved baggage (<span class="math inline">\(\alpha_i\)</span>), we subtract year <span class="math inline">\(t-1\)</span> from year <span class="math inline">\(t\)</span>: <span class="math display">\[\Delta Growth_{it} = \gamma \Delta Growth_{i,t-1} + \beta \Delta Aid_{it} + \Delta u_{it}\]</span></p>
+<ul>
+<li><em>Note:</em> <span class="math inline">\(\Delta Growth_{it}\)</span> is just shorthand for <span class="math inline">\((Growth_{it} - Growth_{i,t-1})\)</span>. Because <span class="math inline">\(\alpha_i - \alpha_i = 0\)</span>, the country’s permanent traits are wiped out.</li>
+</ul>
+<p><strong>Step 2: The Moment Conditions (The Instruments)</strong></p>
+<p>Because <span class="math inline">\(\Delta Aid_{it}\)</span> is still correlated with <span class="math inline">\(\Delta u_{it}\)</span> (the feedback loop), the model uses deep historical lags as instruments. The specification relies on this mathematical assumption (sequential exogeneity): <span class="math display">\[\mathbb{E}[Aid_{i,t-s} \Delta u_{it}] = 0 \quad \text{for } s \geq 2\]</span></p>
+<ul>
+<li>Aid from 2 or more years ago (<span class="math inline">\(t-2, t-3,\)</span> etc.) is completely uncorrelated with the <em>change</em> in economic shocks today. The software uses these past, clean values to calculate the true <span class="math inline">\(\beta\)</span>.</li>
+</ul>
+<hr>
+<p><strong>Fixed Effects Instrumental Variables (FE-IV / 2SLS)</strong></p>
+<p>Alternatively, if you have a strong external instrument, you can use a fixed effects instrumental variables (FE-IV) approach. This is often called Two-Stage Least Squares (2SLS) with fixed effects.</p>
+<p>Let’s use an external variable, the <strong>GDP of Donor Countries</strong> (<span class="math inline">\(Z_{it}\)</span>), as our instrument for Foreign Aid (<span class="math inline">\(Aid_{it}\)</span>). The idea is that the donor’s economic health influences how much aid they send, but it has no direct effect on the recipient country’s growth (satisfying the exclusion restriction).</p>
+<p><strong>Step 1: The Filter (Predicting Clean Aid)</strong></p>
+<p>First, we regress our endogenous variable (<span class="math inline">\(Aid\)</span>) on our clean instrument (<span class="math inline">\(Z\)</span>) and the country fixed effects: <span class="math display">\[
+Aid_{it} = \pi Z_{it} + \alpha_i + v_{it}
+\]</span></p>
+<ul>
+<li><strong><span class="math inline">\(Z_{it}\)</span></strong>: The Instrument (e.g., Donor GDP).</li>
+<li><strong><span class="math inline">\(\pi\)</span></strong>: How strongly the Donor GDP predicts the Aid sent to Country <span class="math inline">\(i\)</span>.</li>
+<li><strong><span class="math inline">\(v_{it}\)</span></strong>: The “muddy” surprise aid that we are going to throw away.</li>
+</ul>
+<p>From this first stage, the software saves the predicted, clean values of aid, denoted as <span class="math inline">\(\widehat{Aid}_{it}\)</span>.</p>
+<p><strong>Step 2: The True Effect</strong></p>
+<p>Next, we swap out the real, tainted aid for our predicted, clean aid: <span class="math display">\[Growth_{it} = \beta \widehat{Aid}_{it} + \alpha_i + u_{it}\]</span></p>
+<ul>
+<li><strong><span class="math inline">\(\beta\)</span></strong>: This is now the true, causal effect of Foreign Aid on Growth, because <span class="math inline">\(\widehat{Aid}_{it}\)</span> has been entirely cleansed of the local economic shocks (<span class="math inline">\(u_{it}\)</span>).</li>
+</ul>
+<p><strong>The Two Mandatory Conditions for IV:</strong></p>
+<p>For this specification to be valid, your instrument (<span class="math inline">\(Z_{it}\)</span>) must pass two strict tests:</p>
+<ol type="1">
+<li><strong>Relevance Condition:</strong> <span class="math inline">\(Cov(Z_{it}, Aid_{it} \mid \alpha_i) \neq 0\)</span> (Donor GDP must genuinely affect how much aid is sent).</li>
+<li><strong>Exclusion Restriction (Exogeneity):</strong> <span class="math inline">\(\mathbb{E}[Z_{it} u_{it}] = 0\)</span> (Donor GDP must have absolutely no correlation with the local earthquake in Country <span class="math inline">\(i\)</span>).</li>
+</ol>
 </section>
 </section>
 <section id="references" class="level2 unlisted unnumbered">
