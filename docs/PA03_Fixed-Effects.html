@@ -77,8 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ff1d6f8411e5abbaf83a6941de3a90b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-8c534306b5f8b652001e21364b1583ca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-8b162bc437d54283eee4d33a297ea937.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d497ed2433fea321dc166974eab23b13.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -152,6 +152,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         bX: "\\boldsymbol{X}",
         bY: "\\boldsymbol{Y}",
         bZ: "\\boldsymbol{Z}",
+        
         ba: "\\boldsymbol{a}",
         bb: "\\boldsymbol{b}",
         bc: "\\boldsymbol{c}",
@@ -247,6 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         bepsilon: "\\boldsymbol{\\epsilon}",
         bvarepsilon: "\\boldsymbol{\\varepsilon}",
         bdelta: "\\boldsymbol{\\delta}",
+        bgamma: "\\boldsymbol{\\gamma}",
         blambda: "\\boldsymbol{\\lambda}",
         bmu: "\\boldsymbol{\\mu}",
         bphi: "\\boldsymbol{\\phi}",
@@ -863,7 +865,7 @@ y_{it} - \overline{y}_{i} = (\alpha_i - \alpha_i) + \bbeta'(\bx_{it} - \overline
 \widetilde{y}_{it} = \bbeta' \widetilde{\bx}_{it} + \widetilde{u}_{it}.
 \tag{22.3}\]</span></span></p>
 <p>where <span class="math inline">\(\widetilde{y}_{it} = y_{it} - \overline{y}_{i}\)</span> is the deviations from the group means, and similarly for <span class="math inline">\(\widetilde{\bx}_{it}\)</span> and <span class="math inline">\(\widetilde{u}_{it}.\)</span></p>
-<p>Under <a href="#eq-within-lecture-random-intercept" class="quarto-xref">Equation&nbsp;<span>22.1</span></a>, <span style="color:#008B45">the within transformation eliminates the individual random intercepts <span class="math inline">\(\alpha_i\)</span></span>. All average differences in <span class="math inline">\(y\)</span>’s or <span class="math inline">\(\bx\)</span>’s between individuals have been wiped out. <a href="#eq-within_transformed" class="quarto-xref">Equation&nbsp;<span>22.3</span></a> now looks like a regular homogeneous regression.</p>
+<p>Under <a href="#eq-within-lecture-random-intercept" class="quarto-xref">Equation&nbsp;<span>22.1</span></a>, <span class="env-green">the within transformation eliminates the individual random intercepts <span class="math inline">\(\alpha_i\)</span></span>. All average differences in <span class="math inline">\(y\)</span>’s or <span class="math inline">\(\bx\)</span>’s between individuals have been wiped out. <a href="#eq-within_transformed" class="quarto-xref">Equation&nbsp;<span>22.3</span></a> now looks like a regular homogeneous regression.</p>
 </section>
 <section id="step-2-ols-on-the-within-transformed-equation" class="level3" data-number="22.1.2">
 <h3 data-number="22.1.2" class="anchored" data-anchor-id="step-2-ols-on-the-within-transformed-equation"><span class="header-section-number">22.1.2</span> Step 2: OLS on the Within-Transformed Equation</h3>

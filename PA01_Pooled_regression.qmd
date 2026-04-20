@@ -112,7 +112,7 @@ $${#eq-zero_mean}
 
 This occurs when the errors $u_{it}$ are mean independent of all regressors $\bx_{ij}$ for all time periods $j=1,\ldots,T.$
 
-This **strict mean independence** implies that neither lagged nor future values of $\bx_{it}$ help predict $u_{it}$. It excludes lagged dependent variables (such as $y_{it-1}$) from $\bx_{it}$, otherwise $u_{it}$ would be predictable given $\bx_{it}.$
+This <span class="env-green">**strict mean independence**</span> implies that neither lagged nor future values of $\bx_{it}$ help predict $u_{it}$. It excludes lagged dependent variables (such as $y_{it-1}$) from $\bx_{it}$, otherwise $u_{it}$ would be predictable given $\bx_{it}.$
 
 Strict mean independence is stronger than **pairwise mean independence**, which only requires that $u_{it}$ is mean independent of $\bx_{it}$ for the same time period $t$: 
 
@@ -151,6 +151,9 @@ Q: When is strict mean independence, $\E[u_{it}\mid \bX_i]$, likely to hold?
   
   An engineer is testing how temperature affects the battery life of 100 identical smartphones coming off the exact same assembly line, tested over 5 different cycles.
 
+In plain language, strict mean independence is likely to hold when there is <span class="env-orange">NO unobserved heterogeneity</span> across individuals that affects both the regressors and the outcome, and when there are no lagged dependent variables in the model. 
+
+When you have reason to believe that there exists unobserved individual-specific effects, you can use fixed effects or random effects models instead, which allows for heterogeneity across individuals.
 
 --------------------------------------------------------------------------------
 

@@ -49,3 +49,8 @@ p:has(+ ul) {
 .callout .callout-title-container {
   margin-bottom: 0.5em;
 }
+
+h4,
+.h4 {
+  font-weight: bold !important;
+}

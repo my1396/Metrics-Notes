@@ -135,7 +135,7 @@ $${#eq-within_transformed}
 
 where $\widetilde{y}_{it} = y_{it} - \overline{y}_{i}$ is the deviations from the group means, and similarly for $\widetilde{\bx}_{it}$ and $\widetilde{u}_{it}.$
 
-Under @eq-within-lecture-random-intercept, <span style='color:#008B45'>the within transformation eliminates the individual random intercepts $\alpha_i$</span>. All average differences in $y$'s or $\bx$'s between individuals have been wiped out.
+Under @eq-within-lecture-random-intercept, <span class="env-green">the within transformation eliminates the individual random intercepts $\alpha_i$</span>. All average differences in $y$'s or $\bx$'s between individuals have been wiped out.
 @eq-within_transformed now looks like a regular homogeneous regression. 
 
 ### Step 2: OLS on the Within-Transformed Equation

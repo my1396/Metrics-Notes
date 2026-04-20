@@ -62,8 +62,8 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ff1d6f8411e5abbaf83a6941de3a90b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-8c534306b5f8b652001e21364b1583ca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-8b162bc437d54283eee4d33a297ea937.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-d497ed2433fea321dc166974eab23b13.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -137,6 +137,7 @@ div.csl-indent {
         bX: "\\boldsymbol{X}",
         bY: "\\boldsymbol{Y}",
         bZ: "\\boldsymbol{Z}",
+        
         ba: "\\boldsymbol{a}",
         bb: "\\boldsymbol{b}",
         bc: "\\boldsymbol{c}",
@@ -232,6 +233,7 @@ div.csl-indent {
         bepsilon: "\\boldsymbol{\\epsilon}",
         bvarepsilon: "\\boldsymbol{\\varepsilon}",
         bdelta: "\\boldsymbol{\\delta}",
+        bgamma: "\\boldsymbol{\\gamma}",
         blambda: "\\boldsymbol{\\lambda}",
         bmu: "\\boldsymbol{\\mu}",
         bphi: "\\boldsymbol{\\phi}",
@@ -799,14 +801,14 @@ y_{it} = \bx_{it}' \bbeta + u_{it} .
 <p><span class="math display">\[
   \E[u_{it}\bx_{is}] \neq 0 \text{ for } t&lt;s.
   \]</span></p>
-<p>This means past shocks can predict future values of <span class="math inline">\(\bx\)</span>.</p>
-<p>Examples of predetermined variables:</p>
+<p>This means <em>past shocks can predict future values of independent variables</em> <span class="math inline">\(\bx\)</span>.</p>
+<p><strong>Examples of predetermined variables:</strong></p>
 <ul>
 <li>Lagged dependent variables <span class="math inline">\(y_{t-1}\)</span> as covariate: Variables that represent past values of the dependent variable. Since <span class="math inline">\(y_{t-1} = \bx_{i,t-1}' \bbeta + u_{i,t-1}\)</span>, then <span class="math inline">\(\E[u_{i,t-1} \bx_{i,t}] \neq 0\)</span></li>
 </ul>
 <p>By contrast, <strong>exogenous variables</strong> are determined outside the model and are not influenced by the endogenous variables within the current period.</p></li>
-<li><p>For <span class="math inline">\(t&lt;s\)</span>, <a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref">Equation&nbsp;<span>24.1</span></a> means that <em>past</em> shocks are uncorrelated with <em>future</em> values of <span class="math inline">\(\bx\)</span>. In other words, one cannot predict <em>future</em> <span class="math inline">\(\bx\)</span>’s from <em>past</em> shocks.</p>
-<p>This requirement might <strong>fail</strong> if <span class="math inline">\(\bx\)</span> is dynamic, e.g., covaraites including lagged dependent variables, and its evolution is affected by <span class="math inline">\(u_{it}\)</span>. That is, <span class="math display">\[
+<li><p>For <span class="math inline">\(t&lt;s\)</span>, <a href="#eq-dynamic-interlude-strict-orthogonality" class="quarto-xref">Equation&nbsp;<span>24.1</span></a> means that <em>past</em> shocks are <em>uncorrelated</em> with <em>future</em> values of <span class="math inline">\(\bx\)</span>. In other words, one cannot predict <em>future</em> <span class="math inline">\(\bx\)</span>’s from <em>past</em> shocks.</p>
+<p>This requirement might <strong>fail</strong> if <span class="math inline">\(\bx\)</span> is dynamic, e.g., covariates including lagged dependent variables, and its evolution is affected by <span class="math inline">\(u_{it}\)</span>. That is, <span class="math display">\[
   \E[u_{it}\bx_{is}] \ne 0 \text{ for } t&lt;s.
   \]</span> This means, <span class="math inline">\(\bx_{is}\)</span> can respond dynamically to past values of <span class="math inline">\(y_{it}.\)</span></p>
 <p>In this section, we will discuss this challenge and some traditional approaches to dealing with it with short panel data.</p></li>
@@ -814,30 +816,45 @@ y_{it} = \bx_{it}' \bbeta + u_{it} .
 </section>
 <section id="real-world-example" class="level3" data-number="24.1.2">
 <h3 data-number="24.1.2" class="anchored" data-anchor-id="real-world-example"><span class="header-section-number">24.1.2</span> Real World Example</h3>
+<p><span class="h4"><strong>Example 1</strong></span></p>
 <p>Consider a model where you want to investigate the effect of foreign aid on a country’s economic growth.</p>
 <p><span class="math display">\[
 \text{Growth}_{it} = \beta_1 \text{Aid}_{it} + \alpha_i + u_{it}
 \]</span></p>
 <ul>
 <li><p><span class="math inline">\(\alpha_i\)</span> captures unobserved country-specific factors that affect growth, such as geography, culture, or institutions.</p>
-<p>In our example, usually the poor countries which experience economic distress receive more aid. This means that <span class="math inline">\(\text{Aid}_{it}\)</span> is likely to be correlated with <span class="math inline">\(\alpha_i\)</span>. When omitting <span class="math inline">\(\alpha_i\)</span> (which pooled OLS does),</p>
+<p>In our example, usually the poor countries which experience economic distress receive more aid. This means that <span class="math inline">\(\text{Aid}_{it}\)</span> is likely to be correlated with <span class="math inline">\(\alpha_i\)</span>.</p>
+<p>When omitting <span class="math inline">\(\alpha_i\)</span> (which pooled OLS does),</p>
 <p><span class="math display">\[
 \begin{aligned}
 \varepsilon_{it} &amp;= \alpha_i + u_{it} \quad \text{and} \\
-\E[\text{Aid}_{it} \varepsilon_{it}] &amp;\neq 0.
+\E[\text{Aid}_{it}\, \varepsilon_{it}] &amp;\neq 0.
 \end{aligned}
 \]</span></p>
-<p>Hence endogeneity arises (due to omitted variables in this case) and the pooled OLS estimator is biased and inconsistent.</p></li>
-<li><p>Another challenge is <span class="math inline">\(\text{Aid}_{it}\)</span> is likely predetermined, i.e., correlated with past shocks to growth. For example, if a country experiences a negative shock to growth in period <span class="math inline">\(t-1\)</span> due to natural disaters, it is likely to receive more aid in period <span class="math inline">\(t.\)</span> This indicates a feedback loop.</p>
+<p>Hence <span class="env-orange"><strong>endogeneity</strong></span> arises (due to omitted variables in this case) and the pooled OLS estimator is biased and inconsistent.</p></li>
+<li><p>Another challenge is <span class="math inline">\(\text{Aid}_{it}\)</span> is likely <span class="env-orange"><strong>predetermined</strong></span>, i.e., correlated with past shocks to growth.</p>
+<p>For example, if a country experiences a negative shock to growth in period <span class="math inline">\(t-1\)</span> due to natural disaters, it is likely to receive more aid in period <span class="math inline">\(t.\)</span> This indicates a <span class="env-orange">feedback loop</span>.</p>
 <p>Mathematically,</p>
 <p><span class="math display">\[
 \E[u_{i,t-1} \text{Aid}_{it}] \neq 0.
 \]</span></p>
 <p>Causes: current foreign aid is tangled with past shocks, say an earthquake, to growth.</p>
-<p>Consequences: because the earthquake causes both the economy to crash and the foreign aid to increase, we cannot isolate the effect of aid on growth.</p>
+<p>Consequences: because the earthquake causes both the economy to crash and the foreign aid to increase, we <strong>cannot</strong> isolate the effect of aid on growth.</p>
 <p><strong>Remedy:</strong> Arellano-Bond GMM estimator uses lagged levels (<span class="math inline">\(t-2\)</span>, <span class="math inline">\(t-3\)</span>, etc) of aid as instruments.</p></li>
 <li><p>It is a standard practice to include lagged dependent variable as a regressor to as economic growth is persistent (dependent on its own past).</p></li>
 </ul>
+<hr>
+<section id="example-2" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="example-2">Example 2</h4>
+<p>We use data on U.S. industrial production growth (<code>ip_growth</code>), inflation rate (<code>inflation</code>), and the interest rate (<code>fedfunds</code>) to estimate the effects of an interest rate increase on economic activity and prices.</p>
+<p>At horizon <span class="math inline">\(h\)</span>, we model the response of industrial production growth to change in interst rate as</p>
+<p><span class="math display">\[
+\text{ip\_growth}_{t+h} = \beta_h \Delta \text{fedfunds}_t + \mathbf{w}'\bgamma + e_{t+h}
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{w}\)</span> are controls, such as lags of <code>ip_growth</code> and changes in <code>fedfunds</code>.</p>
+<p>We have reason to be concerned about the endogeneity in <code>fedfunds</code>. Changes in interest rates affect other economic variables, but the interest rate itself responds to those same economic variables. We need to account for this potential endogeneity to reliably estimate the effects of the shock to interest rates.</p>
+<p>Fix: Find an instrument that relates to <code>fedfunds</code> but uncorrelated with any nonmonetary shocks. We can use this variable as an instrument for change in <code>fedfunds</code>.</p>
+</section>
 </section>
 <section id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables" class="level3" data-number="24.1.3">
 <h3 data-number="24.1.3" class="anchored" data-anchor-id="no-strict-exogeneity-in-the-presence-of-lagged-dependent-variables"><span class="header-section-number">24.1.3</span> No Strict Exogeneity In the Presence of Lagged Dependent Variables</h3>

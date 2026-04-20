@@ -24,7 +24,7 @@ library(xts)
 
 ## Trending Time Series
 
-It is important to characterize if some series contain a time trend in order to draw causual inference using time series data. Ignoring the fact that two sequences are trending in the same or opposite directions can lead us to falsely conclude that changes in one variable are actually caused by changes in another variable. In many cases, two time series processes appear to be correlated only because they are both trending over time for reasons related to other unobserved factors.
+It is important to characterize if some series contain a time trend in order to draw causal inference using time series data. Ignoring the fact that two sequences are trending in the same or opposite directions can lead us to falsely conclude that changes in one variable are actually caused by changes in another variable. In many cases, <span class="env-green">two time series processes appear to be correlated only because they are both trending over time</span> for reasons related to other unobserved factors.
 
 The phenomenon of finding a relationship between two or more trending variables simply because each is growing over time is an example of a **spurious regression problem**. We can add a time trend to account for the trend in explained or explanatory variables.
 
@@ -273,14 +273,14 @@ $$
 where $\{a_t\}$ and $\{e_t\}$ are iid innovations, with mean zero and variances $\sigma^2_a$ and $\sigma^2_e,$ respectively.
 
 
-Assume further that  $\{a_t\}$ and $\{e_t\}$ are independent processes. This implies that $\{x_t\}$ and $\{y_t\}$ are also independent. But if we run the simple regression
+Assume further that $\{a_t\}$ and $\{e_t\}$ are independent processes. This implies that $\{x_t\}$ and $\{y_t\}$ are also independent. But if we run the simple regression
 
 $$
 y_t = \beta_0 + \beta_1 x_t + u_t
 $$
-and obtain the usual $t$ statistic for $\hat{\beta}_1$ and the usual R-squared, the results cannot be interpreted as if the variables are stationary ($\mathrm I(1)$).
+and obtain the usual $t$ statistic for $\hat{\beta}_1$ and the usual R-squared, the results cannot be interpreted as if the variables are stationary ($\mathrm I(0)$).
 
-- The $t$ statistic will be significant a large percentage of the time, much larger than the nominal significance level. $\rightarrow$ This is called the spurious regression problem, where $y_t$ and $x_t$ are independent, but an OLS regression indicates a significant $t$ statistic.
+- The $t$ statistic will be significant a large percentage of the time, much larger than the nominal significance level. $\rightarrow$ This is called the <span class="env-orange">spurious regression</span> problem, where $y_t$ and $x_t$ are independent, but an OLS regression indicates a significant $t$ statistic.
 
     For the $t$ statistic of $\hat{\beta}_1$ to have an approximate standard normal distribution in large samples, at a minimum, $\{u_t\}$ should be a mean zero, serially uncorrelated process. But under 
     $$
@@ -295,7 +295,9 @@ and obtain the usual $t$ statistic for $\hat{\beta}_1$ and the usual R-squared, 
     In other words, $\{u_t\}$ is a random walk under $\mathrm H_0$ which clearly violate even the asymptotic version of the Gauss-Markov assumptions.
 
 
-- Including a time trend does NOT change the conclusion. If $y_t$ or $x_t$ is a random walk with drift and a time trend is NOT included, then spurious regression problem is even worse.
+- Including a time trend does NOT necessarily change the conclusion.
+  
+  If $y_t$ or $x_t$ is a random walk with drift and a time trend is NOT included, then spurious regression problem is even worse.
 
 - The behavior of R-squared is nonstandard.
 
@@ -310,31 +312,177 @@ The same considerations arise with multiple independent variables, each of which
     
 This does not mean that regressions involving any $\mathrm I(1)$ process are problematic. There are remedies for using the $\mathrm I(1)$ processes:
 
-- The first difference of an $\mathrm I(1)$ process can be used to transform it to be weakly dependent (and often stationary).
+- The first difference of an $\mathrm I(1)$ process can be used to transform it to be weakly dependent (and often stationary) – <span class="env-green">**Error Correction Model**</span>.
+  
+  For example
+  $$
+  \Delta y_t = \mu + \beta_1 \Delta x_t + \delta (y_{t-1} - \theta x_{t-1}) + \varepsilon_t,
+  $$
 
-- Regressing an $\mathrm I(1)$ dependent variable on an $\mathrm I(1)$ independent variable can be informative, but only if these variables are related in a precise sense -- Cointegration.
+  where $\delta<0.$
 
-
-
-
-
-
-
-
-
+- Regressing an $\mathrm I(1)$ dependent variable on an $\mathrm I(1)$ independent variable can be informative, but only if these variables contain a common stochastic trend, that is, the series are said to be <span class="env-green">**Cointegrated**</span>.
 
 
+### Real World Example
+
+#### Example 1 {.unnumbered}
+
+We have two time series:
+
+- `UNRATE`: the U.S. unemployment rate.
+- `LN_JAP_IP`: logged Japanese industrial production
 
 
+```{r}
+library(tidyverse)
+library(readxl)
+data <- read_xlsx("data/spurious_reg.xlsx")
+colnames(data)[1] <- "year-quarter"
+data
+qtr_index <- as.yearqtr(data$`year-quarter`, format = "%Y:%q")
+qtr_xts <- xts(data[c(2, 3)], qtr_index)
+autoplot(qtr_xts, facets = Series ~ .) +
+    facet_grid(Series ~ ., scales = "free_y") +
+    geom_vline(
+        xintercept = as.yearqtr("1985 Q4"),
+        linetype = "dashed"
+    ) +
+    scale_color_manual(values = c("UNRATE" = "darkred", "LN_JAP_IP" = "#3B4992FF")) +
+    theme(legend.position = "none")
+```
+
+```{r}
+data1 <- data %>% filter(`year-quarter` <= "1985:4")
+lm(UNRATE ~ LN_JAP_IP, data = data1) %>% summary()
+```
+
+Run the regression on data from 1962 to 1985, we obtain the following estimation.
+
+$$
+\begin{aligned}
+\widehat{\text{UNRATE}}_t &= 0.46 + 1.51 \times \text{LN\_JAP\_IP}, R^2 = 0.24  \\
+&\phantom{=} \;(1.01) \;\; (0.27)
+\end{aligned}
+$$ {#eq-before1986}
 
 
+The $t$-statistic on the slope coefficient is 5.66, which shows statistical significance.
+
+```{r}
+data2 <- data %>% filter(`year-quarter` > "1985:4")
+lm(UNRATE ~ LN_JAP_IP, data = data2) %>% summary()
+```
+
+Running the regression using data from 1986 to 2017, we obtain
+
+$$
+\begin{aligned}
+\widehat{\text{UNRATE}}_t &= 42.37 - 7.92 \times \text{LN\_JAP\_IP}, R^2 = 0.15  \\
+&\phantom{=} \;(7.74) \;\; (1.69)
+\end{aligned}
+$$ {#eq-after1986}
+
+which shows significant negative relationship btw the two series.
 
 
+Q: Why @eq-before1986 and @eq-after1986 generate so different but significant coefficient estimates?  
+A: The source of these conflicting results is that both series have stochastic trends. These trends happened to align from 1962 through 1985 but were reversed from 1986 through 2017. There is, in fact, no compelling economic or political reason to think that the trends in these two series are related. In short, these regressions are **spurious**.
+
+**Main Takeaway:** OLS can be misleading when the series contain stochastic trends. More generally, if $\{y_t\}$ is $\mathrm I(1)$ and at least some of the explanatory variables are $\mathrm I(1)$, the regression results may be spurious.
+
+--------------------------------------------------------------------------------
+
+#### Example 2 {.unnumbered}
+
+@fig-consup_income plotted logged consumption and logged income data. The figure suggests a highly significant relationship but the relationship is due to the fact that both series are trending over time. The regression results are spurious.
+
+```{r #fig-consup_income}
+data <- read_csv("data/Greene_consump_income.csv")
+data <- data %>%
+    mutate(
+        REALGDP = log(REALGDP),
+        REALCONS = log(REALCONS),
+        year_quarter = paste(YEAR, QTR, sep = "-")
+    )
+qtr_index <- as.yearqtr(data$year_quarter, format = "%Y-%q")
+qtr_xts <- xts(data[c("REALGDP", "REALCONS")], qtr_index)
+autoplot(qtr_xts, facets = NULL) +
+    aes(linetype = Series) +
+    scale_color_manual(values = c("REALGDP" = "black", "REALCONS" = "black")) +
+    scale_linetype_manual(values = c("REALGDP" = "solid", "REALCONS" = "dashed")) +
+    theme(legend.position = c(0.1, 0.8),
+           legend.title = element_blank())
+```
 
 
+Unrestricted model:
+
+$$
+y_t = \mu + \gamma_1 y_{t-1} + \beta_0 x_t + \beta_1 x_{t-1} + \varepsilon_t,
+$$
+
+The Error Correction Model:
+
+$$
+\Delta y_t = \mu + \beta_0 \Delta x_{t-1} + (\gamma_1 - 1)(y_{t_1} - \theta x_{t-1}) + \varepsilon_t.
+$$
+
+- equilibrium relationship: $\Delta y_t = \mu + \beta_0 \Delta x_{t-1} + \varepsilon_t$, where $\varepsilon_t$ is the equilibrium error.
+- error correction term: $(\gamma_1 - 1)(y_{t_1} - \theta x_{t-1})$
+
+The standard approach is the Engle-Granger two-step method:
+
+1. Run the cointegrating regression of $y_t$ on $x_t$ and save the residuals, $\hat{v}_t = y_t - \hat{\theta} x_t$.
+2. Run the regression of $\Delta y_t$ on $\Delta x_t$ and $\hat{v}_{t-1}$ (the lagged residual is the error-correction term $y_{t-1}-\hat{\theta}x_{t-1}$).
+
+```{r}
+# Step 1: cointegrating regression
+coint_reg <- lm(REALCONS ~ REALGDP, data = data)
+data$ecm_term <- residuals(coint_reg) # v_hat_t = y_t - theta*x_t
+
+# Step 2: ECM
+data <- data %>%
+    mutate(
+        d_REALCONS = REALCONS - lag(REALCONS),
+        d_REALGDP  = REALGDP - lag(REALGDP),
+        ecm_lag    = lag(ecm_term) # v_hat_{t-1}
+    )
+
+ecm_fit <- lm(d_REALCONS ~ d_REALGDP + ecm_lag, data = data)
+summary(ecm_fit)
+```
 
 
+The estimated error correction model, with estimated standard errors in parentheses, is
+
+$$
+\begin{aligned}
+\Delta \text{REALCONS}_t &= 0.004 + 0.582 \times \Delta \text{REALGDP}_t + (0.905-1) \times (REALCONS - 1.057 REALGDP) \\
+&\phantom{=} \;(0.00066) \;\; (0.05) \qquad\qquad\qquad\qquad (0.03) \qquad\qquad\qquad\qquad\qquad (0.002)
+\end{aligned}
+$$
 
 
+```{r}
+# Plot equilibrium errors
+ecm_xts <- xts(data$ecm_term, qtr_index)
+autoplot(ecm_xts) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+    labs(x = NULL, y = NULL, title = "Estimated Equilibrium Errors") +
+    theme_minimal(base_size = 12) +
+    theme(legend.position = "none")
+```
+
+When the deviation is positive, multiplying it by $(\gamma_1 - 1) = -0.095$ gives a negative number, indicating a negative adjustment. This means that if consumption is above its equilibrium level, it will tend to decrease in the next period. 
+
+By contrast, if consumption is below its equilibrium level (negative deviation), it will tend to increase in the next period. 
+
+The estimated error correction term is statistically significant, which suggests that there is a long-run relationship between consumption and income, and that deviations from this long-run relationship are corrected over time.
 
 
+--------------------------------------------------------------------------------
+
+**References:**
+
+- Chapter 18.3 Spurious Regression, Stock, James H., and Mark W. Watson. 2019. Introduction to Econometrics. 4th ed. Pearson Education Limited.

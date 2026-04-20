@@ -72,18 +72,18 @@ $$ {#eq-dynamic-interlude-strict-orthogonality}
     \E[u_{it}\bx_{is}] \neq 0 \text{ for } t<s.
     $$
 
-    This means past shocks can predict future values of $\bx$.
+    This means *past shocks can predict future values of independent variables* $\bx$.
     
-    Examples of predetermined variables:
+    **Examples of predetermined variables:**
     
     - Lagged dependent variables $y_{t-1}$ as covariate: Variables that represent past values of the dependent variable. Since $y_{t-1} = \bx_{i,t-1}' \bbeta + u_{i,t-1}$, then $\E[u_{i,t-1} \bx_{i,t}] \neq 0$
     
     By contrast, **exogenous variables** are determined outside the model and are not influenced by the endogenous variables within the current period.
 
 
-- For $t<s$, @eq-dynamic-interlude-strict-orthogonality means that *past* shocks are uncorrelated with *future* values of $\bx$.  In other words, one cannot predict *future* $\bx$'s from *past* shocks. 
+- For $t<s$, @eq-dynamic-interlude-strict-orthogonality means that *past* shocks are *uncorrelated* with *future* values of $\bx$.  In other words, one cannot predict *future* $\bx$'s from *past* shocks. 
 
-    This requirement might **fail** if $\bx$ is dynamic, e.g., covaraites including lagged dependent variables, and its evolution is affected by $u_{it}$. That is, 
+    This requirement might **fail** if $\bx$ is dynamic, e.g., covariates including lagged dependent variables, and its evolution is affected by $u_{it}$. That is, 
     $$
     \E[u_{it}\bx_{is}] \ne 0 \text{ for } t<s.
     $$ 
@@ -94,6 +94,8 @@ $$ {#eq-dynamic-interlude-strict-orthogonality}
 
 ### Real World Example
 
+<span class="h4">**Example 1**</span>
+
 Consider a model where you want to investigate the effect of foreign aid on a country's economic growth. 
 
 $$
@@ -102,18 +104,22 @@ $$
 
 - $\alpha_i$ captures unobserved country-specific factors that affect growth, such as geography, culture, or institutions.
   
-  In our example, usually the poor countries which experience economic distress receive more aid. This means that $\text{Aid}_{it}$ is likely to be correlated with $\alpha_i$. When omitting $\alpha_i$ (which pooled OLS does), 
+  In our example, usually the poor countries which experience economic distress receive more aid. This means that $\text{Aid}_{it}$ is likely to be correlated with $\alpha_i$. 
+  
+  When omitting $\alpha_i$ (which pooled OLS does), 
 
   $$
   \begin{aligned}
   \varepsilon_{it} &= \alpha_i + u_{it} \quad \text{and} \\
-  \E[\text{Aid}_{it} \varepsilon_{it}] &\neq 0.
+  \E[\text{Aid}_{it}\, \varepsilon_{it}] &\neq 0.
   \end{aligned}
   $$
 
-  Hence endogeneity arises (due to omitted variables in this case) and the pooled OLS estimator is biased and inconsistent.
+  Hence <span class="env-orange">**endogeneity**</span> arises (due to omitted variables in this case) and the pooled OLS estimator is biased and inconsistent.
 
-- Another challenge is $\text{Aid}_{it}$ is likely predetermined, i.e., correlated with past shocks to growth. For example, if a country experiences a negative shock to growth in period $t-1$ due to natural disaters, it is likely to receive more aid in period $t.$ This indicates a feedback loop.
+- Another challenge is $\text{Aid}_{it}$ is likely <span class="env-orange">**predetermined**</span>, i.e., correlated with past shocks to growth. 
+  
+  For example, if a country experiences a negative shock to growth in period $t-1$ due to natural disaters, it is likely to receive more aid in period $t.$ This indicates a <span class="env-orange">feedback loop</span>.
  
   Mathematically, 
   
@@ -123,11 +129,32 @@ $$
   
   Causes: current foreign aid is tangled with past shocks, say an earthquake, to growth. 
 
-  Consequences: because the earthquake causes both the economy to crash and the foreign aid to increase, we cannot isolate the effect of aid on growth.
+  Consequences: because the earthquake causes both the economy to crash and the foreign aid to increase, we **cannot** isolate the effect of aid on growth.
 
   **Remedy:** Arellano-Bond GMM estimator uses lagged levels ($t-2$, $t-3$, etc) of aid as instruments. 
 
 - It is a standard practice to include lagged dependent variable as a regressor to as economic growth is persistent (dependent on its own past).
+
+
+--------------------------------------------------------------------------------
+
+#### Example 2 {.unnumbered}
+
+We use data on U.S. industrial production growth (`ip_growth`), inflation rate (`inflation`), and the interest rate (`fedfunds`) to estimate the effects of an interest rate increase on economic activity and prices.
+
+At horizon $h$, we model the response of industrial production growth to change in interst rate as 
+
+$$
+\text{ip\_growth}_{t+h} = \beta_h \Delta \text{fedfunds}_t + \mathbf{w}'\bgamma + e_{t+h}
+$$
+
+where $\mathbf{w}$ are controls, such as lags of `ip_growth` and changes in `fedfunds`. 
+
+We have reason to be concerned about the endogeneity in `fedfunds`. 
+Changes in interest rates affect other economic variables, but the interest rate itself responds to those same economic variables. We need to account for this potential endogeneity to reliably estimate the effects of the shock to interest rates.
+
+Fix: Find an instrument that relates to `fedfunds` but uncorrelated with any nonmonetary shocks. We can use this variable as an instrument for change in `fedfunds`.
+
 
 ### No Strict Exogeneity In the Presence of Lagged Dependent Variables
 

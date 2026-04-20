@@ -42,11 +42,16 @@ blockquote {
 
 /* Environment variable colors adaptive to light/dark mode */
 // dark mode green
-.env-green {
-  color: #C3E88D !important;
-}
+.env-green,
 .env-green>code,
 .env-green code {
   color: #C3E88D !important;
+}
+
+// dark mode orange
+.env-orange,
+.env-orange>code,
+.env-orange code {
+  color: #FF9900 !important;
 }
 
