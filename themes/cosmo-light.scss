@@ -26,3 +26,10 @@
 .env-orange code {
   color: #D2691E !important;
 }
+
+// light mode red
+.env-red,
+.env-red>code,
+.env-red code {
+  color: #C62828 !important;
+}

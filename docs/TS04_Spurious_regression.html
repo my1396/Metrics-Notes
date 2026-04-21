@@ -77,8 +77,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8b162bc437d54283eee4d33a297ea937.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d497ed2433fea321dc166974eab23b13.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-a4d0c9c7c01e9e8ad6d051bd73593869.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-95b79468fb1b275d35eccd7531d6cfe2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -858,12 +858,12 @@ y_t = \alpha_0 + \alpha_1 t + e_t
 </section>
 <section id="computing-r-squared-when-the-dependent-variable-is-trending" class="level2" data-number="17.3">
 <h2 data-number="17.3" class="anchored" data-anchor-id="computing-r-squared-when-the-dependent-variable-is-trending"><span class="header-section-number">17.3</span> Computing R-Squared when the Dependent Variable Is Trending</h2>
-<p><em>R-squareds in time series regressions are often very high, especially compared with typical R-squareds for cross-sectional data.</em> Does this mean that we learn more about factors affecting <span class="math inline">\(y\)</span> from time series data? Not necessarily. On one hand, time series data often come in aggregate form (such as average hourly wages in the U.S. economy), and aggregates are often easier to explain than outcomes on individuals, families, or firms, which is often the nature of cross-sectional data. But the usual and adjusted <span class="math inline">\(R\)</span>-squareds for time series regressions can be artificially high when the dependent variable is trending.</p>
+<p><em>R-squareds in time series regressions are often very high, especially compared with typical R-squareds for cross-sectional data.</em> Does this mean that we learn more about factors affecting <span class="math inline">\(y\)</span> from time series data? Not necessarily. On one hand, time series data often come in aggregate form (such as average hourly wages in the U.S. economy), and aggregates are often easier to explain than outcomes on individuals, families, or firms, which is often the nature of cross-sectional data. But the usual and adjusted <span class="math inline">\(R\)</span>-squareds for time series regressions can be <span class="env-green">artificially high when the dependent variable is trending</span>.</p>
 <p>Remember that <span class="math inline">\(R^2\)</span> is a measure of how large the error variance is relative to the variance of <span class="math inline">\(y\)</span>. The formula for the adjusted <span class="math inline">\(R\)</span>-squared shows this directly:</p>
 <p><span class="math display">\[
 \bar{R}^2 = 1 - (\hat{\sigma}_u^2 / \hat{\sigma}_y^2),
 \]</span></p>
-<p>where <span class="math inline">\(\hat{\sigma}_u^2\)</span> is the unbiased estimator of the error variance, <span class="math inline">\(\hat{\sigma}_y^2 = \text{SST}/(n - 1)\)</span>, and <span class="math inline">\(\text{SST} = \sum_{t=1}^n (y_t - \bar{y})^2\)</span>. Now, estimating the error variance when <span class="math inline">\(y_t\)</span> is trending is no problem, provided a time trend is included in the regression. However, when <span class="math inline">\(E(y_t)\)</span> follows, say, a linear time trend, <span class="math inline">\(\text{SST}/(n - 1)\)</span> is no longer an unbiased or consistent estimator of <span class="math inline">\(\text{Var}(y_t)\)</span>. In fact, <span class="math inline">\(\text{SST}/(n - 1)\)</span> can substantially overestimate the variance in <span class="math inline">\(y_t\)</span>, because it does not account for the trend in <span class="math inline">\(y_t\)</span>.</p>
+<p>where <span class="math inline">\(\hat{\sigma}_u^2\)</span> is the unbiased estimator of the error variance, <span class="math inline">\(\hat{\sigma}_y^2 = \text{SST}/(n - 1)\)</span>, and <span class="math inline">\(\text{SST} = \sum_{t=1}^n (y_t - \bar{y})^2\)</span>. Now, estimating the error variance when <span class="math inline">\(y_t\)</span> is trending is no problem, provided a time trend is included in the regression. However, when <span class="math inline">\(E(y_t)\)</span> follows, say, a linear time trend, <span class="math inline">\(\text{SST}/(n - 1)\)</span> is <span class="env-orange">NO longer an unbiased or consistent estimator</span> of <span class="math inline">\(\text{Var}(y_t)\)</span>. In fact, <span class="math inline">\(\text{SST}/(n - 1)\)</span> can <span class="env-green">substantially overestimate the variance</span> in <span class="math inline">\(y_t\)</span>, because it <span class="env-orange">does NOT account for the trend</span> in <span class="math inline">\(y_t\)</span>.</p>
 <p>When the dependent variable satisfies linear, quadratic, or any other polynomial trends, it is easy to compute a goodness-of-fit measure that first nets out the effect of any time trend on <span class="math inline">\(y_t\)</span>. The simplest method is to compute the usual <span class="math inline">\(R\)</span>-squared in a regression where the dependent variable has already been detrended. For example, if the model is <span class="math display">\[
 y_t = \beta_0 + \beta_1x_{t1} + \beta_2x_{t2} + \beta_3t + u_t  ,
 \]</span> then we first detrend <span class="math inline">\(y_t\)</span> by regressing <span class="math inline">\(y_t\)</span> on <span class="math inline">\(t\)</span>:</p>
@@ -922,7 +922,8 @@ y_t = \beta_0 + \beta_1 x_t + u_t
 <p>For example <span class="math display">\[
 \Delta y_t = \mu + \beta_1 \Delta x_t + \delta (y_{t-1} - \theta x_{t-1}) + \varepsilon_t,
 \]</span></p>
-<p>where <span class="math inline">\(\delta&lt;0.\)</span></p></li>
+<p>where <span class="math inline">\(\delta&lt;0.\)</span></p>
+<p>See <a href="TS04_highly-persistent.html#sec-ecm" class="quarto-xref"><span>Section 18.4</span></a> for more details on error correction models.</p></li>
 <li><p>Regressing an <span class="math inline">\(\mathrm I(1)\)</span> dependent variable on an <span class="math inline">\(\mathrm I(1)\)</span> independent variable can be informative, but only if these variables contain a common stochastic trend, that is, the series are said to be <span class="env-green"><strong>Cointegrated</strong></span>.</p></li>
 </ul>
 <section id="real-world-example" class="level3" data-number="17.4.1">
@@ -965,7 +966,8 @@ y_t = \beta_0 + \beta_1 x_t + u_t
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"UNRATE"</span> <span class="ot">=</span> <span class="st">"darkred"</span>, <span class="st">"LN_JAP_IP"</span> <span class="ot">=</span> <span class="st">"#3B4992FF"</span>)) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_yearqtr</span>(<span class="at">format =</span> <span class="st">"%Y-Q%q"</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -998,14 +1000,14 @@ Multiple R-squared:  0.2387,    Adjusted R-squared:  0.2313
 F-statistic: 31.98 on 1 and 102 DF,  p-value: 1.425e-07</code></pre>
 </div>
 </div>
-<p>Run the regression on data from 1962 to 1985, we obtain the following estimation.</p>
+<p>Run the regression on data from 1960 to 1985, we obtain the following estimation.</p>
 <p><span id="eq-before1986"><span class="math display">\[
 \begin{aligned}
 \widehat{\text{UNRATE}}_t &amp;= 0.46 + 1.51 \times \text{LN\_JAP\_IP}, R^2 = 0.24  \\
 &amp;\phantom{=} \;(1.01) \;\; (0.27)
 \end{aligned}
 \tag{17.6}\]</span></span></p>
-<p>The <span class="math inline">\(t\)</span>-statistic on the slope coefficient is 5.66, which shows statistical significance.</p>
+<p>The <span class="math inline">\(t\)</span>-statistic on the slope coefficient is 5.66, which shows statistical significant positive relationship.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="st">`</span><span class="at">year-quarter</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="st">"1985:4"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(UNRATE <span class="sc">~</span> LN_JAP_IP, <span class="at">data =</span> data2) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1038,30 +1040,41 @@ F-statistic: 22.07 on 1 and 126 DF,  p-value: 6.756e-06</code></pre>
 \end{aligned}
 \tag{17.7}\]</span></span></p>
 <p>which shows significant negative relationship btw the two series.</p>
-<p>Q: Why <a href="#eq-before1986" class="quarto-xref">Equation&nbsp;<span>17.6</span></a> and <a href="#eq-after1986" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> generate so different but significant coefficient estimates?<br>
-A: The source of these conflicting results is that both series have stochastic trends. These trends happened to align from 1962 through 1985 but were reversed from 1986 through 2017. There is, in fact, no compelling economic or political reason to think that the trends in these two series are related. In short, these regressions are <strong>spurious</strong>.</p>
+<p>Q: Why <a href="#eq-before1986" class="quarto-xref">Equation&nbsp;<span>17.6</span></a> and <a href="#eq-after1986" class="quarto-xref">Equation&nbsp;<span>17.7</span></a> generate so different yet both significant coefficient estimates?<br>
+A: The source of these conflicting results is that both series have stochastic trends. These trends happened to align from 1960 through 1985 but were reversed from 1986 through 2017. There is, in fact, no compelling economic or political reason to think that the trends in these two series are related. In short, these regressions are <strong>spurious</strong>.</p>
 <p><strong>Main Takeaway:</strong> OLS can be misleading when the series contain stochastic trends. More generally, if <span class="math inline">\(\{y_t\}\)</span> is <span class="math inline">\(\mathrm I(1)\)</span> and at least some of the explanatory variables are <span class="math inline">\(\mathrm I(1)\)</span>, the regression results may be spurious.</p>
 <hr>
 </section>
 <section id="example-2" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="example-2">Example 2</h4>
-<p><a href="#fig-consup_income" class="quarto-xref">Figure&nbsp;<span>17.3</span></a> plotted logged consumption and logged income data. The figure suggests a highly significant relationship but the relationship is due to the fact that both series are trending over time. The regression results are spurious.</p>
+<p><a href="#fig-consup_income" class="quarto-xref">Figure&nbsp;<span>17.3</span></a> plotted logs of consumption and GDP (aka Income) for 1950.Q1 to 2000.Q4.</p>
+<ul>
+<li><code>REALGDP</code>: <span class="math inline">\(\ln \text{GDP}\)</span></li>
+<li><code>REALCONS</code>: <span class="math inline">\(\ln \text{Cons}\)</span></li>
+</ul>
+<p>Both variables are obviously nonstationary and appear <span class="math inline">\(\mathrm I(1)\)</span>. The figure suggests a highly significant relationship but the relationship is due to the fact that both series are trending over time. The regression results are spurious.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Greene_consump_income.csv"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">REALGDP =</span> <span class="fu">log</span>(REALGDP),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">REALCONS =</span> <span class="fu">log</span>(REALCONS),</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">year_quarter =</span> <span class="fu">paste</span>(YEAR, QTR, <span class="at">sep =</span> <span class="st">"-"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>qtr_index <span class="ot">&lt;-</span> <span class="fu">as.yearqtr</span>(data<span class="sc">$</span>year_quarter, <span class="at">format =</span> <span class="st">"%Y-%q"</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>qtr_xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(data[<span class="fu">c</span>(<span class="st">"REALGDP"</span>, <span class="st">"REALCONS"</span>)], qtr_index)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(qtr_xts, <span class="at">facets =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">linetype =</span> Series) <span class="sc">+</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"REALGDP"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"REALCONS"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"REALGDP"</span> <span class="ot">=</span> <span class="st">"solid"</span>, <span class="st">"REALCONS"</span> <span class="ot">=</span> <span class="st">"dashed"</span>)) <span class="sc">+</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.8</span>),</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data from 1950Q1 to 2000Q4</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Greene_consump_income.csv"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">REALGDP =</span> <span class="fu">log</span>(REALGDP),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">REALCONS =</span> <span class="fu">log</span>(REALCONS),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">year_quarter =</span> <span class="fu">paste</span>(YEAR, QTR, <span class="at">sep =</span> <span class="st">"-"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>qtr_index <span class="ot">&lt;-</span> <span class="fu">as.yearqtr</span>(data<span class="sc">$</span>year_quarter, <span class="at">format =</span> <span class="st">"%Y-%q"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>qtr_xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(data[<span class="fu">c</span>(<span class="st">"REALGDP"</span>, <span class="st">"REALCONS"</span>)], qtr_index)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(qtr_xts, <span class="at">facets =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">linetype =</span> Series) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"REALGDP"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"REALCONS"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"REALGDP"</span> <span class="ot">=</span> <span class="st">"solid"</span>, <span class="st">"REALCONS"</span> <span class="ot">=</span> <span class="st">"dashed"</span>)) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_yearqtr</span>(<span class="at">format =</span> <span class="st">"%Y-Q%q"</span>) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Logs"</span>) <span class="sc">+</span> </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.8</span>),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-consup_income" class="quarto-float quarto-figure quarto-figure-center anchored" width="672" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1081,32 +1094,131 @@ y_t = \mu + \gamma_1 y_{t-1} + \beta_0 x_t + \beta_1 x_{t-1} + \varepsilon_t,
 \]</span></p>
 <p>The Error Correction Model:</p>
 <p><span class="math display">\[
-\Delta y_t = \mu + \beta_0 \Delta x_{t-1} + (\gamma_1 - 1)(y_{t_1} - \theta x_{t-1}) + \varepsilon_t.
+\Delta y_t = \mu + \beta_0 \Delta x_{t} + (\gamma_1 - 1)(y_{t_1} - \theta x_{t-1}) + \varepsilon_t.
 \]</span></p>
 <ul>
-<li>equilibrium relationship: <span class="math inline">\(\Delta y_t = \mu + \beta_0 \Delta x_{t-1} + \varepsilon_t\)</span>, where <span class="math inline">\(\varepsilon_t\)</span> is the equilibrium error.</li>
-<li>error correction term: <span class="math inline">\((\gamma_1 - 1)(y_{t_1} - \theta x_{t-1})\)</span></li>
+<li>Equilibrium relationship: <span class="math inline">\(\Delta y_t = \mu + \beta_0 \Delta x_{t} + \varepsilon_t\)</span>, where <span class="math inline">\(\varepsilon_t\)</span> is the equilibrium error.</li>
+<li>Error correction term: <span class="math inline">\((\gamma_1 - 1)(y_{t_1} - \theta x_{t-1})\)</span></li>
 </ul>
 <p>The standard approach is the Engle-Granger two-step method:</p>
 <ol type="1">
-<li>Run the cointegrating regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(x_t\)</span> and save the residuals, <span class="math inline">\(\hat{v}_t = y_t - \hat{\theta} x_t\)</span>.</li>
-<li>Run the regression of <span class="math inline">\(\Delta y_t\)</span> on <span class="math inline">\(\Delta x_t\)</span> and <span class="math inline">\(\hat{v}_{t-1}\)</span> (the lagged residual is the error-correction term <span class="math inline">\(y_{t-1}-\hat{\theta}x_{t-1}\)</span>).</li>
+<li>Run the cointegrating regression of <span class="math inline">\(y_t\)</span> on <span class="math inline">\(x_t\)</span> and save the residuals, <span class="math inline">\(\hat{s}_t = y_t - \hat{\theta} x_t\)</span>.</li>
+<li>Run the regression of <span class="math inline">\(\Delta y_t\)</span> on <span class="math inline">\(\Delta x_t\)</span> and <span class="math inline">\(\hat{s}_{t-1}\)</span> (the lagged residual is the error-correction term <span class="math inline">\(y_{t-1}-\hat{\theta}x_{t-1}\)</span>).</li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: cointegrating regression</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>coint_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(REALCONS <span class="sc">~</span> REALGDP, <span class="at">data =</span> data)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>ecm_term <span class="ot">&lt;-</span> <span class="fu">residuals</span>(coint_reg) <span class="co"># v_hat_t = y_t - theta*x_t</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: ECM</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">d_REALCONS =</span> REALCONS <span class="sc">-</span> <span class="fu">lag</span>(REALCONS),</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">d_REALGDP  =</span> REALGDP <span class="sc">-</span> <span class="fu">lag</span>(REALGDP),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ecm_lag    =</span> <span class="fu">lag</span>(ecm_term) <span class="co"># v_hat_{t-1}</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>ecm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(d_REALCONS <span class="sc">~</span> d_REALGDP <span class="sc">+</span> ecm_lag, <span class="at">data =</span> data)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ecm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coint_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = REALCONS ~ REALGDP, data = data)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.038885 -0.010280  0.000642  0.009570  0.065623 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.904107   0.019974  -45.26   &lt;2e-16 ***
+REALGDP      1.056765   0.002399  440.53   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.01667 on 202 degrees of freedom
+Multiple R-squared:  0.999, Adjusted R-squared:  0.999 
+F-statistic: 1.941e+05 on 1 and 202 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>The cointegrating regression shows that the estimated cointegrating parameter is 1.057, given by</p>
+<p><span class="math display">\[
+\begin{aligned}
+\widehat{\ln\text{Cons}}_t &amp;= -0.9 + 1.057 \times \ln\text{GDP}_t, \\
+&amp;\phantom{=} \qquad\qquad (0.002)
+\end{aligned}
+\]</span></p>
+<p>which captures the long-run relationship between consumption and income.</p>
+<p>Hence, the residuals from the cointegrating regression can be obtained by</p>
+<p><span class="math display">\[
+\hat{s}_t = \ln\text{Cons}_t - (-0.9 + 1.057 \times \ln\text{GDP}_t) .
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot cointegrating regression residuals</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ecm_xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(data<span class="sc">$</span>ecm_term, qtr_index)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(ecm_xts) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Cointegrating Regression Residuals"</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_yearqtr</span>(<span class="at">format =</span> <span class="st">"%Y-Q%q"</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="TS04_Spurious_regression_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The residuals shows the absence of a time trend. But, it remains to verify whether the series of residuals is stationary.</p>
+<p>We use ADF test to check the stationarity of the residuals.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>adf_res <span class="ot">&lt;-</span> <span class="fu">ur.df</span>(data<span class="sc">$</span>ecm_term, <span class="at">type =</span> <span class="st">"drift"</span>, <span class="at">lags =</span> <span class="dv">1</span>)  <span class="co"># no intercept</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(adf_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+############################################### 
+# Augmented Dickey-Fuller Test Unit Root Test # 
+############################################### 
+
+Test regression drift 
+
+
+Call:
+lm(formula = z.diff ~ z.lag.1 + 1 + z.diff.lag)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.041195 -0.004861 -0.000272  0.004721  0.021621 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.0003257  0.0005817  -0.560    0.576    
+z.lag.1     -0.1615118  0.0370205  -4.363 2.06e-05 ***
+z.diff.lag  -0.0985225  0.0677316  -1.455    0.147    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.008261 on 199 degrees of freedom
+Multiple R-squared:   0.11, Adjusted R-squared:  0.1011 
+F-statistic:  12.3 on 2 and 199 DF,  p-value: 9.186e-06
+
+
+Value of test-statistic is: -4.3628 9.6418 
+
+Critical values for test statistics: 
+      1pct  5pct 10pct
+tau2 -3.46 -2.88 -2.57
+phi1  6.52  4.63  3.81</code></pre>
+</div>
+</div>
+<p>The ADF regression of the least squares residuals on a constant (random walk with drift), the lagged value, and the lagged first difference shows that</p>
+<p><span class="math display">\[
+\widehat{\Delta \hat{s}}_t = -0.0003 - 0.162 \hat{s}_{t-1} -0.099 \Delta \hat{s}_{t-1},
+\]</span></p>
+<p>the <span class="math inline">\(t\)</span>-statistic on the lagged level of the residuals is <span class="math inline">\(-0.162,\)</span> which is statistically significant at the 5% level, and the ADF test statistics are <span class="math inline">\(DF_{\tau} = -4.36\)</span> and <span class="math inline">\(DF_{\gamma} = 9.64\)</span>, which are both significant at the 1% level. This suggests that the residuals are stationary, and thus, there is a long-run relationship between consumption and income. We conclude that the two series are cointegrated, and we can proceed to estimate the error correction model.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: ECM</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">d_REALCONS =</span> REALCONS <span class="sc">-</span> <span class="fu">lag</span>(REALCONS),</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">d_REALGDP  =</span> REALGDP <span class="sc">-</span> <span class="fu">lag</span>(REALGDP),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">ecm_lag    =</span> <span class="fu">lag</span>(ecm_term) <span class="co"># s_hat_{t-1}</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>ecm_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(d_REALCONS <span class="sc">~</span> d_REALGDP <span class="sc">+</span> ecm_lag, <span class="at">data =</span> data)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ecm_fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1133,26 +1245,10 @@ F-statistic:  65.2 on 2 and 200 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The estimated error correction model, with estimated standard errors in parentheses, is</p>
 <p><span class="math display">\[
 \begin{aligned}
-\Delta \text{REALCONS}_t &amp;= 0.004 + 0.582 \times \Delta \text{REALGDP}_t + (0.905-1) \times (REALCONS - 1.057 REALGDP) \\
-&amp;\phantom{=} \;(0.00066) \;\; (0.05) \qquad\qquad\qquad\qquad (0.03) \qquad\qquad\qquad\qquad\qquad (0.002)
+\widehat{\Delta \ln\text{Cons}_t} &amp;= 0.004 + 0.582 \times \Delta \ln\text{GDP}_t + (0.905-1) \times (REALCONS - 1.057 \times REALGDP) \\
+&amp;\phantom{=} \;(0.00066) \;\; (0.05) \qquad\qquad\qquad\qquad (0.03)
 \end{aligned}
 \]</span></p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot equilibrium errors</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ecm_xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(data<span class="sc">$</span>ecm_term, qtr_index)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(ecm_xts) <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">title =</span> <span class="st">"Estimated Equilibrium Errors"</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="TS04_Spurious_regression_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
 <p>When the deviation is positive, multiplying it by <span class="math inline">\((\gamma_1 - 1) = -0.095\)</span> gives a negative number, indicating a negative adjustment. This means that if consumption is above its equilibrium level, it will tend to decrease in the next period.</p>
 <p>By contrast, if consumption is below its equilibrium level (negative deviation), it will tend to increase in the next period.</p>
 <p>The estimated error correction term is statistically significant, which suggests that there is a long-run relationship between consumption and income, and that deviations from this long-run relationship are corrected over time.</p>

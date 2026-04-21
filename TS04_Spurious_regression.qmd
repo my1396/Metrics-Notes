@@ -205,7 +205,7 @@ The regressions can then be interpreted as regressions using both detrended and 
 ## Computing R-Squared when the Dependent Variable Is Trending
 
 
-*R-squareds in time series regressions are often very high, especially compared with typical R-squareds for cross-sectional data.* Does this mean that we learn more about factors affecting $y$ from time series data? Not necessarily. On one hand, time series data often come in aggregate form (such as average hourly wages in the U.S. economy), and aggregates are often easier to explain than outcomes on individuals, families, or firms, which is often the nature of cross-sectional data. But the usual and adjusted $R$-squareds for time series regressions can be artificially high when the dependent variable is trending.
+*R-squareds in time series regressions are often very high, especially compared with typical R-squareds for cross-sectional data.* Does this mean that we learn more about factors affecting $y$ from time series data? Not necessarily. On one hand, time series data often come in aggregate form (such as average hourly wages in the U.S. economy), and aggregates are often easier to explain than outcomes on individuals, families, or firms, which is often the nature of cross-sectional data. But the usual and adjusted $R$-squareds for time series regressions can be <span class="env-green">artificially high when the dependent variable is trending</span>.
 
 Remember that $R^2$ is a measure of how large the error variance is relative to the variance of $y$. The formula for the adjusted $R$-squared shows this directly:
 
@@ -213,7 +213,7 @@ $$
 \bar{R}^2 = 1 - (\hat{\sigma}_u^2 / \hat{\sigma}_y^2),
 $$
 
-where $\hat{\sigma}_u^2$ is the unbiased estimator of the error variance, $\hat{\sigma}_y^2 = \text{SST}/(n - 1)$, and $\text{SST} = \sum_{t=1}^n (y_t - \bar{y})^2$. Now, estimating the error variance when $y_t$ is trending is no problem, provided a time trend is included in the regression. However, when $E(y_t)$ follows, say, a linear time trend, $\text{SST}/(n - 1)$ is no longer an unbiased or consistent estimator of $\text{Var}(y_t)$. In fact, $\text{SST}/(n - 1)$ can substantially overestimate the variance in $y_t$, because it does not account for the trend in $y_t$.
+where $\hat{\sigma}_u^2$ is the unbiased estimator of the error variance, $\hat{\sigma}_y^2 = \text{SST}/(n - 1)$, and $\text{SST} = \sum_{t=1}^n (y_t - \bar{y})^2$. Now, estimating the error variance when $y_t$ is trending is no problem, provided a time trend is included in the regression. However, when $E(y_t)$ follows, say, a linear time trend, $\text{SST}/(n - 1)$ is <span class="env-orange">NO longer an unbiased or consistent estimator</span> of $\text{Var}(y_t)$. In fact, $\text{SST}/(n - 1)$ can <span class="env-green">substantially overestimate the variance</span> in $y_t$, because it <span class="env-orange">does NOT account for the trend</span> in $y_t$.
 
 When the dependent variable satisfies linear, quadratic, or any other polynomial trends, it is easy to compute a goodness-of-fit measure that first nets out the effect of any time trend on $y_t$. The simplest method is to compute the usual $R$-squared in a regression where the dependent variable has already been detrended. 
 For example, if the model is 
@@ -320,6 +320,8 @@ This does not mean that regressions involving any $\mathrm I(1)$ process are pro
   $$
 
   where $\delta<0.$
+  
+  See @sec-ecm for more details on error correction models.
 
 - Regressing an $\mathrm I(1)$ dependent variable on an $\mathrm I(1)$ independent variable can be informative, but only if these variables contain a common stochastic trend, that is, the series are said to be <span class="env-green">**Cointegrated**</span>.
 
@@ -349,6 +351,7 @@ autoplot(qtr_xts, facets = Series ~ .) +
         linetype = "dashed"
     ) +
     scale_color_manual(values = c("UNRATE" = "darkred", "LN_JAP_IP" = "#3B4992FF")) +
+    scale_x_yearqtr(format = "%Y-Q%q") +
     theme(legend.position = "none")
 ```
 
@@ -357,7 +360,7 @@ data1 <- data %>% filter(`year-quarter` <= "1985:4")
 lm(UNRATE ~ LN_JAP_IP, data = data1) %>% summary()
 ```
 
-Run the regression on data from 1962 to 1985, we obtain the following estimation.
+Run the regression on data from 1960 to 1985, we obtain the following estimation.
 
 $$
 \begin{aligned}
@@ -367,7 +370,7 @@ $$
 $$ {#eq-before1986}
 
 
-The $t$-statistic on the slope coefficient is 5.66, which shows statistical significance.
+The $t$-statistic on the slope coefficient is 5.66, which shows statistical significant positive relationship.
 
 ```{r}
 data2 <- data %>% filter(`year-quarter` > "1985:4")
@@ -386,8 +389,8 @@ $$ {#eq-after1986}
 which shows significant negative relationship btw the two series.
 
 
-Q: Why @eq-before1986 and @eq-after1986 generate so different but significant coefficient estimates?  
-A: The source of these conflicting results is that both series have stochastic trends. These trends happened to align from 1962 through 1985 but were reversed from 1986 through 2017. There is, in fact, no compelling economic or political reason to think that the trends in these two series are related. In short, these regressions are **spurious**.
+Q: Why @eq-before1986 and @eq-after1986 generate so different yet both significant coefficient estimates?  
+A: The source of these conflicting results is that both series have stochastic trends. These trends happened to align from 1960 through 1985 but were reversed from 1986 through 2017. There is, in fact, no compelling economic or political reason to think that the trends in these two series are related. In short, these regressions are **spurious**.
 
 **Main Takeaway:** OLS can be misleading when the series contain stochastic trends. More generally, if $\{y_t\}$ is $\mathrm I(1)$ and at least some of the explanatory variables are $\mathrm I(1)$, the regression results may be spurious.
 
@@ -395,9 +398,16 @@ A: The source of these conflicting results is that both series have stochastic t
 
 #### Example 2 {.unnumbered}
 
-@fig-consup_income plotted logged consumption and logged income data. The figure suggests a highly significant relationship but the relationship is due to the fact that both series are trending over time. The regression results are spurious.
+@fig-consup_income plotted logs of consumption and GDP (aka Income) for 1950.Q1 to 2000.Q4. 
+
+- `REALGDP`: $\ln \text{GDP}$
+- `REALCONS`: $\ln \text{Cons}$
+
+Both variables are obviously nonstationary and appear $\mathrm I(1)$.
+The figure suggests a highly significant relationship but the relationship is due to the fact that both series are trending over time. The regression results are spurious.
 
 ```{r #fig-consup_income}
+# data from 1950Q1 to 2000Q4
 data <- read_csv("data/Greene_consump_income.csv")
 data <- data %>%
     mutate(
@@ -411,8 +421,13 @@ autoplot(qtr_xts, facets = NULL) +
     aes(linetype = Series) +
     scale_color_manual(values = c("REALGDP" = "black", "REALCONS" = "black")) +
     scale_linetype_manual(values = c("REALGDP" = "solid", "REALCONS" = "dashed")) +
-    theme(legend.position = c(0.1, 0.8),
-           legend.title = element_blank())
+    scale_x_yearqtr(format = "%Y-Q%q") +
+    labs(y = "Logs") + 
+    theme(
+        legend.position = c(0.1, 0.8),
+        legend.title = element_blank(),
+        axis.title.x = element_blank(),
+    )
 ```
 
 
@@ -425,28 +440,79 @@ $$
 The Error Correction Model:
 
 $$
-\Delta y_t = \mu + \beta_0 \Delta x_{t-1} + (\gamma_1 - 1)(y_{t_1} - \theta x_{t-1}) + \varepsilon_t.
+\Delta y_t = \mu + \beta_0 \Delta x_{t} + (\gamma_1 - 1)(y_{t_1} - \theta x_{t-1}) + \varepsilon_t.
 $$
 
-- equilibrium relationship: $\Delta y_t = \mu + \beta_0 \Delta x_{t-1} + \varepsilon_t$, where $\varepsilon_t$ is the equilibrium error.
-- error correction term: $(\gamma_1 - 1)(y_{t_1} - \theta x_{t-1})$
+- Equilibrium relationship: $\Delta y_t = \mu + \beta_0 \Delta x_{t} + \varepsilon_t$, where $\varepsilon_t$ is the equilibrium error.
+- Error correction term: $(\gamma_1 - 1)(y_{t_1} - \theta x_{t-1})$
 
 The standard approach is the Engle-Granger two-step method:
 
-1. Run the cointegrating regression of $y_t$ on $x_t$ and save the residuals, $\hat{v}_t = y_t - \hat{\theta} x_t$.
-2. Run the regression of $\Delta y_t$ on $\Delta x_t$ and $\hat{v}_{t-1}$ (the lagged residual is the error-correction term $y_{t-1}-\hat{\theta}x_{t-1}$).
+1. Run the cointegrating regression of $y_t$ on $x_t$ and save the residuals, $\hat{s}_t = y_t - \hat{\theta} x_t$.
+2. Run the regression of $\Delta y_t$ on $\Delta x_t$ and $\hat{s}_{t-1}$ (the lagged residual is the error-correction term $y_{t-1}-\hat{\theta}x_{t-1}$).
 
 ```{r}
 # Step 1: cointegrating regression
 coint_reg <- lm(REALCONS ~ REALGDP, data = data)
 data$ecm_term <- residuals(coint_reg) # v_hat_t = y_t - theta*x_t
+summary(coint_reg)
+```
 
+The cointegrating regression shows that the estimated cointegrating parameter is 1.057, given by
+
+$$
+\begin{aligned}
+\widehat{\ln\text{Cons}}_t &= -0.9 + 1.057 \times \ln\text{GDP}_t, \\
+&\phantom{=} \qquad\qquad (0.002)
+\end{aligned}
+$$
+
+which captures the long-run relationship between consumption and income. 
+
+Hence, the residuals from the cointegrating regression can be obtained by 
+
+$$
+\hat{s}_t = \ln\text{Cons}_t - (-0.9 + 1.057 \times \ln\text{GDP}_t) .
+$$
+
+
+```{r}
+# Plot cointegrating regression residuals
+ecm_xts <- xts(data$ecm_term, qtr_index)
+autoplot(ecm_xts) +
+    geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+    labs(x = NULL, y = NULL, title = "Cointegrating Regression Residuals") +
+    scale_x_yearqtr(format = "%Y-Q%q") +
+    theme_minimal(base_size = 12) +
+    theme(legend.position = "none")
+```
+
+The residuals shows the absence of a time trend. But, it remains to verify whether the series of residuals is stationary.
+
+We use ADF test to check the stationarity of the residuals. 
+
+```{r}
+library(urca)
+adf_res <- ur.df(data$ecm_term, type = "drift", lags = 1)  # no intercept
+summary(adf_res)
+```
+
+The ADF regression of the least squares residuals on a constant (random walk with drift), the lagged value, and the lagged first difference shows that
+
+$$
+\widehat{\Delta \hat{s}}_t = -0.0003 - 0.162 \hat{s}_{t-1} -0.099 \Delta \hat{s}_{t-1},
+$$
+
+the $t$-statistic on the lagged level of the residuals is $-0.162,$ which is statistically significant at the 5\% level, and the ADF test statistics are $DF_{\tau} = -4.36$ and $DF_{\gamma} = 9.64$, which are both significant at the 1\% level. This suggests that the residuals are stationary, and thus, there is a long-run relationship between consumption and income.
+We conclude that the two series are cointegrated, and we can proceed to estimate the error correction model.
+
+```{r}
 # Step 2: ECM
 data <- data %>%
     mutate(
         d_REALCONS = REALCONS - lag(REALCONS),
         d_REALGDP  = REALGDP - lag(REALGDP),
-        ecm_lag    = lag(ecm_term) # v_hat_{t-1}
+        ecm_lag    = lag(ecm_term) # s_hat_{t-1}
     )
 
 ecm_fit <- lm(d_REALCONS ~ d_REALGDP + ecm_lag, data = data)
@@ -458,27 +524,18 @@ The estimated error correction model, with estimated standard errors in parenthe
 
 $$
 \begin{aligned}
-\Delta \text{REALCONS}_t &= 0.004 + 0.582 \times \Delta \text{REALGDP}_t + (0.905-1) \times (REALCONS - 1.057 REALGDP) \\
-&\phantom{=} \;(0.00066) \;\; (0.05) \qquad\qquad\qquad\qquad (0.03) \qquad\qquad\qquad\qquad\qquad (0.002)
+\widehat{\Delta \ln\text{Cons}_t} &= 0.004 + 0.582 \times \Delta \ln\text{GDP}_t + (0.905-1) \times (REALCONS - 1.057 \times REALGDP) \\
+&\phantom{=} \;(0.00066) \;\; (0.05) \qquad\qquad\qquad\qquad (0.03)
 \end{aligned}
 $$
 
-
-```{r}
-# Plot equilibrium errors
-ecm_xts <- xts(data$ecm_term, qtr_index)
-autoplot(ecm_xts) +
-    geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
-    labs(x = NULL, y = NULL, title = "Estimated Equilibrium Errors") +
-    theme_minimal(base_size = 12) +
-    theme(legend.position = "none")
-```
 
 When the deviation is positive, multiplying it by $(\gamma_1 - 1) = -0.095$ gives a negative number, indicating a negative adjustment. This means that if consumption is above its equilibrium level, it will tend to decrease in the next period. 
 
 By contrast, if consumption is below its equilibrium level (negative deviation), it will tend to increase in the next period. 
 
 The estimated error correction term is statistically significant, which suggests that there is a long-run relationship between consumption and income, and that deviations from this long-run relationship are corrected over time.
+
 
 
 --------------------------------------------------------------------------------

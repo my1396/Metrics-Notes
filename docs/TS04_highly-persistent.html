@@ -62,8 +62,8 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-8b162bc437d54283eee4d33a297ea937.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d497ed2433fea321dc166974eab23b13.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-a4d0c9c7c01e9e8ad6d051bd73593869.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-95b79468fb1b275d35eccd7531d6cfe2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -721,7 +721,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#leads-and-lags-estimator" id="toc-leads-and-lags-estimator" class="nav-link" data-scroll-target="#leads-and-lags-estimator"><span class="header-section-number">18.3.1</span> Leads and Lags Estimator</a></li>
   </ul></li>
-  <li><a href="#error-correction-models" id="toc-error-correction-models" class="nav-link" data-scroll-target="#error-correction-models"><span class="header-section-number">18.4</span> Error Correction Models</a></li>
+  <li><a href="#sec-ecm" id="toc-sec-ecm" class="nav-link" data-scroll-target="#sec-ecm"><span class="header-section-number">18.4</span> Error Correction Models</a></li>
   <li><a href="#noncointegrated-series" id="toc-noncointegrated-series" class="nav-link" data-scroll-target="#noncointegrated-series"><span class="header-section-number">18.5</span> Noncointegrated Series</a></li>
   </ul>
 </nav>
@@ -924,12 +924,17 @@ Critical value
 <section id="cointegration" class="level2" data-number="18.2">
 <h2 data-number="18.2" class="anchored" data-anchor-id="cointegration"><span class="header-section-number">18.2</span> Cointegration</h2>
 <p>The notion of cointegration, which was given a formal treatment in <span class="citation" data-cites="Engle1987">Engle and Granger (<a href="#ref-Engle1987" role="doc-biblioref">1987</a>)</span>, makes regressions involving <span class="math inline">\(\mathrm I(1)\)</span> variables potentially meaningful.</p>
-<p>If <span class="math inline">\(\{y_t: t=0,1,\ldots\}\)</span> and <span class="math inline">\(\{x_t: t=0,1,\ldots\}\)</span> are two <span class="math inline">\(\mathrm I(1)\)</span> processes, then, in general,</p>
+<p>If <span class="math inline">\(\{y_t: t=0,1,\ldots\}\)</span> and <span class="math inline">\(\{x_t: t=0,1,\ldots\}\)</span> are two <span class="math inline">\(\mathrm I(1)\)</span> processes, then we would normally expect</p>
 <p><span class="math display">\[
 y_t - \beta x_t
 \]</span></p>
-<p>is an <span class="math inline">\(\mathrm I(1)\)</span> process for any number <span class="math inline">\(\beta.\)</span> Nevertheless, it is <em>possible</em> that for some <span class="math inline">\(\beta \ne 0,\)</span> <span class="math inline">\(y_t - \beta x_t\)</span> is an <span class="math inline">\(\mathrm I(0)\)</span> process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.</p>
-<p>If such a <span class="math inline">\(\beta\)</span> exists, we say that <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are cointegrated, and we call <span class="math inline">\(\beta\)</span> the cointegration parameter.</p>
+<p>is an <span class="math inline">\(\mathrm I(1)\)</span> process (not stationary) for any number <span class="math inline">\(\beta.\)</span> Generally, if two series are integrated to different orders, then the linear combinations of them will be integrated to the higher of the two orders.</p>
+<p>Nevertheless, it is <em>possible</em> that for some <span class="math inline">\(\beta \ne 0,\)</span></p>
+<p><span class="math display">\[
+\varepsilon_t = y_t - \beta x_t
+\]</span></p>
+<p>is an <span class="math inline">\(\mathrm I(0)\)</span> process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.</p>
+<p>If such a <span class="math inline">\(\beta\)</span> exists, we say that <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> are <strong>cointegrated</strong>, and we call <span class="math inline">\(\beta\)</span> the <strong>cointegration parameter</strong>, and <span class="math inline">\([1, -\beta]\)</span> a <strong>cointegration vector</strong>.</p>
 <section id="engle-granger-test" class="level3" data-number="18.2.1">
 <h3 data-number="18.2.1" class="anchored" data-anchor-id="engle-granger-test"><span class="header-section-number">18.2.1</span> Engle-Granger Test</h3>
 <p>The Engle-Granger test is used for testing the <strong>existence of a long-run equilibrium relationship (cointegration)</strong> between two or more non-stationary time series.</p>
@@ -1063,7 +1068,7 @@ y_t &amp;= \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + \phi_1 \Delta x_{t-1} + \
 &amp;\phantom{=} \;+ \gamma_1 \Delta x_{t+1} + \gamma_2 \Delta x_{t+2} + e_t .
 \end{split}
 \tag{18.4}\]</span></span></p>
-<p>The OLS estimator of <span class="math inline">\(\beta\)</span> from (<a href="#eq-cointegrating-par" class="quarto-xref"><span>18.4</span></a>) is called the <strong>leads and lags estimator</strong> because it employs <span class="math inline">\(\Delta x.\)</span></p>
+<p>The OLS estimator of <span class="math inline">\(\beta\)</span> from (<a href="#eq-cointegrating-par" class="quarto-xref"><span>18.4</span></a>) is called the <span class="env-green"><strong>leads and lags estimator</strong></span> because it employs leads and lags of <span class="math inline">\(\Delta x.\)</span></p>
 <p>This equation looks a bit strange because future <span class="math inline">\(\Delta x_{s}\)</span> appear with both current and lagged <span class="math inline">\(\Delta x_{t}.\)</span> The key is that the coefficient on <span class="math inline">\(x_t\)</span> is still <span class="math inline">\(\beta\)</span>, and, by construction, <span class="math inline">\(x_t\)</span> is now strictly exogenous in this equation.</p>
 <p>The strict exogeneity assumption is the important condition needed to obtain an approximately normal <span class="math inline">\(t\)</span> statistic for <span class="math inline">\(\hat\beta\)</span>. If <span class="math inline">\(u_t\)</span> is uncorrelated with all <span class="math inline">\(\Delta x_{s},\)</span> <span class="math inline">\(x\ne t\)</span>, then we can drop the leads and lags of the changes and simply include the contemporaneous change,<span class="math inline">\(\Delta x_{t}.\)</span> Then, the equation we estimate looks more standard but still includes the first difference of <span class="math inline">\(x_t\)</span> along with its level: <span class="math display">\[
 y_t = \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + e_t .
@@ -1075,30 +1080,34 @@ y_t = \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + e_t .
 </ul>
 </section>
 </section>
-<section id="error-correction-models" class="level2" data-number="18.4">
-<h2 data-number="18.4" class="anchored" data-anchor-id="error-correction-models"><span class="header-section-number">18.4</span> Error Correction Models</h2>
+<section id="sec-ecm" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="sec-ecm"><span class="header-section-number">18.4</span> Error Correction Models</h2>
 <p>Consider the model</p>
-<p><span class="math display">\[
+<p><span id="eq-dynamic_model"><span class="math display">\[
 \Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
-\]</span></p>
+\tag{18.5}\]</span></span></p>
 <p>where <span class="math inline">\(u_t\)</span> has zero mean given <span class="math inline">\(\Delta y_{t-1},\)</span> <span class="math inline">\(\Delta x_t,\)</span> <span class="math inline">\(\Delta x_{t-1},\)</span> and further lags.</p>
-<p>If <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are cointegrated with parameter <span class="math inline">\(\beta,\)</span> then we can include lags of</p>
+<p><span class="env-green">If <span class="math inline">\(y_t\)</span> and <span class="math inline">\(x_t\)</span> are cointegrated with parameter <span class="math inline">\(\beta,\)</span></span> then we can include lags of</p>
 <p><span class="math display">\[
 s_t = y_t - \beta x_t
-\]</span> in the equation.</p>
+\]</span></p>
+<p>in <a href="#eq-dynamic_model" class="quarto-xref">Equation&nbsp;<span>18.5</span></a>.</p>
 <p>In the simplest case, we include one lag of <span class="math inline">\(s_t:\)</span></p>
 <p><span id="eq-error_correction_model"><span class="math display">\[
 \Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + \delta s_{t-1} + u_t,  
-\tag{18.5}\]</span></span> where <span class="math inline">\(\E[u_t\mid \Ical_{t-1}] =0,\)</span> and <span class="math inline">\(\Ical_{t-1}\)</span> contains information on all past values of <span class="math inline">\(x\)</span> and <span class="math inline">\(y.\)</span></p>
-<p>The terms <span class="math inline">\(\delta s_{t-1} = \delta (y_{t-1} - \beta x_{t-1})\)</span> is called the error correction term and the model (<a href="#eq-error_correction_model" class="quarto-xref"><span>18.5</span></a>) is called the error correction model.</p>
+\tag{18.6}\]</span></span></p>
+<p>where <span class="math inline">\(\E[u_t\mid \Ical_{t-1}] =0,\)</span> and <span class="math inline">\(\Ical_{t-1}\)</span> contains information on all past values of <span class="math inline">\(x\)</span> and <span class="math inline">\(y.\)</span></p>
+<p>The terms <span class="env-green"><span class="math inline">\(\delta s_{t-1} = \delta (y_{t-1} - \beta x_{t-1})\)</span></span> is called the <span class="env-green"><strong>error correction term</strong></span> and the model (<a href="#eq-error_correction_model" class="quarto-xref"><span>18.6</span></a>) is called the <span class="env-green"><strong>Error Correction Model</strong></span>.</p>
 <p>For simplicity, consider the model without lags of <span class="math inline">\(\Delta y_t\)</span> and <span class="math inline">\(\Delta x_t:\)</span></p>
-<p><span class="math display">\[
-\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t +  \delta (y_{t-1} - \beta x_{t-1}) + u_t,  
-\]</span> where <span class="math inline">\(\delta&lt;0.\)</span></p>
+<p><span id="eq-ecm_base"><span class="math display">\[
+\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t + \delta (y_{t-1} - \beta x_{t-1}) + u_t,
+\tag{18.7}\]</span></span></p>
+<p>where <span class="math inline">\(\delta&lt;0,\)</span> which ensures that the error correction term works to push <span class="math inline">\(y\)</span> (short-run dynamics) back toward the long-run equilibrium.</p>
 <ul>
-<li>If <span class="math inline">\(y_{t-1} &gt; \beta x_{t-1},\)</span> then <span class="math inline">\(y\)</span> in the previous period has overshot the equilibrium; because <span class="math inline">\(\delta&lt;0,\)</span> the error correction term works to push <span class="math inline">\(y\)</span> back toward the equilibrium.</li>
-<li>If <span class="math inline">\(y_{t-1} &lt; \beta x_{t-1},\)</span> the error correction term works includes a positive change in <span class="math inline">\(y\)</span> back toward the equilibrium.</li>
+<li><p>If <span class="math inline">\(y_{t-1} &gt; \beta x_{t-1},\)</span> then <span class="math inline">\(y\)</span> in the previous period has overshot the equilibrium. <span class="math inline">\(\Rightarrow\)</span> Because <span class="math inline">\(\delta&lt;0,\)</span> the error correction term works to push <span class="math inline">\(y\)</span> back toward the equilibrium (downward adjustment).</p></li>
+<li><p>If <span class="math inline">\(y_{t-1} &lt; \beta x_{t-1},\)</span> the error correction term works includes a positive change in <span class="math inline">\(y\)</span> back toward the equilibrium (upward adjustment).</p></li>
 </ul>
+<p><span class="math inline">\(\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t + u_t\)</span> represents the long-run equilibrium relationship.</p>
 <p>The cointegrating parameter <span class="math inline">\(\beta\)</span> can be estimated using the OLS estimator or the leads and lags estimator. <span class="citation" data-cites="Engle1987">Engle and Granger (<a href="#ref-Engle1987" role="doc-biblioref">1987</a>)</span> shows that the asymptotic efficiency of the estimators of the parameters in the error correction model is unaffected by the preliminary estimation of <span class="math inline">\(\beta.\)</span></p>
 <p>The choice of <span class="math inline">\(\hat\beta\)</span> will generally have an effect on the estimated error correction parameters in any particular sample, but we have no systematic way of deciding which preliminary estimator of <span class="math inline">\(\beta\)</span> to use. The procedure of replacing <span class="math inline">\(\beta\)</span> with <span class="math inline">\(\hat\beta\)</span> is called the <strong>Engle-Granger two-step procedure</strong>.</p>
 </section>
@@ -1110,6 +1119,9 @@ s_t = y_t - \beta x_t
 \Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
 \]</span></p>
 <p>where <span class="math inline">\(u_t\)</span> has zero mean given <span class="math inline">\(\Delta y_{t-1},\)</span> <span class="math inline">\(\Delta x_t,\)</span> <span class="math inline">\(\Delta x_{t-1},\)</span> and further lags.</p>
+<hr>
+<p><span class="h4">References:</span></p>
+<p>Section 18.4 Cointegration and Error Correction Models. Stock, James H., and Mark W. Watson. Introduction to Econometrics. 4th ed.&nbsp;Pearson Education Limited, 2019.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">

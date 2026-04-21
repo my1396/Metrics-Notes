@@ -184,15 +184,25 @@ When we include a time trend in the regression, the critical values of the test 
 The notion of cointegration, which was given a formal treatment in @Engle1987, makes regressions involving $\mathrm I(1)$ variables potentially meaningful.
 
 
-If $\{y_t: t=0,1,\ldots\}$ and $\{x_t: t=0,1,\ldots\}$ are two $\mathrm I(1)$ processes, then, in general, 
+If $\{y_t: t=0,1,\ldots\}$ and $\{x_t: t=0,1,\ldots\}$ are two $\mathrm I(1)$ processes, then we would normally expect
 
 $$
 y_t - \beta x_t
 $$
 
-is an $\mathrm I(1)$ process for any number $\beta.$ Nevertheless, it is *possible* that for some $\beta \ne 0,$ $y_t - \beta x_t$ is an $\mathrm I(0)$ process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.
+is an $\mathrm I(1)$ process (not stationary) for any number $\beta.$ 
+Generally, if two series are integrated to different orders, then the linear combinations of them will be integrated to the higher of the two orders.
 
-If such a $\beta$ exists, we say that $y$ and $x$ are cointegrated, and we call $\beta$ the cointegration parameter.
+
+Nevertheless, it is *possible* that for some $\beta \ne 0,$ 
+
+$$
+\varepsilon_t = y_t - \beta x_t
+$$ 
+
+is an $\mathrm I(0)$ process, which means it has constant mean, constant variance, and autocorrelations that depend only on the time distance between any two variables in the series, and it is asymptotically uncorrelated.
+
+If such a $\beta$ exists, we say that $y$ and $x$ are **cointegrated**, and we call $\beta$ the **cointegration parameter**, and $[1, -\beta]$ a **cointegration vector**.
 
 ### Engle-Granger Test
 
@@ -317,7 +327,7 @@ y_t &= \alpha_0 + \beta x_t  + \phi_0 \Delta x_t + \phi_1 \Delta x_{t-1} + \phi_
 \end{split}
 $$ {#eq-cointegrating-par}
 
-The OLS estimator of $\beta$ from (-@eq-cointegrating-par) is called the **leads and lags estimator** because it employs $\Delta x.$
+The OLS estimator of $\beta$ from (-@eq-cointegrating-par) is called the <span class="env-green">**leads and lags estimator**</span> because it employs leads and lags of $\Delta x.$
 
 This equation looks a bit strange because future $\Delta x_{s}$ appear with both current and lagged $\Delta x_{t}.$ The key is that the coefficient on $x_t$ is still $\beta$, and, by construction, $x_t$ is now strictly exogenous in this equation. 
 
@@ -333,47 +343,54 @@ The only issue we must worry about in (-@eq-cointegrating-par) is the possibilit
 - using a standard AR(1) correction, e.g., Cochrane-Orcutt (CO) estimation and Prais-Winston (PW) estimation. (See chap 12.3, Wooldridge, Introductory Econometrics)
 
 
-## Error Correction Models
+## Error Correction Models {#sec-ecm}
 
 Consider the model
 
 $$
 \Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + u_t,  
-$$
+$$ {#eq-dynamic_model}
 
 where $u_t$ has zero mean given $\Delta y_{t-1},$ $\Delta x_t,$ $\Delta x_{t-1},$ and further lags.
 
-If $y_t$ and $x_t$ are cointegrated with parameter $\beta,$ then we can include lags of
+<span class="env-green">If $y_t$ and $x_t$ are cointegrated with parameter $\beta,$</span> then we can include lags of
 
 $$
 s_t = y_t - \beta x_t
 $$
-in the equation.
+
+in @eq-dynamic_model. 
 
 In the simplest case, we include one lag of $s_t:$
 
 $$
 \Delta y_t = \alpha_0 + \alpha_1 \Delta y_{t-1} + \gamma_0 \Delta x_t + \gamma_1\Delta x_{t-1} + \delta s_{t-1} + u_t,  
 $$ {#eq-error_correction_model}
+
 where $\E[u_t\mid \Ical_{t-1}] =0,$ and $\Ical_{t-1}$ contains information on all past values of $x$ and $y.$
 
-The terms $\delta s_{t-1} = \delta (y_{t-1} - \beta x_{t-1})$ is called the error correction term and the model (-@eq-error_correction_model) is called the error correction model.
+The terms <span class="env-green">$\delta s_{t-1} = \delta (y_{t-1} - \beta x_{t-1})$</span> is called the <span class="env-green">**error correction term**</span> and the model (-@eq-error_correction_model) is called the <span class="env-green">**Error Correction Model**</span>.
 
 For simplicity, consider the model without lags of $\Delta y_t$ and $\Delta x_t:$
 
 $$
-\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t +  \delta (y_{t-1} - \beta x_{t-1}) + u_t,  
-$$
-where $\delta<0.$
+\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t + \delta (y_{t-1} - \beta x_{t-1}) + u_t,
+$$ {#eq-ecm_base}
 
-- If $y_{t-1} > \beta x_{t-1},$ then $y$ in the previous period has overshot the equilibrium; because $\delta<0,$ the error correction term works to push $y$ back toward the equilibrium.
--  If $y_{t-1} < \beta x_{t-1},$ the error correction term works includes a positive change in $y$ back toward the equilibrium.
+where $\delta<0,$ which ensures that the error correction term works to push $y$ (short-run dynamics) back toward the long-run equilibrium.
 
-The cointegrating parameter $\beta$ can be estimated using the OLS estimator or the leads and lags estimator. @Engle1987 shows that the asymptotic efficiency of the estimators of the parameters in the error correction model is unaffected by the preliminary estimation of $\beta.$
+- If $y_{t-1} > \beta x_{t-1},$ then $y$ in the previous period has overshot the equilibrium. $\Rightarrow$ Because $\delta<0,$ the error correction term works to push $y$ back toward the equilibrium (downward adjustment).
+
+- If $y_{t-1} < \beta x_{t-1},$ the error correction term works includes a positive change in $y$ back toward the equilibrium (upward adjustment).
+
+$\Delta y_t = \alpha_0 + \gamma_0 \Delta x_t + u_t$ represents the long-run equilibrium relationship.
 
 
-The choice of $\hat\beta$ will generally have an effect on the estimated error correction parameters in any particular sample, but we have no systematic way of
-deciding which preliminary estimator of $\beta$ to use. The procedure of replacing $\beta$ with $\hat\beta$ is called the **Engle-Granger two-step procedure**.
+The cointegrating parameter $\beta$ can be estimated using the OLS estimator or the leads and lags estimator. 
+@Engle1987 shows that the asymptotic efficiency of the estimators of the parameters in the error correction model is unaffected by the preliminary estimation of $\beta.$
+
+
+The choice of $\hat\beta$ will generally have an effect on the estimated error correction parameters in any particular sample, but we have no systematic way of deciding which preliminary estimator of $\beta$ to use. The procedure of replacing $\beta$ with $\hat\beta$ is called the **Engle-Granger two-step procedure**.
 
 
 ## Noncointegrated Series
@@ -388,8 +405,11 @@ $$
 
 where $u_t$ has zero mean given $\Delta y_{t-1},$ $\Delta x_t,$ $\Delta x_{t-1},$ and further lags.
 
+--------------------------------------------------------------------------------
 
+<span class="h4">References:</span>
 
+Section 18.4 Cointegration and Error Correction Models. Stock, James H., and Mark W. Watson. Introduction to Econometrics. 4th ed. Pearson Education Limited, 2019.
 
 
 
