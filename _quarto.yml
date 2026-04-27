@@ -6,6 +6,7 @@ book:
   title: "Metrics Notes"
   author: "Norah Jones"
   date: "5/14/2025"
+  favicon: images/favicon.png
   chapters:
     - index.qmd
     - probability_theory.qmd

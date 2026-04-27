@@ -32,6 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <link href="./TS04_Spurious_regression.html" rel="next">
 <link href="./TS04_TimeSeries_regression.html" rel="prev">
+<link href="./images/favicon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -702,6 +703,7 @@ window.Quarto = {
   <li><a href="#conditional-homoskedasticity" id="toc-conditional-homoskedasticity" class="nav-link" data-scroll-target="#conditional-homoskedasticity"><span class="header-section-number">16.5.1</span> Conditional Homoskedasticity</a></li>
   </ul></li>
   <li><a href="#covariance-matrix-estimation" id="toc-covariance-matrix-estimation" class="nav-link" data-scroll-target="#covariance-matrix-estimation"><span class="header-section-number">16.6</span> Covariance Matrix Estimation</a></li>
+  <li><a href="#granger-causality" id="toc-granger-causality" class="nav-link" data-scroll-target="#granger-causality"><span class="header-section-number">16.7</span> Granger Causality</a></li>
   </ul>
 </nav>
     </div>
@@ -783,11 +785,11 @@ a_{21} &amp; a_{22}
 <li><p><span class="math inline">\(\bvarepsilon_t = (\varepsilon_{1t}, \varepsilon_{2t})'\)</span></p></li>
 </ul>
 <p>This is a <strong>bivariate VAR(1)</strong> model for <span class="math inline">\(\by_t.\)</span></p>
-<p>The <strong>vector represetation</strong> is given by:</p>
+<p>The <strong>vector representation</strong> is given by:</p>
 <p><span class="math display">\[
 \begin{bmatrix}
-\by_1 \\
-\by_2
+y_{1t} \\
+y_{2t}
 \end{bmatrix} =
 \begin{bmatrix}a_{10} \\
 a_{20}
@@ -805,13 +807,39 @@ y_{2, t-1}
 <p>The variance of the error term <span class="math inline">\(\bvarepsilon_t\)</span> is given by</p>
 <p><span class="math display">\[
 \bSigma = \var \begin{bmatrix}
-\bvarepsilon_{1t} \\
-\bvarepsilon_{2t}
+\varepsilon_{1t} \\
+\varepsilon_{2t}
 \end{bmatrix}
-=
-\begin{bmatrix}\sigma_{11} &amp; \sigma_{12} \\
+= \begin{bmatrix}\sigma_{11} &amp; \sigma_{12} \\
 \sigma_{21} &amp; \sigma_{22}
 \end{bmatrix}
+\]</span></p>
+<hr>
+<p>Alternative representation of VAR(1) model:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\by_1 \\
+\by_2
+\end{bmatrix} =
+\begin{bmatrix}\bmu_1 \\
+\bmu_2
+\end{bmatrix} +
+\begin{bmatrix} A_{11} &amp; A_{12} \\
+A_{21} &amp; A_{22}
+\end{bmatrix}
+\begin{bmatrix}\by_{1, -1} \\
+\bx_{2, -1}
+\end{bmatrix} +
+\begin{bmatrix}\bvarepsilon_{1} \\
+\bvarepsilon_{2}
+\end{bmatrix}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{aligned}
+A_{11} &amp;= I_n \times a_{11}, \quad A_{12} = I_n \times a_{12}, \\
+A_{21} &amp;= I_n \times a_{21}, \quad A_{22} = I_n \times a_{22}
+\end{aligned}
 \]</span></p>
 <hr>
 <p><strong>General specification of <span class="math inline">\(\text{VAR}(p)\)</span> model</strong></p>
@@ -826,7 +854,7 @@ y_{2, t-1}
 <li><span class="math inline">\(\bA_\ell\)</span> are <span class="math inline">\(m \times m\)</span>, for <span class="math inline">\(\ell = 1, \ldots, p\)</span>, autoregressive coefficient matrices</li>
 <li><span class="math inline">\(\bvarepsilon_t\)</span> is <span class="math inline">\(m \times 1\)</span></li>
 </ul>
-<p>Matrix notation for <span class="math inline">\(A_\ell\)</span>:</p>
+<p>Matrix notation for <span class="math inline">\(A_\ell\)</span> (the coefficient for the <span class="math inline">\(\ell\)</span>-th lag, <span class="math inline">\(\by_{t-\ell}\)</span>):</p>
 <p><span class="math display">\[
 A_\ell =
 \begin{bmatrix}
@@ -839,13 +867,14 @@ a_{m1,\ell} &amp; a_{m2,\ell} &amp; \cdots &amp; a_{mm,\ell}
 <p>The individual equations for <span class="math inline">\(y_{mt},\)</span> the <span class="math inline">\(m\)</span>-th variable, can be written as</p>
 <p><span class="math display">\[
 \begin{aligned}
-y_{mt} &amp;= \mu_m + a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1}  \\
-&amp;\phantom{=} \quad + a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2} \\
-&amp;\phantom{=} \quad + \cdots + a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p} + \varepsilon_{mt} \\
-&amp;= \mu_m + \sum_{j=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{j=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{j=1}^p [A_\ell]_{mm} y_{m, t-\ell} + \varepsilon_{mt}
+y_{mt} &amp;= \mu_m + \underbrace{ a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1} }_{\bA_1 \by_{t-1} \text{ terms}} \\
+&amp;\phantom{=} \quad + \underbrace{a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2}}_{\bA_2 \by_{t-2} \text{ terms}} \\
+&amp;\phantom{=} \quad + \cdots + \underbrace{a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p}}_{\bA_p \by_{t-p} \text{ terms}} + \varepsilon_{mt} \\
+&amp;= \mu_m + \underbrace{\sum_{\ell=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{\ell=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{\ell=1}^p [A_\ell]_{mm} y_{m, t-\ell}}_{\text{Collect by components in }A_\ell, m\times m \times p \text{ terms}} + \varepsilon_{mt}
 \end{aligned}
 \]</span></p>
 <p>where <span class="math inline">\([A_\ell]_{lm}\)</span> is the <span class="math inline">\((l,m)\)</span>-th element of the matrix <span class="math inline">\(A_\ell.\)</span></p>
+<p>A major disadvantage of VAR models is that the number of parameters grows quadratically with the number of variables and linearly with the number of lags. For <span class="math inline">\(m\)</span> variables and <span class="math inline">\(p\)</span> lags, there are <span class="math inline">\(m\times m \times p\)</span> parameters in the autoregressive coefficient matrices, and <span class="math inline">\(m\)</span> parameters in the intercept vector <span class="math inline">\(\bmu_0.\)</span></p>
 <hr>
 <p>The error term <span class="math inline">\(\bvarepsilon_t = (\varepsilon_{1t}, ..., \varepsilon_{mt})'\)</span> is unforecastable at time <span class="math inline">\(t-1\)</span> (i.e., no serial correlation), but the components may be <strong>contemporaneously correlated</strong>.</p>
 <p>The <strong>contemporaneous covariance matrix</strong></p>
@@ -910,10 +939,25 @@ y_{mt} &amp;= \mu_m + a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm
 <p>Hence, we have</p>
 <p><span class="math display">\[
 \begin{aligned}
-\text{IRF}_{ij}(h) &amp;= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{k=h}^\infty [\bPsi_k]_{ij} \varepsilon_{i, t+h-k} \right) \\
-&amp;= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{\ell=0}^\infty [\bPsi_{h+\ell}]_{ij} \varepsilon_{i, t-\ell} \right)
+\text{IRF}_{ij}(h) &amp;= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{k=h}^\infty [\bPsi_k]_{i\cdot}\, \varepsilon_{i, t+h-k} \right) \\
+&amp;= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{\ell=0}^\infty [\bPsi_{h+\ell}]_{i\cdot} \,\varepsilon_{i, t-\ell} \right) \\
+&amp;= \frac{\partial}{\partial \varepsilon_{jt}}
+\left(
+\begin{array}{l}
+\text{}\lbrack\bPsi_{h}\rbrack_{i1}\varepsilon_{1, t} + [\bPsi_{h}]_{i2}\varepsilon_{2, t} + \cdots + [\bPsi_{h}]_{im}\varepsilon_{m, t} \\
++\lbrack \bPsi_{h+1}\rbrack_{i1} \varepsilon_{1, t-1} + [\bPsi_{h+1}]_{i2}\varepsilon_{2, t-1} + \cdots + [\bPsi_{h+1}]_{im}\varepsilon_{m, t-1} \\
++\lbrack \bPsi_{h+2}\rbrack_{i1} \varepsilon_{1, t-2} + [\bPsi_{h+2}]_{i2}\varepsilon_{2, t-2} + \cdots + [\bPsi_{h+2}]_{im}\varepsilon_{m, t-2} \\
++\cdots
+\end{array}
+\right)
 \end{aligned}
 \]</span></p>
+<p>where <span class="math inline">\([\bPsi_k]_{i\cdot}\)</span> is the <span class="math inline">\(i\)</span>-th row of the matrix <span class="math inline">\(\bPsi_k,\)</span> and <span class="math inline">\([\bPsi_h]_{ij}\)</span> is the <span class="math inline">\((i,j)\)</span>-th element of the matrix <span class="math inline">\(\bPsi_h.\)</span></p>
+<p>Taking the derivative, the only term that survives is the <span class="math inline">\((i,j)\)</span>-th element of the coefficient matrix <span class="math inline">\(\bPsi_h:\)</span></p>
+<p><span class="math display">\[
+\text{IRF}_{ij}(h) = [\bPsi_h]_{ij},
+\]</span></p>
+<p>which captures the effect of a shock to the <span class="math inline">\(j\)</span>-th variable at time <span class="math inline">\(t\)</span> on the <span class="math inline">\(i\)</span>-th variable at time <span class="math inline">\(t+h.\)</span></p>
 </section>
 <section id="regression-notation" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="regression-notation"><span class="header-section-number">16.3</span> Regression Notation</h2>
@@ -1114,6 +1158,53 @@ w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 \]</span></p>
 <p>The number <span class="math inline">\(M\)</span> is called the lag truncation number. An unweighted estimator is obtained by setting <span class="math inline">\(w_\ell = 1\)</span> for all <span class="math inline">\(\ell.\)</span> The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the <span class="math inline">\(\text{VAR}(p)\)</span> is correctly specified.</p>
 <p>Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. Therefore bootstrap methods are popular. The most common bootstrap methods are, for example: <strong>Recursive Residuals</strong>, <strong>Moving Block</strong>, and <strong>Stationary Bootstrap</strong>. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in <strong>Econometrics</strong> by Bruce Hansen for more details.</p>
+<hr>
+</section>
+<section id="granger-causality" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="granger-causality"><span class="header-section-number">16.7</span> Granger Causality</h2>
+<p>VAR models can be used to test for Granger causality. In plain language, causality is inferred when lagged values of a variable, say <span class="math inline">\(x_t,\)</span> have <strong>explantory power</strong> in a regression of another variable <span class="math inline">\(y_t\)</span> on its own lags and the lags of <span class="math inline">\(x_t:\)</span></p>
+<p><span class="math display">\[
+y_t = \alpha_0 + \gamma y_{t-1} + \beta x_{t-1} + \varepsilon_t
+\]</span></p>
+<p>We can test the null hypothesis of no Granger causality from <span class="math inline">\(x_t\)</span> to <span class="math inline">\(y_t\)</span> by testing <span class="math inline">\(H_0: \beta = 0.\)</span></p>
+<p>More generally, we can say that <span class="math inline">\(x_t\)</span> Granger-causes <span class="math inline">\(y_t\)</span> if</p>
+<p><span class="math display">\[
+\E(y_t \mid y_{t-1}, x_{t-1}) \neq \E(y_t \mid y_{t-1}) .
+\]</span></p>
+<p>In a two-variable VAR(1) model, let <span class="math inline">\(\by_t = [uemp_t, inf_t]'\)</span> being a vector of unemployment and inflation. We have the VAR(1) model:</p>
+<p><span class="math display">\[
+\by_t = \begin{bmatrix}
+\mu_1 \\
+\mu_2
+\end{bmatrix} +
+\begin{bmatrix}
+a_{11} &amp; a_{12} \\
+a_{21} &amp; a_{22}
+\end{bmatrix} \by_{t-1} +
+\begin{bmatrix}\varepsilon_{1t} \\
+\varepsilon_{2t}
+\end{bmatrix}
+\]</span></p>
+<p>To assert a Granger causality from <span class="math inline">\(uemp_t\)</span> to <span class="math inline">\(inf_t,\)</span> we need to test the null hypothesis that</p>
+<p><span class="math display">\[
+H_0: a_{12} = 0 \quad \text{vs.} \quad H_1: a_{12} \neq 0.
+\]</span></p>
+<p>We can do a <span class="math inline">\(t\)</span>-test for the coefficient <span class="math inline">\(a_{12}\)</span>. When <span class="math inline">\(a_{12}\)</span> is statistically significant, we can say that <span class="math inline">\(inf\)</span> Granger-causes <span class="math inline">\(uemp.\)</span></p>
+<p>If there are more lags, we can do an <span class="math inline">\(F\)</span>-test for the joint significance of the coefficients on the lags of <span class="math inline">\(uemp_t.\)</span></p>
+<p>The notion can be extended to test if a given variable is <strong>weakly exogenous</strong>. If lagged values of <span class="math inline">\(x_t\)</span> have no explanatory power for any of the variables in a system, then we would view <span class="math inline">\(x\)</span> as weakly exogenous to the system.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Granger causality implies one variable has predictive power for another variable. Note that it does <span class="env-orange">NOT</span> say anything about <em>contemporaneous causality</em>, so it does <span class="env-orange">NOT</span> allow us to determine whether <span class="math inline">\(uemp_t\)</span> is an exogenous or endogenous variable. Also, Granger causality does <span class="env-orange">NOT</span> apply in pure cross-sectional contexts.</p>
+</div>
+</div>
 <hr>
 <p><strong>References</strong></p>
 <ul>

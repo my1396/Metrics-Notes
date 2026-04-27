@@ -25,7 +25,7 @@ For AR(p) model estimation with stationary, ergodic time series:
 
 This section discusses univariate autoregressive (AR) models, which are a special case of linear regression models. The AR model is a time series model that expresses the current value of a variable as a linear function of its past values and possibly other explanatory variables.
 
-Multivariate autoregressive models, such as vector autoregression (VAR), are discussed in the section on [Vector Autoregression](PA05_Vector_autoregression.qmd).
+Multivariate autoregressive models, such as vector autoregression (VAR), are discussed in the section on [Vector Autoregression](TS04_VAR.qmd).
 
 
 

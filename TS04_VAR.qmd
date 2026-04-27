@@ -63,12 +63,12 @@ Where:
 
 This is a **bivariate VAR(1)** model for $\by_t.$
 
-The **vector represetation** is given by:
+The **vector representation** is given by:
 
 $$
 \begin{bmatrix}
-\by_1 \\
-\by_2
+y_{1t} \\
+y_{2t}
 \end{bmatrix} = 
 \begin{bmatrix}a_{10} \\
 a_{20}
@@ -88,13 +88,45 @@ The variance of the error term $\bvarepsilon_t$ is given by
 
 $$
 \bSigma = \var \begin{bmatrix}
-\bvarepsilon_{1t} \\
-\bvarepsilon_{2t}
+\varepsilon_{1t} \\
+\varepsilon_{2t}
 \end{bmatrix}
-=
-\begin{bmatrix}\sigma_{11} & \sigma_{12} \\
+= \begin{bmatrix}\sigma_{11} & \sigma_{12} \\
 \sigma_{21} & \sigma_{22}
 \end{bmatrix}
+$$
+
+--------------------------------------------------------------------------------
+
+
+Alternative representation of VAR(1) model:
+
+$$
+\begin{bmatrix}
+\by_1 \\
+\by_2
+\end{bmatrix} =
+\begin{bmatrix}\bmu_1 \\
+\bmu_2
+\end{bmatrix} +
+\begin{bmatrix} A_{11} & A_{12} \\
+A_{21} & A_{22}
+\end{bmatrix}
+\begin{bmatrix}\by_{1, -1} \\
+\bx_{2, -1}
+\end{bmatrix} +
+\begin{bmatrix}\bvarepsilon_{1} \\
+\bvarepsilon_{2}
+\end{bmatrix}
+$$
+
+where
+
+$$
+\begin{aligned}
+A_{11} &= I_n \times a_{11}, \quad A_{12} = I_n \times a_{12}, \\
+A_{21} &= I_n \times a_{21}, \quad A_{22} = I_n \times a_{22}
+\end{aligned}
 $$
 
 --------------------------------------------------------------------------------
@@ -115,7 +147,7 @@ where:
 - $\bA_\ell$ are $m \times m$, for $\ell = 1, \ldots, p$, autoregressive coefficient matrices
 - $\bvarepsilon_t$ is $m \times 1$
 
-Matrix notation for $A_\ell$:
+Matrix notation for $A_\ell$ (the coefficient for the $\ell$-th lag, $\by_{t-\ell}$):
 
 $$
 A_\ell =
@@ -131,15 +163,16 @@ The individual equations for $y_{mt},$ the $m$-th variable, can be written as
 
 $$
 \begin{aligned}
-y_{mt} &= \mu_m + a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1}  \\
-&\phantom{=} \quad + a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2} \\
-&\phantom{=} \quad + \cdots + a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p} + \varepsilon_{mt} \\
-&= \mu_m + \sum_{j=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{j=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{j=1}^p [A_\ell]_{mm} y_{m, t-\ell} + \varepsilon_{mt}
+y_{mt} &= \mu_m + \underbrace{ a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1} }_{\bA_1 \by_{t-1} \text{ terms}} \\
+&\phantom{=} \quad + \underbrace{a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2}}_{\bA_2 \by_{t-2} \text{ terms}} \\
+&\phantom{=} \quad + \cdots + \underbrace{a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p}}_{\bA_p \by_{t-p} \text{ terms}} + \varepsilon_{mt} \\
+&= \mu_m + \underbrace{\sum_{\ell=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{\ell=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{\ell=1}^p [A_\ell]_{mm} y_{m, t-\ell}}_{\text{Collect by components in }A_\ell, m\times m \times p \text{ terms}} + \varepsilon_{mt}
 \end{aligned}
 $$
 
 where $[A_\ell]_{lm}$ is the $(l,m)$-th element of the matrix $A_\ell.$
 
+A major disadvantage of VAR models is that the number of parameters grows quadratically with the number of variables and linearly with the number of lags. For $m$ variables and $p$ lags, there are $m\times m \times p$ parameters in the autoregressive coefficient matrices, and $m$ parameters in the intercept vector $\bmu_0.$ 
 
 --------------------------------------------------------------------------------
 
@@ -233,11 +266,29 @@ Hence, we have
 
 $$
 \begin{aligned}
-\text{IRF}_{ij}(h) &= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{k=h}^\infty [\bPsi_k]_{ij} \varepsilon_{i, t+h-k} \right) \\
-&= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{\ell=0}^\infty [\bPsi_{h+\ell}]_{ij} \varepsilon_{i, t-\ell} \right)
+\text{IRF}_{ij}(h) &= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{k=h}^\infty [\bPsi_k]_{i\cdot}\, \varepsilon_{i, t+h-k} \right) \\
+&= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{\ell=0}^\infty [\bPsi_{h+\ell}]_{i\cdot} \,\varepsilon_{i, t-\ell} \right) \\
+&= \frac{\partial}{\partial \varepsilon_{jt}} 
+\left(
+\begin{array}{l}
+\text{}\lbrack\bPsi_{h}\rbrack_{i1}\varepsilon_{1, t} + [\bPsi_{h}]_{i2}\varepsilon_{2, t} + \cdots + [\bPsi_{h}]_{im}\varepsilon_{m, t} \\
++\lbrack \bPsi_{h+1}\rbrack_{i1} \varepsilon_{1, t-1} + [\bPsi_{h+1}]_{i2}\varepsilon_{2, t-1} + \cdots + [\bPsi_{h+1}]_{im}\varepsilon_{m, t-1} \\
++\lbrack \bPsi_{h+2}\rbrack_{i1} \varepsilon_{1, t-2} + [\bPsi_{h+2}]_{i2}\varepsilon_{2, t-2} + \cdots + [\bPsi_{h+2}]_{im}\varepsilon_{m, t-2} \\
++\cdots
+\end{array}
+\right)
 \end{aligned}
 $$
 
+where $[\bPsi_k]_{i\cdot}$ is the $i$-th row of the matrix $\bPsi_k,$ and $[\bPsi_h]_{ij}$ is the $(i,j)$-th element of the matrix $\bPsi_h.$
+
+Taking the derivative, the only term that survives is the $(i,j)$-th element of the coefficient matrix $\bPsi_h:$ 
+
+$$
+\text{IRF}_{ij}(h) = [\bPsi_h]_{ij},
+$$
+
+which captures the effect of a shock to the $j$-th variable at time $t$ on the $i$-th variable at time $t+h.$
 
 ## Regression Notation
 
@@ -513,6 +564,58 @@ Asymptotic approximations tend to be much less accurate under time series depend
 
 --------------------------------------------------------------------------------
 
+## Granger Causality
+
+VAR models can be used to test for Granger causality. In plain language, causality is inferred when lagged values of a variable, say $x_t,$ have **explantory power** in a regression of another variable $y_t$ on its own lags and the lags of $x_t:$
+
+$$
+y_t = \alpha_0 + \gamma y_{t-1} + \beta x_{t-1} + \varepsilon_t
+$$
+
+We can test the null hypothesis of no Granger causality from $x_t$ to $y_t$ by testing $H_0: \beta = 0.$
+
+More generally, we can say that $x_t$ Granger-causes $y_t$ if
+
+$$
+\E(y_t \mid y_{t-1}, x_{t-1}) \neq \E(y_t \mid y_{t-1}) .
+$$
+
+In a two-variable VAR(1) model, let $\by_t = [uemp_t, inf_t]'$ being a vector of unemployment and inflation. We have the VAR(1) model:
+
+$$
+\by_t = \begin{bmatrix}
+\mu_1 \\
+\mu_2
+\end{bmatrix} +
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix} \by_{t-1} + 
+\begin{bmatrix}\varepsilon_{1t} \\
+\varepsilon_{2t}
+\end{bmatrix}
+$$
+
+To assert a Granger causality from $uemp_t$ to $inf_t,$ we need to test the null hypothesis that
+
+$$
+H_0: a_{12} = 0 \quad \text{vs.} \quad H_1: a_{12} \neq 0.
+$$
+
+We can do a $t$-test for the coefficient $a_{12}$. When $a_{12}$ is statistically significant, we can say that $inf$ Granger-causes $uemp.$
+
+If there are more lags, we can do an $F$-test for the joint significance of the coefficients on the lags of $uemp_t.$
+
+The notion can be extended to test if a given variable is **weakly exogenous**.
+If lagged values of $x_t$ have no explanatory power for any of the variables in a system, then we would view $x$ as weakly exogenous to the system. 
+
+
+
+::: {.callout-tip}
+Granger causality implies one variable has predictive power for another variable. Note that it does <span class="env-orange">NOT</span> say anything about *contemporaneous causality*, so it does <span class="env-orange">NOT</span> allow us to determine whether $uemp_t$ is an exogenous or endogenous variable. Also, Granger causality does <span class="env-orange">NOT</span> apply in pure cross-sectional contexts.
+:::
+
+--------------------------------------------------------------------------------
 
 **References**
 
