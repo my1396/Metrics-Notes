@@ -687,17 +687,21 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#multiple-equation-time-series-models" id="toc-multiple-equation-time-series-models" class="nav-link active" data-scroll-target="#multiple-equation-time-series-models"><span class="header-section-number">16.1</span> Multiple Equation Time Series Models</a></li>
-  <li><a href="#regression-notation" id="toc-regression-notation" class="nav-link" data-scroll-target="#regression-notation"><span class="header-section-number">16.2</span> Regression Notation</a></li>
-  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">16.3</span> Estimation</a>
+  <li><a href="#multiple-equation-time-series-models" id="toc-multiple-equation-time-series-models" class="nav-link active" data-scroll-target="#multiple-equation-time-series-models"><span class="header-section-number">16.1</span> Multiple Equation Time Series Models</a>
   <ul class="collapse">
-  <li><a href="#statistical-properties" id="toc-statistical-properties" class="nav-link" data-scroll-target="#statistical-properties"><span class="header-section-number">16.3.1</span> Statistical Properties</a></li>
+  <li><a href="#multivariate-wold-decomposition" id="toc-multivariate-wold-decomposition" class="nav-link" data-scroll-target="#multivariate-wold-decomposition"><span class="header-section-number">16.1.1</span> Multivariate Wold Decomposition</a></li>
   </ul></li>
-  <li><a href="#asymptotic-distribution" id="toc-asymptotic-distribution" class="nav-link" data-scroll-target="#asymptotic-distribution"><span class="header-section-number">16.4</span> Asymptotic Distribution</a>
+  <li><a href="#impulse-response-function" id="toc-impulse-response-function" class="nav-link" data-scroll-target="#impulse-response-function"><span class="header-section-number">16.2</span> Impulse Response Function</a></li>
+  <li><a href="#regression-notation" id="toc-regression-notation" class="nav-link" data-scroll-target="#regression-notation"><span class="header-section-number">16.3</span> Regression Notation</a></li>
+  <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">16.4</span> Estimation</a>
   <ul class="collapse">
-  <li><a href="#conditional-homoskedasticity" id="toc-conditional-homoskedasticity" class="nav-link" data-scroll-target="#conditional-homoskedasticity"><span class="header-section-number">16.4.1</span> Conditional Homoskedasticity</a></li>
+  <li><a href="#statistical-properties" id="toc-statistical-properties" class="nav-link" data-scroll-target="#statistical-properties"><span class="header-section-number">16.4.1</span> Statistical Properties</a></li>
   </ul></li>
-  <li><a href="#covariance-matrix-estimation" id="toc-covariance-matrix-estimation" class="nav-link" data-scroll-target="#covariance-matrix-estimation"><span class="header-section-number">16.5</span> Covariance Matrix Estimation</a></li>
+  <li><a href="#asymptotic-distribution" id="toc-asymptotic-distribution" class="nav-link" data-scroll-target="#asymptotic-distribution"><span class="header-section-number">16.5</span> Asymptotic Distribution</a>
+  <ul class="collapse">
+  <li><a href="#conditional-homoskedasticity" id="toc-conditional-homoskedasticity" class="nav-link" data-scroll-target="#conditional-homoskedasticity"><span class="header-section-number">16.5.1</span> Conditional Homoskedasticity</a></li>
+  </ul></li>
+  <li><a href="#covariance-matrix-estimation" id="toc-covariance-matrix-estimation" class="nav-link" data-scroll-target="#covariance-matrix-estimation"><span class="header-section-number">16.6</span> Covariance Matrix Estimation</a></li>
   </ul>
 </nav>
     </div>
@@ -749,33 +753,80 @@ Main Takeaway
 <p>To motivate vector autoregressions, consider the autoregressive distributed lag (AR-DL) model for two series <span class="math inline">\(\by_t = (y_{1t}, y_{2t})'\)</span> with one lag.</p>
 <p>An AR-DL model for <span class="math inline">\(y_{1t}\)</span>:</p>
 <p><span class="math display">\[
-y_{1t} = \mu_1 + \alpha_1 y_{1,t-1} + \alpha_2 y_{2,t-1} + \varepsilon_{1t}
+y_{1t} = a_{10} + a_{11} y_{1, t-1} + a_{12} y_{2, t-1} + \varepsilon_{1t}
 \]</span></p>
 <p>An AR-DL model for <span class="math inline">\(y_{2t}\)</span>:</p>
 <p><span class="math display">\[
-y_{2t} = \mu_0 + \beta_1 y_{2,t-1} + \beta_2 y_{1,t-1} + \varepsilon_{2t}
+y_{2t} = a_{20} + a_{21} y_{1, t-1} + a_{22} y_{2, t-1} + \varepsilon_{2t}
 \]</span></p>
 <p>Each variable is a linear function of its own lag and the lag of the other variable. The two equations can be stacked together:</p>
 <p><span class="math display">\[
-\begin{equation}
 \by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t
-\end{equation}
 \]</span></p>
 <p>Where:</p>
 <ul>
-<li><span class="math inline">\(\bmu_0\)</span> is <span class="math inline">\(2 \times 1\)</span></li>
-<li><span class="math inline">\(\bA_1\)</span> is <span class="math inline">\(2 \times 2\)</span></li>
-<li><span class="math inline">\(\bvarepsilon_t = (\varepsilon_{1t}, \varepsilon_{2t})'\)</span></li>
-</ul>
-<p>This is a <strong>bivariate VAR</strong> model for <span class="math inline">\(\by_t.\)</span></p>
-<p>For <span class="math inline">\(p\)</span> lags, the VAR(<span class="math inline">\(p\)</span>) model is:</p>
+<li><p><span class="math inline">\(\bmu_0 = (a_{10}, a_{20})'\)</span> is <span class="math inline">\(2 \times 1\)</span></p></li>
+<li><p><span class="math inline">\(\bA_1\)</span> is <span class="math inline">\(2 \times 2\)</span>, the coefficient matrix for the lagged variable <span class="math inline">\(\by_{t-1}\)</span>:</p>
 <p><span class="math display">\[
-\begin{equation}\label{eq-var-p}
-\by_t = \bmu_0 + \bA_1 \by_{t-1} + \bA_2 \by_{t-2} + \cdots + \bA_p \by_{t-p} + \bvarepsilon_t .
-\end{equation}
+\begin{aligned}
+\bA_1 \by_{t-1} =
+\begin{bmatrix}
+a_{11} &amp; a_{12} \\
+a_{21} &amp; a_{22}
+\end{bmatrix}
+\begin{bmatrix}
+  y_{1, t-1} \\
+  y_{2, t-1}
+\end{bmatrix}
+\end{aligned}
+\]</span></p></li>
+<li><p><span class="math inline">\(\bvarepsilon_t = (\varepsilon_{1t}, \varepsilon_{2t})'\)</span></p></li>
+</ul>
+<p>This is a <strong>bivariate VAR(1)</strong> model for <span class="math inline">\(\by_t.\)</span></p>
+<p>The <strong>vector represetation</strong> is given by:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\by_1 \\
+\by_2
+\end{bmatrix} =
+\begin{bmatrix}a_{10} \\
+a_{20}
+\end{bmatrix} +
+\begin{bmatrix}a_{11} &amp; a_{12} \\
+a_{21} &amp; a_{22}
+\end{bmatrix}
+\begin{bmatrix}y_{1, t-1} \\
+y_{2, t-1}
+\end{bmatrix} +
+\begin{bmatrix}\varepsilon_{1t} \\
+\varepsilon_{2t}
+\end{bmatrix}
 \]</span></p>
-<p>This model extends naturally to more than two variables. For general dimension <span class="math inline">\(m\)</span>: - <span class="math inline">\(\by_t\)</span> is <span class="math inline">\(m \times 1\)</span> - <span class="math inline">\(\bA_\ell\)</span> are <span class="math inline">\(m \times m\)</span>, for <span class="math inline">\(\ell = 1, \ldots, p\)</span> - <span class="math inline">\(\bvarepsilon_t\)</span> is <span class="math inline">\(m \times 1\)</span></p>
-<p>Matrix notation for <span class="math inline">\(A_j\)</span>:</p>
+<p>The variance of the error term <span class="math inline">\(\bvarepsilon_t\)</span> is given by</p>
+<p><span class="math display">\[
+\bSigma = \var \begin{bmatrix}
+\bvarepsilon_{1t} \\
+\bvarepsilon_{2t}
+\end{bmatrix}
+=
+\begin{bmatrix}\sigma_{11} &amp; \sigma_{12} \\
+\sigma_{21} &amp; \sigma_{22}
+\end{bmatrix}
+\]</span></p>
+<hr>
+<p><strong>General specification of <span class="math inline">\(\text{VAR}(p)\)</span> model</strong></p>
+<p>This model extends naturally to more than two variables.</p>
+<p>For <span class="math inline">\(p\)</span>-lag and <span class="math inline">\(m\)</span>-variable <span class="math inline">\(\by_t\)</span>, the <span class="math inline">\(\text{VAR}(p)\)</span> model is:</p>
+<p><span id="eq-var-p"><span class="math display">\[
+\by_t = \bmu_0 + \bA_1 \by_{t-1} + \bA_2 \by_{t-2} + \cdots + \bA_p \by_{t-p} + \bvarepsilon_t .
+\tag{16.1}\]</span></span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(\by_t\)</span> is <span class="math inline">\(m \times 1\)</span></li>
+<li><span class="math inline">\(\bA_\ell\)</span> are <span class="math inline">\(m \times m\)</span>, for <span class="math inline">\(\ell = 1, \ldots, p\)</span>, autoregressive coefficient matrices</li>
+<li><span class="math inline">\(\bvarepsilon_t\)</span> is <span class="math inline">\(m \times 1\)</span></li>
+</ul>
+<p>Matrix notation for <span class="math inline">\(A_\ell\)</span>:</p>
 <p><span class="math display">\[
 A_\ell =
 \begin{bmatrix}
@@ -785,28 +836,88 @@ a_{21,\ell} &amp; a_{22,\ell} &amp; \cdots &amp; a_{2m,\ell} \\
 a_{m1,\ell} &amp; a_{m2,\ell} &amp; \cdots &amp; a_{mm,\ell}
 \end{bmatrix}
 \]</span></p>
+<p>The individual equations for <span class="math inline">\(y_{mt},\)</span> the <span class="math inline">\(m\)</span>-th variable, can be written as</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_{mt} &amp;= \mu_m + a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1}  \\
+&amp;\phantom{=} \quad + a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2} \\
+&amp;\phantom{=} \quad + \cdots + a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p} + \varepsilon_{mt} \\
+&amp;= \mu_m + \sum_{j=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{j=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{j=1}^p [A_\ell]_{mm} y_{m, t-\ell} + \varepsilon_{mt}
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\([A_\ell]_{lm}\)</span> is the <span class="math inline">\((l,m)\)</span>-th element of the matrix <span class="math inline">\(A_\ell.\)</span></p>
+<hr>
 <p>The error term <span class="math inline">\(\bvarepsilon_t = (\varepsilon_{1t}, ..., \varepsilon_{mt})'\)</span> is unforecastable at time <span class="math inline">\(t-1\)</span> (i.e., no serial correlation), but the components may be <strong>contemporaneously correlated</strong>.</p>
 <p>The <strong>contemporaneous covariance matrix</strong></p>
 <p><span class="math display">\[
 \bSigma = \mathbb{E}[\bvarepsilon_t \bvarepsilon_t']
 \]</span></p>
 <p>is non-diagonal.</p>
-<p>We can write the VAR(<span class="math inline">\(p\)</span>) model <span class="math inline">\(\eqref{eq-var-p}\)</span> using the lag operator notation as</p>
+<p>We can write the <span class="math inline">\(\text{VAR}(p)\)</span> model <a href="#eq-var-p" class="quarto-xref">Equation&nbsp;<span>16.1</span></a> using the lag operator notation as</p>
 <p><span class="math display">\[
-\bA(L) \by_t = \bmu_0 + \bvarepsilon_t
+\begin{aligned}
+\by_t &amp;= \bmu_0 + A(L) \by_t + \bvarepsilon_t \\
+\left(\bI - \bA(L)\right) \by_t &amp;= \bmu_0 + \bvarepsilon_t
+\end{aligned}
 \]</span></p>
 <p>where</p>
 <p><span class="math display">\[
-\bA(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
+\bGamma(L) = \bI - \bA(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
 \]</span></p>
-<p>The condition for stationary of the system can be expressed as a restriction on the roots of the characteristic polynomial.</p>
+<p>The condition for stationary of the system can be expressed as a restriction on the roots of the characteristic polynomial <span class="math inline">\(\bGamma(L).\)</span></p>
 <div id="thm-var-stationary" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 16.1 (VAR stationarity)</strong></span> If all roots <span class="math inline">\(\lambda\)</span> of <span class="math inline">\(\text{det}(\bA(L)=0)\)</span> satisfy <span class="math inline">\(\abs{\lambda}&gt;1,\)</span> then the VAR(<span class="math inline">\(p\)</span>) process <span class="math inline">\(\by_t\)</span> is strictly stationary and ergodic.</p>
+<p><span class="theorem-title"><strong>Theorem 16.1 (VAR stationarity)</strong></span> If all roots <span class="math inline">\(\lambda\)</span> of <span class="math inline">\(\text{det}(\bGamma(L)=0)\)</span> satisfy <span class="math inline">\(\abs{\lambda}&gt;1,\)</span> then the <span class="math inline">\(\text{VAR}(p)\)</span> process <span class="math inline">\(\by_t\)</span> is strictly stationary and ergodic.</p>
 </div>
+<p>If <span class="math inline">\(\by_t\)</span> is covariance stationary, then it has the projection equation</p>
+<p><span class="math display">\[
+\by_t = \Pcal_{t-1} [\by_{t}] + \bvarepsilon_t.
+\]</span></p>
+<p>The innovation <span class="math inline">\(\bvarepsilon_t\)</span> satisfies <span class="math inline">\(\E(\bvarepsilon_t)=0,\)</span> and <span class="math inline">\(\E[\bvarepsilon_{t-j} \bvarepsilon_t']=0\)</span> for all <span class="math inline">\(j&gt;0,\)</span> and <span class="math inline">\(\bSigma = \E[\bvarepsilon_t \bvarepsilon_t'] &lt; \infty .\)</span> If <span class="math inline">\(\by_t\)</span> is strictly stationary, then <span class="math inline">\(\bvarepsilon_t\)</span> is strictly stationary.</p>
+<section id="multivariate-wold-decomposition" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="multivariate-wold-decomposition"><span class="header-section-number">16.1.1</span> Multivariate Wold Decomposition</h3>
+<p>With the stability condition, we have</p>
+<p><span id="eq-mul_wold"><span class="math display">\[
+\begin{aligned}
+\by_t &amp;= \left(\bI - \bA(L)\right)^{-1} (\bmu_0 + \bvarepsilon_t)  \\
+\by_t &amp;= \left(\bI - \bA(L)\right)^{-1}\bmu + \sum_{j=0}^\infty \bPsi_j \bvarepsilon_{t-j} \\
+\Rightarrow \by_t &amp;= \bar{\by} + \sum_{j=0}^\infty \bPsi_j \bvarepsilon_{t-j} \\
+\by_t &amp;= \bar{\by} + \bPsi(L) \bvarepsilon_t
+\end{aligned}
+\tag{16.2}\]</span></span></p>
+<p>where <span class="math inline">\(\bPsi(L) = \sum_{j=0}^\infty \bPsi_j L^j.\)</span></p>
+<p><a href="#eq-mul_wold" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> is the multivariate Wold decomposition of <span class="math inline">\(\by_t,\)</span> also known as the moving average representation.</p>
 </section>
-<section id="regression-notation" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="regression-notation"><span class="header-section-number">16.2</span> Regression Notation</h2>
-<p>The VAR(<span class="math inline">\(p\)</span>) system of equations can be written as</p>
+</section>
+<section id="impulse-response-function" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="impulse-response-function"><span class="header-section-number">16.2</span> Impulse Response Function</h2>
+<p>Impulse Response Function (IRF) is defined as the change in <span class="math inline">\(\by_t\)</span> due to a change in an innovation or shock.</p>
+<p>Mathematically, the IRF at horizon <span class="math inline">\(h\)</span> is given by</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{IRF}_{ij}(h) &amp;= \frac{\partial}{\partial\varepsilon_{jt}} \Pcal_t [y_{i,t+h}]\\
+&amp;= \frac{\partial}{\partial \varepsilon_{jt}} \E(y_{i,t+h} \mid \Fcal_{t})
+\end{aligned}
+\]</span></p>
+<p>which captures the effect of a shock to the <span class="math inline">\(j\)</span>-th variable at time <span class="math inline">\(t\)</span> on the <span class="math inline">\(i\)</span>-th variable at time <span class="math inline">\(t+h.\)</span></p>
+<p>Using the multivariate Wold representation, we can express the IRF as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{IRF}_{ij}(h) &amp;= \frac{\partial}{\partial \varepsilon_{jt}} \E\left(\bar{y}_i + \sum_{k=0}^\infty [\bPsi_k]_{ij}\, \varepsilon_{i, t+h-k} \mid \Fcal_t\right) \\
+&amp;= \frac{\partial}{\partial \varepsilon_{jt}} \left( \bar{y}_i + \sum_{k=0}^\infty [\bPsi_k]_{ij} \, \E \left(\varepsilon_{i, t+h-k} \mid \Fcal_t\right) \right) \\
+\end{aligned}
+\]</span></p>
+<p>For <span class="math inline">\(k \ge h\)</span>, <span class="math inline">\(\E \left(\varepsilon_{t+h-k} \mid \Fcal_t\right) = \varepsilon_{t+h-k},\)</span> and for <span class="math inline">\(k&lt; h,\)</span> <span class="math inline">\(\E \left(\varepsilon_{t+h-k} \mid \Fcal_t\right) = 0.\)</span></p>
+<p>Hence, we have</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{IRF}_{ij}(h) &amp;= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{k=h}^\infty [\bPsi_k]_{ij} \varepsilon_{i, t+h-k} \right) \\
+&amp;= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{\ell=0}^\infty [\bPsi_{h+\ell}]_{ij} \varepsilon_{i, t-\ell} \right)
+\end{aligned}
+\]</span></p>
+</section>
+<section id="regression-notation" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="regression-notation"><span class="header-section-number">16.3</span> Regression Notation</h2>
+<p>The <span class="math inline">\(\text{VAR}(p)\)</span> system of equations can be written as</p>
 <p><span class="math display">\[
 \by_t = \bA'\bx_{t} + \bvarepsilon_t ,
 \]</span></p>
@@ -824,10 +935,10 @@ a_{m1,\ell} &amp; a_{m2,\ell} &amp; \cdots &amp; a_{mm,\ell}
 <p><span class="math display">\[
 \begin{split}
 \underbrace{\bA'}_{m \times (mp+1)} &amp;= \left(\begin{array}{c|cccc|cccc|c|cccc}
-\mu_0 &amp; a_{11,1} &amp; a_{12,1} &amp; \cdots &amp; a_{1m,1} &amp; a_{11,2} &amp; a_{12,2} &amp; \cdots &amp; a_{1m,2} &amp; \cdots &amp; a_{11,p} &amp; a_{12,p} &amp; \cdots &amp; a_{1m,p} \\
-\mu_0 &amp; a_{21,1} &amp; a_{22,1} &amp; \cdots &amp; a_{2m,1} &amp; a_{21,2} &amp; a_{22,2} &amp; \cdots &amp; a_{2m,2} &amp; \cdots &amp; a_{21,p} &amp; a_{22,p} &amp; \cdots &amp; a_{2m,p} \\
+a_{01} &amp; a_{11,1} &amp; a_{12,1} &amp; \cdots &amp; a_{1m,1} &amp; a_{11,2} &amp; a_{12,2} &amp; \cdots &amp; a_{1m,2} &amp; \cdots &amp; a_{11,p} &amp; a_{12,p} &amp; \cdots &amp; a_{1m,p} \\
+a_{02} &amp; a_{21,1} &amp; a_{22,1} &amp; \cdots &amp; a_{2m,1} &amp; a_{21,2} &amp; a_{22,2} &amp; \cdots &amp; a_{2m,2} &amp; \cdots &amp; a_{21,p} &amp; a_{22,p} &amp; \cdots &amp; a_{2m,p} \\
 \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\mu_0 &amp; a_{m1,1} &amp; a_{m2,1} &amp; \cdots &amp; a_{mm,1} &amp; a_{m1,2} &amp; a_{m2,2} &amp; \cdots &amp; a_{mm,2} &amp; \cdots &amp; a_{m1,p} &amp; a_{m2,p} &amp; \cdots &amp; a_{mm,p}
+a_{0m} &amp; a_{m1,1} &amp; a_{m2,1} &amp; \cdots &amp; a_{mm,1} &amp; a_{m1,2} &amp; a_{m2,2} &amp; \cdots &amp; a_{mm,2} &amp; \cdots &amp; a_{m1,p} &amp; a_{m2,p} &amp; \cdots &amp; a_{mm,p}
 \end{array}\right) \\
 &amp;= \begin{pmatrix}
 \bmu_0 &amp; \bA_1' &amp; \bA_2' &amp; \cdots &amp; \bA_p'
@@ -843,7 +954,7 @@ a_{m1,\ell} &amp; a_{m2,\ell} &amp; \cdots &amp; a_{mm,\ell}
 <p><span class="math display">\[
 \bA = (\balpha_1,\balpha_2,\dots,\balpha_m)
 \]</span></p>
-<p>where <span class="math inline">\(\balpha_j\)</span> is the <span class="math inline">\(j\)</span>th column of <span class="math inline">\(\bA\)</span>: the vector of coefficients for the <span class="math inline">\(j\)</span>th variable in the VAR(<span class="math inline">\(p\)</span>) model.</p>
+<p>where <span class="math inline">\(\balpha_j\)</span> is the <span class="math inline">\(j\)</span>th column of <span class="math inline">\(\bA\)</span>: the vector of coefficients for the <span class="math inline">\(j\)</span>th variable in the <span class="math inline">\(\text{VAR}(p)\)</span> model.</p>
 <p>Thus</p>
 <p><span class="math display">\[
 \balpha_j = \begin{pmatrix}
@@ -868,8 +979,8 @@ a_{jm,p}
 y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 \]</span></p>
 </section>
-<section id="estimation" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="estimation"><span class="header-section-number">16.3</span> Estimation</h2>
+<section id="estimation" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="estimation"><span class="header-section-number">16.4</span> Estimation</h2>
 <p>The systems estimator of a multivariate regression is least squares:</p>
 <p><span class="math display">\[
 \hat{\bA} = \left(\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \bx_t \by_t\right)
@@ -886,8 +997,8 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 <p><span class="math display">\[
 \hat{\bSigma} = \frac{1}{n-mp-1} \sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t'
 \]</span></p>
-<section id="statistical-properties" class="level3" data-number="16.3.1">
-<h3 data-number="16.3.1" class="anchored" data-anchor-id="statistical-properties"><span class="header-section-number">16.3.1</span> Statistical Properties</h3>
+<section id="statistical-properties" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="statistical-properties"><span class="header-section-number">16.4.1</span> Statistical Properties</h3>
 <p>If <span class="math inline">\(\by_t\)</span> is strictly stationary and ergodic with finite variances then we can apply the Ergodic Theorem to deduce that</p>
 <p><span class="math display">\[
 \frac{1}{n} \sum_{t=1}^n \bx_t \bx_t' \xrightarrow{p} \E\left(\bx_t\bx_t'\right) = \bQ
@@ -907,8 +1018,8 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 <p>VAR models can be estimated in Stata using the <code>var</code> command.</p>
 </section>
 </section>
-<section id="asymptotic-distribution" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="asymptotic-distribution"><span class="header-section-number">16.4</span> Asymptotic Distribution</h2>
+<section id="asymptotic-distribution" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="asymptotic-distribution"><span class="header-section-number">16.5</span> Asymptotic Distribution</h2>
 <p>Set</p>
 <p><span class="math display">\[
 \balpha = \text{vec}\bA) = \begin{pmatrix}
@@ -925,7 +1036,7 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 \end{pmatrix}
 \]</span></p>
 <div id="thm-var-asymptotic" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 16.2 (VAR asymptotic distribution)</strong></span> If <span class="math inline">\(\by_t\)</span> follows the VAR(<span class="math inline">\(p\)</span>) model with <span class="math inline">\(\E(\bvarepsilon_t\mid \Fcal_{t-1})=0,\)</span> then as <span class="math inline">\(n\to\infty,\)</span></p>
+<p><span class="theorem-title"><strong>Theorem 16.2 (VAR asymptotic distribution)</strong></span> If <span class="math inline">\(\by_t\)</span> follows the <span class="math inline">\(\text{VAR}(p)\)</span> model with <span class="math inline">\(\E(\bvarepsilon_t\mid \Fcal_{t-1})=0,\)</span> then as <span class="math inline">\(n\to\infty,\)</span></p>
 <p><span class="math display">\[
 \sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)
 \]</span></p>
@@ -940,9 +1051,9 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 \]</span></p>
 </div>
 <p><span class="math inline">\(\E(\bvarepsilon_t\mid \Fcal_{t-1})=0\)</span> means that the innovation is a martingale difference sequence, i.e., the error term is unforecastable at time <span class="math inline">\(t-1\)</span>.</p>
-<p>This means that this distributional result assumes that the VAR(<span class="math inline">\(p\)</span>) model is the correct conditional mean for each variable. In words, these are the correct lags and there is no omitted nonlinearity.</p>
-<section id="conditional-homoskedasticity" class="level3" data-number="16.4.1">
-<h3 data-number="16.4.1" class="anchored" data-anchor-id="conditional-homoskedasticity"><span class="header-section-number">16.4.1</span> Conditional Homoskedasticity</h3>
+<p>This means that this distributional result assumes that the <span class="math inline">\(\text{VAR}(p)\)</span> model is the correct conditional mean for each variable. In words, these are the correct lags and there is no omitted nonlinearity.</p>
+<section id="conditional-homoskedasticity" class="level3" data-number="16.5.1">
+<h3 data-number="16.5.1" class="anchored" data-anchor-id="conditional-homoskedasticity"><span class="header-section-number">16.5.1</span> Conditional Homoskedasticity</h3>
 <p>If we further strengthen the MDS assumption and assume that <span class="math inline">\(\bvarepsilon_t\)</span> is conditionally homoskedastic, i.e.,</p>
 <p><span class="math display">\[
 \E(\bvarepsilon_t \bvarepsilon_t' \mid \Fcal_{t-1}) = \bSigma ,
@@ -971,8 +1082,8 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 </div>
 </section>
 </section>
-<section id="covariance-matrix-estimation" class="level2" data-number="16.5">
-<h2 data-number="16.5" class="anchored" data-anchor-id="covariance-matrix-estimation"><span class="header-section-number">16.5</span> Covariance Matrix Estimation</h2>
+<section id="covariance-matrix-estimation" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="covariance-matrix-estimation"><span class="header-section-number">16.6</span> Covariance Matrix Estimation</h2>
 <p>The classical homoskedastic estimator of the covariance matrix for <span class="math inline">\(\hat{\balpha}\)</span> equals</p>
 <p><span class="math display">\[
 \begin{split}
@@ -1001,7 +1112,7 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 \end{split}
 \]</span></p>
-<p>The number <span class="math inline">\(M\)</span> is called the lag truncation number. An unweighted estimator is obtained by setting <span class="math inline">\(w_\ell = 1\)</span> for all <span class="math inline">\(\ell.\)</span> The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the VAR(<span class="math inline">\(p\)</span>) is correctly specified.</p>
+<p>The number <span class="math inline">\(M\)</span> is called the lag truncation number. An unweighted estimator is obtained by setting <span class="math inline">\(w_\ell = 1\)</span> for all <span class="math inline">\(\ell.\)</span> The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the <span class="math inline">\(\text{VAR}(p)\)</span> is correctly specified.</p>
 <p>Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. Therefore bootstrap methods are popular. The most common bootstrap methods are, for example: <strong>Recursive Residuals</strong>, <strong>Moving Block</strong>, and <strong>Stationary Bootstrap</strong>. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in <strong>Econometrics</strong> by Bruce Hansen for more details.</p>
 <hr>
 <p><strong>References</strong></p>

@@ -10,7 +10,8 @@ $$
 \begin{aligned}
 y_t &= c + \phi y_{t-1} + \varepsilon_t,  \quad \text{or} \\
 y_t - \phi y_{t-1} &= c + \varepsilon_t,  \quad \text{or} \\
-(1-\phi L) y_t &= c + \varepsilon_t,
+(1-\phi L) y_t &= c + \varepsilon_t,  \quad \text{or} \\
+\phi(L) y_t &= c + \varepsilon_t, \quad \leftarrow \text{lag polynomial form}
 \end{aligned}
 $$ {#eq-AR1}
 where $\{\varepsilon_t\}$ is white noise.
@@ -62,15 +63,32 @@ $$
 
 
 $$
-\text{or} \quad y_t = \mu + \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
+\text{or} \quad \color{#008B45} y_t = \mu + \sum_{j=0}^{\infty} \phi^j \varepsilon_{t-j}
 $$ {#eq-ma-infty}
 
 
 What we have shown is that, if $\{y_t\}$ is a covariance-stationary solution to the stochastic difference equation ([-@eq-AR1]) or ([-@eq-AR1-deviation-form]), then 
-$y_t$ has the **moving-average representation** as in ([-@eq-ma-infty]).
+$y_t$ has the <span class="env-green">**moving-average representation**</span> as in ([-@eq-ma-infty]).
 Conversely, if $y_t$ has the representation ([-@eq-ma-infty]), then it satisfies the difference equation.
 
-The condition $\abs{\phi}<1,$ which is the stability condition associated with the first-degree polynomial equation $1-\phi z=0,$ is called the stationary condition in the context of autoregressive processes.
+The condition $\abs{\phi}<1,$ which is the stability condition associated with the first-degree polynomial equation 
+
+$$
+\phi(z) = 1-\phi z = 0,
+$$ 
+
+is called the stationary condition in the context of autoregressive processes.
+
+The root of the characteristic equation is
+
+$$
+z = \frac{1}{\phi},
+$$
+
+when $\abs{\phi}<1,$ we have $\abs{z}>1.$ That is, the root of the <span class="env-green">characteristic equation</span> lies outside the unit circle in the complex plane. This is a general result for autoregressive processes: an AR process is stationary if and only if all roots of its characteristic equation <span class="env-green">lie outside the unit circle</span>.
+
+
+
 
 
 ## Case 2: $\abs{\phi}>1$

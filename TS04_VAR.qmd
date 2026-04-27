@@ -24,46 +24,98 @@ To motivate vector autoregressions, consider the autoregressive distributed lag 
 An AR-DL model for $y_{1t}$:
 
 $$
-y_{1t} = \mu_1 + \alpha_1 y_{1,t-1} + \alpha_2 y_{2,t-1} + \varepsilon_{1t}
+y_{1t} = a_{10} + a_{11} y_{1, t-1} + a_{12} y_{2, t-1} + \varepsilon_{1t}
 $$
 
 An AR-DL model for $y_{2t}$:
 
 $$
-y_{2t} = \mu_0 + \beta_1 y_{2,t-1} + \beta_2 y_{1,t-1} + \varepsilon_{2t}
+y_{2t} = a_{20} + a_{21} y_{1, t-1} + a_{22} y_{2, t-1} + \varepsilon_{2t}
 $$
 
 Each variable is a linear function of its own lag and the lag of the other variable. 
 The two equations can be stacked together:
 
 $$
-\begin{equation}
 \by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t
-\end{equation}
 $$
 
 Where:
 
-- $\bmu_0$ is $2 \times 1$
-- $\bA_1$ is $2 \times 2$
+- $\bmu_0 = (a_{10}, a_{20})'$ is $2 \times 1$
+- $\bA_1$ is $2 \times 2$, the coefficient matrix for the lagged variable $\by_{t-1}$:
+  
+  $$
+  \begin{aligned}
+  \bA_1 \by_{t-1} = 
+  \begin{bmatrix}
+  a_{11} & a_{12} \\
+  a_{21} & a_{22}
+  \end{bmatrix} 
+  \begin{bmatrix}
+    y_{1, t-1} \\
+    y_{2, t-1}
+  \end{bmatrix}
+  \end{aligned} 
+  $$
+
 - $\bvarepsilon_t = (\varepsilon_{1t}, \varepsilon_{2t})'$
 
-This is a **bivariate VAR** model for $\by_t.$
+This is a **bivariate VAR(1)** model for $\by_t.$
 
-For $p$ lags, the VAR($p$) model is:
+The **vector represetation** is given by:
 
 $$
-\begin{equation}\label{eq-var-p}
+\begin{bmatrix}
+\by_1 \\
+\by_2
+\end{bmatrix} = 
+\begin{bmatrix}a_{10} \\
+a_{20}
+\end{bmatrix} +
+\begin{bmatrix}a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix}
+\begin{bmatrix}y_{1, t-1} \\
+y_{2, t-1}
+\end{bmatrix} +
+\begin{bmatrix}\varepsilon_{1t} \\
+\varepsilon_{2t}
+\end{bmatrix}
+$$
+
+The variance of the error term $\bvarepsilon_t$ is given by
+
+$$
+\bSigma = \var \begin{bmatrix}
+\bvarepsilon_{1t} \\
+\bvarepsilon_{2t}
+\end{bmatrix}
+=
+\begin{bmatrix}\sigma_{11} & \sigma_{12} \\
+\sigma_{21} & \sigma_{22}
+\end{bmatrix}
+$$
+
+--------------------------------------------------------------------------------
+
+**General specification of $\text{VAR}(p)$ model**
+
+This model extends naturally to more than two variables. 
+
+For $p$-lag and $m$-variable $\by_t$, the $\text{VAR}(p)$ model is:
+
+$$
 \by_t = \bmu_0 + \bA_1 \by_{t-1} + \bA_2 \by_{t-2} + \cdots + \bA_p \by_{t-p} + \bvarepsilon_t .
-\end{equation}
-$$
+$$ {#eq-var-p}
 
-This model extends naturally to more than two variables. For general dimension $m$:
+where:
+
 - $\by_t$ is $m \times 1$
-- $\bA_\ell$ are $m \times m$, for $\ell = 1, \ldots, p$
+- $\bA_\ell$ are $m \times m$, for $\ell = 1, \ldots, p$, autoregressive coefficient matrices
 - $\bvarepsilon_t$ is $m \times 1$
 
-Matrix notation for $A_j$:
+Matrix notation for $A_\ell$:
 
 $$
 A_\ell =
@@ -74,6 +126,22 @@ a_{21,\ell} & a_{22,\ell} & \cdots & a_{2m,\ell} \\
 a_{m1,\ell} & a_{m2,\ell} & \cdots & a_{mm,\ell}
 \end{bmatrix}
 $$
+
+The individual equations for $y_{mt},$ the $m$-th variable, can be written as
+
+$$
+\begin{aligned}
+y_{mt} &= \mu_m + a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1}  \\
+&\phantom{=} \quad + a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2} \\
+&\phantom{=} \quad + \cdots + a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p} + \varepsilon_{mt} \\
+&= \mu_m + \sum_{j=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{j=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{j=1}^p [A_\ell]_{mm} y_{m, t-\ell} + \varepsilon_{mt}
+\end{aligned}
+$$
+
+where $[A_\ell]_{lm}$ is the $(l,m)$-th element of the matrix $A_\ell.$
+
+
+--------------------------------------------------------------------------------
 
 The error term $\bvarepsilon_t = (\varepsilon_{1t}, ..., \varepsilon_{mt})'$ is unforecastable at time $t-1$ (i.e., no serial correlation), but the components may be **contemporaneously correlated**. 
 
@@ -86,29 +154,94 @@ $$
 is non-diagonal.
 
 
-We can write the VAR($p$) model \eqref{eq-var-p} using the lag operator notation as
+We can write the $\text{VAR}(p)$ model @eq-var-p using the lag operator notation as
 
 $$
-\bA(L) \by_t = \bmu_0 + \bvarepsilon_t
+\begin{aligned}
+\by_t &= \bmu_0 + A(L) \by_t + \bvarepsilon_t \\
+\left(\bI - \bA(L)\right) \by_t &= \bmu_0 + \bvarepsilon_t
+\end{aligned}
 $$
 
 where
 
 $$
-\bA(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
+\bGamma(L) = \bI - \bA(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
 $$
 
-The condition for stationary of the system can be expressed as a restriction on the roots of the characteristic polynomial.
+The condition for stationary of the system can be expressed as a restriction on the roots of the characteristic polynomial $\bGamma(L).$
 
 :::{#thm-var-stationary name="VAR stationarity"}
-If all roots $\lambda$ of $\text{det}(\bA(L)=0)$ satisfy $\abs{\lambda}>1,$ then the VAR($p$) process $\by_t$ is strictly stationary and ergodic.
+If all roots $\lambda$ of $\text{det}(\bGamma(L)=0)$ satisfy $\abs{\lambda}>1,$ then the $\text{VAR}(p)$ process $\by_t$ is strictly stationary and ergodic.
 :::
+
+If $\by_t$ is covariance stationary, then it has the projection equation
+
+$$
+\by_t = \Pcal_{t-1} [\by_{t}] + \bvarepsilon_t.
+$$
+
+The innovation $\bvarepsilon_t$ satisfies $\E(\bvarepsilon_t)=0,$ and $\E[\bvarepsilon_{t-j} \bvarepsilon_t']=0$ for all $j>0,$ and $\bSigma = \E[\bvarepsilon_t \bvarepsilon_t'] < \infty .$
+If $\by_t$ is strictly stationary, then $\bvarepsilon_t$ is strictly stationary.
+
+### Multivariate Wold Decomposition
+
+With the stability condition, we have 
+
+$$
+\begin{aligned}
+\by_t &= \left(\bI - \bA(L)\right)^{-1} (\bmu_0 + \bvarepsilon_t)  \\
+\by_t &= \left(\bI - \bA(L)\right)^{-1}\bmu + \sum_{j=0}^\infty \bPsi_j \bvarepsilon_{t-j} \\
+\Rightarrow \by_t &= \bar{\by} + \sum_{j=0}^\infty \bPsi_j \bvarepsilon_{t-j} \\
+\by_t &= \bar{\by} + \bPsi(L) \bvarepsilon_t
+\end{aligned}
+$$ {#eq-mul_wold}
+
+where $\bPsi(L) = \sum_{j=0}^\infty \bPsi_j L^j.$
+
+@eq-mul_wold is the multivariate Wold decomposition of $\by_t,$ also known as the moving average representation.
+
+
+## Impulse Response Function
+
+Impulse Response Function (IRF) is defined as the change in $\by_t$ due to a change in an innovation or shock.
+
+Mathematically, the IRF at horizon $h$ is given by
+
+$$
+\begin{aligned}
+\text{IRF}_{ij}(h) &= \frac{\partial}{\partial\varepsilon_{jt}} \Pcal_t [y_{i,t+h}]\\
+&= \frac{\partial}{\partial \varepsilon_{jt}} \E(y_{i,t+h} \mid \Fcal_{t})
+\end{aligned}
+$$
+
+which captures the effect of a shock to the $j$-th variable at time $t$ on the $i$-th variable at time $t+h.$
+
+Using the multivariate Wold representation, we can express the IRF as
+
+$$
+\begin{aligned}
+\text{IRF}_{ij}(h) &= \frac{\partial}{\partial \varepsilon_{jt}} \E\left(\bar{y}_i + \sum_{k=0}^\infty [\bPsi_k]_{ij}\, \varepsilon_{i, t+h-k} \mid \Fcal_t\right) \\
+&= \frac{\partial}{\partial \varepsilon_{jt}} \left( \bar{y}_i + \sum_{k=0}^\infty [\bPsi_k]_{ij} \, \E \left(\varepsilon_{i, t+h-k} \mid \Fcal_t\right) \right) \\
+\end{aligned}
+$$ 
+
+For $k \ge h$, $\E \left(\varepsilon_{t+h-k} \mid \Fcal_t\right) = \varepsilon_{t+h-k},$ and for $k< h,$ $\E \left(\varepsilon_{t+h-k} \mid \Fcal_t\right) = 0.$
+
+
+Hence, we have 
+
+$$
+\begin{aligned}
+\text{IRF}_{ij}(h) &= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{k=h}^\infty [\bPsi_k]_{ij} \varepsilon_{i, t+h-k} \right) \\
+&= \frac{\partial}{\partial \varepsilon_{jt}} \left( \sum_{\ell=0}^\infty [\bPsi_{h+\ell}]_{ij} \varepsilon_{i, t-\ell} \right)
+\end{aligned}
+$$
 
 
 ## Regression Notation
 
-
-The VAR($p$) system of equations can be written as
+The $\text{VAR}(p)$ system of equations can be written as
 
 $$
 \by_t = \bA'\bx_{t} + \bvarepsilon_t ,
@@ -131,10 +264,10 @@ and
 $$
 \begin{split}
 \underbrace{\bA'}_{m \times (mp+1)} &= \left(\begin{array}{c|cccc|cccc|c|cccc}
-\mu_0 & a_{11,1} & a_{12,1} & \cdots & a_{1m,1} & a_{11,2} & a_{12,2} & \cdots & a_{1m,2} & \cdots & a_{11,p} & a_{12,p} & \cdots & a_{1m,p} \\
-\mu_0 & a_{21,1} & a_{22,1} & \cdots & a_{2m,1} & a_{21,2} & a_{22,2} & \cdots & a_{2m,2} & \cdots & a_{21,p} & a_{22,p} & \cdots & a_{2m,p} \\
+a_{01} & a_{11,1} & a_{12,1} & \cdots & a_{1m,1} & a_{11,2} & a_{12,2} & \cdots & a_{1m,2} & \cdots & a_{11,p} & a_{12,p} & \cdots & a_{1m,p} \\
+a_{02} & a_{21,1} & a_{22,1} & \cdots & a_{2m,1} & a_{21,2} & a_{22,2} & \cdots & a_{2m,2} & \cdots & a_{21,p} & a_{22,p} & \cdots & a_{2m,p} \\
 \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
-\mu_0 & a_{m1,1} & a_{m2,1} & \cdots & a_{mm,1} & a_{m1,2} & a_{m2,2} & \cdots & a_{mm,2} & \cdots & a_{m1,p} & a_{m2,p} & \cdots & a_{mm,p}
+a_{0m} & a_{m1,1} & a_{m2,1} & \cdots & a_{mm,1} & a_{m1,2} & a_{m2,2} & \cdots & a_{mm,2} & \cdots & a_{m1,p} & a_{m2,p} & \cdots & a_{mm,p}
 \end{array}\right) \\
 &= \begin{pmatrix}
 \bmu_0 & \bA_1' & \bA_2' & \cdots & \bA_p'
@@ -160,7 +293,7 @@ $$
 $$
 
 
-where $\balpha_j$ is the $j$th column of $\bA$: the vector of coefficients for the $j$th variable in the VAR($p$) model.
+where $\balpha_j$ is the $j$th column of $\bA$: the vector of coefficients for the $j$th variable in the $\text{VAR}(p)$ model.
 
 Thus
 
@@ -268,7 +401,7 @@ $$
 $$
 
 :::{#thm-var-asymptotic name="VAR asymptotic distribution"}
-If $\by_t$ follows the VAR($p$) model with $\E(\bvarepsilon_t\mid \Fcal_{t-1})=0,$ then as $n\to\infty,$
+If $\by_t$ follows the $\text{VAR}(p)$ model with $\E(\bvarepsilon_t\mid \Fcal_{t-1})=0,$ then as $n\to\infty,$
 
 $$
 \sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)
@@ -289,7 +422,7 @@ $$
 
 $\E(\bvarepsilon_t\mid \Fcal_{t-1})=0$ means that the innovation is a martingale difference sequence, i.e., the error term is unforecastable at time $t-1$.
 
-This means that this distributional result assumes that the VAR($p$) model is the correct conditional mean for each variable. In words, these are the correct lags and there is no omitted nonlinearity.
+This means that this distributional result assumes that the $\text{VAR}(p)$ model is the correct conditional mean for each variable. In words, these are the correct lags and there is no omitted nonlinearity.
 
 
 ### Conditional Homoskedasticity
@@ -317,7 +450,7 @@ $$
 \sqrt{n}(\hat{\balpha} - \balpha) \xrightarrow{d} \mathcal{N}(0, \bV)
 $$
 
-where   
+where
 
 $$
 \begin{split}
@@ -372,7 +505,7 @@ w_l &= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 $$
 
 
-The number $M$ is called the lag truncation number. An unweighted estimator is obtained by setting $w_\ell = 1$ for all $\ell.$ The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the VAR($p$) is correctly specified.
+The number $M$ is called the lag truncation number. An unweighted estimator is obtained by setting $w_\ell = 1$ for all $\ell.$ The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the $\text{VAR}(p)$ is correctly specified.
 
 
 Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. Therefore bootstrap methods are popular. The most common bootstrap methods are, for example: **Recursive Residuals**, **Moving Block**, and **Stationary Bootstrap**. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in **Econometrics** by Bruce Hansen for more details.
