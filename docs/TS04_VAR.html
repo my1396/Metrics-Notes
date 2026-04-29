@@ -776,6 +776,7 @@ window.Quarto = {
   <li><a href="#impulse-response-function" id="toc-impulse-response-function" class="nav-link" data-scroll-target="#impulse-response-function"><span class="header-section-number">16.2</span> Impulse Response Function</a>
   <ul class="collapse">
   <li><a href="#cumulative-impulse-response-function" id="toc-cumulative-impulse-response-function" class="nav-link" data-scroll-target="#cumulative-impulse-response-function"><span class="header-section-number">16.2.1</span> Cumulative Impulse Response Function</a></li>
+  <li><a href="#orthogonized-impulse-response-function" id="toc-orthogonized-impulse-response-function" class="nav-link" data-scroll-target="#orthogonized-impulse-response-function"><span class="header-section-number">16.2.2</span> Orthogonized Impulse Response Function</a></li>
   </ul></li>
   <li><a href="#regression-notation" id="toc-regression-notation" class="nav-link" data-scroll-target="#regression-notation"><span class="header-section-number">16.3</span> Regression Notation</a></li>
   <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">16.4</span> Estimation</a>
@@ -1031,12 +1032,12 @@ L^{p+1}: &amp;\quad  \bPsi_{p+1} - \bPsi_{p}\bA_1 - \bPsi_{p-1}\bA_2 - \cdots - 
 <h2 data-number="16.2" class="anchored" data-anchor-id="impulse-response-function"><span class="header-section-number">16.2</span> Impulse Response Function</h2>
 <p>Impulse Response Function (IRF) is defined as the change in <span class="math inline">\(\by_t\)</span> due to a change in an innovation or shock.</p>
 <p>Mathematically, the IRF at horizon <span class="math inline">\(h\)</span> is given by</p>
-<p><span class="math display">\[
+<p><span id="eq-irf"><span class="math display">\[
 \begin{aligned}
 \text{IRF}_{ij}(h) &amp;= \frac{\partial}{\partial\varepsilon_{jt}} \Pcal_t [y_{i,t+h}]\\
 &amp;= \frac{\partial}{\partial \varepsilon_{jt}} \E(y_{i,t+h} \mid \Fcal_{t})
 \end{aligned}
-\]</span></p>
+\tag{16.7}\]</span></span></p>
 <p>which captures the effect of a shock to the <span class="math inline">\(j\)</span>-th variable at time <span class="math inline">\(t\)</span> on the <span class="math inline">\(i\)</span>-th variable at time <span class="math inline">\(t+h.\)</span></p>
 <p>Using the multivariate Wold representation, we can express the IRF as</p>
 <p><span class="math display">\[
@@ -1082,13 +1083,13 @@ L^{p+1}: &amp;\quad  \bPsi_{p+1} - \bPsi_{p}\bA_1 - \bPsi_{p-1}\bA_2 - \cdots - 
 <section id="cumulative-impulse-response-function" class="level3" data-number="16.2.1">
 <h3 data-number="16.2.1" class="anchored" data-anchor-id="cumulative-impulse-response-function"><span class="header-section-number">16.2.1</span> Cumulative Impulse Response Function</h3>
 <p>CIRF (Cumulative Impulse Response Function) is the accumulated (summed) response on <span class="math inline">\(y_t\)</span> from time <span class="math inline">\(t\)</span> to <span class="math inline">\(t+h:\)</span></p>
-<p><span class="math display">\[
+<p><span id="eq-cirf"><span class="math display">\[
 \begin{aligned}
 \text{CIRF}(h) &amp;= \sum_{\ell=1}^h \frac{\partial}{\partial \bvarepsilon_t'} \Pcal[\by_{t+\ell}] \\
 &amp;= \sum_{\ell=1}^h \text{IRF}(\ell) \\
 &amp;= \sum_{\ell=1}^h [\bPsi_\ell]
 \end{aligned}
-\]</span></p>
+\tag{16.8}\]</span></span></p>
 <p>The limit of <span class="math inline">\(\text{CIRF}(h)\)</span> as <span class="math inline">\(h\to\infty\)</span> is the long-run impulse response matrix:</p>
 <p><span class="math display">\[
 \bC = \lim_{h\to\infty} \text{CIRF}(h) = \sum_{\ell=1}^\infty [\bPsi_\ell] = \bPsi(1)
@@ -1100,6 +1101,69 @@ L^{p+1}: &amp;\quad  \bPsi_{p+1} - \bPsi_{p}\bA_1 - \bPsi_{p-1}\bA_2 - \cdots - 
 <p>Plug in <span class="math inline">\(L=1,\)</span> we have</p>
 <p><span class="math display">\[
 \bPsi(1) = \sum_{\ell=0}^\infty \bPsi_\ell .
+\]</span></p>
+<hr>
+</section>
+<section id="orthogonized-impulse-response-function" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="orthogonized-impulse-response-function"><span class="header-section-number">16.2.2</span> Orthogonized Impulse Response Function</h3>
+<p>Since innovations <span class="math inline">\(\bvarepsilon_t\)</span> are contemporaneously correlated in a VAR model, it makes it difficult to interpret the IRF. We cannot describe the impact of a shock of <span class="math inline">\(\varepsilon_{jt}\)</span> while “holding” <span class="math inline">\(\varepsilon_{st}\)</span> constant for <span class="math inline">\(s\neq j,\)</span> because <span class="math inline">\(\varepsilon_{jt}\)</span> and <span class="math inline">\(\varepsilon_{st}\)</span> are correlated.</p>
+<p>That’s why we often introduce the orthogonalized impulse response function, which is based on the orthogonalized innovations so that the shocks are uncorrelated. The orthogonalized innovations are obtained by applying the Cholesky decomposition to the covariance matrix <span class="math inline">\(\bSigma = \E(\bvarepsilon_t \bvarepsilon_t')\)</span> of the innovations <span class="math inline">\(\bvarepsilon_t.\)</span></p>
+<p>We can factor <span class="math inline">\(\bSigma\)</span> as</p>
+<p><span class="math display">\[
+\bSigma = \bP \bP',
+\]</span></p>
+<p>where <span class="math inline">\(\bP\)</span> is a lower triangular matrix, called a “square root” of <span class="math inline">\(\bSigma.\)</span></p>
+<p><span class="math inline">\(\bP\)</span> can be obtained by the Cholesky decomposition of <span class="math inline">\(\bSigma:\)</span></p>
+<p><span class="math display">\[
+\bP = \text{chol}(\bSigma) .
+\]</span></p>
+<p>Let <span class="math inline">\(m=3,\)</span> then we have</p>
+<p><span class="math display">\[
+\bP = \begin{bmatrix}
+p_{11} &amp; 0 &amp; 0 \\
+p_{21} &amp; p_{22} &amp; 0 \\
+p_{31} &amp; p_{32} &amp; p_{33}
+\end{bmatrix}
+\]</span></p>
+<p>with non-negative diagonal elements.</p>
+<p>Then we can define the orthogonalized innovations as</p>
+<p><span class="math display">\[
+\tilde{\bvarepsilon}_t = \bP^{-1} \bvarepsilon_t .
+\]</span></p>
+<p><span class="math inline">\(\tilde{\bvarepsilon}_t\)</span> has mean zero and covariance matrix</p>
+<p><span class="math display">\[
+\begin{aligned}
+\E(\tilde{\bvarepsilon}_t \tilde{\bvarepsilon}_t')
+&amp;= \E(\bP^{-1} \bvarepsilon_t \bvarepsilon_t' \bP'^{-1}) \\
+&amp;= \bP^{-1} \E(\bvarepsilon_t \bvarepsilon_t') \bP'^{-1} \\
+&amp;= \bP^{-1} \bSigma \bP'^{-1} \\
+&amp;= \bI_m .
+\end{aligned}
+\]</span></p>
+<p>That is, the elements <span class="math inline">\(\tilde{\bvarepsilon}_t = (\tilde{\varepsilon}_{1t}, \ldots, \tilde{\varepsilon}_{mt})\)</span> are mutually uncorrelated.</p>
+<p>Now we can define the <strong>Orthogonalized Impulse Response Function</strong> (OIRF) as</p>
+<p><span id="eq-oirf"><span class="math display">\[
+\text{OIRF}(h) = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \Pcal_t [\by_{t+h}] = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \E(\by_{t+h} \mid \Fcal_t) .
+\tag{16.9}\]</span></span></p>
+<p>Given <span class="math inline">\(\bvarepsilon_t = \bP\tilde{\bvarepsilon}_t,\)</span>, we can rewrite the multivariate Wold representation as</p>
+<p><span class="math display">\[
+\begin{aligned}
+\by_t &amp;= \bar{\by} + \sum_{j=0}^\infty \bPsi_j \bvarepsilon_{t-j} \\
+&amp;= \bar{\by} + \sum_{j=0}^\infty \bPsi_j \bP \tilde{\bvarepsilon}_{t-j} .
+\end{aligned}
+\]</span></p>
+<p>Taking the derivative, we have</p>
+<p><span class="math display">\[
+\text{OIRF}(h) = \bPsi_h \bP = \text{IRF}(h) \bP ,
+\]</span></p>
+<p>which is the non-orthogonalized IRF multiplied by the Cholesky factor <span class="math inline">\(\bP.\)</span></p>
+<p>Each <span class="math inline">\((i,j)\)</span>-element of <span class="math inline">\(\text{OIRF}(h)\)</span> can be obtained as</p>
+<p><span class="math display">\[
+\text{OIRF}_{ij}(h) = [\bPsi_h \bP]_{ij} = \sum_{s=1}^m \text{IRF}_{is}(h) p_{sj} .
+\]</span></p>
+<p>The <strong>Cumulative Orthogonalized Impulse Response Function</strong> (COIRF) is given by</p>
+<p><span class="math display">\[
+\text{COIRF}(h) = \sum_{\ell=1}^h \text{OIRF}(\ell) = \sum_{\ell=1}^h \bPsi_\ell \bP = \text{CIRF}(h) \bP .
 \]</span></p>
 </section>
 </section>
@@ -1210,7 +1274,7 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 <h2 data-number="16.5" class="anchored" data-anchor-id="asymptotic-distribution"><span class="header-section-number">16.5</span> Asymptotic Distribution</h2>
 <p>Set</p>
 <p><span class="math display">\[
-\balpha = \text{vec}\bA) = \begin{pmatrix}
+\balpha = \text{vec}(\bA) = \begin{pmatrix}
 \alpha_1 \\
 \alpha_2 \\
 \vdots \\
@@ -1243,9 +1307,9 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 <section id="conditional-homoskedasticity" class="level3" data-number="16.5.1">
 <h3 data-number="16.5.1" class="anchored" data-anchor-id="conditional-homoskedasticity"><span class="header-section-number">16.5.1</span> Conditional Homoskedasticity</h3>
 <p>If we further strengthen the MDS assumption and assume that <span class="math inline">\(\bvarepsilon_t\)</span> is conditionally homoskedastic, i.e.,</p>
-<p><span class="math display">\[
+<p><span id="eq-var-covariance-mat"><span class="math display">\[
 \E(\bvarepsilon_t \bvarepsilon_t' \mid \Fcal_{t-1}) = \bSigma ,
-\]</span></p>
+\tag{16.10}\]</span></span></p>
 <p>then the asymptotic variance simplifies to</p>
 <p><span class="math display">\[
 \begin{split}
@@ -1312,6 +1376,11 @@ w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 \widehat{\text{IRF}}(h) = \widehat{\bPsi}_h = \sum_{\ell=1}^{\text{min}[h,p]} \widehat{\bA}_\ell \widehat{\bPsi}_{h-\ell} .
 \]</span></p>
 <p>Note that <span class="math inline">\(\widehat{\text{IRF}}(h)\)</span> is a nonlinear function of the VAR coefficient estimators <span class="math inline">\(\widehat{\bA}\)</span>. Theoretically, the delta method can be used to derive the asymptotic distribution of the IRF estimator. However, given the distribution of <span class="math inline">\(\widehat{\bA}\)</span> is poor due to the time series dependence, taking into account the nonlinearity of the IRF estimator, the asymptotic distribution of the IRF estimator can only be worse. For example, in the simple AR(1) model with coefficient estimate <span class="math inline">\(\widehat{\alpha}\)</span>, the <span class="math inline">\(\widehat{\text{IRF}}(h)\)</span> is <span class="math inline">\(\widehat{\alpha}^h,\)</span> which is highly nonlinear for even moderate horizons <span class="math inline">\(h.\)</span> Consequently, the <strong>bootstrap</strong> can be used to construct confidence intervals for the IRF estimator.</p>
+<p>The <strong>orthogonalized impulse response estimator</strong> is given by</p>
+<p><span class="math display">\[
+\widehat{\text{OIRF}}(h) = \widehat{\bPsi}_h \widehat{\bP} ,
+\]</span></p>
+<p>where <span class="math inline">\(\widehat{\bP} = \text{chol}(\widehat{\bSigma})\)</span> so that <span class="math inline">\(\widehat{\bP} \widehat{\bP}' = \widehat{\bSigma}.\)</span></p>
 <hr>
 </section>
 <section id="predictive-regression" class="level2" data-number="16.8">
@@ -1319,8 +1388,8 @@ w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 <p>A standard VAR model a special case of a predictive regression model with one-step-ahead forecast horizon. An <span class="math inline">\(h\)</span>-step predictive <span class="math inline">\(\text{VAR}(p)\)</span> is where the dependent variable is dated <span class="math inline">\(h\)</span> periods ahead of the right-hand-side variables:</p>
 <p><span id="eq-predictive-var"><span class="math display">\[
 \by_{t+h} = \bb_0 + \bB_1 \by_{t} + \bB_2 \by_{t-1} + \cdots + \bB_p \by_{t-p+1} + \bu_t
-\tag{16.7}\]</span></span></p>
-<p>The integer <span class="math inline">\(h\ge 1\)</span> is called the forecast horizon. When <span class="math inline">\(h=1,\)</span> the predictive VAR model reduces to the standard VAR model. The coefficients in <a href="#eq-predictive-var" class="quarto-xref">Equation&nbsp;<span>16.7</span></a> should be viewed as the best linear predictors of <span class="math inline">\(\by_{t+h}\)</span> based on the information in <span class="math inline">\((\by_t, \by_{t-1}, \ldots, \by_{t-p+1}).\)</span></p>
+\tag{16.11}\]</span></span></p>
+<p>The integer <span class="math inline">\(h\ge 1\)</span> is called the forecast horizon. When <span class="math inline">\(h=1,\)</span> the predictive VAR model reduces to the standard VAR model. The coefficients in <a href="#eq-predictive-var" class="quarto-xref">Equation&nbsp;<span>16.11</span></a> should be viewed as the best linear predictors of <span class="math inline">\(\by_{t+h}\)</span> based on the information in <span class="math inline">\((\by_t, \by_{t-1}, \ldots, \by_{t-p+1}).\)</span></p>
 <p>An important relationship btw a VAR model and the corresponding <span class="math inline">\(h\)</span>-step predictive VAR model is given by the following theorem.</p>
 <div id="thm-var-predictive" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 16.4 (VAR and predictive VAR)</strong></span> If <span class="math inline">\(\by_t\)</span> is a <span class="math inline">\(\text{VAR}(p)\)</span> process, then its <span class="math inline">\(h\)</span>-step predictive regressive is a predictive <span class="math inline">\(\text{VAR}(p)\)</span> model with</p>
@@ -1336,7 +1405,7 @@ w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 <li><p>The principal for choosing the correct lag length <span class="math inline">\(p\)</span> in the predictive VAR model is to simply use the same lag length as the standard VAR model for all horizons.</p>
 <p>We cannot use standard selection criteria such as AIC or BIC to choose the lag length in the predictive VAR model, because the error term is serially correlated.</p>
 <p>We can use AIC on the one-step VAR model though. So we use the same <span class="math inline">\(p\)</span> for all horizons.</p></li>
-<li><p>Based on the property that <span class="math inline">\(\bB_1 = \bPsi_h,\)</span> we obtain a director estimator of the impulse response function, called the <strong>Local Projection Estimator</strong> of the IRF:</p>
+<li><p>Based on the property that <span class="math inline">\(\bB_1 = \bPsi_h,\)</span> we obtain a director estimator of the impulse response function, called the <span class="env-green"><strong>Local Projection Estimator</strong></span> of the IRF:</p>
 <p><span class="math display">\[
 \widehat{\text{IRF}}(h) = \hat{\bB}_1 .
 \]</span></p>

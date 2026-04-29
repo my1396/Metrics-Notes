@@ -278,7 +278,8 @@ $$
 \text{IRF}_{ij}(h) &= \frac{\partial}{\partial\varepsilon_{jt}} \Pcal_t [y_{i,t+h}]\\
 &= \frac{\partial}{\partial \varepsilon_{jt}} \E(y_{i,t+h} \mid \Fcal_{t})
 \end{aligned}
-$$
+$${#eq-irf}
+
 
 which captures the effect of a shock to the $j$-th variable at time $t$ on the $i$-th variable at time $t+h.$
 
@@ -349,7 +350,7 @@ $$
 &= \sum_{\ell=1}^h \text{IRF}(\ell) \\
 &= \sum_{\ell=1}^h [\bPsi_\ell]
 \end{aligned}
-$$
+$$ {#eq-cirf}
 
 The limit of $\text{CIRF}(h)$ as $h\to\infty$ is the long-run impulse response matrix:
 
@@ -368,6 +369,97 @@ Plug in $L=1,$ we have
 $$
 \bPsi(1) = \sum_{\ell=0}^\infty \bPsi_\ell .
 $$
+
+--------------------------------------------------------------------------------
+
+### Orthogonized Impulse Response Function
+
+Since innovations $\bvarepsilon_t$ are contemporaneously correlated in a VAR model, it makes it difficult to interpret the IRF. We cannot describe the impact of a shock of $\varepsilon_{jt}$ while "holding" $\varepsilon_{st}$ constant for $s\neq j,$ because $\varepsilon_{jt}$ and $\varepsilon_{st}$ are correlated.
+
+That's why we often introduce the orthogonalized impulse response function, which is based on the orthogonalized innovations so that the shocks are uncorrelated. The orthogonalized innovations are obtained by applying the Cholesky decomposition to the covariance matrix $\bSigma = \E(\bvarepsilon_t \bvarepsilon_t')$ of the innovations $\bvarepsilon_t.$
+
+We can factor $\bSigma$ as 
+
+$$
+\bSigma = \bP \bP',
+$$ 
+
+where $\bP$ is a lower triangular matrix, called a "square root" of $\bSigma.$ 
+
+$\bP$ can be obtained by the Cholesky decomposition of $\bSigma:$
+
+$$
+\bP = \text{chol}(\bSigma) .
+$$
+
+Let $m=3,$ then we have
+
+$$
+\bP = \begin{bmatrix}
+p_{11} & 0 & 0 \\
+p_{21} & p_{22} & 0 \\
+p_{31} & p_{32} & p_{33}
+\end{bmatrix} 
+$$
+
+with non-negative diagonal elements. 
+
+Then we can define the orthogonalized innovations as
+
+$$
+\tilde{\bvarepsilon}_t = \bP^{-1} \bvarepsilon_t .
+$$
+
+$\tilde{\bvarepsilon}_t$ has mean zero and covariance matrix
+
+$$
+\begin{aligned}
+\E(\tilde{\bvarepsilon}_t \tilde{\bvarepsilon}_t') 
+&= \E(\bP^{-1} \bvarepsilon_t \bvarepsilon_t' \bP'^{-1}) \\
+&= \bP^{-1} \E(\bvarepsilon_t \bvarepsilon_t') \bP'^{-1} \\
+&= \bP^{-1} \bSigma \bP'^{-1} \\
+&= \bI_m .
+\end{aligned}
+$$
+
+That is, the elements $\tilde{\bvarepsilon}_t = (\tilde{\varepsilon}_{1t}, \ldots, \tilde{\varepsilon}_{mt})$ are mutually uncorrelated.
+
+
+Now we can define the **Orthogonalized Impulse Response Function** (OIRF) as
+
+$$
+\text{OIRF}(h) = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \Pcal_t [\by_{t+h}] = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \E(\by_{t+h} \mid \Fcal_t) .
+$$ {#eq-oirf}
+
+Given $\bvarepsilon_t = \bP\tilde{\bvarepsilon}_t,$, we can rewrite the multivariate Wold representation as
+
+$$
+\begin{aligned}
+\by_t &= \bar{\by} + \sum_{j=0}^\infty \bPsi_j \bvarepsilon_{t-j} \\
+&= \bar{\by} + \sum_{j=0}^\infty \bPsi_j \bP \tilde{\bvarepsilon}_{t-j} .
+\end{aligned}
+$$
+
+Taking the derivative, we have
+
+$$
+\text{OIRF}(h) = \bPsi_h \bP = \text{IRF}(h) \bP ,
+$$
+
+which is the non-orthogonalized IRF multiplied by the Cholesky factor $\bP.$
+
+Each $(i,j)$-element of $\text{OIRF}(h)$ can be obtained as
+
+$$
+\text{OIRF}_{ij}(h) = [\bPsi_h \bP]_{ij} = \sum_{s=1}^m \text{IRF}_{is}(h) p_{sj} .
+$$
+
+The **Cumulative Orthogonalized Impulse Response Function** (COIRF) is given by
+
+$$
+\text{COIRF}(h) = \sum_{\ell=1}^h \text{OIRF}(\ell) = \sum_{\ell=1}^h \bPsi_\ell \bP = \text{CIRF}(h) \bP .
+$$
+
 
 ## Regression Notation
 
@@ -516,7 +608,7 @@ VAR models can be estimated in Stata using the `var` command.
 Set
 
 $$
-\balpha = \text{vec}\bA) = \begin{pmatrix}
+\balpha = \text{vec}(\bA) = \begin{pmatrix}
 \alpha_1 \\ 
 \alpha_2 \\
 \vdots \\
@@ -561,7 +653,7 @@ If we further strengthen the MDS assumption and assume that $\bvarepsilon_t$ is 
 
 $$
 \E(\bvarepsilon_t \bvarepsilon_t' \mid \Fcal_{t-1}) = \bSigma ,
-$$ 
+$$ {#eq-var-covariance-mat}
 
 then the asymptotic variance simplifies to
 
@@ -651,13 +743,23 @@ Given the estimated VAR model and the estimated coefficient matrices $\hat{\bA}_
 
 $$
 \widehat{\text{IRF}}(h) = \widehat{\bPsi}_h = \sum_{\ell=1}^{\text{min}[h,p]} \widehat{\bA}_\ell \widehat{\bPsi}_{h-\ell} .
-$$
+$$ 
 
 Note that $\widehat{\text{IRF}}(h)$ is a nonlinear function of the VAR coefficient estimators $\widehat{\bA}$. 
 Theoretically, the delta method can be used to derive the asymptotic distribution of the IRF estimator.
 However, given the distribution of $\widehat{\bA}$ is poor due to the time series dependence, taking into account the nonlinearity of the IRF estimator, the asymptotic distribution of the IRF estimator can only be worse.
 For example, in the simple AR(1) model with coefficient estimate $\widehat{\alpha}$, the $\widehat{\text{IRF}}(h)$ is $\widehat{\alpha}^h,$ which is highly nonlinear for even moderate horizons $h.$
 Consequently, the **bootstrap** can be used to construct confidence intervals for the IRF estimator.
+
+
+The **orthogonalized impulse response estimator** is given by
+
+$$
+\widehat{\text{OIRF}}(h) = \widehat{\bPsi}_h \widehat{\bP} ,
+$$
+
+where $\widehat{\bP} = \text{chol}(\widehat{\bSigma})$ so that $\widehat{\bP} \widehat{\bP}' = \widehat{\bSigma}.$
+
 
 --------------------------------------------------------------------------------
 
@@ -694,7 +796,7 @@ Some important implications of this result are:
   
   We can use AIC on the one-step VAR model though. So we use the same $p$ for all horizons.
 
-- Based on the property that $\bB_1 = \bPsi_h,$ we obtain a director estimator of the impulse response function, called the **Local Projection Estimator** of the IRF:
+- Based on the property that $\bB_1 = \bPsi_h,$ we obtain a director estimator of the impulse response function, called the <span class="env-green">**Local Projection Estimator**</span> of the IRF:
   
   $$
   \widehat{\text{IRF}}(h) = \hat{\bB}_1 .
@@ -707,6 +809,7 @@ Some important implications of this result are:
 
 
 --------------------------------------------------------------------------------
+
 
 ## Granger Causality
 
