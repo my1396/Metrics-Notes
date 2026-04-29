@@ -260,7 +260,77 @@ ul.task-list li input[type="checkbox"] {
 </script>
 
 <style>
-  /* Set \text{} font in MathJax to serif */
+  /* Load Cambria Math explicitly for Safari compatibility */
+  @font-face {
+    font-family: "Cambria Math";
+    src: url("assets/fonts/Cambria Math.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* Load Georgia Pro — all styles */
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-LightItalic.ttf") format("truetype");
+    font-weight: 300;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-SemiBoldItalic.ttf") format("truetype");
+    font-weight: 600;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-BoldItalic.ttf") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-BlackItalic.ttf") format("truetype");
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  /* Set \text{} font in MathJax to Cambria Math (explicitly loaded) */
   mjx-mtext,
   mjx-mtext > mjx-utext {
     font-family: "Georgia Pro", "Georgia", "Cambria Math", serif !important;
@@ -767,7 +837,7 @@ y_t = \beta_1 + \beta_2x_t + \beta_3x_{t-1} + \gamma y_{t-1} + \varepsilon_t.
 \]</span> where <span class="math inline">\(w_t\)</span> is a strictly stationary and ergodic white noise process with 0 mean and variance <span class="math inline">\(\sigma^2_w\)</span>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-WN" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-WN-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/white_noise.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -788,7 +858,7 @@ Figure&nbsp;4.1: White noise process with <span class="math inline">\(\sigma=20\
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-AR1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">
@@ -805,7 +875,7 @@ Figure&nbsp;4.2: Simulated AR(1) processes with positive <span class="math inlin
 <p>We see that <span style="color:#337ab7">the sample path is very choppy when <span class="math inline">\(\rho\)</span> is negative</span>. The different patterns for positive and negative <span class="math inline">\(\rho\)</span>’s are due to their <span style="color:#337ab7"><em>autocorrelation functions</em></span> (ACFs).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-AR1-neg" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-AR1-neg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/autocorrelated_series_negative-rho.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H">

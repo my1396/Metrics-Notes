@@ -48,6 +48,7 @@ format:
     include-in-header: themes/mathjax.html
     respect-user-color-scheme: true
     fontsize: 18px
+    resources: assets/
     theme:
       dark: [cosmo, themes/cosmo-dark.scss]
       light: [cosmo, themes/cosmo-light.scss]

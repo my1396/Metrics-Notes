@@ -186,7 +186,77 @@
 </script>
 
 <style>
-  /* Set \text{} font in MathJax to serif */
+  /* Load Cambria Math explicitly for Safari compatibility */
+  @font-face {
+    font-family: "Cambria Math";
+    src: url("assets/fonts/Cambria Math.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* Load Georgia Pro — all styles */
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-LightItalic.ttf") format("truetype");
+    font-weight: 300;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-SemiBoldItalic.ttf") format("truetype");
+    font-weight: 600;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-BoldItalic.ttf") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Georgia Pro";
+    src: url("assets/fonts/Georgia Pro/GeorgiaPro-BlackItalic.ttf") format("truetype");
+    font-weight: 900;
+    font-style: italic;
+  }
+
+  /* Set \text{} font in MathJax to Cambria Math (explicitly loaded) */
   mjx-mtext,
   mjx-mtext > mjx-utext {
     font-family: "Georgia Pro", "Georgia", "Cambria Math", serif !important;
