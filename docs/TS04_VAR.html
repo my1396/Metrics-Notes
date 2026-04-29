@@ -43,8 +43,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a4d0c9c7c01e9e8ad6d051bd73593869.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-95b79468fb1b275d35eccd7531d6cfe2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3c1dd9212c8ab3fede023d7869084130.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-b551c9367c517fc0a700b2f127b77c0b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -74,6 +74,9 @@ ul.task-list li input[type="checkbox"] {
 }</script>
  
 <!-- This is what works with Quarto and MathJax 3+ -->
+
+<link rel="apple-touch-icon" href="images/favicon.ico">
+
 <script>
   MathJax = {
     tex: {
@@ -255,6 +258,14 @@ ul.task-list li input[type="checkbox"] {
     }
   };
 </script>
+
+<style>
+  /* Set \text{} font in MathJax to serif */
+  mjx-mtext,
+  mjx-mtext > mjx-utext {
+    font-family: "Georgia Pro", "Georgia", "Cambria Math", serif !important;
+  }
+</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -692,7 +703,10 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#multivariate-wold-decomposition" id="toc-multivariate-wold-decomposition" class="nav-link" data-scroll-target="#multivariate-wold-decomposition"><span class="header-section-number">16.1.1</span> Multivariate Wold Decomposition</a></li>
   </ul></li>
-  <li><a href="#impulse-response-function" id="toc-impulse-response-function" class="nav-link" data-scroll-target="#impulse-response-function"><span class="header-section-number">16.2</span> Impulse Response Function</a></li>
+  <li><a href="#impulse-response-function" id="toc-impulse-response-function" class="nav-link" data-scroll-target="#impulse-response-function"><span class="header-section-number">16.2</span> Impulse Response Function</a>
+  <ul class="collapse">
+  <li><a href="#cumulative-impulse-response-function" id="toc-cumulative-impulse-response-function" class="nav-link" data-scroll-target="#cumulative-impulse-response-function"><span class="header-section-number">16.2.1</span> Cumulative Impulse Response Function</a></li>
+  </ul></li>
   <li><a href="#regression-notation" id="toc-regression-notation" class="nav-link" data-scroll-target="#regression-notation"><span class="header-section-number">16.3</span> Regression Notation</a></li>
   <li><a href="#estimation" id="toc-estimation" class="nav-link" data-scroll-target="#estimation"><span class="header-section-number">16.4</span> Estimation</a>
   <ul class="collapse">
@@ -703,7 +717,9 @@ window.Quarto = {
   <li><a href="#conditional-homoskedasticity" id="toc-conditional-homoskedasticity" class="nav-link" data-scroll-target="#conditional-homoskedasticity"><span class="header-section-number">16.5.1</span> Conditional Homoskedasticity</a></li>
   </ul></li>
   <li><a href="#covariance-matrix-estimation" id="toc-covariance-matrix-estimation" class="nav-link" data-scroll-target="#covariance-matrix-estimation"><span class="header-section-number">16.6</span> Covariance Matrix Estimation</a></li>
-  <li><a href="#granger-causality" id="toc-granger-causality" class="nav-link" data-scroll-target="#granger-causality"><span class="header-section-number">16.7</span> Granger Causality</a></li>
+  <li><a href="#irf-estimation" id="toc-irf-estimation" class="nav-link" data-scroll-target="#irf-estimation"><span class="header-section-number">16.7</span> IRF Estimation</a></li>
+  <li><a href="#predictive-regression" id="toc-predictive-regression" class="nav-link" data-scroll-target="#predictive-regression"><span class="header-section-number">16.8</span> Predictive Regression</a></li>
+  <li><a href="#granger-causality" id="toc-granger-causality" class="nav-link" data-scroll-target="#granger-causality"><span class="header-section-number">16.9</span> Granger Causality</a></li>
   </ul>
 </nav>
     </div>
@@ -762,9 +778,9 @@ y_{1t} = a_{10} + a_{11} y_{1, t-1} + a_{12} y_{2, t-1} + \varepsilon_{1t}
 y_{2t} = a_{20} + a_{21} y_{1, t-1} + a_{22} y_{2, t-1} + \varepsilon_{2t}
 \]</span></p>
 <p>Each variable is a linear function of its own lag and the lag of the other variable. The two equations can be stacked together:</p>
-<p><span class="math display">\[
+<p><span id="eq-var-1"><span class="math display">\[
 \by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t
-\]</span></p>
+\tag{16.1}\]</span></span></p>
 <p>Where:</p>
 <ul>
 <li><p><span class="math inline">\(\bmu_0 = (a_{10}, a_{20})'\)</span> is <span class="math inline">\(2 \times 1\)</span></p></li>
@@ -815,8 +831,8 @@ y_{2, t-1}
 \end{bmatrix}
 \]</span></p>
 <hr>
-<p>Alternative representation of VAR(1) model:</p>
-<p><span class="math display">\[
+<p><strong>Alternative representation</strong> of VAR(1) model (grouped by variables):</p>
+<p><span id="eq-alternative-var"><span class="math display">\[
 \begin{bmatrix}
 \by_1 \\
 \by_2
@@ -828,12 +844,12 @@ y_{2, t-1}
 A_{21} &amp; A_{22}
 \end{bmatrix}
 \begin{bmatrix}\by_{1, -1} \\
-\bx_{2, -1}
+\by_{2, -1}
 \end{bmatrix} +
 \begin{bmatrix}\bvarepsilon_{1} \\
 \bvarepsilon_{2}
 \end{bmatrix}
-\]</span></p>
+\tag{16.2}\]</span></span></p>
 <p>where</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -841,16 +857,17 @@ A_{11} &amp;= I_n \times a_{11}, \quad A_{12} = I_n \times a_{12}, \\
 A_{21} &amp;= I_n \times a_{21}, \quad A_{22} = I_n \times a_{22}
 \end{aligned}
 \]</span></p>
+<p>Note that <a href="#eq-alternative-var" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> is NOT the common representation. It is more common to group by time as in <span class="math inline">\(\by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t.\)</span></p>
 <hr>
 <p><strong>General specification of <span class="math inline">\(\text{VAR}(p)\)</span> model</strong></p>
 <p>This model extends naturally to more than two variables.</p>
 <p>For <span class="math inline">\(p\)</span>-lag and <span class="math inline">\(m\)</span>-variable <span class="math inline">\(\by_t\)</span>, the <span class="math inline">\(\text{VAR}(p)\)</span> model is:</p>
 <p><span id="eq-var-p"><span class="math display">\[
 \by_t = \bmu_0 + \bA_1 \by_{t-1} + \bA_2 \by_{t-2} + \cdots + \bA_p \by_{t-p} + \bvarepsilon_t .
-\tag{16.1}\]</span></span></p>
+\tag{16.3}\]</span></span></p>
 <p>where:</p>
 <ul>
-<li><span class="math inline">\(\by_t\)</span> is <span class="math inline">\(m \times 1\)</span></li>
+<li><span class="math inline">\(\by_t\)</span> is a <span class="math inline">\(m \times 1\)</span> vector of variables at time <span class="math inline">\(t\)</span></li>
 <li><span class="math inline">\(\bA_\ell\)</span> are <span class="math inline">\(m \times m\)</span>, for <span class="math inline">\(\ell = 1, \ldots, p\)</span>, autoregressive coefficient matrices</li>
 <li><span class="math inline">\(\bvarepsilon_t\)</span> is <span class="math inline">\(m \times 1\)</span></li>
 </ul>
@@ -870,7 +887,7 @@ a_{m1,\ell} &amp; a_{m2,\ell} &amp; \cdots &amp; a_{mm,\ell}
 y_{mt} &amp;= \mu_m + \underbrace{ a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1} }_{\bA_1 \by_{t-1} \text{ terms}} \\
 &amp;\phantom{=} \quad + \underbrace{a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2}}_{\bA_2 \by_{t-2} \text{ terms}} \\
 &amp;\phantom{=} \quad + \cdots + \underbrace{a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p}}_{\bA_p \by_{t-p} \text{ terms}} + \varepsilon_{mt} \\
-&amp;= \mu_m + \underbrace{\sum_{\ell=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{\ell=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{\ell=1}^p [A_\ell]_{mm} y_{m, t-\ell}}_{\text{Collect by components in }A_\ell, m\times m \times p \text{ terms}} + \varepsilon_{mt}
+&amp;= \mu_m + \underbrace{\sum_{\ell=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{\ell=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{\ell=1}^p [A_\ell]_{mm} y_{m, t-\ell}}_{\text{Collect by components in }A_\ell,\, m\times m \times p \text{ terms}} + \varepsilon_{mt}
 \end{aligned}
 \]</span></p>
 <p>where <span class="math inline">\([A_\ell]_{lm}\)</span> is the <span class="math inline">\((l,m)\)</span>-th element of the matrix <span class="math inline">\(A_\ell.\)</span></p>
@@ -882,13 +899,14 @@ y_{mt} &amp;= \mu_m + \underbrace{ a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \
 \bSigma = \mathbb{E}[\bvarepsilon_t \bvarepsilon_t']
 \]</span></p>
 <p>is non-diagonal.</p>
-<p>We can write the <span class="math inline">\(\text{VAR}(p)\)</span> model <a href="#eq-var-p" class="quarto-xref">Equation&nbsp;<span>16.1</span></a> using the lag operator notation as</p>
-<p><span class="math display">\[
+<p>We can write the <span class="math inline">\(\text{VAR}(p)\)</span> model <a href="#eq-var-p" class="quarto-xref">Equation&nbsp;<span>16.3</span></a> using the lag operator notation as</p>
+<p><span id="eq-var-lag-operator"><span class="math display">\[
 \begin{aligned}
 \by_t &amp;= \bmu_0 + A(L) \by_t + \bvarepsilon_t \\
-\left(\bI - \bA(L)\right) \by_t &amp;= \bmu_0 + \bvarepsilon_t
+\left(\bI - \bA(L)\right) \by_t &amp;= \bmu_0 + \bvarepsilon_t \\
+\bGamma(L) \by_t &amp;= \bmu_0 + \bvarepsilon_t
 \end{aligned}
-\]</span></p>
+\tag{16.4}\]</span></span></p>
 <p>where</p>
 <p><span class="math display">\[
 \bGamma(L) = \bI - \bA(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
@@ -912,9 +930,31 @@ y_{mt} &amp;= \mu_m + \underbrace{ a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \
 \Rightarrow \by_t &amp;= \bar{\by} + \sum_{j=0}^\infty \bPsi_j \bvarepsilon_{t-j} \\
 \by_t &amp;= \bar{\by} + \bPsi(L) \bvarepsilon_t
 \end{aligned}
-\tag{16.2}\]</span></span></p>
+\tag{16.5}\]</span></span></p>
 <p>where <span class="math inline">\(\bPsi(L) = \sum_{j=0}^\infty \bPsi_j L^j.\)</span></p>
-<p><a href="#eq-mul_wold" class="quarto-xref">Equation&nbsp;<span>16.2</span></a> is the multivariate Wold decomposition of <span class="math inline">\(\by_t,\)</span> also known as the moving average representation.</p>
+<p><a href="#eq-mul_wold" class="quarto-xref">Equation&nbsp;<span>16.5</span></a> is the multivariate Wold decomposition of <span class="math inline">\(\by_t,\)</span> also known as the moving average representation.</p>
+<p><span class="math inline">\(\bPsi(L)\)</span> can be computed recursively using the relation <span class="math inline">\(\bPsi(L) = \bGamma(L)^{-1},\)</span> where</p>
+<p><span class="math display">\[
+\bGamma(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p
+\]</span></p>
+<p>We follow the same procedure as in the <a href="TS02_lag_poly.html#sec-lag-polynomial-inverse">inverse of lag polynomials</a> to compute <span class="math inline">\(\bPsi(L)\)</span> recursively.</p>
+<p><span class="math display">\[
+\begin{aligned}
+L^0:&amp;\quad  \bPsi_0 = \bI_m \\
+L^1: &amp;\quad  \bPsi_1 - \bPsi_0\bA_1 = 0 \Longrightarrow \bPsi_1 = \bPsi_0\bA_1 = \bA_1 \\
+L^2: &amp;\quad  \bPsi_2 - \bPsi_1\bA_1 - \bPsi_0\bA_2 = 0 \Longrightarrow \bPsi_2 = \bPsi_1\bA_1 + \bPsi_0\bA_2 = \bA_1^2 + \bA_2 \\
+\vdots \\
+L^p: &amp;\quad  \bPsi_p - \bPsi_{p-1}\bA_1 - \bPsi_{p-2}\bA_2 - \cdots - \bPsi_{1}\bA_{p-1} - \bPsi_{0}\bA_p = 0 \\
+L^{p+1}: &amp;\quad  \bPsi_{p+1} - \bPsi_{p}\bA_1 - \bPsi_{p-1}\bA_2 - \cdots - \bPsi_{2}\bA_{p-1} - \bPsi_{1}\bA_p = 0 \\
+\vdots
+\end{aligned}
+\]</span></p>
+<p>More generally, for <span class="math inline">\(j\ge 1,\)</span></p>
+<div class="env-green">
+<p><span id="eq-var-MA-coefficients"><span class="math display">\[
+\bPsi_j = \sum_{\ell=1}^j \bPsi_{j-\ell} \bA_\ell .
+\tag{16.6}\]</span></span></p>
+</div>
 </section>
 </section>
 <section id="impulse-response-function" class="level2" data-number="16.2">
@@ -954,10 +994,44 @@ y_{mt} &amp;= \mu_m + \underbrace{ a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \
 \]</span></p>
 <p>where <span class="math inline">\([\bPsi_k]_{i\cdot}\)</span> is the <span class="math inline">\(i\)</span>-th row of the matrix <span class="math inline">\(\bPsi_k,\)</span> and <span class="math inline">\([\bPsi_h]_{ij}\)</span> is the <span class="math inline">\((i,j)\)</span>-th element of the matrix <span class="math inline">\(\bPsi_h.\)</span></p>
 <p>Taking the derivative, the only term that survives is the <span class="math inline">\((i,j)\)</span>-th element of the coefficient matrix <span class="math inline">\(\bPsi_h:\)</span></p>
+<div class="env-green">
 <p><span class="math display">\[
 \text{IRF}_{ij}(h) = [\bPsi_h]_{ij},
 \]</span></p>
+</div>
 <p>which captures the effect of a shock to the <span class="math inline">\(j\)</span>-th variable at time <span class="math inline">\(t\)</span> on the <span class="math inline">\(i\)</span>-th variable at time <span class="math inline">\(t+h.\)</span></p>
+<p>We often plot IRF as a function of the horizon <span class="math inline">\(h\)</span> for each pair <span class="math inline">\((i, j),\)</span> it shows how the <span class="math inline">\(i\)</span>-th variable responds over time to the <span class="math inline">\(j\)</span>-th innovation.</p>
+<p>Note that in a linear VAR model,</p>
+<ul>
+<li><p>The IRF is symmetric in negative and positive innovations.</p>
+<p>That is, the impact on <span class="math inline">\(y_{i, t+h}\)</span> of a positive innovation <span class="math inline">\(\varepsilon_{j,t} = 1\)</span> is <span class="math inline">\(\text{IRF}_{ij}(h),\)</span> and the impact of a negative innovation <span class="math inline">\(\varepsilon_{j,t} = -1\)</span> is <span class="math inline">\(-\text{IRF}_{ij}(h).\)</span></p></li>
+<li><p>The magnitude of the impact is linear in the magnitude of the innovation.</p>
+<p>The impact of the innovation <span class="math inline">\(\varepsilon_{j,t} = 2\)</span> is <span class="math inline">\(2\times \text{IRF}_{ij}(h).\)</span></p></li>
+</ul>
+<p>This means that the shape of the impulse response function is unaffected by the magnitude of the innnovation. Be aware that theses are consequences of the linearity of the VAR model, not necessarily features of the true world.</p>
+<section id="cumulative-impulse-response-function" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="cumulative-impulse-response-function"><span class="header-section-number">16.2.1</span> Cumulative Impulse Response Function</h3>
+<p>CIRF (Cumulative Impulse Response Function) is the accumulated (summed) response on <span class="math inline">\(y_t\)</span> from time <span class="math inline">\(t\)</span> to <span class="math inline">\(t+h:\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{CIRF}(h) &amp;= \sum_{\ell=1}^h \frac{\partial}{\partial \bvarepsilon_t'} \Pcal[\by_{t+\ell}] \\
+&amp;= \sum_{\ell=1}^h \text{IRF}(\ell) \\
+&amp;= \sum_{\ell=1}^h [\bPsi_\ell]
+\end{aligned}
+\]</span></p>
+<p>The limit of <span class="math inline">\(\text{CIRF}(h)\)</span> as <span class="math inline">\(h\to\infty\)</span> is the long-run impulse response matrix:</p>
+<p><span class="math display">\[
+\bC = \lim_{h\to\infty} \text{CIRF}(h) = \sum_{\ell=1}^\infty [\bPsi_\ell] = \bPsi(1)
+\]</span></p>
+<p>To show the last equality:</p>
+<p><span class="math display">\[
+\bPsi(L) = \sum_{\ell=0}^\infty \bPsi_\ell L^\ell
+\]</span></p>
+<p>Plug in <span class="math inline">\(L=1,\)</span> we have</p>
+<p><span class="math display">\[
+\bPsi(1) = \sum_{\ell=0}^\infty \bPsi_\ell .
+\]</span></p>
+</section>
 </section>
 <section id="regression-notation" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="regression-notation"><span class="header-section-number">16.3</span> Regression Notation</h2>
@@ -1135,14 +1209,14 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 &amp;= \hat{\bSigma} \otimes (\bX'\bX)^{-1} .
 \end{split}
 \]</span></p>
-<p>The heteroskedasticity-robust covariance matrix estimator is given by</p>
+<p>The <span class="env-green">heteroskedasticity-robust covariance matrix estimator</span> is given by</p>
 <p><span class="math display">\[
 \begin{split}  
 \hat{\bV}_{\hat{\balpha}} &amp;= \left(\bI_n \otimes\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \left(\sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t' \otimes \bx_t \bx_t' \right) \left(\bI_n \otimes\sum_{t=1}^n \bx_t \bx_t'\right)^{-1} \\
 &amp;= (\bI_n \otimes \bX'\bX)^{-1} \left(\sum_{t=1}^n \hat{\bvarepsilon}_t \hat{\bvarepsilon}_t' \otimes \bx_t \bx_t' \right) (\bI_n \otimes \bX'\bX)^{-1}
 \end{split}
 \]</span></p>
-<p>The Newey-West covariance matrix estimator is given by</p>
+<p>The <span class="env-green">Newey-West covariance matrix estimator</span> is given by</p>
 <p><span class="math display">\[
 \begin{split}
 \hat{\bV}_{\hat{\balpha}}
@@ -1156,12 +1230,53 @@ y_{jt} = \balpha_j' \bx_t + \varepsilon_{jt}
 w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 \end{split}
 \]</span></p>
-<p>The number <span class="math inline">\(M\)</span> is called the lag truncation number. An unweighted estimator is obtained by setting <span class="math inline">\(w_\ell = 1\)</span> for all <span class="math inline">\(\ell.\)</span> The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the <span class="math inline">\(\text{VAR}(p)\)</span> is correctly specified.</p>
-<p>Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. Therefore bootstrap methods are popular. The most common bootstrap methods are, for example: <strong>Recursive Residuals</strong>, <strong>Moving Block</strong>, and <strong>Stationary Bootstrap</strong>. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in <strong>Econometrics</strong> by Bruce Hansen for more details.</p>
+<p>The number <span class="env-green"><span class="math inline">\(M\)</span> is called the lag truncation number</span>. An unweighted estimator is obtained by setting <span class="math inline">\(w_\ell = 1\)</span> for all <span class="math inline">\(\ell.\)</span> The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, <em>where the weights are chosen to account for serial correlation in the errors</em>. The Newey-West estimator does not require that the <span class="math inline">\(\text{VAR}(p)\)</span> is correctly specified.</p>
+<p><span class="env-orange">Caveat:</span> Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations.</p>
+<p><span class="env-green">Mitigation:</span> Therefore <strong>bootstrap methods</strong> are popular. The most common bootstrap methods are, for example: <strong>Recursive Residuals</strong>, <strong>Moving Block</strong>, and <strong>Stationary Bootstrap</strong>. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in <strong>Econometrics</strong> by Bruce Hansen for more details.</p>
 <hr>
 </section>
-<section id="granger-causality" class="level2" data-number="16.7">
-<h2 data-number="16.7" class="anchored" data-anchor-id="granger-causality"><span class="header-section-number">16.7</span> Granger Causality</h2>
+<section id="irf-estimation" class="level2" data-number="16.7">
+<h2 data-number="16.7" class="anchored" data-anchor-id="irf-estimation"><span class="header-section-number">16.7</span> IRF Estimation</h2>
+<p>Given the estimated VAR model and the estimated coefficient matrices <span class="math inline">\(\hat{\bA}_\ell,\)</span> we can obtain the impulse response estimator based on <a href="#eq-var-MA-coefficients" class="quarto-xref">Equation&nbsp;<span>16.6</span></a> as</p>
+<p><span class="math display">\[
+\widehat{\text{IRF}}(h) = \widehat{\bPsi}_h = \sum_{\ell=1}^{\text{min}[h,p]} \widehat{\bA}_\ell \widehat{\bPsi}_{h-\ell} .
+\]</span></p>
+<p>Note that <span class="math inline">\(\widehat{\text{IRF}}(h)\)</span> is a nonlinear function of the VAR coefficient estimators <span class="math inline">\(\widehat{\bA}\)</span>. Theoretically, the delta method can be used to derive the asymptotic distribution of the IRF estimator. However, given the distribution of <span class="math inline">\(\widehat{\bA}\)</span> is poor due to the time series dependence, taking into account the nonlinearity of the IRF estimator, the asymptotic distribution of the IRF estimator can only be worse. For example, in the simple AR(1) model with coefficient estimate <span class="math inline">\(\widehat{\alpha}\)</span>, the <span class="math inline">\(\widehat{\text{IRF}}(h)\)</span> is <span class="math inline">\(\widehat{\alpha}^h,\)</span> which is highly nonlinear for even moderate horizons <span class="math inline">\(h.\)</span> Consequently, the <strong>bootstrap</strong> can be used to construct confidence intervals for the IRF estimator.</p>
+<hr>
+</section>
+<section id="predictive-regression" class="level2" data-number="16.8">
+<h2 data-number="16.8" class="anchored" data-anchor-id="predictive-regression"><span class="header-section-number">16.8</span> Predictive Regression</h2>
+<p>A standard VAR model a special case of a predictive regression model with one-step-ahead forecast horizon. An <span class="math inline">\(h\)</span>-step predictive <span class="math inline">\(\text{VAR}(p)\)</span> is where the dependent variable is dated <span class="math inline">\(h\)</span> periods ahead of the right-hand-side variables:</p>
+<p><span id="eq-predictive-var"><span class="math display">\[
+\by_{t+h} = \bb_0 + \bB_1 \by_{t} + \bB_2 \by_{t-1} + \cdots + \bB_p \by_{t-p+1} + \bu_t
+\tag{16.7}\]</span></span></p>
+<p>The integer <span class="math inline">\(h\ge 1\)</span> is called the forecast horizon. When <span class="math inline">\(h=1,\)</span> the predictive VAR model reduces to the standard VAR model. The coefficients in <a href="#eq-predictive-var" class="quarto-xref">Equation&nbsp;<span>16.7</span></a> should be viewed as the best linear predictors of <span class="math inline">\(\by_{t+h}\)</span> based on the information in <span class="math inline">\((\by_t, \by_{t-1}, \ldots, \by_{t-p+1}).\)</span></p>
+<p>An important relationship btw a VAR model and the corresponding <span class="math inline">\(h\)</span>-step predictive VAR model is given by the following theorem.</p>
+<div id="thm-var-predictive" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 16.4 (VAR and predictive VAR)</strong></span> If <span class="math inline">\(\by_t\)</span> is a <span class="math inline">\(\text{VAR}(p)\)</span> process, then its <span class="math inline">\(h\)</span>-step predictive regressive is a predictive <span class="math inline">\(\text{VAR}(p)\)</span> model with</p>
+<ul>
+<li><span class="math inline">\(\bu_t\)</span> being a <span class="math inline">\(\text{MA}(h-1)\)</span> process, and</li>
+<li><span class="math inline">\(\bB_1 = \bPsi_h,\)</span> which is the <span class="math inline">\(h\)</span>-th impulse response matrix</li>
+</ul>
+</div>
+<p>Some important implications of this result are:</p>
+<ul>
+<li><p>Given that <span class="math inline">\(\bu_t\)</span> is a <span class="math inline">\(\text{MA}(h-1)\)</span> process, <em>the error term in the predictive VAR model is serially correlated</em>.</p>
+<p>Therefore, the OLS estimator of the predictive VAR model is consistent but inefficient. → The <strong>Newey-West covariance matrix estimator</strong> can be used to account for the serial correlation in the errors when conducting inference on the coefficients in the predictive VAR model.</p></li>
+<li><p>The principal for choosing the correct lag length <span class="math inline">\(p\)</span> in the predictive VAR model is to simply use the same lag length as the standard VAR model for all horizons.</p>
+<p>We cannot use standard selection criteria such as AIC or BIC to choose the lag length in the predictive VAR model, because the error term is serially correlated.</p>
+<p>We can use AIC on the one-step VAR model though. So we use the same <span class="math inline">\(p\)</span> for all horizons.</p></li>
+<li><p>Based on the property that <span class="math inline">\(\bB_1 = \bPsi_h,\)</span> we obtain a director estimator of the impulse response function, called the <strong>Local Projection Estimator</strong> of the IRF:</p>
+<p><span class="math display">\[
+\widehat{\text{IRF}}(h) = \hat{\bB}_1 .
+\]</span></p>
+<p>Since it is a direct estimator of the impulse response, it is possibly more robust than the conventional method. It is a linear estimator and thus likely to have a better-behaved asymptotic distribution.</p>
+<p>A disadvantage of the local projection estimator is that it has serially correlated errors, making the estimator imprecise. Local projection estimators tend to be <em>less smooth and more erratic</em> than those produced by the conventional estimator, reflecting a possible lack of precision.</p></li>
+</ul>
+<hr>
+</section>
+<section id="granger-causality" class="level2" data-number="16.9">
+<h2 data-number="16.9" class="anchored" data-anchor-id="granger-causality"><span class="header-section-number">16.9</span> Granger Causality</h2>
 <p>VAR models can be used to test for Granger causality. In plain language, causality is inferred when lagged values of a variable, say <span class="math inline">\(x_t,\)</span> have <strong>explantory power</strong> in a regression of another variable <span class="math inline">\(y_t\)</span> on its own lags and the lags of <span class="math inline">\(x_t:\)</span></p>
 <p><span class="math display">\[
 y_t = \alpha_0 + \gamma y_{t-1} + \beta x_{t-1} + \varepsilon_t
@@ -1192,17 +1307,14 @@ H_0: a_{12} = 0 \quad \text{vs.} \quad H_1: a_{12} \neq 0.
 <p>We can do a <span class="math inline">\(t\)</span>-test for the coefficient <span class="math inline">\(a_{12}\)</span>. When <span class="math inline">\(a_{12}\)</span> is statistically significant, we can say that <span class="math inline">\(inf\)</span> Granger-causes <span class="math inline">\(uemp.\)</span></p>
 <p>If there are more lags, we can do an <span class="math inline">\(F\)</span>-test for the joint significance of the coefficients on the lags of <span class="math inline">\(uemp_t.\)</span></p>
 <p>The notion can be extended to test if a given variable is <strong>weakly exogenous</strong>. If lagged values of <span class="math inline">\(x_t\)</span> have no explanatory power for any of the variables in a system, then we would view <span class="math inline">\(x\)</span> as weakly exogenous to the system.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-body-container">
 <p>Granger causality implies one variable has predictive power for another variable. Note that it does <span class="env-orange">NOT</span> say anything about <em>contemporaneous causality</em>, so it does <span class="env-orange">NOT</span> allow us to determine whether <span class="math inline">\(uemp_t\)</span> is an exogenous or endogenous variable. Also, Granger causality does <span class="env-orange">NOT</span> apply in pure cross-sectional contexts.</p>
+</div>
 </div>
 </div>
 <hr>

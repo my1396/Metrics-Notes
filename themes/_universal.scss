@@ -49,6 +49,12 @@ p:has(+ ul) {
 .callout .callout-title-container {
   margin-bottom: 0.5em;
 }
+// Match callout body font size to regular text
+.callout .callout-body,
+.callout .callout-body p,
+.callout .callout-body li {
+  font-size: 1rem !important;
+}
 
 h4,
 .h4 {

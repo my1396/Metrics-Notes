@@ -1,5 +1,8 @@
  
 <!-- This is what works with Quarto and MathJax 3+ -->
+
+<link rel="apple-touch-icon" href="images/favicon.ico">
+
 <script>
   MathJax = {
     tex: {
@@ -181,3 +184,11 @@
     }
   };
 </script>
+
+<style>
+  /* Set \text{} font in MathJax to serif */
+  mjx-mtext,
+  mjx-mtext > mjx-utext {
+    font-family: "Georgia Pro", "Georgia", "Cambria Math", serif !important;
+  }
+</style>

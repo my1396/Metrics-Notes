@@ -51,7 +51,9 @@ $$
 \alpha(L)\beta(L) = \beta(L)\alpha(L)
 $$
 
-## Inverses
+
+
+## Inverses {#sec-lag-polynomial-inverse}
 
 The inverse of $\alpha(L)$ is denoted as $\alpha(L)^{-1}$ or $1/\alpha(L)$:
 
@@ -78,8 +80,8 @@ By the convolution formula ([-@eq-convolution]), we have
 $$
 \begin{aligned}
 \text{constant term, } L^0:&\quad  \psi_0 =1 \\
-L^1: &\quad  \psi_1-\psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \phi_1 \\
-L^2: &\quad  \psi_2-\psi_1\phi_1-\psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \phi_1^2 + \phi_2 \\
+L^1: &\quad  \psi_1 - \psi_0\phi_1 = 0 \Longrightarrow \psi_1 = \psi_0\phi_1 = \phi_1 \\
+L^2: &\quad  \psi_2 - \psi_1\phi_1 - \psi_0\phi_2 = 0 \Longrightarrow \psi_2 = \psi_1\phi_1 + \psi_0\phi_2 = \phi_1^2 + \phi_2 \\
 \vdots \\
 L^p: &\quad  \psi_p - \psi_{p-1}\phi_1 - \psi_{p-2}\phi_2 - \cdots - \psi_{1}\phi_{p-1} - \psi_{0}\phi_p = 0 \\
 L^{p+1}: &\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \psi_{2}\phi_{p-1} - \psi_{1}\phi_p = 0 \\
@@ -87,8 +89,16 @@ L^{p+1}: &\quad  \psi_{p+1} - \psi_{p}\phi_1 - \psi_{p-1}\phi_2 - \cdots - \psi_
 \end{aligned}
 $$
 
+Hence, we have
+
+<div class="env-green">
+$$
+\psi_p = \sum_{j=1}^p \psi_{p-j}\phi_j, \text{ for } p\geq 1.
+$$
+</div>
+
 ::: {#exm-inverse}
-Consider a <span style='color:#008B45'>**1st degree lag polynomial** $\phi(L)=1-\phi L$</span>, its inverse $\psi(L)$ can be calculated as 
+Consider a <span class="env-green">**1st degree lag polynomial** $\phi(L)=1-\phi L$</span>, its inverse $\psi(L)$ can be calculated as 
 
 $$
 \begin{aligned}

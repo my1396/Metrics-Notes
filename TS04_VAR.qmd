@@ -38,7 +38,7 @@ The two equations can be stacked together:
 
 $$
 \by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t
-$$
+$$ {#eq-var-1}
 
 Where:
 
@@ -99,7 +99,7 @@ $$
 --------------------------------------------------------------------------------
 
 
-Alternative representation of VAR(1) model:
+**Alternative representation** of VAR(1) model (grouped by variables):
 
 $$
 \begin{bmatrix}
@@ -113,12 +113,12 @@ $$
 A_{21} & A_{22}
 \end{bmatrix}
 \begin{bmatrix}\by_{1, -1} \\
-\bx_{2, -1}
+\by_{2, -1}
 \end{bmatrix} +
 \begin{bmatrix}\bvarepsilon_{1} \\
 \bvarepsilon_{2}
 \end{bmatrix}
-$$
+$$ {#eq-alternative-var}
 
 where
 
@@ -128,6 +128,9 @@ A_{11} &= I_n \times a_{11}, \quad A_{12} = I_n \times a_{12}, \\
 A_{21} &= I_n \times a_{21}, \quad A_{22} = I_n \times a_{22}
 \end{aligned}
 $$
+
+Note that @eq-alternative-var is NOT the common representation.
+It is more common to group by time as in $\by_t = \bmu_0 + \bA_1 y_{t-1} + \bvarepsilon_t.$ 
 
 --------------------------------------------------------------------------------
 
@@ -143,7 +146,7 @@ $$ {#eq-var-p}
 
 where:
 
-- $\by_t$ is $m \times 1$
+- $\by_t$ is a $m \times 1$ vector of variables at time $t$
 - $\bA_\ell$ are $m \times m$, for $\ell = 1, \ldots, p$, autoregressive coefficient matrices
 - $\bvarepsilon_t$ is $m \times 1$
 
@@ -166,7 +169,7 @@ $$
 y_{mt} &= \mu_m + \underbrace{ a_{m1,1} y_{1, t-1} + a_{m2,1} y_{2, t-1} + \cdots + a_{mm,1} y_{m, t-1} }_{\bA_1 \by_{t-1} \text{ terms}} \\
 &\phantom{=} \quad + \underbrace{a_{m1,2} y_{1, t-2} + a_{m2,2} y_{2, t-2} + \cdots + a_{mm,2} y_{m, t-2}}_{\bA_2 \by_{t-2} \text{ terms}} \\
 &\phantom{=} \quad + \cdots + \underbrace{a_{m1,p} y_{1, t-p} + a_{m2,p} y_{2, t-p} + \cdots + a_{mm,p} y_{m, t-p}}_{\bA_p \by_{t-p} \text{ terms}} + \varepsilon_{mt} \\
-&= \mu_m + \underbrace{\sum_{\ell=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{\ell=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{\ell=1}^p [A_\ell]_{mm} y_{m, t-\ell}}_{\text{Collect by components in }A_\ell, m\times m \times p \text{ terms}} + \varepsilon_{mt}
+&= \mu_m + \underbrace{\sum_{\ell=1}^p [A_\ell]_{m1} y_{1, t-\ell} + \sum_{\ell=1}^p [A_\ell]_{m2} y_{2, t-\ell} + \cdots + \sum_{\ell=1}^p [A_\ell]_{mm} y_{m, t-\ell}}_{\text{Collect by components in }A_\ell,\, m\times m \times p \text{ terms}} + \varepsilon_{mt}
 \end{aligned}
 $$
 
@@ -192,9 +195,10 @@ We can write the $\text{VAR}(p)$ model @eq-var-p using the lag operator notation
 $$
 \begin{aligned}
 \by_t &= \bmu_0 + A(L) \by_t + \bvarepsilon_t \\
-\left(\bI - \bA(L)\right) \by_t &= \bmu_0 + \bvarepsilon_t
+\left(\bI - \bA(L)\right) \by_t &= \bmu_0 + \bvarepsilon_t \\
+\bGamma(L) \by_t &= \bmu_0 + \bvarepsilon_t
 \end{aligned}
-$$
+$$ {#eq-var-lag-operator}
 
 where
 
@@ -234,6 +238,34 @@ where $\bPsi(L) = \sum_{j=0}^\infty \bPsi_j L^j.$
 
 @eq-mul_wold is the multivariate Wold decomposition of $\by_t,$ also known as the moving average representation.
 
+$\bPsi(L)$ can be computed recursively using the relation $\bPsi(L) = \bGamma(L)^{-1},$ where 
+
+$$
+\bGamma(L) = \bI_m - \bA_1 L - \bA_2 L^2 - \cdots - \bA_p L^p 
+$$
+
+We follow the same procedure as in the [inverse of lag polynomials](#sec-lag-polynomial-inverse) to compute $\bPsi(L)$ recursively.
+
+$$
+\begin{aligned}
+L^0:&\quad  \bPsi_0 = \bI_m \\
+L^1: &\quad  \bPsi_1 - \bPsi_0\bA_1 = 0 \Longrightarrow \bPsi_1 = \bPsi_0\bA_1 = \bA_1 \\
+L^2: &\quad  \bPsi_2 - \bPsi_1\bA_1 - \bPsi_0\bA_2 = 0 \Longrightarrow \bPsi_2 = \bPsi_1\bA_1 + \bPsi_0\bA_2 = \bA_1^2 + \bA_2 \\
+\vdots \\
+L^p: &\quad  \bPsi_p - \bPsi_{p-1}\bA_1 - \bPsi_{p-2}\bA_2 - \cdots - \bPsi_{1}\bA_{p-1} - \bPsi_{0}\bA_p = 0 \\
+L^{p+1}: &\quad  \bPsi_{p+1} - \bPsi_{p}\bA_1 - \bPsi_{p-1}\bA_2 - \cdots - \bPsi_{2}\bA_{p-1} - \bPsi_{1}\bA_p = 0 \\
+\vdots
+\end{aligned}
+$$
+
+
+More generally, for $j\ge 1,$
+
+<div class="env-green">
+$$
+\bPsi_j = \sum_{\ell=1}^j \bPsi_{j-\ell} \bA_\ell .
+$$ {#eq-var-MA-coefficients}
+</div>
 
 ## Impulse Response Function
 
@@ -284,11 +316,58 @@ where $[\bPsi_k]_{i\cdot}$ is the $i$-th row of the matrix $\bPsi_k,$ and $[\bPs
 
 Taking the derivative, the only term that survives is the $(i,j)$-th element of the coefficient matrix $\bPsi_h:$ 
 
+<div class="env-green">
 $$
 \text{IRF}_{ij}(h) = [\bPsi_h]_{ij},
 $$
+</div>
 
 which captures the effect of a shock to the $j$-th variable at time $t$ on the $i$-th variable at time $t+h.$
+
+We often plot IRF as a function of the horizon $h$ for each pair $(i, j),$ it shows how the $i$-th variable responds over time to the $j$-th innovation.
+
+Note that in a linear VAR model, 
+
+- The IRF is symmetric in negative and positive innovations. 
+  
+  That is, the impact on $y_{i, t+h}$ of a positive innovation $\varepsilon_{j,t} = 1$ is $\text{IRF}_{ij}(h),$ and the impact of a negative innovation $\varepsilon_{j,t} = -1$ is $-\text{IRF}_{ij}(h).$
+
+- The magnitude of the impact is linear in the magnitude of the innovation.
+  
+  The impact of the innovation $\varepsilon_{j,t} = 2$ is $2\times \text{IRF}_{ij}(h).$
+
+This means that the shape of the impulse response function is unaffected by the magnitude of the innnovation. Be aware that theses are consequences of the linearity of the VAR model, not necessarily features of the true world.
+
+
+### Cumulative Impulse Response Function
+
+CIRF (Cumulative Impulse Response Function) is the accumulated (summed) response on $y_t$ from time $t$ to $t+h:$
+
+$$
+\begin{aligned}
+\text{CIRF}(h) &= \sum_{\ell=1}^h \frac{\partial}{\partial \bvarepsilon_t'} \Pcal[\by_{t+\ell}] \\
+&= \sum_{\ell=1}^h \text{IRF}(\ell) \\
+&= \sum_{\ell=1}^h [\bPsi_\ell]
+\end{aligned}
+$$
+
+The limit of $\text{CIRF}(h)$ as $h\to\infty$ is the long-run impulse response matrix:
+
+$$
+\bC = \lim_{h\to\infty} \text{CIRF}(h) = \sum_{\ell=1}^\infty [\bPsi_\ell] = \bPsi(1) 
+$$
+
+To show the last equality:
+
+$$
+\bPsi(L) = \sum_{\ell=0}^\infty \bPsi_\ell L^\ell
+$$
+
+Plug in $L=1,$ we have
+
+$$
+\bPsi(1) = \sum_{\ell=0}^\infty \bPsi_\ell .
+$$
 
 ## Regression Notation
 
@@ -527,7 +606,7 @@ $$
 $$
 
 
-The heteroskedasticity-robust covariance matrix estimator is given by
+The <span class="env-green">heteroskedasticity-robust covariance matrix estimator</span> is given by
 
 $$
 \begin{split}  
@@ -537,7 +616,7 @@ $$
 $$
 
 
-The Newey-West covariance matrix estimator is given by
+The <span class="env-green">Newey-West covariance matrix estimator</span> is given by
 
 $$
 \begin{split}
@@ -556,10 +635,75 @@ w_l &= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 $$
 
 
-The number $M$ is called the lag truncation number. An unweighted estimator is obtained by setting $w_\ell = 1$ for all $\ell.$ The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, where the weights are chosen to account for serial correlation in the errors. The Newey-West estimator does not require that the $\text{VAR}(p)$ is correctly specified.
+The number <span class="env-green">$M$ is called the lag truncation number</span>. An unweighted estimator is obtained by setting $w_\ell = 1$ for all $\ell.$ The Newey-West estimator is a special case of the heteroskedasticity-robust covariance matrix estimator, *where the weights are chosen to account for serial correlation in the errors*. The Newey-West estimator does not require that the $\text{VAR}(p)$ is correctly specified.
 
 
-Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. Therefore bootstrap methods are popular. The most common bootstrap methods are, for example: **Recursive Residuals**, **Moving Block**, and **Stationary Bootstrap**. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in **Econometrics** by Bruce Hansen for more details.
+<span class="env-orange">Caveat:</span> Asymptotic approximations tend to be much less accurate under time series dependence than for independent observations. 
+
+<span class="env-green">Mitigation:</span> Therefore **bootstrap methods** are popular. The most common bootstrap methods are, for example: **Recursive Residuals**, **Moving Block**, and **Stationary Bootstrap**. These methods are designed to preserve the time series structure of the data while allowing for resampling. Refer to Section 14.45 Bootstrap for Time Series in **Econometrics** by Bruce Hansen for more details.
+
+
+--------------------------------------------------------------------------------
+
+## IRF Estimation
+
+Given the estimated VAR model and the estimated coefficient matrices $\hat{\bA}_\ell,$ we can obtain the impulse response estimator based on @eq-var-MA-coefficients as
+
+$$
+\widehat{\text{IRF}}(h) = \widehat{\bPsi}_h = \sum_{\ell=1}^{\text{min}[h,p]} \widehat{\bA}_\ell \widehat{\bPsi}_{h-\ell} .
+$$
+
+Note that $\widehat{\text{IRF}}(h)$ is a nonlinear function of the VAR coefficient estimators $\widehat{\bA}$. 
+Theoretically, the delta method can be used to derive the asymptotic distribution of the IRF estimator.
+However, given the distribution of $\widehat{\bA}$ is poor due to the time series dependence, taking into account the nonlinearity of the IRF estimator, the asymptotic distribution of the IRF estimator can only be worse.
+For example, in the simple AR(1) model with coefficient estimate $\widehat{\alpha}$, the $\widehat{\text{IRF}}(h)$ is $\widehat{\alpha}^h,$ which is highly nonlinear for even moderate horizons $h.$
+Consequently, the **bootstrap** can be used to construct confidence intervals for the IRF estimator.
+
+--------------------------------------------------------------------------------
+
+## Predictive Regression
+
+A standard VAR model a special case of a predictive regression model with one-step-ahead forecast horizon.
+An $h$-step predictive $\text{VAR}(p)$ is where the dependent variable is dated $h$ periods ahead of the right-hand-side variables:
+
+$$
+\by_{t+h} = \bb_0 + \bB_1 \by_{t} + \bB_2 \by_{t-1} + \cdots + \bB_p \by_{t-p+1} + \bu_t
+$$ {#eq-predictive-var}
+
+The integer $h\ge 1$ is called the forecast horizon. When $h=1,$ the predictive VAR model reduces to the standard VAR model. The coefficients in @eq-predictive-var should be viewed as the best linear predictors of $\by_{t+h}$ based on the information in $(\by_t, \by_{t-1}, \ldots, \by_{t-p+1}).$
+
+
+An important relationship btw a VAR model and the corresponding $h$-step predictive VAR model is given by the following theorem.
+
+:::{#thm-var-predictive name="VAR and predictive VAR"}
+If $\by_t$ is a $\text{VAR}(p)$ process, then its $h$-step predictive regressive is a predictive $\text{VAR}(p)$ model with 
+
+- $\bu_t$ being a $\text{MA}(h-1)$ process, and 
+- $\bB_1 = \bPsi_h,$ which is the $h$-th impulse response matrix
+:::
+
+Some important implications of this result are:
+
+- Given that $\bu_t$ is a $\text{MA}(h-1)$ process, *the error term in the predictive VAR model is serially correlated*. 
+  
+  Therefore, the OLS estimator of the predictive VAR model is consistent but inefficient. → The **Newey-West covariance matrix estimator** can be used to account for the serial correlation in the errors when conducting inference on the coefficients in the predictive VAR model.
+
+- The principal for choosing the correct lag length $p$ in the predictive VAR model is to simply use the same lag length as the standard VAR model for all horizons. 
+  
+  We cannot use standard selection criteria such as AIC or BIC to choose the lag length in the predictive VAR model, because the error term is serially correlated.
+  
+  We can use AIC on the one-step VAR model though. So we use the same $p$ for all horizons.
+
+- Based on the property that $\bB_1 = \bPsi_h,$ we obtain a director estimator of the impulse response function, called the **Local Projection Estimator** of the IRF:
+  
+  $$
+  \widehat{\text{IRF}}(h) = \hat{\bB}_1 .
+  $$
+
+  Since it is a direct estimator of the impulse response, it is possibly more robust than the conventional method. It is a linear estimator and thus likely to have a better-behaved asymptotic distribution.
+
+  A disadvantage of the local projection estimator is that it has serially correlated errors, making the estimator imprecise.
+  Local projection estimators tend to be *less smooth and more erratic* than those produced by the conventional estimator, reflecting a possible lack of precision.
 
 
 --------------------------------------------------------------------------------
@@ -611,9 +755,12 @@ If lagged values of $x_t$ have no explanatory power for any of the variables in 
 
 
 
-::: {.callout-tip}
+::: {.callout-tip appearance="minimal"}
 Granger causality implies one variable has predictive power for another variable. Note that it does <span class="env-orange">NOT</span> say anything about *contemporaneous causality*, so it does <span class="env-orange">NOT</span> allow us to determine whether $uemp_t$ is an exogenous or endogenous variable. Also, Granger causality does <span class="env-orange">NOT</span> apply in pure cross-sectional contexts.
 :::
+
+
+
 
 --------------------------------------------------------------------------------
 
