@@ -503,7 +503,7 @@ $$
 Then the $(i,j)$-element of $\text{OIRF}(h)$ is given by
 
 $$
-\text{OIRF}_{ij}(h) = \psi_{ih}' \bp_{j} = \sum_{s=1}^m \psi_{ih, s} p_{sj} ,
+\text{OIRF}_{ij}(h) = \bpsi_{ih}' \bp_{j} = \sum_{s=1}^m \psi_{ih, s} p_{sj} ,
 $$
 
 where $\bp_{j}$ is the $j$-th column of $\bP.$
@@ -881,7 +881,57 @@ Some important implications of this result are:
   Local projection estimators tend to be *less smooth and more erratic* than those produced by the conventional estimator, reflecting a possible lack of precision.
 
 
---------------------------------------------------------------------------------
+## Forecast Error Variance Decomposition
+
+The **Forecast Error Variance Decomposition** (FEVD) is a tool to quantify the contribution of each shock to the forecast error variance of each variable in a VAR system.
+
+We write the moving average representation of the $i$-th component of $\by_{t+h}$ as a function of the orthogonalized innovations $\tilde{\bvarepsilon}_t$:
+
+$$
+\by_{i, t+h} = \bar{y}_i + \sum_{\ell=0}^\infty \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
+$$
+
+The best linear forecast of $\by_{i, t+h}$ based on the information at time $t$ is given by
+
+$$
+\Pcal_t[\by_{i,t+h}] = \by_{i, t+h \mid t} = \bar{y}_i + \sum_{\ell=h}^\infty \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
+$$
+
+The $h$-step forecast error is the difference
+
+$$
+\by_{i, t+h} - \by_{i, t+h \mid t} = \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
+$$
+
+The variance of this forecast error is
+
+$$
+\begin{aligned}
+\var\left[\by_{i, t+h} - \by_{i, t+h \mid t}\right] &= \sum_{\ell=0}^{h-1} \var \left[ \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} \right] \\
+&= \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bP \E\left(\tilde{\bvarepsilon}_{t+h-\ell} \tilde{\bvarepsilon}_{t+h-\ell}'\right) \bP' \bpsi_{i\ell} \\
+&= \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bP \bP' \bpsi_{i\ell} 
+\end{aligned}
+$$ {#eq-fevd}
+
+To isolate the contribution of the $j$-th shock to the forecast error variance, we can write the $h$-step forecast error in (-@eq-fevd) as
+
+$$
+\var\left[\by_{i, t+h} - \by_{i, t+h \mid t} \right] = \sum_{j=1}^m \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bp_j \bp_j' \bpsi_{i\ell} = \sum_{j=1}^m \sum_{\ell=0}^{h-1} \left(\bpsi_{i\ell}' \bp_j\right)^2.
+$$
+
+
+The forecast error variance decomposition is defined as the ratio of the $j$-th shock's contribution to the total forecast error variance:
+
+$$
+\text{FEVD}_{ij}(h) = \frac{\sum_{\ell=0}^{h-1} \left(\bpsi_{i\ell}' \bp_j\right)^2}{\sum_{j=1}^m \sum_{\ell=0}^{h-1} \left(\bpsi_{i\ell}' \bp_j\right)^2} .
+$$
+
+The $\text{FEVD}_{ij}(h)$ lies in $[0,1]$ and varies across $h.$
+Small values indicate that $\tilde{\bvarepsilon}_{jt}$ contributes only a small amount to the variance of $\by_{it}.$
+Large values indicate that $\tilde{\bvarepsilon}_{jt}$ contributes a large amount to the variance of $\by_{it}.$
+
+A forecast error variance decomposition requires orthogonalized innovations. 
+There is no non-orthogonalized version.
 
 
 ## Granger Causality

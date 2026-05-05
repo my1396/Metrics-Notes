@@ -83,6 +83,7 @@ ul.task-list li input[type="checkbox"] {
       load: ['[tex]/upgreek']
     },
     tex: {
+      tags: 'ams',
       packages: {
         '[+]': ['upgreek']
       },
@@ -796,7 +797,8 @@ window.Quarto = {
   <li><a href="#covariance-matrix-estimation" id="toc-covariance-matrix-estimation" class="nav-link" data-scroll-target="#covariance-matrix-estimation"><span class="header-section-number">16.6</span> Covariance Matrix Estimation</a></li>
   <li><a href="#irf-estimation" id="toc-irf-estimation" class="nav-link" data-scroll-target="#irf-estimation"><span class="header-section-number">16.7</span> IRF Estimation</a></li>
   <li><a href="#predictive-regression" id="toc-predictive-regression" class="nav-link" data-scroll-target="#predictive-regression"><span class="header-section-number">16.8</span> Predictive Regression</a></li>
-  <li><a href="#granger-causality" id="toc-granger-causality" class="nav-link" data-scroll-target="#granger-causality"><span class="header-section-number">16.9</span> Granger Causality</a></li>
+  <li><a href="#forecast-error-variance-decomposition" id="toc-forecast-error-variance-decomposition" class="nav-link" data-scroll-target="#forecast-error-variance-decomposition"><span class="header-section-number">16.9</span> Forecast Error Variance Decomposition</a></li>
+  <li><a href="#granger-causality" id="toc-granger-causality" class="nav-link" data-scroll-target="#granger-causality"><span class="header-section-number">16.10</span> Granger Causality</a></li>
   </ul>
 </nav>
     </div>
@@ -1203,7 +1205,7 @@ p_{31} &amp; p_{32} &amp; p_{33}
 \]</span></p>
 <p>Then the <span class="math inline">\((i,j)\)</span>-element of <span class="math inline">\(\text{OIRF}(h)\)</span> is given by</p>
 <p><span class="math display">\[
-\text{OIRF}_{ij}(h) = \psi_{ih}' \bp_{j} = \sum_{s=1}^m \psi_{ih, s} p_{sj} ,
+\text{OIRF}_{ij}(h) = \bpsi_{ih}' \bp_{j} = \sum_{s=1}^m \psi_{ih, s} p_{sj} ,
 \]</span></p>
 <p>where <span class="math inline">\(\bp_{j}\)</span> is the <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(\bP.\)</span></p>
 <p>Taking <span class="math inline">\(m=3\)</span> as an example,</p>
@@ -1473,10 +1475,49 @@ w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 <p>Since it is a direct estimator of the impulse response, it is possibly more robust than the conventional method. It is a linear estimator and thus likely to have a better-behaved asymptotic distribution.</p>
 <p>A disadvantage of the local projection estimator is that it has serially correlated errors, making the estimator imprecise. Local projection estimators tend to be <em>less smooth and more erratic</em> than those produced by the conventional estimator, reflecting a possible lack of precision.</p></li>
 </ul>
-<hr>
 </section>
-<section id="granger-causality" class="level2" data-number="16.9">
-<h2 data-number="16.9" class="anchored" data-anchor-id="granger-causality"><span class="header-section-number">16.9</span> Granger Causality</h2>
+<section id="forecast-error-variance-decomposition" class="level2" data-number="16.9">
+<h2 data-number="16.9" class="anchored" data-anchor-id="forecast-error-variance-decomposition"><span class="header-section-number">16.9</span> Forecast Error Variance Decomposition</h2>
+<p>The <strong>Forecast Error Variance Decomposition</strong> (FEVD) is a tool to quantify the contribution of each shock to the forecast error variance of each variable in a VAR system.</p>
+<p>We write the moving average representation of the <span class="math inline">\(i\)</span>-th component of <span class="math inline">\(\by_{t+h}\)</span> as a function of the orthogonalized innovations <span class="math inline">\(\tilde{\bvarepsilon}_t\)</span>:</p>
+<p><span class="math display">\[
+\by_{i, t+h} = \bar{y}_i + \sum_{\ell=0}^\infty \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
+\]</span></p>
+<p>The best linear forecast of <span class="math inline">\(\by_{i, t+h}\)</span> based on the information at time <span class="math inline">\(t\)</span> is given by</p>
+<p><span class="math display">\[
+\by_{i, t+h \mid t} = \bar{y}_i + \sum_{\ell=h}^\infty \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
+\]</span></p>
+<p>The <span class="math inline">\(h\)</span>-step forecast error is the difference</p>
+<p><span class="math display">\[
+\by_{i, t+h} - \by_{i, t+h \mid t} = \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
+\]</span></p>
+<p>The variance of this forecast error is</p>
+<p><span id="eq-fevd"><span class="math display">\[
+\begin{aligned}
+\var\left[\by_{i, t+h} - \by_{i, t+h \mid t}\right] &amp;= \sum_{\ell=0}^{h-1} \var \left[ \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} \right] \\
+&amp;= \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bP \E\left(\tilde{\bvarepsilon}_{t+h-\ell} \tilde{\bvarepsilon}_{t+h-\ell}'\right) \bP' \bpsi_{i\ell} \\
+&amp;= \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bP \bP' \bpsi_{i\ell}
+\end{aligned}
+\tag{16.12}\]</span></span></p>
+<p><span id="eq-multiple"><span class="math display">\[
+\begin{align}
+a &amp;= b + c \\
+d &amp;= e + f
+\end{align}
+\tag{16.13}\]</span></span></p>
+<p>To isolate the contribution of the <span class="math inline">\(j\)</span>-th shock to the forecast error variance, we can write the <span class="math inline">\(h\)</span>-step forecast error in (<a href="#eq-fevd" class="quarto-xref"><span>16.12</span></a>) as</p>
+<p><span class="math display">\[
+\var\left[\by_{i, t+h} - \by_{i, t+h \mid t} \right] = \sum_{j=1}^m \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bp_j \bp_j' \bpsi_{i\ell} = \sum_{j=1}^m \sum_{\ell=0}^{h-1} \left(\bpsi_{i\ell}' \bp_j\right)^2.
+\]</span></p>
+<p>The forecast error variance decomposition is defined as the ratio of the <span class="math inline">\(j\)</span>-th shock’s contribution to the total forecast error variance:</p>
+<p><span class="math display">\[
+\text{FEVD}_{ij}(h) = \frac{\sum_{\ell=0}^{h-1} \left(\bpsi_{i\ell}' \bp_j\right)^2}{\sum_{j=1}^m \sum_{\ell=0}^{h-1} \left(\bpsi_{i\ell}' \bp_j\right)^2} .
+\]</span></p>
+<p>The <span class="math inline">\(\text{FEVD}_{ij}(h)\)</span> lies in <span class="math inline">\([0,1]\)</span> and varies across <span class="math inline">\(h.\)</span> Small values indicate that <span class="math inline">\(\tilde{\bvarepsilon}_{jt}\)</span> contributes only a small amount to the variance of <span class="math inline">\(\by_{it}.\)</span> Large values indicate that <span class="math inline">\(\tilde{\bvarepsilon}_{jt}\)</span> contributes a large amount to the variance of <span class="math inline">\(\by_{it}.\)</span></p>
+<p>A forecast error variance decomposition requires orthogonalized innovations. There is no non-orthogonalized version.</p>
+</section>
+<section id="granger-causality" class="level2" data-number="16.10">
+<h2 data-number="16.10" class="anchored" data-anchor-id="granger-causality"><span class="header-section-number">16.10</span> Granger Causality</h2>
 <p>VAR models can be used to test for Granger causality. In plain language, causality is inferred when lagged values of a variable, say <span class="math inline">\(x_t,\)</span> have <strong>explantory power</strong> in a regression of another variable <span class="math inline">\(y_t\)</span> on its own lags and the lags of <span class="math inline">\(x_t:\)</span></p>
 <p><span class="math display">\[
 y_t = \alpha_0 + \gamma y_{t-1} + \beta x_{t-1} + \varepsilon_t
