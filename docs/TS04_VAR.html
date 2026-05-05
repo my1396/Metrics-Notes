@@ -79,7 +79,13 @@ ul.task-list li input[type="checkbox"] {
 
 <script>
   MathJax = {
+    loader: {
+      load: ['[tex]/upgreek']
+    },
     tex: {
+      packages: {
+        '[+]': ['upgreek']
+      },
       inlineMath: [   // start/end delimiter pairs for in-line math
           ['$', '$'],
           ['\\(', '\\)']
@@ -1026,6 +1032,11 @@ L^{p+1}: &amp;\quad  \bPsi_{p+1} - \bPsi_{p}\bA_1 - \bPsi_{p-1}\bA_2 - \cdots - 
 \bPsi_j = \sum_{\ell=1}^j \bPsi_{j-\ell} \bA_\ell .
 \tag{16.6}\]</span></span></p>
 </div>
+<p>The <span class="math inline">\(i\)</span>-th component of <span class="math inline">\(\by_t\)</span> can be written as</p>
+<p><span class="math display">\[
+y_{it} = \bar{y}_i + \sum_{h=0}^\infty \bpsi_{ih}' \bvarepsilon_{t-h} = \bar{y}_i + \sum_{h=0}^\infty \sum_{j=1}^m \psi_{ih, j} \varepsilon_{j, t-h}
+\]</span></p>
+<p>The <span class="math inline">\(i\)</span>-th row in <span class="math inline">\(\bPsi_h\)</span> corresponds to the coefficients of the lagged innovations <span class="math inline">\(\bvarepsilon_{t-h}\)</span> in the <span class="math inline">\(i\)</span>-th component of <span class="math inline">\(\by_t.\)</span></p>
 </section>
 </section>
 <section id="impulse-response-function" class="level2" data-number="16.2">
@@ -1123,13 +1134,26 @@ L^{p+1}: &amp;\quad  \bPsi_{p+1} - \bPsi_{p}\bA_1 - \bPsi_{p-1}\bA_2 - \cdots - 
 p_{11} &amp; 0 &amp; 0 \\
 p_{21} &amp; p_{22} &amp; 0 \\
 p_{31} &amp; p_{32} &amp; p_{33}
+\end{bmatrix} =
+\begin{bmatrix}
+\bp_1 &amp; \bp_2 &amp; \bp_3
 \end{bmatrix}
 \]</span></p>
 <p>with non-negative diagonal elements.</p>
-<p>Then we can define the orthogonalized innovations as</p>
+<p>Then we can define the <strong>Orthogonalized Innovations</strong> as</p>
+<div class="env-green">
 <p><span class="math display">\[
-\tilde{\bvarepsilon}_t = \bP^{-1} \bvarepsilon_t .
+\begin{aligned}
+\tilde{\bvarepsilon}_t &amp;= \bP^{-1} \bvarepsilon_t , \\
+\Rightarrow \bvarepsilon_t &amp;= \bP \tilde{\bvarepsilon}_t .
+\end{aligned}
 \]</span></p>
+</div>
+<p>We can rewrite <span class="math inline">\(\bvarepsilon_t\)</span> as a linear combination of the orthogonalized innovations <span class="math inline">\(\tilde{\bvarepsilon}_t\)</span>:</p>
+<p><span class="math display">\[
+\bvarepsilon_t = \bp_1 \tilde{\varepsilon}_{1t} + \bp_2 \tilde{\varepsilon}_{2t} + \cdots + \bp_m \tilde{\varepsilon}_{mt} ,
+\]</span></p>
+<p>where <span class="math inline">\(\bp_j\)</span> is the <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(\bP.\)</span></p>
 <p><span class="math inline">\(\tilde{\bvarepsilon}_t\)</span> has mean zero and covariance matrix</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1141,7 +1165,7 @@ p_{31} &amp; p_{32} &amp; p_{33}
 \end{aligned}
 \]</span></p>
 <p>That is, the elements <span class="math inline">\(\tilde{\bvarepsilon}_t = (\tilde{\varepsilon}_{1t}, \ldots, \tilde{\varepsilon}_{mt})\)</span> are mutually uncorrelated.</p>
-<p>Now we can define the <strong>Orthogonalized Impulse Response Function</strong> (OIRF) as</p>
+<p>Now we can define the <span class="env-green"><strong>Orthogonalized Impulse Response Function</strong></span> (OIRF) as</p>
 <p><span id="eq-oirf"><span class="math display">\[
 \text{OIRF}(h) = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \Pcal_t [\by_{t+h}] = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \E(\by_{t+h} \mid \Fcal_t) .
 \tag{16.9}\]</span></span></p>
@@ -1157,10 +1181,47 @@ p_{31} &amp; p_{32} &amp; p_{33}
 \text{OIRF}(h) = \bPsi_h \bP = \text{IRF}(h) \bP ,
 \]</span></p>
 <p>which is the non-orthogonalized IRF multiplied by the Cholesky factor <span class="math inline">\(\bP.\)</span></p>
-<p>Each <span class="math inline">\((i,j)\)</span>-element of <span class="math inline">\(\text{OIRF}(h)\)</span> can be obtained as</p>
-<p><span class="math display">\[
-\text{OIRF}_{ij}(h) = [\bPsi_h \bP]_{ij} = \sum_{s=1}^m \text{IRF}_{is}(h) p_{sj} .
+<div class="env-green">
+<p>Each <span class="math inline">\((i,j)\)</span>-element of <span class="math inline">\(\text{OIRF}(h)\)</span> can be obtained as <span class="math display">\[
+\text{OIRF}_{ij}(h) = [\bPsi_h \bP]_{ij} = \sum_{s=1}^m \text{IRF}_{is}(h) p_{sj} ,
 \]</span></p>
+</div>
+<p>where <span class="math inline">\(\bPsi_h\)</span> can be written as a matrix of row vectors:</p>
+<p><span class="math display">\[
+\bPsi_h = \begin{bmatrix}
+\bpsi_{1h}' \\
+\bpsi_{2h}' \\
+\vdots \\
+\bpsi_{mh}'
+\end{bmatrix},
+\]</span></p>
+<p>and <span class="math inline">\(\bP\)</span> can be written as a matrix of column vectors:</p>
+<p><span class="math display">\[
+\bP = \begin{bmatrix}
+\bp_1, \bp_2, \ldots, \bp_m
+\end{bmatrix}
+\]</span></p>
+<p>Then the <span class="math inline">\((i,j)\)</span>-element of <span class="math inline">\(\text{OIRF}(h)\)</span> is given by</p>
+<p><span class="math display">\[
+\text{OIRF}_{ij}(h) = \psi_{ih}' \bp_{j} = \sum_{s=1}^m \psi_{ih, s} p_{sj} ,
+\]</span></p>
+<p>where <span class="math inline">\(\bp_{j}\)</span> is the <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(\bP.\)</span></p>
+<p>Taking <span class="math inline">\(m=3\)</span> as an example,</p>
+<p><span class="math display">\[
+\text{OIRF}(h) = \bPsi_h \bP = \begin{bmatrix}
+\bpsi_{1h}' \\
+\bpsi_{2h}' \\
+\bpsi_{3h}'
+\end{bmatrix}
+\begin{bmatrix}
+\bp_1 &amp; \bp_2 &amp; \bp_3
+\end{bmatrix} = \begin{bmatrix}
+\bpsi_{1h}' \bp_1 &amp; \bpsi_{1h}' \bp_2 &amp; \bpsi_{1h}' \bp_3 \\
+\bpsi_{2h}' \bp_1 &amp; \bpsi_{2h}' \bp_2 &amp; \bpsi_{2h}' \bp_3 \\
+\bpsi_{3h}' \bp_1 &amp; \bpsi_{3h}' \bp_2 &amp; \bpsi_{3h}' \bp_3
+\end{bmatrix}
+\]</span></p>
+<hr>
 <p>The <strong>Cumulative Orthogonalized Impulse Response Function</strong> (COIRF) is given by</p>
 <p><span class="math display">\[
 \text{COIRF}(h) = \sum_{\ell=1}^h \text{OIRF}(\ell) = \sum_{\ell=1}^h \bPsi_\ell \bP = \text{CIRF}(h) \bP .

@@ -267,6 +267,14 @@ $$
 $$ {#eq-var-MA-coefficients}
 </div>
 
+The $i$-th component of $\by_t$ can be written as
+
+$$
+y_{it} = \bar{y}_i + \sum_{h=0}^\infty \bpsi_{ih}' \bvarepsilon_{t-h} = \bar{y}_i + \sum_{h=0}^\infty \sum_{j=1}^m \psi_{ih, j} \varepsilon_{j, t-h}
+$$
+
+The $i$-th row in $\bPsi_h$ corresponds to the coefficients of the lagged innovations $\bvarepsilon_{t-h}$ in the $i$-th component of $\by_t.$
+
 ## Impulse Response Function
 
 Impulse Response Function (IRF) is defined as the change in $\by_t$ due to a change in an innovation or shock.
@@ -399,16 +407,33 @@ $$
 p_{11} & 0 & 0 \\
 p_{21} & p_{22} & 0 \\
 p_{31} & p_{32} & p_{33}
-\end{bmatrix} 
+\end{bmatrix} = 
+\begin{bmatrix}
+\bp_1 & \bp_2 & \bp_3
+\end{bmatrix}
 $$
 
 with non-negative diagonal elements. 
 
-Then we can define the orthogonalized innovations as
+Then we can define the **Orthogonalized Innovations** as
+
+<div class="env-green">
+$$
+\begin{aligned}
+\tilde{\bvarepsilon}_t &= \bP^{-1} \bvarepsilon_t , \\
+\Rightarrow \bvarepsilon_t &= \bP \tilde{\bvarepsilon}_t .
+\end{aligned}
+$$
+</div>
+
+We can rewrite $\bvarepsilon_t$ as a linear combination of the orthogonalized innovations $\tilde{\bvarepsilon}_t$:
 
 $$
-\tilde{\bvarepsilon}_t = \bP^{-1} \bvarepsilon_t .
+\bvarepsilon_t = \bp_1 \tilde{\varepsilon}_{1t} + \bp_2 \tilde{\varepsilon}_{2t} + \cdots + \bp_m \tilde{\varepsilon}_{mt} ,
 $$
+
+where $\bp_j$ is the $j$-th column of $\bP.$
+
 
 $\tilde{\bvarepsilon}_t$ has mean zero and covariance matrix
 
@@ -425,7 +450,7 @@ $$
 That is, the elements $\tilde{\bvarepsilon}_t = (\tilde{\varepsilon}_{1t}, \ldots, \tilde{\varepsilon}_{mt})$ are mutually uncorrelated.
 
 
-Now we can define the **Orthogonalized Impulse Response Function** (OIRF) as
+Now we can define the <span class="env-green">**Orthogonalized Impulse Response Function**</span> (OIRF) as
 
 $$
 \text{OIRF}(h) = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \Pcal_t [\by_{t+h}] = \frac{\partial}{\partial \tilde{\bvarepsilon}_t'} \E(\by_{t+h} \mid \Fcal_t) .
@@ -446,13 +471,61 @@ $$
 \text{OIRF}(h) = \bPsi_h \bP = \text{IRF}(h) \bP ,
 $$
 
-which is the non-orthogonalized IRF multiplied by the Cholesky factor $\bP.$
+which is the non-orthogonalized IRF multiplied by the Cholesky factor $\bP.$  
 
+
+<div class="env-green">
 Each $(i,j)$-element of $\text{OIRF}(h)$ can be obtained as
+$$
+\text{OIRF}_{ij}(h) = [\bPsi_h \bP]_{ij} = \sum_{s=1}^m \text{IRF}_{is}(h) p_{sj} ,
+$$
+</div>
+
+where $\bPsi_h$ can be written as a matrix of row vectors:
 
 $$
-\text{OIRF}_{ij}(h) = [\bPsi_h \bP]_{ij} = \sum_{s=1}^m \text{IRF}_{is}(h) p_{sj} .
+\bPsi_h = \begin{bmatrix}
+\bpsi_{1h}' \\
+\bpsi_{2h}' \\
+\vdots \\
+\bpsi_{mh}'
+\end{bmatrix},
 $$
+
+and $\bP$ can be written as a matrix of column vectors:
+
+$$
+\bP = \begin{bmatrix}
+\bp_1, \bp_2, \ldots, \bp_m
+\end{bmatrix}
+$$
+
+Then the $(i,j)$-element of $\text{OIRF}(h)$ is given by
+
+$$
+\text{OIRF}_{ij}(h) = \psi_{ih}' \bp_{j} = \sum_{s=1}^m \psi_{ih, s} p_{sj} ,
+$$
+
+where $\bp_{j}$ is the $j$-th column of $\bP.$
+
+Taking $m=3$ as an example, 
+
+$$
+\text{OIRF}(h) = \bPsi_h \bP = \begin{bmatrix}
+\bpsi_{1h}' \\
+\bpsi_{2h}' \\
+\bpsi_{3h}'
+\end{bmatrix}
+\begin{bmatrix}
+\bp_1 & \bp_2 & \bp_3
+\end{bmatrix} = \begin{bmatrix}
+\bpsi_{1h}' \bp_1 & \bpsi_{1h}' \bp_2 & \bpsi_{1h}' \bp_3 \\
+\bpsi_{2h}' \bp_1 & \bpsi_{2h}' \bp_2 & \bpsi_{2h}' \bp_3 \\
+\bpsi_{3h}' \bp_1 & \bpsi_{3h}' \bp_2 & \bpsi_{3h}' \bp_3
+\end{bmatrix}
+$$
+
+--------------------------------------------------------------------------------
 
 The **Cumulative Orthogonalized Impulse Response Function** (COIRF) is given by
 

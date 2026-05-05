@@ -45,6 +45,7 @@ bibliography: metrics.bib
 
 format:
   html:
+    from: markdown+markdown_in_html_blocks
     include-in-header: themes/mathjax.html
     respect-user-color-scheme: true
     fontsize: 18px

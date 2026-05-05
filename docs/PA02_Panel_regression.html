@@ -134,7 +134,13 @@ div.csl-indent {
 
 <script>
   MathJax = {
+    loader: {
+      load: ['[tex]/upgreek']
+    },
     tex: {
+      packages: {
+        '[+]': ['upgreek']
+      },
       inlineMath: [   // start/end delimiter pairs for in-line math
           ['$', '$'],
           ['\\(', '\\)']
