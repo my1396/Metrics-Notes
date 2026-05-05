@@ -1142,7 +1142,7 @@ p_{31} &amp; p_{32} &amp; p_{33}
 \end{bmatrix}
 \]</span></p>
 <p>with non-negative diagonal elements.</p>
-<p>Then we can define the <strong>Orthogonalized Innovations</strong> as</p>
+<p>Then we can define the <strong>Orthogonalized Innovations</strong>, <span class="math inline">\(\tilde{\bvarepsilon}_t,\)</span> as</p>
 <div class="env-green">
 <p><span class="math display">\[
 \begin{aligned}
@@ -1485,7 +1485,7 @@ w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 \]</span></p>
 <p>The best linear forecast of <span class="math inline">\(\by_{i, t+h}\)</span> based on the information at time <span class="math inline">\(t\)</span> is given by</p>
 <p><span class="math display">\[
-\by_{i, t+h \mid t} = \bar{y}_i + \sum_{\ell=h}^\infty \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
+\Pcal_t[\by_{i,t+h}] = \by_{i, t+h \mid t} = \bar{y}_i + \sum_{\ell=h}^\infty \bpsi_{i\ell}' \bP \tilde{\bvarepsilon}_{t+h-\ell} .
 \]</span></p>
 <p>The <span class="math inline">\(h\)</span>-step forecast error is the difference</p>
 <p><span class="math display">\[
@@ -1499,12 +1499,6 @@ w_l &amp;= 1-\frac{\abs{\ell}}{M+1} \text{ for } \ell = -M, \ldots, M.
 &amp;= \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bP \bP' \bpsi_{i\ell}
 \end{aligned}
 \tag{16.12}\]</span></span></p>
-<p><span id="eq-multiple"><span class="math display">\[
-\begin{align}
-a &amp;= b + c \\
-d &amp;= e + f
-\end{align}
-\tag{16.13}\]</span></span></p>
 <p>To isolate the contribution of the <span class="math inline">\(j\)</span>-th shock to the forecast error variance, we can write the <span class="math inline">\(h\)</span>-step forecast error in (<a href="#eq-fevd" class="quarto-xref"><span>16.12</span></a>) as</p>
 <p><span class="math display">\[
 \var\left[\by_{i, t+h} - \by_{i, t+h \mid t} \right] = \sum_{j=1}^m \sum_{\ell=0}^{h-1} \bpsi_{i\ell}' \bp_j \bp_j' \bpsi_{i\ell} = \sum_{j=1}^m \sum_{\ell=0}^{h-1} \left(\bpsi_{i\ell}' \bp_j\right)^2.

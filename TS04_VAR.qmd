@@ -415,7 +415,7 @@ $$
 
 with non-negative diagonal elements. 
 
-Then we can define the **Orthogonalized Innovations** as
+Then we can define the **Orthogonalized Innovations**, $\tilde{\bvarepsilon}_t,$ as
 
 <div class="env-green">
 $$
